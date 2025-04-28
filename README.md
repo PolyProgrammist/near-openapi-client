@@ -9,4 +9,4 @@ cargo install cargo-progenitor
 cargo progenitor -i openapi.json -o client -n client -v 0.1.0
 python3 tx.py --lib-fix
 cd example && cargo run
-```n
+```
