@@ -64,7 +64,7 @@ json.dump(spec, f, indent=4)
 f.close()
 
 if len(sys.argv) == 2 and sys.argv[1] == '--lib-fix':
-    filename = './client/src/lib.rs'
+    filename = './near-openapi-client/src/lib.rs'
     f = open(filename, 'r')
     filedata = f.read()
     f.close()

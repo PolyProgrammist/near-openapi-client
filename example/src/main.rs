@@ -1,3 +1,4 @@
+use near_openapi_client as client;
 use client::Client;
 use serde_json::json;
 use std::error::Error;
@@ -32,7 +33,7 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForBroadcastTxAsyncMethod::BroadcastTxAsync,
         params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: signed_tx_base64.clone(),
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(signed_tx_base64.clone()),
             wait_until: client::types::TxExecutionStatus::Executed
         }
     };
@@ -42,7 +43,7 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForBroadcastTxCommitMethod::BroadcastTxCommit,
         params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: signed_tx_base64.clone(),
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(signed_tx_base64.clone()),
             wait_until: client::types::TxExecutionStatus::Executed
         }
     };
@@ -115,7 +116,7 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
         params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: signed_tx_base64.clone(),
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(signed_tx_base64.clone()),
             wait_until: client::types::TxExecutionStatus::Executed
         }
     };
@@ -342,7 +343,7 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
     println!("the_response experimental_validators: {:#?}", experimental_validators);
 
     // local as changed from tuple to struct
-    let experimental_maintenance_windows: client::types::JsonRpcResponseForArrayOfMaintenanceWindowAndRpcError = client_remote.experimental_maintenance_windows(&payloadMaintenanceWindows).await?.into_inner();
+    let experimental_maintenance_windows: client::types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError = client_remote.experimental_maintenance_windows(&payloadMaintenanceWindows).await?.into_inner();
     println!("the_response experimental_maintenance_windows: {:#?}", experimental_maintenance_windows);
 
     let experimental_split_storage: client::types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError = client_remote.experimental_split_storage_info(&payloadSplitStorage).await?.into_inner();
