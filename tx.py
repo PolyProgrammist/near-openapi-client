@@ -69,7 +69,10 @@ if len(sys.argv) == 2 and sys.argv[1] == '--lib-fix':
     lib_rs = all_lib_rs_file.read()
     all_lib_rs_file.close()
     
-    types_index = lib_rs.find('#[allow(clippy::all)]\npub mod types {')
+    types_start = """/// Types used as operation parameters and responses.
+#[allow(clippy::all)]
+pub mod types {"""
+    types_index = lib_rs.find(types_start)
     client_index = lib_rs.find("""#[derive(Clone, Debug)]
 ///Client for NEAR Protocol JSON RPC API
 ///
@@ -79,6 +82,11 @@ pub struct Client {""")
     dependencies = lib_rs[:types_index]
     types = lib_rs[types_index:client_index]
     client = lib_rs[client_index:]
+
+    types = types_start + '\n    pub use near_account_id::AccountId;' + types[len(types_start):]
+    account_id_start = types.find('///NEAR Account Identifier.')
+    account_id_validity_start = types.find('///AccountIdValidityRulesVersion')
+    types = types[:account_id_start] + types[account_id_validity_start:]
     
     types_lib_rs = dependencies + types
     client_lib_rs = dependencies + client
@@ -105,6 +113,7 @@ pub struct Client {""")
     client_cargo_toml = re.sub('near-openapi', 'near-openapi-client', cargo_toml)
     client_cargo_toml += 'near-openapi-types = { path = "../near-openapi-types" }\n'
     types_cargo_toml = re.sub('near-openapi', 'near-openapi-types', cargo_toml)
+    types_cargo_toml += 'near-account-id = { version = "1.1.1", features = ["serde"] }\n'
     
     client_cargo_toml_file = open('./near-openapi-client/Cargo.toml', 'w')
     client_cargo_toml_file.write(client_cargo_toml)
