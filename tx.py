@@ -2,6 +2,7 @@ import json
 import re
 import itertools
 import sys
+import os
 
 def reconstructAllOfOneOf(schema):
     # return
@@ -64,16 +65,54 @@ json.dump(spec, f, indent=4)
 f.close()
 
 if len(sys.argv) == 2 and sys.argv[1] == '--lib-fix':
-    filename = './near-openapi-client/src/lib.rs'
-    f = open(filename, 'r')
-    filedata = f.read()
-    f.close()
+    all_lib_rs_file = open('./near-openapi/src/lib.rs', 'r')
+    lib_rs = all_lib_rs_file.read()
+    all_lib_rs_file.close()
+    
+    types_index = lib_rs.find('#[allow(clippy::all)]\npub mod types {')
+    client_index = lib_rs.find("""#[derive(Clone, Debug)]
+///Client for NEAR Protocol JSON RPC API
+///
+///Version: 1.0.0
+pub struct Client {""")
+    
+    dependencies = lib_rs[:types_index]
+    types = lib_rs[types_index:client_index]
+    client = lib_rs[client_index:]
+    
+    types_lib_rs = dependencies + types
+    client_lib_rs = dependencies + client
+    
+    client_lib_rs = 'pub use near_openapi_types::types as types;\n' + client_lib_rs
+    client_lib_rs = re.sub('"{}/\w*', '"{}/', client_lib_rs)
 
-    newfiledata = re.sub('"{}/\w*', '"{}/', filedata)
-
-    f = open(filename, 'w')
-    f.write(newfiledata)
-    f.close()
+    if not os.path.isdir('./near-openapi-client/src'):
+        os.makedirs('./near-openapi-client/src')
+    client_lib_rs_file = open('./near-openapi-client/src/lib.rs', 'w')
+    client_lib_rs_file.write(client_lib_rs)
+    client_lib_rs_file.close()
+    
+    if not os.path.isdir('./near-openapi-types/src'):
+        os.makedirs('./near-openapi-types/src')
+    types_lib_rs_file = open('./near-openapi-types/src/lib.rs', 'w')
+    types_lib_rs_file.write(types_lib_rs)
+    types_lib_rs_file.close()
+    
+    all_cargo_toml_file = open('./near-openapi/Cargo.toml', 'r')
+    cargo_toml = all_cargo_toml_file.read()
+    all_cargo_toml_file.close()
+    
+    client_cargo_toml = re.sub('near-openapi', 'near-openapi-client', cargo_toml)
+    client_cargo_toml += 'near-openapi-types = { path = "../near-openapi-types" }\n'
+    types_cargo_toml = re.sub('near-openapi', 'near-openapi-types', cargo_toml)
+    
+    client_cargo_toml_file = open('./near-openapi-client/Cargo.toml', 'w')
+    client_cargo_toml_file.write(client_cargo_toml)
+    client_cargo_toml_file.close()
+    
+    client_cargo_toml_file = open('./near-openapi-types/Cargo.toml', 'w')
+    client_cargo_toml_file.write(types_cargo_toml)
+    client_cargo_toml_file.close()
     
     print('lib fixed')
 

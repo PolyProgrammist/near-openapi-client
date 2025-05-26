@@ -680,6 +680,21 @@ dependencies = [
  "bytes",
  "chrono",
  "futures-core",
+ "near-openapi-types",
+ "progenitor-client",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_urlencoded",
+]
+
+[[package]]
+name = "near-openapi-types"
+version = "0.1.0"
+dependencies = [
+ "bytes",
+ "chrono",
+ "futures-core",
  "progenitor-client",
  "reqwest",
  "serde",
