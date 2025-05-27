@@ -6,7 +6,9 @@ env:
 jobs:
   run-example:
     name: "Test example on progenitor-generated client"
-    runs-on: nearprotocol/nearcore:latest
+    runs-on: ubuntu-latest
+    container:
+      image: nearprotocol/nearcore:latest
     environment: deploy
     timeout-minutes: 5 
     steps:
@@ -20,5 +22,4 @@ jobs:
       - name: Build and run
         run: |
           cargo install cargo-progenitor
-          echo "hey"
           ./test.sh
