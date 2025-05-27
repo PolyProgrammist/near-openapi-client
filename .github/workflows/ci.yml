@@ -20,4 +20,5 @@ jobs:
       - name: Build and run
         run: |
           cargo install cargo-progenitor
+          echo "hey"
           ./test.sh
