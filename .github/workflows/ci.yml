@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install wget
-        run: apt update && apt install wget
+        run: apt update && apt install -y wget
       - name: Install Toolchain
         uses: actions-rs/toolchain@v1
         with:
