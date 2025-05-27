@@ -13,6 +13,7 @@ jobs:
     timeout-minutes: 5 
     steps:
       - uses: actions/checkout@v4
+      - uses: wei/wget@v1
       - name: Install Toolchain
         uses: actions-rs/toolchain@v1
         with:
