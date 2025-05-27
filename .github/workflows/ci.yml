@@ -1,0 +1,23 @@
+name: Test progenitor-generated client
+on:
+  pull_request:
+env:
+  RUSTFLAGS: -D warnings
+jobs:
+  run-example:
+    name: "Test example on progenitor-generated client"
+    runs-on: nearprotocol/nearcore:latest
+    environment: deploy
+    timeout-minutes: 5 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          default: true
+      - name: Build and run
+        run: |
+          cargo install cargo-progenitor
+          ./test.sh
