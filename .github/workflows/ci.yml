@@ -6,18 +6,20 @@ env:
 jobs:
   run-example:
     name: "Test example on progenitor-generated client"
-    runs-on: nearprotocol/nearcore:latest
+    runs-on: ubuntu-latest
+    container:
+      image: nearprotocol/nearcore:latest
     environment: deploy
     timeout-minutes: 5 
     steps:
       - uses: actions/checkout@v4
-      - name: Install Toolchain
-        uses: actions-rs/toolchain@v1
+      - name: Install wget
+        run: apt update && apt install -y wget
+      - uses: taiki-e/install-action@v2
         with:
-          profile: minimal
-          toolchain: stable
-          default: true
+          tool: cargo
       - name: Build and run
         run: |
           cargo install cargo-progenitor
+          echo "hey"
           ./test.sh
