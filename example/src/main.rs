@@ -354,15 +354,30 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let txprinted = print_transaction().await;
-    match txprinted {
-        Ok(..) => {
-            println!("hooray")
-        }
-        Err(err) => {
-            println!("error {:#?}", err);
-        }
-    }
+
+    let rpc_port: u16 = 3030;
+    let net_port: u16 = 3031;
+
+    let mut home_dir = std::env::temp_dir();
+    home_dir.push("test-sandbox");
+
+    let output = near_sandbox_utils::init(&home_dir)?
+        .wait_with_output()
+        .await
+        .unwrap();
+    // near_workspaces::network::set_sandbox_genesis(&home_dir)?;
+
+    let mut child = near_sandbox_utils::run(&home_dir, rpc_port, net_port)?;
+
+    // let txprinted = print_transaction().await;
+    // match txprinted {
+    //     Ok(..) => {
+    //         println!("hooray")
+    //     }
+    //     Err(err) => {
+    //         println!("error {:#?}", err);
+    //     }
+    // }
 
     Ok(())
 }
