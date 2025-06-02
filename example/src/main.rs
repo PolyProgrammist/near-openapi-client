@@ -1,3 +1,4 @@
+use near_openapi_client::types::JsonRpcRequestForQuery;
 use near_openapi_client as client;
 use client::Client;
 use serde_json::json;
@@ -262,6 +263,17 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
         params: client::types::RpcSplitStorageInfoRequest(serde_json::Map::new())
     };
 
+    let payloadQueryAccount = client::types::JsonRpcRequestForQuery {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::Variant8 { 
+            account_id: sender_account_id.clone(),
+            request_type: client::types::RpcQueryRequestVariant8RequestType::ViewAccount,
+            finality: client::types::Finality::Final,
+        }
+    }; 
+
     let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_remote.block(&payloadBlock).await?.into_inner();
     println!("the_response block: {:#?}", block);
 
@@ -348,6 +360,9 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
 
     let experimental_split_storage: client::types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError = client_remote.experimental_split_storage_info(&payloadSplitStorage).await?.into_inner();
     println!("the_response experimental_split_storage: {:#?}", experimental_split_storage);
+
+    let query_account: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_remote.query(&payloadQueryAccount).await?.into_inner();
+    println!("the_response query_account: {:#?}", query_account);
 
     Ok(())
 }
