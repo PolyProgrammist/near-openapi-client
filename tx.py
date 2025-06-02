@@ -69,23 +69,22 @@ if len(sys.argv) == 2 and sys.argv[1] == '--lib-fix':
     lib_rs = all_lib_rs_file.read()
     all_lib_rs_file.close()
     
-    types_start = """/// Types used as operation parameters and responses.
+    types_start = """#[doc = r" Types used as operation parameters and responses."]
 #[allow(clippy::all)]
 pub mod types {"""
     types_index = lib_rs.find(types_start)
     client_index = lib_rs.find("""#[derive(Clone, Debug)]
-///Client for NEAR Protocol JSON RPC API
-///
-///Version: 1.0.0
-pub struct Client {""")
+#[doc = "Client for NEAR Protocol JSON RPC API""")
+    
+    print(types_index, client_index)
     
     dependencies = lib_rs[:types_index]
     types = lib_rs[types_index:client_index]
     client = lib_rs[client_index:]
 
     types = types_start + '\n    pub use near_account_id::AccountId;' + types[len(types_start):]
-    account_id_start = types.find('///NEAR Account Identifier.')
-    account_id_validity_start = types.find('///AccountIdValidityRulesVersion')
+    account_id_start = types.find('#[doc = "NEAR Account Identifier')
+    account_id_validity_start = types.find('#[doc = "`AccountIdValidityRulesVersion`"]')
     types = types[:account_id_start] + types[account_id_validity_start:]
     
     types_lib_rs = dependencies + types
