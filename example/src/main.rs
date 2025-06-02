@@ -265,24 +265,24 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
     let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payloadBlock).await?.into_inner();
     println!("the_response block: {:#?}", block);
 
-    // let broadcast_async: client::types::JsonRpcResponseForCryptoHashAndRpcError = client_remote.broadcast_tx_async(&payloadBroadcastAsync).await?.into_inner();
-    // println!("the_response broadcast_async: {:#?}", broadcast_async);
+    let broadcast_async: client::types::JsonRpcResponseForCryptoHashAndRpcError = client_local.broadcast_tx_async(&payloadBroadcastAsync).await?.into_inner();
+    println!("the_response broadcast_async: {:#?}", broadcast_async);
 
-    // let broadcast_commit: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_remote.broadcast_tx_commit(&payloadBroadcastCommit).await?.into_inner();
-    // println!("the_response broadcast_commit: {:#?}", broadcast_commit);
+    let broadcast_commit: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.broadcast_tx_commit(&payloadBroadcastCommit).await?.into_inner();
+    println!("the_response broadcast_commit: {:#?}", broadcast_commit);
     
     let chunk: client::types::JsonRpcResponseForRpcChunkResponseAndRpcError = client_local.chunk(&payloadChunk).await?.into_inner();
     println!("the_response chunk: {:#?}", chunk);
 
     // // local as currently accepts only array, fixed in new version
-    // // let gas_price_with_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithBlock).await?.into_inner();
-    // // println!("the_response gas_price_with_block: {:#?}", gas_price_with_block);
+    // let gas_price_with_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithBlock).await?.into_inner();
+    // println!("the_response gas_price_with_block: {:#?}", gas_price_with_block);
 
-    // // let gas_price_without_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithoutBlock).await?.into_inner();
-    // // println!("the_response gas_price_without_block: {:#?}", gas_price_without_block);
+    // let gas_price_without_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithoutBlock).await?.into_inner();
+    // println!("the_response gas_price_without_block: {:#?}", gas_price_without_block);
 
-    // let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError = client_remote.health(&payloadHealth).await?.into_inner();
-    // println!("the_response health: {:#?}", health);
+    let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError = client_remote.health(&payloadHealth).await?.into_inner();
+    println!("the_response health: {:#?}", health);
 
     // let light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_remote.light_client_proof(&payloadLightClientExecutionProof).await?.into_inner();
     // println!("the_response light_client_execution_proof: {:#?}", light_client_execution_proof);
@@ -371,7 +371,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let mut child = near_sandbox_utils::run(&home_dir, rpc_port, net_port)?;
 
-    sleep(Duration::from_secs(10)).await;
+    sleep(Duration::from_secs(2)).await;
 
     let txprinted = print_transaction().await;
     match txprinted {
