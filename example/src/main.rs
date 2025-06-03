@@ -12,7 +12,7 @@ const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
 
 async fn print_transaction() -> Result<(), Box<dyn Error>> {
     let transaction_hash: CryptoHash = "9FtHUFBQsZ2MG77K3x3MJ9wjX3UT8zE1TczCrhZEcG8U".parse().unwrap(); // Replace with your TX hash
-    let block_hash: CryptoHash = "FnXmhMHHQW3CgbBqQMbkLQSn4GoVnCUKo17cs3TmyKEc".parse().unwrap();
+    let block_hash: CryptoHash = "7YDWfGDXaUuVG8wJkYpa6dR6JA6P7uwx4k8XDJ2ZUsSo".parse().unwrap();
     let sender_account_id: client::types::AccountId = "miraclx.near".parse().unwrap();
     let signed_tx_base64 = "DgAAAHNlbmRlci50ZXN0bmV0AOrmAai64SZOv9e/naX4W15pJx0GAap35wTT1T/DwcbbDwAAAAAAAAAQAAAAcmVjZWl2ZXIudGVzdG5ldNMnL7URB1cxPOu3G8jTqlEwlcasagIbKlAJlF5ywVFLAQAAAAMAAACh7czOG8LTAAAAAAAAAGQcOG03xVSFQFjoagOb4NBBqWhERnnz45LY4+52JgZhm1iQKz7qAdPByrGFDQhQ2Mfga8RlbysuQ8D8LlA6bQE=".to_string();
 
@@ -262,6 +262,17 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
         params: client::types::RpcSplitStorageInfoRequest(serde_json::Map::new())
     };
 
+    let payloadQueryAccount = client::types::JsonRpcRequestForQuery {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::Variant8 { 
+            account_id: "test.near".parse().unwrap(),
+            request_type: client::types::RpcQueryRequestVariant8RequestType::ViewAccount,
+            finality: client::types::Finality::Final,
+        }
+    }; 
+
     let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payloadBlock).await?.into_inner();
     println!("the_response block: {:#?}", block);
 
@@ -349,13 +360,43 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
     // let experimental_split_storage: client::types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError = client_remote.experimental_split_storage_info(&payloadSplitStorage).await?.into_inner();
     // println!("the_response experimental_split_storage: {:#?}", experimental_split_storage);
 
+    let query_account: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local.query(&payloadQueryAccount).await?.into_inner();
+    println!("the_response query_account: {:#?}", query_account);
+
     Ok(())
 }
 
 use tokio::time::{sleep, Duration};
+use near_primitives::transaction::{Action, TransferAction, Transaction};
+use near_crypto::{InMemorySigner, KeyType};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
+
+    let signer = InMemorySigner::from_seed("test.near".parse().unwrap(), KeyType::ED25519, "test.near");
+
+    let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
+    let tx = Transaction {
+        signer_id: "test.near".parse().unwrap(),
+        public_key: signer.public_key(),
+        nonce: 0,
+        receiver_id: "test.near".parse().unwrap(),
+        actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount })],
+    };
+
+    let serialized = borsh::to_vec(tx);
+    let signature = signer.sign(&serialized);
+    let signed_tx = near_primitives::transaction::SignedTransaction::new(signature, tx);
+
+    // Broadcast the transaction
+    let bytes = borsh::to_vec(signed_tx);
+    let base64_tx = base64::encode(&bytes);
+
+    // let worker = near_workspaces::sandbox().await?;
+
+    // // Create two accounts: alice and bob
+    // let alice = worker.root_account()?.create_subaccount("alice").initial_balance(near_workspaces::types::NearToken::from_near(10)).transact().await?.into_result()?;
+    // let bob = worker.root_account()?.create_subaccount("bob").initial_balance(near_workspaces::types::NearToken::from_near(5)).transact().await?.into_result()?;
 
     let rpc_port: u16 = 3030;
     let net_port: u16 = 3031;
@@ -367,11 +408,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .wait_with_output()
         .await
         .unwrap();
-    // near_workspaces::network::set_sandbox_genesis(&home_dir)?;
 
     let mut child = near_sandbox_utils::run(&home_dir, rpc_port, net_port)?;
 
-    sleep(Duration::from_secs(2)).await;
+    sleep(Duration::from_secs(100)).await;
 
     let txprinted = print_transaction().await;
     match txprinted {
