@@ -6,11 +6,14 @@ use std::fs::File;
 use std::io::BufReader;
 use std::io::Read;
 use client::types::CryptoHash;
+use tokio::time::{sleep, Duration};
+use near_primitives::transaction::{Action, TransferAction, Transaction, TransactionV0};
+use near_crypto::{InMemorySigner, KeyType, Signer};
 
 const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
 
-async fn print_transaction() -> Result<(), Box<dyn Error>> {
+async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let transaction_hash: CryptoHash = "9FtHUFBQsZ2MG77K3x3MJ9wjX3UT8zE1TczCrhZEcG8U".parse().unwrap(); // Replace with your TX hash
     let block_hash: CryptoHash = "7YDWfGDXaUuVG8wJkYpa6dR6JA6P7uwx4k8XDJ2ZUsSo".parse().unwrap();
     let sender_account_id: client::types::AccountId = "miraclx.near".parse().unwrap();
@@ -273,6 +276,56 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
         }
     }; 
 
+    let payload_query_access_key = client::types::JsonRpcRequestForQuery {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::Variant11 { 
+            account_id: "test.near".parse().unwrap(),
+            public_key: client::types::PublicKey(signer.public_key().to_string()),
+            request_type: client::types::RpcQueryRequestVariant11RequestType::ViewAccessKey,
+            finality: client::types::Finality::Final,
+        }
+    }; 
+
+    let access_key: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local.query(&payload_query_access_key).await?.into_inner();
+    println!("the_response access_key: {:#?}", access_key);
+
+    if let client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { id, jsonrpc, result } = access_key {
+        if let client::types::RpcQueryResponse::Variant4 { block_hash, block_height, nonce, permission } = result {
+            let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
+            let tx = TransactionV0 {
+                signer_id: "test.near".parse().unwrap(),
+                public_key: signer.public_key(),
+                nonce,
+                block_hash: block_hash.to_string().parse().unwrap(),
+                receiver_id: "test.near".parse().unwrap(),
+                actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount })],
+            };
+
+            let serialized = borsh::to_vec(&tx)?;
+            let signature = signer.sign(&serialized);
+            let signed_tx = near_primitives::transaction::SignedTransaction::new(signature, Transaction::V0(tx));
+
+            // Broadcast the transaction
+            let bytes = borsh::to_vec(&signed_tx)?;
+            let base64_tx = base64::encode(&bytes);
+
+            let payloadSendTx = client::types::JsonRpcRequestForSendTx {
+                id: String::from("dontcare"),
+                jsonrpc: String::from("2.0"),
+                method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
+                params: client::types::RpcSendTransactionRequest {
+                    signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_tx.clone()),
+                    wait_until: client::types::TxExecutionStatus::Executed
+                }
+            };
+
+            let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.send_tx(&payloadSendTx).await?.into_inner();
+            println!("the_response send_tx: {:#?}", send_tx);
+        }
+    }
+
     let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payloadBlock).await?.into_inner();
     println!("the_response block: {:#?}", block);
 
@@ -366,44 +419,19 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-use tokio::time::{sleep, Duration};
-use near_primitives::transaction::{Action, TransferAction, Transaction, TransactionV0};
-use near_crypto::{InMemorySigner, KeyType};
-
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
 
-    let signer = InMemorySigner::from_seed("test.near".parse().unwrap(), KeyType::ED25519, "test.near");
+    let mut home_dir = std::env::temp_dir();
+    home_dir.push("test-sandboxxx");
 
-    let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
-    let tx = TransactionV0 {
-        signer_id: "test.near".parse().unwrap(),
-        public_key: signer.public_key(),
-        nonce: 0,
-        block_hash: "".parse().unwrap(),
-        receiver_id: "test.near".parse().unwrap(),
-        actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount })],
-    };
+    let mut validator_key = home_dir.clone();
+    validator_key.push("validator_key.json");
+    let signer = InMemorySigner::from_file(&validator_key)?;
 
-    let serialized = borsh::to_vec(&tx)?;
-    let signature = signer.sign(&serialized);
-    let signed_tx = near_primitives::transaction::SignedTransaction::new(signature, Transaction::V0(tx));
-
-    // Broadcast the transaction
-    let bytes = borsh::to_vec(&signed_tx)?;
-    let base64_tx = base64::encode(&bytes);
-
-    // let worker = near_workspaces::sandbox().await?;
-
-    // // Create two accounts: alice and bob
-    // let alice = worker.root_account()?.create_subaccount("alice").initial_balance(near_workspaces::types::NearToken::from_near(10)).transact().await?.into_result()?;
-    // let bob = worker.root_account()?.create_subaccount("bob").initial_balance(near_workspaces::types::NearToken::from_near(5)).transact().await?.into_result()?;
 
     let rpc_port: u16 = 3030;
     let net_port: u16 = 3031;
-
-    let mut home_dir = std::env::temp_dir();
-    home_dir.push("test-sandbox");
 
     let output = near_sandbox_utils::init(&home_dir)?
         .wait_with_output()
@@ -412,9 +440,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let mut child = near_sandbox_utils::run(&home_dir, rpc_port, net_port)?;
 
-    sleep(Duration::from_secs(100)).await;
+    sleep(Duration::from_secs(2)).await;
 
-    let txprinted = print_transaction().await;
+    let txprinted = print_transaction(&signer).await;
     match txprinted {
         Ok(..) => {
             println!("hooray")
