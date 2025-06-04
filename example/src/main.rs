@@ -10,16 +10,14 @@ use tokio::time::{sleep, Duration};
 use near_primitives::transaction::{Action, TransferAction, Transaction, TransactionV0};
 use near_crypto::{InMemorySigner, KeyType, Signer};
 
-const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
 
 async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let transaction_hash: CryptoHash = "9FtHUFBQsZ2MG77K3x3MJ9wjX3UT8zE1TczCrhZEcG8U".parse().unwrap(); // Replace with your TX hash
     let block_hash: CryptoHash = "7YDWfGDXaUuVG8wJkYpa6dR6JA6P7uwx4k8XDJ2ZUsSo".parse().unwrap();
-    let sender_account_id: client::types::AccountId = "miraclx.near".parse().unwrap();
+    let sender_account_id: client::types::AccountId = "test.near".parse().unwrap();
     let signed_tx_base64 = "DgAAAHNlbmRlci50ZXN0bmV0AOrmAai64SZOv9e/naX4W15pJx0GAap35wTT1T/DwcbbDwAAAAAAAAAQAAAAcmVjZWl2ZXIudGVzdG5ldNMnL7URB1cxPOu3G8jTqlEwlcasagIbKlAJlF5ywVFLAQAAAAMAAACh7czOG8LTAAAAAAAAAGQcOG03xVSFQFjoagOb4NBBqWhERnnz45LY4+52JgZhm1iQKz7qAdPByrGFDQhQ2Mfga8RlbysuQ8D8LlA6bQE=".to_string();
 
-    let client_remote = Client::new(NEAR_RPC_URL_REMOTE);
     let client_local = Client::new(NEAR_RPC_URL_LOCAL);
 
     let payloadBlock = client::types::JsonRpcRequestForBlock {
@@ -121,17 +119,6 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         params: client::types::RpcSendTransactionRequest {
             signed_tx_base64: near_openapi_client::types::SignedTransaction(signed_tx_base64.clone()),
             wait_until: client::types::TxExecutionStatus::Executed
-        }
-    };
-
-    let payloadTx = client::types::JsonRpcRequestForTx {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForTxMethod::Tx,
-        params: client::types::RpcTransactionStatusRequest::Variant1 {
-            tx_hash: transaction_hash.clone(),
-            sender_account_id: sender_account_id.clone(),
-            wait_until: client::types::TxExecutionStatus::None,
         }
     };
 
@@ -291,35 +278,53 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let access_key: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local.query(&payload_query_access_key).await?.into_inner();
     println!("the_response access_key: {:#?}", access_key);
 
+    let access_key_block_hash: String;
+    let access_key_nonce: u64;
     if let client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { id, jsonrpc, result } = access_key {
         if let client::types::RpcQueryResponse::Variant4 { block_hash, block_height, nonce, permission } = result {
-            let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
-            let tx = Transaction::V0(TransactionV0 {
-                signer_id: "test.near".parse().unwrap(),
-                public_key: signer.public_key(),
-                nonce: nonce + 1,
-                block_hash: block_hash.to_string().parse().unwrap(),
-                receiver_id: "test.near".parse().unwrap(),
-                actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount })],
-            });
-
-            let signed_tx = tx.sign(&signer);
-
-            let base64_signed_tx = near_primitives::serialize::to_base64(&borsh::to_vec(&signed_tx)?);
-
-            let payloadSendTx = client::types::JsonRpcRequestForSendTx {
-                id: String::from("dontcare"),
-                jsonrpc: String::from("2.0"),
-                method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
-                params: client::types::RpcSendTransactionRequest {
-                    signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
-                    wait_until: client::types::TxExecutionStatus::Executed
-                }
-            };
-
-            let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.send_tx(&payloadSendTx).await?.into_inner();
-            println!("the_response send_tx: {:#?}", send_tx);
+            access_key_block_hash = block_hash.to_string();
+            access_key_nonce = nonce;
+        } else {
+            return Err("couldn't get access key".into());
         }
+    } else {
+        return Err("access key is not in expected format".into());
+    }
+
+    let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
+    let tx = Transaction::V0(TransactionV0 {
+        signer_id: "test.near".parse().unwrap(),
+        public_key: signer.public_key(),
+        nonce: access_key_nonce + 1,
+        block_hash: access_key_block_hash.parse().unwrap(),
+        receiver_id: "test.near".parse().unwrap(),
+        actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount })],
+    });
+    let signed_tx = tx.sign(&signer);
+    let base64_signed_tx = near_primitives::serialize::to_base64(&borsh::to_vec(&signed_tx)?);
+
+    let payloadSendTx = client::types::JsonRpcRequestForSendTx {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
+        params: client::types::RpcSendTransactionRequest {
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
+            wait_until: client::types::TxExecutionStatus::Executed
+        }
+    };
+
+    let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.send_tx(&payloadSendTx).await?.into_inner();
+    println!("the_response send_tx: {:#?}", send_tx);
+
+    let sent_tx_hash: CryptoHash;
+    if let client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 { id, jsonrpc, result } = send_tx {
+        if let client::types::RpcTransactionResponse::Variant1 { final_execution_status, receipts_outcome, status, transaction, transaction_outcome } = result {
+            sent_tx_hash = transaction.hash;
+        } else {
+            return Err("couldn't send transaction".into());
+        }
+    } else {
+        return Err("couldn't get transaction info".into());
     }
 
     let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payloadBlock).await?.into_inner();
@@ -341,7 +346,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     // let gas_price_without_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithoutBlock).await?.into_inner();
     // println!("the_response gas_price_without_block: {:#?}", gas_price_without_block);
 
-    let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError = client_remote.health(&payloadHealth).await?.into_inner();
+    let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError = client_local.health(&payloadHealth).await?.into_inner();
     println!("the_response health: {:#?}", health);
 
     // let light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_remote.light_client_proof(&payloadLightClientExecutionProof).await?.into_inner();
@@ -356,8 +361,19 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     // let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_remote.send_tx(&payloadSendTx).await?.into_inner();
     // println!("the_response send_tx: {:#?}", send_tx);
 
-    // let tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_remote.tx(&payloadTx).await?.into_inner();
-    // println!("the_response tx: {:#?}", tx);
+    let payloadTx = client::types::JsonRpcRequestForTx {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForTxMethod::Tx,
+        params: client::types::RpcTransactionStatusRequest::Variant1 {
+            tx_hash: sent_tx_hash.clone(),
+            sender_account_id: sender_account_id.clone(),
+            wait_until: client::types::TxExecutionStatus::None,
+        }
+    };
+
+    let tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.tx(&payloadTx).await?.into_inner();
+    println!("the_response tx: {:#?}", tx);
 
     // // local as ".version.commit" introduced recently: https://github.com/near/nearcore/pull/12722/files
     // // let status = client_local.status(&payloadStatus).await?;
