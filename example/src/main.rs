@@ -367,7 +367,7 @@ async fn print_transaction() -> Result<(), Box<dyn Error>> {
 }
 
 use tokio::time::{sleep, Duration};
-use near_primitives::transaction::{Action, TransferAction, Transaction};
+use near_primitives::transaction::{Action, TransferAction, Transaction, TransactionV0};
 use near_crypto::{InMemorySigner, KeyType};
 
 #[tokio::main]
@@ -376,20 +376,21 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let signer = InMemorySigner::from_seed("test.near".parse().unwrap(), KeyType::ED25519, "test.near");
 
     let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
-    let tx = Transaction {
+    let tx = TransactionV0 {
         signer_id: "test.near".parse().unwrap(),
         public_key: signer.public_key(),
         nonce: 0,
+        block_hash: "".parse().unwrap(),
         receiver_id: "test.near".parse().unwrap(),
         actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount })],
     };
 
-    let serialized = borsh::to_vec(tx);
+    let serialized = borsh::to_vec(&tx)?;
     let signature = signer.sign(&serialized);
-    let signed_tx = near_primitives::transaction::SignedTransaction::new(signature, tx);
+    let signed_tx = near_primitives::transaction::SignedTransaction::new(signature, Transaction::V0(tx));
 
     // Broadcast the transaction
-    let bytes = borsh::to_vec(signed_tx);
+    let bytes = borsh::to_vec(&signed_tx)?;
     let base64_tx = base64::encode(&bytes);
 
     // let worker = near_workspaces::sandbox().await?;
