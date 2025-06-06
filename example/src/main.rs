@@ -14,18 +14,81 @@ const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
 
 async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let transaction_hash: CryptoHash = "9FtHUFBQsZ2MG77K3x3MJ9wjX3UT8zE1TczCrhZEcG8U".parse().unwrap(); // Replace with your TX hash
-    let block_hash: CryptoHash = "7YDWfGDXaUuVG8wJkYpa6dR6JA6P7uwx4k8XDJ2ZUsSo".parse().unwrap();
     let sender_account_id: client::types::AccountId = "test.near".parse().unwrap();
     let signed_tx_base64 = "DgAAAHNlbmRlci50ZXN0bmV0AOrmAai64SZOv9e/naX4W15pJx0GAap35wTT1T/DwcbbDwAAAAAAAAAQAAAAcmVjZWl2ZXIudGVzdG5ldNMnL7URB1cxPOu3G8jTqlEwlcasagIbKlAJlF5ywVFLAQAAAAMAAACh7czOG8LTAAAAAAAAAGQcOG03xVSFQFjoagOb4NBBqWhERnnz45LY4+52JgZhm1iQKz7qAdPByrGFDQhQ2Mfga8RlbysuQ8D8LlA6bQE=".to_string();
 
     let client_local = Client::new(NEAR_RPC_URL_LOCAL);
+
+    let payload_query_access_key = client::types::JsonRpcRequestForQuery {
+    id: String::from("dontcare"),
+    jsonrpc: String::from("2.0"),
+    method: client::types::JsonRpcRequestForQueryMethod::Query,
+    params: client::types::RpcQueryRequest::Variant11 { 
+        account_id: "test.near".parse().unwrap(),
+        public_key: client::types::PublicKey(signer.public_key().to_string()),
+        request_type: client::types::RpcQueryRequestVariant11RequestType::ViewAccessKey,
+        finality: client::types::Finality::Final,
+    }
+    }; 
+
+    let access_key: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local.query(&payload_query_access_key).await?.into_inner();
+    println!("the_response access_key: {:#?}", access_key);
+
+    let access_key_block_hash: CryptoHash;
+    let access_key_nonce: u64;
+    if let client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { id, jsonrpc, result } = access_key {
+        if let client::types::RpcQueryResponse::Variant4 { block_hash, block_height, nonce, permission } = result {
+            access_key_block_hash = block_hash.to_string().parse().unwrap();
+            access_key_nonce = nonce;
+        } else {
+            return Err("couldn't get access key".into());
+        }
+    } else {
+        return Err("access key is not in expected format".into());
+    }
+
+    let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
+    let tx = Transaction::V0(TransactionV0 {
+        signer_id: "test.near".parse().unwrap(),
+        public_key: signer.public_key(),
+        nonce: access_key_nonce + 1,
+        block_hash: access_key_block_hash.to_string().parse().unwrap(),
+        receiver_id: "test.near".parse().unwrap(),
+        actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount })],
+    });
+    let signed_tx = tx.sign(&signer);
+    let base64_signed_tx = near_primitives::serialize::to_base64(&borsh::to_vec(&signed_tx)?);
+
+    let payloadSendTx = client::types::JsonRpcRequestForSendTx {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
+        params: client::types::RpcSendTransactionRequest {
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
+            wait_until: client::types::TxExecutionStatus::Executed
+        }
+    };
+
+    let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.send_tx(&payloadSendTx).await?.into_inner();
+    println!("the_response send_tx: {:#?}", send_tx);
+
+    let sent_tx_hash: CryptoHash;
+    if let client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 { id, jsonrpc, result } = send_tx {
+        if let client::types::RpcTransactionResponse::Variant1 { final_execution_status, receipts_outcome, status, transaction, transaction_outcome } = result {
+            sent_tx_hash = transaction.hash;
+        } else {
+            return Err("couldn't send transaction".into());
+        }
+    } else {
+        return Err("couldn't get transaction info".into());
+    }
 
     let payloadBlock = client::types::JsonRpcRequestForBlock {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForBlockMethod::Block,
         params: client::types::RpcBlockRequest::BlockId({
-            client::types::BlockId::Variant1(block_hash.clone())
+            client::types::BlockId::Variant1(access_key_block_hash.clone())
         })
     };
 
@@ -54,7 +117,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForChunkMethod::Chunk,
         params: client::types::RpcChunkRequest::Variant0{
-            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+            block_id: client::types::BlockId::Variant1(access_key_block_hash.clone()),
             shard_id: client::types::ShardId(0)
         }
     };
@@ -64,7 +127,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
         params: client::types::RpcGasPriceRequest {
-            block_id: Some(client::types::BlockId::Variant1(block_hash.clone()))
+            block_id: Some(client::types::BlockId::Variant1(access_key_block_hash.clone()))
         }
     };
 
@@ -89,7 +152,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForLightClientProofMethod::LightClientProof,
         params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
-            light_client_head: block_hash.clone(),
+            light_client_head: access_key_block_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: transaction_hash.clone(),
             type_: client::types::TypeTransactionOrReceiptId::Transaction,
@@ -101,7 +164,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForNextLightClientBlockMethod::NextLightClientBlock,
         params: client::types::RpcLightClientNextBlockRequest {
-            last_block_hash: block_hash.clone(),
+            last_block_hash: access_key_block_hash.clone(),
         }
     };
 
@@ -150,7 +213,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         params: client::types::RpcStateChangesInBlockByTypeRequest::Variant0 {
             changes_type: client::types::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
             account_ids: vec!["token.sweat".parse().unwrap()],
-            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+            block_id: client::types::BlockId::Variant1(access_key_block_hash.clone()),
         }
     };
 
@@ -158,7 +221,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalChangesInBlockMethod::ExperimentalChangesInBlock,
-        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
+        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::Variant1(access_key_block_hash.clone()))
     };
 
     let payloadCongestionLevel = client::types::JsonRpcRequestForExperimentalCongestionLevel {
@@ -166,7 +229,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalCongestionLevelMethod::ExperimentalCongestionLevel,
         params: client::types::RpcCongestionLevelRequest::Variant0 {
-            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+            block_id: client::types::BlockId::Variant1(access_key_block_hash.clone()),
             shard_id: client::types::ShardId(0)
         }
     };
@@ -183,7 +246,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalLightClientProofMethod::ExperimentalLightClientProof,
         params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
-            light_client_head: block_hash.clone(),
+            light_client_head: access_key_block_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: transaction_hash.clone(),
             type_: client::types::TypeTransactionOrReceiptId::Transaction,
@@ -195,8 +258,8 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalLightClientBlockProofMethod::ExperimentalLightClientBlockProof,
         params: client::types::RpcLightClientBlockProofRequest {
-            block_hash: block_hash.clone(),
-            light_client_head: block_hash.clone(),
+            block_hash: access_key_block_hash.clone(),
+            light_client_head: access_key_block_hash.clone(),
         }
     };
 
@@ -204,7 +267,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalProtocolConfigMethod::ExperimentalProtocolConfig,
-        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
+        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::Variant1(access_key_block_hash.clone()))
     };
 
     let payloadReceipt = client::types::JsonRpcRequestForExperimentalReceipt {
@@ -262,70 +325,6 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
             finality: client::types::Finality::Final,
         }
     }; 
-
-    let payload_query_access_key = client::types::JsonRpcRequestForQuery {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForQueryMethod::Query,
-        params: client::types::RpcQueryRequest::Variant11 { 
-            account_id: "test.near".parse().unwrap(),
-            public_key: client::types::PublicKey(signer.public_key().to_string()),
-            request_type: client::types::RpcQueryRequestVariant11RequestType::ViewAccessKey,
-            finality: client::types::Finality::Final,
-        }
-    }; 
-
-    let access_key: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local.query(&payload_query_access_key).await?.into_inner();
-    println!("the_response access_key: {:#?}", access_key);
-
-    let access_key_block_hash: String;
-    let access_key_nonce: u64;
-    if let client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { id, jsonrpc, result } = access_key {
-        if let client::types::RpcQueryResponse::Variant4 { block_hash, block_height, nonce, permission } = result {
-            access_key_block_hash = block_hash.to_string();
-            access_key_nonce = nonce;
-        } else {
-            return Err("couldn't get access key".into());
-        }
-    } else {
-        return Err("access key is not in expected format".into());
-    }
-
-    let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
-    let tx = Transaction::V0(TransactionV0 {
-        signer_id: "test.near".parse().unwrap(),
-        public_key: signer.public_key(),
-        nonce: access_key_nonce + 1,
-        block_hash: access_key_block_hash.parse().unwrap(),
-        receiver_id: "test.near".parse().unwrap(),
-        actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount })],
-    });
-    let signed_tx = tx.sign(&signer);
-    let base64_signed_tx = near_primitives::serialize::to_base64(&borsh::to_vec(&signed_tx)?);
-
-    let payloadSendTx = client::types::JsonRpcRequestForSendTx {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
-        params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
-            wait_until: client::types::TxExecutionStatus::Executed
-        }
-    };
-
-    let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.send_tx(&payloadSendTx).await?.into_inner();
-    println!("the_response send_tx: {:#?}", send_tx);
-
-    let sent_tx_hash: CryptoHash;
-    if let client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 { id, jsonrpc, result } = send_tx {
-        if let client::types::RpcTransactionResponse::Variant1 { final_execution_status, receipts_outcome, status, transaction, transaction_outcome } = result {
-            sent_tx_hash = transaction.hash;
-        } else {
-            return Err("couldn't send transaction".into());
-        }
-    } else {
-        return Err("couldn't get transaction info".into());
-    }
 
     let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payloadBlock).await?.into_inner();
     println!("the_response block: {:#?}", block);
