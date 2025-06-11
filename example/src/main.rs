@@ -339,12 +339,12 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let chunk: client::types::JsonRpcResponseForRpcChunkResponseAndRpcError = client_local.chunk(&payloadChunk).await?.into_inner();
     println!("the_response chunk: {:#?}", chunk);
 
-    // // local as currently accepts only array, fixed in new version
-    // let gas_price_with_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithBlock).await?.into_inner();
-    // println!("the_response gas_price_with_block: {:#?}", gas_price_with_block);
+    // local as currently accepts only array, fixed in new version
+    let gas_price_with_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithBlock).await?.into_inner();
+    println!("the_response gas_price_with_block: {:#?}", gas_price_with_block);
 
-    // let gas_price_without_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithoutBlock).await?.into_inner();
-    // println!("the_response gas_price_without_block: {:#?}", gas_price_without_block);
+    let gas_price_without_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithoutBlock).await?.into_inner();
+    println!("the_response gas_price_without_block: {:#?}", gas_price_without_block);
 
     let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError = client_local.health(&payloadHealth).await?.into_inner();
     println!("the_response health: {:#?}", health);
@@ -382,8 +382,8 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let validators: client::types::JsonRpcResponseForRpcValidatorResponseAndRpcError = client_local.validators(&payloadValidators).await?.into_inner();
     println!("the_response validators: {:#?}", validators);
 
-    // let client_config: client::types::JsonRpcResponseForRpcClientConfigResponseAndRpcError = client_local.client_config(&payloadClientConfig).await?.into_inner();
-    // println!("the_response client_config: {:#?}", client_config);
+    let client_config: client::types::JsonRpcResponseForRpcClientConfigResponseAndRpcError = client_local.client_config(&payloadClientConfig).await?.into_inner();
+    println!("the_response client_config: {:#?}", client_config);
 
     let experimental_changes: client::types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError = client_local.experimental_changes(&payloadStateChanges).await?.into_inner();
     println!("the_response experimental_changes: {:#?}", experimental_changes);
@@ -397,14 +397,14 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let genesis_config_local: client::types::JsonRpcResponseForGenesisConfigAndRpcError = client_local.experimental_genesis_config(&payloadGenesisConfig).await?.into_inner();
     println!("the_response genesis_config_local: {:#?}", genesis_config_local);
 
-    // let experimental_light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_remote.experimental_light_client_proof(&payloadExpLightClientExecutionProof).await?.into_inner();
+    // let experimental_light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_local.experimental_light_client_proof(&payloadExpLightClientExecutionProof).await?.into_inner();
     // println!("the_response experimental_light_client_execution_proof: {:#?}", experimental_light_client_execution_proof);
 
     let experimental_next_light_client_block: client::types::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError = client_local.experimental_light_client_block_proof(&payloadExpLightClientBlock).await?.into_inner();
     println!("the_response experimental_next_light_client_block: {:#?}", experimental_next_light_client_block);
 
-    // let experimental_protocol_config: client::types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError = client_local.experimental_protocol_config(&payloadProtocolConfig).await?.into_inner();
-    // println!("the_response experimental_protocol_config: {:#?}", experimental_protocol_config);
+    let experimental_protocol_config: client::types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError = client_local.experimental_protocol_config(&payloadProtocolConfig).await?.into_inner();
+    println!("the_response experimental_protocol_config: {:#?}", experimental_protocol_config);
 
     let experimental_receipt: client::types::JsonRpcResponseForRpcReceiptResponseAndRpcError = client_local.experimental_receipt(&payloadReceipt).await?.into_inner();
     println!("the_response experimental_receipt: {:#?}", experimental_receipt);
@@ -442,7 +442,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .await
         .unwrap();
 
-    let mut child = near_sandbox_utils::run(&home_dir, rpc_port, net_port)?;
+    let mut child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, "master")?;
 
     sleep(Duration::from_secs(2)).await;
 
