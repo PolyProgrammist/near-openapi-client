@@ -11,12 +11,14 @@ use near_primitives::transaction::{Action, TransferAction, Transaction, Transact
 use near_crypto::{InMemorySigner, KeyType, Signer};
 
 const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
+const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 
 async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let sender_account_id: client::types::AccountId = "test.near".parse().unwrap();
     let signed_tx_base64 = "DgAAAHNlbmRlci50ZXN0bmV0AOrmAai64SZOv9e/naX4W15pJx0GAap35wTT1T/DwcbbDwAAAAAAAAAQAAAAcmVjZWl2ZXIudGVzdG5ldNMnL7URB1cxPOu3G8jTqlEwlcasagIbKlAJlF5ywVFLAQAAAAMAAACh7czOG8LTAAAAAAAAAGQcOG03xVSFQFjoagOb4NBBqWhERnnz45LY4+52JgZhm1iQKz7qAdPByrGFDQhQ2Mfga8RlbysuQ8D8LlA6bQE=".to_string();
 
     let client_local = Client::new(NEAR_RPC_URL_LOCAL);
+    let client_remote = Client::new(NEAR_RPC_URL_REMOTE);
 
     let payload_query_access_key = client::types::JsonRpcRequestForQuery {
         id: String::from("dontcare"),
@@ -46,6 +48,11 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         return Err("access key is not in expected format".into());
     }
 
+    let code = std::fs::read("contract_rs.wasm")?;
+    let deploy_contract_action = near_primitives::transaction::Action::DeployContract(
+        near_primitives::transaction::DeployContractAction { code },
+    );
+
     let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
     let tx = Transaction::V0(TransactionV0 {
         signer_id: "test.near".parse().unwrap(),
@@ -53,7 +60,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         nonce: access_key_nonce + 1,
         block_hash: access_key_block_hash.to_string().parse().unwrap(),
         receiver_id: "test.near".parse().unwrap(),
-        actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount })],
+        actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount }), deploy_contract_action],
     });
     let signed_tx = tx.sign(&signer);
     let base64_signed_tx = near_primitives::serialize::to_base64(&borsh::to_vec(&signed_tx)?);
@@ -341,7 +348,20 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
             request_type: client::types::RpcQueryRequestVariant8RequestType::ViewAccount,
             finality: client::types::Finality::Final,
         }
-    }; 
+    };
+
+    let payloadFunctionCall = client::types::JsonRpcRequestForQuery {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::Variant13 { 
+            account_id: "test.near".parse().unwrap(),
+            request_type: client::types::RpcQueryRequestVariant13RequestType::CallFunction,
+            method_name: "get_greeting".to_string(),
+            args_base64: "".to_string(), //near_openapi_client::types::Base64EncodedString("eyJwYXJhbXMiOlsiYWNjX2RlcG9zaXQiLCJ0ZXN0Lm5lYXIiXX0=".to_string()),
+            finality: client::types::Finality::Final,
+        }
+    };
 
     let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payloadBlock).await?.into_inner();
     println!("the_response block: {:#?}", block);
@@ -429,7 +449,8 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let experimental_validators: client::types::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError = client_local.experimental_validators_ordered(&payloadExpValidators).await?.into_inner();
     println!("the_response experimental_validators: {:#?}", experimental_validators);
 
-    let experimental_maintenance_windows: client::types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError = client_local.experimental_maintenance_windows(&payloadMaintenanceWindows).await?.into_inner();
+    // TODO: setup maintenance windows in the sandbox and test it locally
+    let experimental_maintenance_windows: client::types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError = client_remote.experimental_maintenance_windows(&payloadMaintenanceWindows).await?.into_inner();
     println!("the_response experimental_maintenance_windows: {:#?}", experimental_maintenance_windows);
 
     let experimental_split_storage: client::types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError = client_local.experimental_split_storage_info(&payloadSplitStorage).await?.into_inner();
@@ -437,6 +458,9 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
 
     let query_account: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local.query(&payloadQueryAccount).await?.into_inner();
     println!("the_response query_account: {:#?}", query_account);
+
+    let function_call: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local.query(&payloadFunctionCall).await?.into_inner();
+    println!("the_response function_call: {:#?}", function_call);
 
     Ok(())
 }
@@ -472,6 +496,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
             println!("error {:#?}", err);
         }
     }
+
+    sleep(Duration::from_secs(100)).await;
 
     child.kill().await?;
 
