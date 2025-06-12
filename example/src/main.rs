@@ -84,12 +84,28 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         return Err("couldn't get transaction info".into());
     }
 
+    let payloadBlockFinal = client::types::JsonRpcRequestForBlock {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForBlockMethod::Block,
+        params: client::types::RpcBlockRequest::Finality(client::types::Finality::Final)
+    };
+
+    let block_final: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payloadBlockFinal).await?.into_inner();
+    println!("the_response block_final: {:#?}", block_final);
+    let block_final_hash: CryptoHash;
+    if let client::types::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 { id, jsonrpc, result } = block_final {
+        block_final_hash = result.header.hash;
+    } else {
+        return Err("final block is not in expected format".into());
+    }
+
     let payloadBlock = client::types::JsonRpcRequestForBlock {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForBlockMethod::Block,
         params: client::types::RpcBlockRequest::BlockId({
-            client::types::BlockId::Variant1(access_key_block_hash.clone())
+            client::types::BlockId::Variant1(block_final_hash.clone())
         })
     };
 
@@ -118,7 +134,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForChunkMethod::Chunk,
         params: client::types::RpcChunkRequest::Variant0{
-            block_id: client::types::BlockId::Variant1(access_key_block_hash.clone()),
+            block_id: client::types::BlockId::Variant1(block_final_hash.clone()),
             shard_id: client::types::ShardId(0)
         }
     };
@@ -128,7 +144,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
         params: client::types::RpcGasPriceRequest {
-            block_id: Some(client::types::BlockId::Variant1(access_key_block_hash.clone()))
+            block_id: Some(client::types::BlockId::Variant1(block_final_hash.clone()))
         }
     };
 
@@ -153,7 +169,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForLightClientProofMethod::LightClientProof,
         params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
-            light_client_head: access_key_block_hash.clone(),
+            light_client_head: block_final_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: sent_tx_hash.clone(),
             type_: client::types::TypeTransactionOrReceiptId::Transaction,
@@ -165,7 +181,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForNextLightClientBlockMethod::NextLightClientBlock,
         params: client::types::RpcLightClientNextBlockRequest {
-            last_block_hash: access_key_block_hash.clone(),
+            last_block_hash: block_final_hash.clone(),
         }
     };
 
@@ -214,7 +230,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         params: client::types::RpcStateChangesInBlockByTypeRequest::Variant0 {
             changes_type: client::types::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
             account_ids: vec!["token.sweat".parse().unwrap()],
-            block_id: client::types::BlockId::Variant1(access_key_block_hash.clone()),
+            block_id: client::types::BlockId::Variant1(block_final_hash.clone()),
         }
     };
 
@@ -222,7 +238,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalChangesInBlockMethod::ExperimentalChangesInBlock,
-        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::Variant1(access_key_block_hash.clone()))
+        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::Variant1(block_final_hash.clone()))
     };
 
     let payloadCongestionLevel = client::types::JsonRpcRequestForExperimentalCongestionLevel {
@@ -230,7 +246,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalCongestionLevelMethod::ExperimentalCongestionLevel,
         params: client::types::RpcCongestionLevelRequest::Variant0 {
-            block_id: client::types::BlockId::Variant1(access_key_block_hash.clone()),
+            block_id: client::types::BlockId::Variant1(block_final_hash.clone()),
             shard_id: client::types::ShardId(0)
         }
     };
@@ -247,7 +263,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalLightClientProofMethod::ExperimentalLightClientProof,
         params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
-            light_client_head: access_key_block_hash.clone(),
+            light_client_head: block_final_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: sent_tx_hash.clone(),
             type_: client::types::TypeTransactionOrReceiptId::Transaction,
@@ -259,8 +275,8 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalLightClientBlockProofMethod::ExperimentalLightClientBlockProof,
         params: client::types::RpcLightClientBlockProofRequest {
-            block_hash: access_key_block_hash.clone(),
-            light_client_head: access_key_block_hash.clone(),
+            block_hash: block_final_hash.clone(),
+            light_client_head: block_final_hash.clone(),
         }
     };
 
@@ -268,7 +284,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalProtocolConfigMethod::ExperimentalProtocolConfig,
-        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::Variant1(access_key_block_hash.clone()))
+        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::Variant1(block_final_hash.clone()))
     };
 
     let payloadReceipt = client::types::JsonRpcRequestForExperimentalReceipt {
@@ -339,7 +355,6 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let chunk: client::types::JsonRpcResponseForRpcChunkResponseAndRpcError = client_local.chunk(&payloadChunk).await?.into_inner();
     println!("the_response chunk: {:#?}", chunk);
 
-    // local as currently accepts only array, fixed in new version
     let gas_price_with_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithBlock).await?.into_inner();
     println!("the_response gas_price_with_block: {:#?}", gas_price_with_block);
 
@@ -349,8 +364,8 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError = client_local.health(&payloadHealth).await?.into_inner();
     println!("the_response health: {:#?}", health);
 
-    // let light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_local.light_client_proof(&payloadLightClientExecutionProof).await?.into_inner();
-    // println!("the_response light_client_execution_proof: {:#?}", light_client_execution_proof);
+    let light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_local.light_client_proof(&payloadLightClientExecutionProof).await?.into_inner();
+    println!("the_response light_client_execution_proof: {:#?}", light_client_execution_proof);
 
     let next_light_client_block: client::types::JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError = client_local.next_light_client_block(&payloadNextLightClientBlock).await?.into_inner();
     println!("the_response next_light_client_block: {:#?}", next_light_client_block);
@@ -375,7 +390,6 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.tx(&payloadTx).await?.into_inner();
     println!("the_response tx: {:#?}", tx);
 
-    // local as ".version.commit" introduced recently: https://github.com/near/nearcore/pull/12722/files
     let status = client_local.status(&payloadStatus).await?;
     println!("the_response status: {:#?}", status);
 
@@ -397,8 +411,8 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let genesis_config_local: client::types::JsonRpcResponseForGenesisConfigAndRpcError = client_local.experimental_genesis_config(&payloadGenesisConfig).await?.into_inner();
     println!("the_response genesis_config_local: {:#?}", genesis_config_local);
 
-    // let experimental_light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_local.experimental_light_client_proof(&payloadExpLightClientExecutionProof).await?.into_inner();
-    // println!("the_response experimental_light_client_execution_proof: {:#?}", experimental_light_client_execution_proof);
+    let experimental_light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_local.experimental_light_client_proof(&payloadExpLightClientExecutionProof).await?.into_inner();
+    println!("the_response experimental_light_client_execution_proof: {:#?}", experimental_light_client_execution_proof);
 
     let experimental_next_light_client_block: client::types::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError = client_local.experimental_light_client_block_proof(&payloadExpLightClientBlock).await?.into_inner();
     println!("the_response experimental_next_light_client_block: {:#?}", experimental_next_light_client_block);
@@ -415,7 +429,6 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let experimental_validators: client::types::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError = client_local.experimental_validators_ordered(&payloadExpValidators).await?.into_inner();
     println!("the_response experimental_validators: {:#?}", experimental_validators);
 
-    // local as changed from tuple to struct
     let experimental_maintenance_windows: client::types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError = client_local.experimental_maintenance_windows(&payloadMaintenanceWindows).await?.into_inner();
     println!("the_response experimental_maintenance_windows: {:#?}", experimental_maintenance_windows);
 
