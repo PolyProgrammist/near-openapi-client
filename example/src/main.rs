@@ -52,6 +52,14 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let deploy_contract_action = near_primitives::transaction::Action::DeployContract(
         near_primitives::transaction::DeployContractAction { code },
     );
+    let function_call_action = near_primitives::transaction::Action::FunctionCall(
+        Box::new(near_primitives::transaction::FunctionCallAction {
+            method_name: "set_greeting".to_string(),
+            args:  b"hola".to_vec(),
+            gas: 300_000_000_000_000,
+            deposit: 0,
+        }),
+    );
 
     let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
     let tx = Transaction::V0(TransactionV0 {
@@ -60,7 +68,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         nonce: access_key_nonce + 1,
         block_hash: access_key_block_hash.to_string().parse().unwrap(),
         receiver_id: "test.near".parse().unwrap(),
-        actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount }), deploy_contract_action],
+        actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount }), deploy_contract_action, function_call_action],
     });
     let signed_tx = tx.sign(&signer);
     let base64_signed_tx = near_primitives::serialize::to_base64(&borsh::to_vec(&signed_tx)?);
@@ -83,7 +91,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     if let client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 { id, jsonrpc, result } = send_tx {
         if let client::types::RpcTransactionResponse::Variant1 { final_execution_status, receipts_outcome, status, transaction, transaction_outcome } = result {
             sent_tx_hash = transaction.hash;
-            executed_receipt_id = receipts_outcome[0].id.clone();
+            executed_receipt_id = receipts_outcome[1].id.clone();
         } else {
             return Err("couldn't send transaction".into());
         }
@@ -236,7 +244,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         method: client::types::JsonRpcRequestForExperimentalChangesMethod::ExperimentalChanges,
         params: client::types::RpcStateChangesInBlockByTypeRequest::Variant0 {
             changes_type: client::types::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
-            account_ids: vec!["token.sweat".parse().unwrap()],
+            account_ids: vec!["test.near".parse().unwrap()],
             block_id: client::types::BlockId::Variant1(block_final_hash.clone()),
         }
     };
