@@ -26,7 +26,6 @@ async fn test_access_key() -> Result<(), Box<dyn Error>>{
 
 async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
     let sender_account_id: client::types::AccountId = "test.near".parse().unwrap();
-    let signed_tx_base64 = "DgAAAHNlbmRlci50ZXN0bmV0AOrmAai64SZOv9e/naX4W15pJx0GAap35wTT1T/DwcbbDwAAAAAAAAAQAAAAcmVjZWl2ZXIudGVzdG5ldNMnL7URB1cxPOu3G8jTqlEwlcasagIbKlAJlF5ywVFLAQAAAAMAAACh7czOG8LTAAAAAAAAAGQcOG03xVSFQFjoagOb4NBBqWhERnnz45LY4+52JgZhm1iQKz7qAdPByrGFDQhQ2Mfga8RlbysuQ8D8LlA6bQE=".to_string();
 
     let client_local = Client::new(NEAR_RPC_URL_LOCAL);
     let client_remote = Client::new(NEAR_RPC_URL_REMOTE);
@@ -140,7 +139,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForBroadcastTxAsyncMethod::BroadcastTxAsync,
         params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::types::SignedTransaction(signed_tx_base64.clone()),
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
             wait_until: client::types::TxExecutionStatus::Executed
         }
     };
@@ -150,7 +149,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForBroadcastTxCommitMethod::BroadcastTxCommit,
         params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::types::SignedTransaction(signed_tx_base64.clone()),
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
             wait_until: client::types::TxExecutionStatus::Executed
         }
     };
@@ -223,7 +222,7 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
         params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::types::SignedTransaction(signed_tx_base64.clone()),
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
             wait_until: client::types::TxExecutionStatus::Executed
         }
     };
