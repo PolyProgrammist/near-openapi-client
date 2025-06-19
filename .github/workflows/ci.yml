@@ -13,11 +13,6 @@ jobs:
     timeout-minutes: 5 
     steps:
       - uses: actions/checkout@v4
-      - name: Install wget
-        run: apt update && apt install -y wget
-      - uses: taiki-e/install-action@v2
-        with:
-          tool: cargo
       - name: Build and run
         run: |
           cargo install cargo-progenitor
