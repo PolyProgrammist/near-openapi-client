@@ -1,14 +1,10 @@
 use near_openapi_client as client;
 use client::Client;
-use serde_json::json;
 use std::error::Error;
-use std::fs::File;
-use std::io::BufReader;
-use std::io::Read;
 use client::types::CryptoHash;
 use tokio::time::{sleep, Duration};
 use near_primitives::transaction::{Action, TransferAction, Transaction, TransactionV0};
-use near_crypto::{InMemorySigner, KeyType, Signer};
+use near_crypto::{InMemorySigner, Signer};
 
 const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
 const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
@@ -19,34 +15,34 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>>{
 
     let (sender_account_id, block_final_hash, base64_signed_tx, sent_tx_hash, executed_receipt_id) = prepare_blockchain(&signer, client_local.clone()).await?;
 
-    test_block(&client_local, block_final_hash.clone()).await;
-    test_broadcast_async(&client_local, base64_signed_tx.clone()).await;
-    test_broadcast_commit(&client_local, base64_signed_tx.clone()).await;
-    test_chunk(&client_local, block_final_hash.clone()).await;
-    test_gas_price_with_block(&client_local, block_final_hash.clone()).await;
-    test_gas_price_without_block(&client_local).await;
-    test_health(&client_local).await;
-    test_light_client_proof(&client_local, block_final_hash.clone(), sender_account_id.clone(), sent_tx_hash.clone()).await;
-    test_next_light_client_block(&client_local, block_final_hash.clone()).await;
-    test_network_info(&client_local).await;
-    test_send_tx(&client_local, base64_signed_tx.clone()).await;
-    test_status(&client_local).await;
-    test_validators(&client_local).await;
-    test_client_config(&client_local).await;
-    test_experimental_changes(&client_local, block_final_hash.clone(), sender_account_id.clone()).await;
-    test_experimental_changes_in_block(&client_local, block_final_hash.clone()).await;
-    test_experimental_congestion_level(&client_local, block_final_hash.clone()).await;
-    test_experimental_genesis_config(&client_local).await;
-    test_experimental_light_client_proof(&client_local, block_final_hash.clone(), sender_account_id.clone(), sent_tx_hash.clone()).await;
-    test_experimental_light_client_block(&client_local, block_final_hash.clone()).await;
-    test_experimental_protocol_config(&client_local, block_final_hash.clone()).await;
-    test_experimental_receipt(&client_local, executed_receipt_id.clone()).await;
-    test_experimental_tx_status(&client_local, sent_tx_hash.clone(), sender_account_id.clone()).await;
-    test_experimental_validators_ordered(&client_local).await;
-    test_experimental_maintenance_windows(&client_remote, sender_account_id.clone()).await;
-    test_experimental_split_storage_info(&client_local).await;
-    test_query_account(&client_local, sender_account_id.clone()).await;
-    test_function_call(&client_local, sender_account_id.clone(), block_final_hash.clone()).await;
+    test_block(&client_local, block_final_hash.clone()).await?;
+    test_broadcast_async(&client_local, base64_signed_tx.clone()).await?;
+    test_broadcast_commit(&client_local, base64_signed_tx.clone()).await?;
+    test_chunk(&client_local, block_final_hash.clone()).await?;
+    test_gas_price_with_block(&client_local, block_final_hash.clone()).await?;
+    test_gas_price_without_block(&client_local).await?;
+    test_health(&client_local).await?;
+    test_light_client_proof(&client_local, block_final_hash.clone(), sender_account_id.clone(), sent_tx_hash.clone()).await?;
+    test_next_light_client_block(&client_local, block_final_hash.clone()).await?;
+    test_network_info(&client_local).await?;
+    test_send_tx(&client_local, base64_signed_tx.clone()).await?;
+    test_status(&client_local).await?;
+    test_validators(&client_local).await?;
+    test_client_config(&client_local).await?;
+    test_experimental_changes(&client_local, block_final_hash.clone(), sender_account_id.clone()).await?;
+    test_experimental_changes_in_block(&client_local, block_final_hash.clone()).await?;
+    test_experimental_congestion_level(&client_local, block_final_hash.clone()).await?;
+    test_experimental_genesis_config(&client_local).await?;
+    test_experimental_light_client_proof(&client_local, block_final_hash.clone(), sender_account_id.clone(), sent_tx_hash.clone()).await?;
+    test_experimental_light_client_block(&client_local, block_final_hash.clone()).await?;
+    test_experimental_protocol_config(&client_local, block_final_hash.clone()).await?;
+    test_experimental_receipt(&client_local, executed_receipt_id.clone()).await?;
+    test_experimental_tx_status(&client_local, sent_tx_hash.clone(), sender_account_id.clone()).await?;
+    test_experimental_validators_ordered(&client_local).await?;
+    test_experimental_maintenance_windows(&client_remote, sender_account_id.clone()).await?;
+    test_experimental_split_storage_info(&client_local).await?;
+    test_query_account(&client_local, sender_account_id.clone()).await?;
+    test_function_call(&client_local, sender_account_id.clone()).await?;
 
     sandbox_node.kill().await?;
 
@@ -485,7 +481,7 @@ async fn test_query_account(client: &Client, sender_account_id: client::types::A
     Ok(())
 }
 
-async fn test_function_call(client: &Client, sender_account_id: client::types::AccountId, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+async fn test_function_call(client: &Client, sender_account_id: client::types::AccountId) -> Result<(), Box<dyn Error>> {
     let payload_function_call = client::types::JsonRpcRequestForQuery {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
@@ -525,8 +521,8 @@ async fn prepare_blockchain(signer: &Signer, client_local: Client) -> Result<(cl
 
     let access_key_block_hash: CryptoHash;
     let access_key_nonce: u64;
-    if let client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { id, jsonrpc, result } = access_key {
-        if let client::types::RpcQueryResponse::Variant4 { block_hash, block_height, nonce, permission } = result {
+    if let client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { id: _, jsonrpc: _, result } = access_key {
+        if let client::types::RpcQueryResponse::Variant4 { block_hash, block_height: _, nonce, permission: _ } = result {
             access_key_block_hash = block_hash.to_string().parse().unwrap();
             access_key_nonce = nonce;
         } else {
@@ -561,7 +557,7 @@ async fn prepare_blockchain(signer: &Signer, client_local: Client) -> Result<(cl
     let signed_tx = tx.sign(&signer);
     let base64_signed_tx = near_primitives::serialize::to_base64(&borsh::to_vec(&signed_tx)?);
 
-    let payloadSendTx = client::types::JsonRpcRequestForSendTx {
+    let payload_send_tx = client::types::JsonRpcRequestForSendTx {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
@@ -571,13 +567,13 @@ async fn prepare_blockchain(signer: &Signer, client_local: Client) -> Result<(cl
         }
     };
 
-    let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.send_tx(&payloadSendTx).await?.into_inner();
+    let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.send_tx(&payload_send_tx).await?.into_inner();
     println!("the_response send_tx: {:#?}", send_tx);
 
     let sent_tx_hash: CryptoHash;
     let executed_receipt_id: CryptoHash;
-    if let client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 { id, jsonrpc, result } = send_tx {
-        if let client::types::RpcTransactionResponse::Variant1 { final_execution_status, receipts_outcome, status, transaction, transaction_outcome } = result {
+    if let client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 { id: _, jsonrpc: _, result } = send_tx {
+        if let client::types::RpcTransactionResponse::Variant1 { final_execution_status: _, receipts_outcome, status: _, transaction, transaction_outcome: _ } = result {
             sent_tx_hash = transaction.hash;
             executed_receipt_id = receipts_outcome[1].id.clone();
         } else {
@@ -587,17 +583,17 @@ async fn prepare_blockchain(signer: &Signer, client_local: Client) -> Result<(cl
         return Err("couldn't get transaction info".into());
     }
 
-    let payloadBlockFinal = client::types::JsonRpcRequestForBlock {
+    let payload_block_final = client::types::JsonRpcRequestForBlock {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForBlockMethod::Block,
         params: client::types::RpcBlockRequest::Finality(client::types::Finality::Final)
     };
 
-    let block_final: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payloadBlockFinal).await?.into_inner();
+    let block_final: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payload_block_final).await?.into_inner();
     println!("the_response block_final: {:#?}", block_final);
     let block_final_hash: CryptoHash;
-    if let client::types::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 { id, jsonrpc, result } = block_final {
+    if let client::types::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 { id: _, jsonrpc: _, result } = block_final {
         block_final_hash = result.header.hash;
     } else {
         return Err("final block is not in expected format".into());
@@ -613,12 +609,12 @@ async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Cli
     let rpc_port: u16 = 3030;
     let net_port: u16 = 3031;
 
-    let output = near_sandbox_utils::init(&home_dir)?
+    near_sandbox_utils::init(&home_dir)?
         .wait_with_output()
         .await
         .unwrap();
 
-    let mut child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, "master")?;
+    let child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, "master")?;
 
     sleep(Duration::from_secs(2)).await;
 

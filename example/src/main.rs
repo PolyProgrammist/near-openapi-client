@@ -1,9 +1,8 @@
 use std::error::Error;
+use near_openapi_client as client;
 use tokio::time::{sleep, Duration};
-use near_crypto::InMemorySigner;
 
 const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
-const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 
 
 #[tokio::main]
@@ -15,7 +14,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let rpc_port: u16 = 3030;
     let net_port: u16 = 3031;
 
-    let output = near_sandbox_utils::init(&home_dir)?
+    near_sandbox_utils::init(&home_dir)?
         .wait_with_output()
         .await
         .unwrap();
@@ -24,21 +23,17 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     sleep(Duration::from_secs(2)).await;
 
-    let mut validator_key = home_dir.clone();
-    validator_key.push("validator_key.json");
-    let signer = InMemorySigner::from_file(&validator_key)?;
+    let client_local =  client::Client::new(NEAR_RPC_URL_LOCAL);
 
-    // let txprinted = print_transaction(&signer).await;
-    // match txprinted {
-    //     Ok(..) => {
-    //         println!("hooray")
-    //     }
-    //     Err(err) => {
-    //         println!("error {:#?}", err);
-    //     }
-    // }
+    let payload_block_final = client::types::JsonRpcRequestForBlock {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForBlockMethod::Block,
+        params: client::types::RpcBlockRequest::Finality(client::types::Finality::Final)
+    };
 
-    sleep(Duration::from_secs(100)).await;
+    let block_final: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payload_block_final).await?.into_inner();
+    println!("the_response block_final: {:#?}", block_final);
 
     child.kill().await?;
 
