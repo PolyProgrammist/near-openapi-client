@@ -7,9 +7,6 @@ jobs:
   run-example:
     name: "Test example on progenitor-generated client"
     runs-on: ubuntu-latest
-    container:
-      image: nearprotocol/nearcore:latest
-    environment: deploy
     timeout-minutes: 5 
     steps:
       - uses: actions/checkout@v4
