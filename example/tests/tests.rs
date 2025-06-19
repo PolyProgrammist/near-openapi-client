@@ -14,28 +14,506 @@ const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
 const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 
 #[tokio::test]
-async fn test_access_key() -> Result<(), Box<dyn Error>>{
-    let (signer, mut sandbox_node) = prepare_sandbox().await.unwrap();
+async fn test_openapi_client() -> Result<(), Box<dyn Error>>{
+    let (signer, mut sandbox_node, client_local, client_remote) = prepare_sandbox().await.unwrap();
 
-    print_transaction(&signer).await;
+    let (sender_account_id, block_final_hash, base64_signed_tx, sent_tx_hash, executed_receipt_id) = prepare_blockchain(&signer, client_local.clone()).await?;
+
+    test_block(&client_local, block_final_hash.clone()).await;
+    test_broadcast_async(&client_local, base64_signed_tx.clone()).await;
+    test_broadcast_commit(&client_local, base64_signed_tx.clone()).await;
+    test_chunk(&client_local, block_final_hash.clone()).await;
+    test_gas_price_with_block(&client_local, block_final_hash.clone()).await;
+    test_gas_price_without_block(&client_local).await;
+    test_health(&client_local).await;
+    test_light_client_proof(&client_local, block_final_hash.clone(), sender_account_id.clone(), sent_tx_hash.clone()).await;
+    test_next_light_client_block(&client_local, block_final_hash.clone()).await;
+    test_network_info(&client_local).await;
+    test_send_tx(&client_local, base64_signed_tx.clone()).await;
+    test_status(&client_local).await;
+    test_validators(&client_local).await;
+    test_client_config(&client_local).await;
+    test_experimental_changes(&client_local, block_final_hash.clone(), sender_account_id.clone()).await;
+    test_experimental_changes_in_block(&client_local, block_final_hash.clone()).await;
+    test_experimental_congestion_level(&client_local, block_final_hash.clone()).await;
+    test_experimental_genesis_config(&client_local).await;
+    test_experimental_light_client_proof(&client_local, block_final_hash.clone(), sender_account_id.clone(), sent_tx_hash.clone()).await;
+    test_experimental_light_client_block(&client_local, block_final_hash.clone()).await;
+    test_experimental_protocol_config(&client_local, block_final_hash.clone()).await;
+    test_experimental_receipt(&client_local, executed_receipt_id.clone()).await;
+    test_experimental_tx_status(&client_local, sent_tx_hash.clone(), sender_account_id.clone()).await;
+    test_experimental_validators_ordered(&client_local).await;
+    test_experimental_maintenance_windows(&client_remote, sender_account_id.clone()).await;
+    test_experimental_split_storage_info(&client_local).await;
+    test_query_account(&client_local, sender_account_id.clone()).await;
+    test_function_call(&client_local, sender_account_id.clone(), block_final_hash.clone()).await;
 
     sandbox_node.kill().await?;
 
     Ok(())
 }
 
-async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
-    let sender_account_id: client::types::AccountId = "test.near".parse().unwrap();
+async fn test_block(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_block = client::types::JsonRpcRequestForBlock {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForBlockMethod::Block,
+        params: client::types::RpcBlockRequest::BlockId({
+            client::types::BlockId::Variant1(block_hash.clone())
+        })
+    };
 
-    let client_local = Client::new(NEAR_RPC_URL_LOCAL);
-    let client_remote = Client::new(NEAR_RPC_URL_REMOTE);
+    let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client.block(&payload_block).await?.into_inner();
+    println!("the_response block: {:#?}", block);
+
+    Ok(())
+}
+
+async fn test_broadcast_async(client: &Client, base64_signed_tx: String) -> Result<(), Box<dyn Error>> {
+    let payload_broadcast_async = client::types::JsonRpcRequestForBroadcastTxAsync {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForBroadcastTxAsyncMethod::BroadcastTxAsync,
+        params: client::types::RpcSendTransactionRequest {
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
+            wait_until: client::types::TxExecutionStatus::Executed
+        }
+    };
+
+    let broadcast_async: client::types::JsonRpcResponseForCryptoHashAndRpcError = client.broadcast_tx_async(&payload_broadcast_async).await?.into_inner();
+    println!("the_response broadcast_async: {:#?}", broadcast_async);
+
+    Ok(())
+}
+
+async fn test_broadcast_commit(client: &Client, base64_signed_tx: String) -> Result<(), Box<dyn Error>> {
+    let payload_broadcast_commit = client::types::JsonRpcRequestForBroadcastTxCommit {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForBroadcastTxCommitMethod::BroadcastTxCommit,
+        params: client::types::RpcSendTransactionRequest {
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
+            wait_until: client::types::TxExecutionStatus::Executed
+        }
+    };
+
+    let broadcast_commit: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client.broadcast_tx_commit(&payload_broadcast_commit).await?.into_inner();
+    println!("the_response broadcast_commit: {:#?}", broadcast_commit);
+
+    Ok(())
+}
+
+async fn test_chunk(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_chunk = client::types::JsonRpcRequestForChunk {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForChunkMethod::Chunk,
+        params: client::types::RpcChunkRequest::Variant0 {
+            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+            shard_id: client::types::ShardId(0)
+        }
+    };
+
+    let chunk: client::types::JsonRpcResponseForRpcChunkResponseAndRpcError = client.chunk(&payload_chunk).await?.into_inner();
+    println!("the_response chunk: {:#?}", chunk);
+
+    Ok(())
+}
+
+async fn test_gas_price_with_block(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_gas_price = client::types::JsonRpcRequestForGasPrice {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
+        params: client::types::RpcGasPriceRequest {
+            block_id: Some(client::types::BlockId::Variant1(block_hash.clone()))
+        }
+    };
+
+    let gas_price: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client.gas_price(&payload_gas_price).await?.into_inner();
+    println!("the_response gas_price with block: {:#?}", gas_price);
+
+    Ok(())
+}
+
+async fn test_gas_price_without_block(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_gas_price = client::types::JsonRpcRequestForGasPrice {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
+        params: client::types::RpcGasPriceRequest {
+            block_id: None
+        }
+    };
+
+    let gas_price: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client.gas_price(&payload_gas_price).await?.into_inner();
+    println!("the_response gas_price without block: {:#?}", gas_price);
+
+    Ok(())
+}
+
+async fn test_health(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_health = client::types::JsonRpcRequestForHealth {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForHealthMethod::Health,
+        params: client::types::RpcHealthRequest(serde_json::Map::new())
+    };
+
+    let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError = client.health(&payload_health).await?.into_inner();
+    println!("the_response health: {:#?}", health);
+
+    Ok(())
+}
+
+async fn test_light_client_proof(client: &Client, block_hash: CryptoHash, sender_account_id: client::types::AccountId, sent_tx_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_light_client_proof = client::types::JsonRpcRequestForLightClientProof {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForLightClientProofMethod::LightClientProof,
+        params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
+            light_client_head: block_hash.clone(),
+            sender_id: sender_account_id.clone(),
+            transaction_hash: sent_tx_hash.clone(),
+            type_: client::types::TypeTransactionOrReceiptId::Transaction,
+        }
+    };
+
+    let light_client_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client.light_client_proof(&payload_light_client_proof).await?.into_inner();
+    println!("the_response light_client_proof: {:#?}", light_client_proof);
+
+    Ok(())
+}
+
+async fn test_next_light_client_block(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_next_light_client_block = client::types::JsonRpcRequestForNextLightClientBlock {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForNextLightClientBlockMethod::NextLightClientBlock,
+        params: client::types::RpcLightClientNextBlockRequest {
+            last_block_hash: block_hash.clone(),
+        }
+    };
+
+    let next_light_client_block: client::types::JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError = client.next_light_client_block(&payload_next_light_client_block).await?.into_inner();
+    println!("the_response next_light_client_block: {:#?}", next_light_client_block);
+
+    Ok(())
+}
+
+async fn test_network_info(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_network_info = client::types::JsonRpcRequestForNetworkInfo {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForNetworkInfoMethod::NetworkInfo,
+        params: client::types::RpcNetworkInfoRequest(serde_json::Map::new())
+    };
+
+    let network_info: client::types::JsonRpcResponseForRpcNetworkInfoResponseAndRpcError = client.network_info(&payload_network_info).await?.into_inner();
+    println!("the_response network_info: {:#?}", network_info);
+
+    Ok(())
+}
+
+async fn test_send_tx(client: &Client, base64_signed_tx: String) -> Result<(), Box<dyn Error>> {
+    let payload_send_tx = client::types::JsonRpcRequestForSendTx {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
+        params: client::types::RpcSendTransactionRequest {
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
+            wait_until: client::types::TxExecutionStatus::Executed
+        }
+    };
+
+    let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client.send_tx(&payload_send_tx).await?.into_inner();
+    println!("the_response send_tx: {:#?}", send_tx);
+
+    Ok(())
+}
+
+async fn test_status(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_status = client::types::JsonRpcRequestForStatus {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForStatusMethod::Status,
+        params: client::types::RpcStatusRequest(serde_json::Map::new())
+    };
+
+    let status: client::types::JsonRpcResponseForRpcStatusResponseAndRpcError = client.status(&payload_status).await?.into_inner();
+    println!("the_response status: {:#?}", status);
+
+    Ok(())
+}
+
+async fn test_validators(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_validators = client::types::JsonRpcRequestForValidators {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForValidatorsMethod::Validators,
+        params: client::types::RpcValidatorRequest::Latest
+    };
+
+    let validators: client::types::JsonRpcResponseForRpcValidatorResponseAndRpcError = client.validators(&payload_validators).await?.into_inner();
+    println!("the_response validators: {:#?}", validators);
+
+    Ok(())
+}
+
+async fn test_client_config(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_client_config = client::types::JsonRpcRequestForClientConfig {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForClientConfigMethod::ClientConfig,
+        params: client::types::RpcClientConfigRequest(serde_json::Map::new())
+    };
+
+    let client_config: client::types::JsonRpcResponseForRpcClientConfigResponseAndRpcError = client.client_config(&payload_client_config).await?.into_inner();
+    println!("the_response client_config: {:#?}", client_config);
+
+    Ok(())
+}
+
+async fn test_experimental_changes(client: &Client, block_hash: CryptoHash, sender_account_id: client::types::AccountId) -> Result<(), Box<dyn Error>> {
+    let payload_experimental_changes = client::types::JsonRpcRequestForExperimentalChanges {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalChangesMethod::ExperimentalChanges,
+        params: client::types::RpcStateChangesInBlockByTypeRequest::Variant0 {
+            changes_type: client::types::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
+            account_ids: vec![sender_account_id],
+            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+        }
+    };
+
+    let experimental_changes: client::types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError = client.experimental_changes(&payload_experimental_changes).await?.into_inner();
+    println!("the_response experimental_changes: {:#?}", experimental_changes);
+
+    Ok(())
+}
+
+async fn test_experimental_changes_in_block(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_experimental_changes_in_block = client::types::JsonRpcRequestForExperimentalChangesInBlock {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalChangesInBlockMethod::ExperimentalChangesInBlock,
+        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
+    };
+
+    let experimental_changes_in_block: client::types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError = client.experimental_changes_in_block(&payload_experimental_changes_in_block).await?.into_inner();
+    println!("the_response experimental_changes_in_block: {:#?}", experimental_changes_in_block);
+
+    Ok(())
+}
+
+async fn test_experimental_congestion_level(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_congestion_level = client::types::JsonRpcRequestForExperimentalCongestionLevel {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalCongestionLevelMethod::ExperimentalCongestionLevel,
+        params: client::types::RpcCongestionLevelRequest::Variant0 {
+            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+            shard_id: client::types::ShardId(0)
+        }
+    };
+
+    let congestion_level: client::types::JsonRpcResponseForRpcCongestionLevelResponseAndRpcError = client.experimental_congestion_level(&payload_congestion_level).await?.into_inner();
+    println!("the_response congestion_level: {:#?}", congestion_level);
+
+    Ok(())
+}
+
+async fn test_experimental_genesis_config(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_genesis_config = client::types::JsonRpcRequestForExperimentalGenesisConfig {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalGenesisConfigMethod::ExperimentalGenesisConfig,
+        params: client::types::GenesisConfigRequest(serde_json::Map::new())
+    };
+
+    let genesis_config: client::types::JsonRpcResponseForGenesisConfigAndRpcError = client.experimental_genesis_config(&payload_genesis_config).await?.into_inner();
+    println!("the_response genesis_config: {:#?}", genesis_config);
+
+    Ok(())
+}
+
+async fn test_experimental_light_client_proof(client: &Client, block_hash: CryptoHash, sender_account_id: client::types::AccountId, sent_tx_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_exp_light_client_proof = client::types::JsonRpcRequestForExperimentalLightClientProof {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalLightClientProofMethod::ExperimentalLightClientProof,
+        params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
+            light_client_head: block_hash.clone(),
+            sender_id: sender_account_id.clone(),
+            transaction_hash: sent_tx_hash.clone(),
+            type_: client::types::TypeTransactionOrReceiptId::Transaction,
+        }
+    };
+
+    let exp_light_client_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client.experimental_light_client_proof(&payload_exp_light_client_proof).await?.into_inner();
+    println!("the_response exp_light_client_proof: {:#?}", exp_light_client_proof);
+
+    Ok(())
+}
+
+async fn test_experimental_light_client_block(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_exp_light_client_block = client::types::JsonRpcRequestForExperimentalLightClientBlockProof {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalLightClientBlockProofMethod::ExperimentalLightClientBlockProof,
+        params: client::types::RpcLightClientBlockProofRequest {
+            block_hash: block_hash.clone(),
+            light_client_head: block_hash.clone(),
+        }
+    };
+
+    let exp_light_client_block: client::types::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError = client.experimental_light_client_block_proof(&payload_exp_light_client_block).await?.into_inner();
+    println!("the_response exp_light_client_block: {:#?}", exp_light_client_block);
+
+    Ok(())
+}
+
+async fn test_experimental_protocol_config(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_protocol_config = client::types::JsonRpcRequestForExperimentalProtocolConfig {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalProtocolConfigMethod::ExperimentalProtocolConfig,
+        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
+    };
+
+    let protocol_config: client::types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError = client.experimental_protocol_config(&payload_protocol_config).await?.into_inner();
+    println!("the_response protocol_config: {:#?}", protocol_config);
+
+    Ok(())
+}
+
+async fn test_experimental_receipt(client: &Client, executed_receipt_id: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_receipt = client::types::JsonRpcRequestForExperimentalReceipt {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalReceiptMethod::ExperimentalReceipt,
+        params: client::types::RpcReceiptRequest {
+            receipt_id: executed_receipt_id,
+        }
+    };
+
+    let receipt: client::types::JsonRpcResponseForRpcReceiptResponseAndRpcError = client.experimental_receipt(&payload_receipt).await?.into_inner();
+    println!("the_response receipt: {:#?}", receipt);
+
+    Ok(())
+}
+
+async fn test_experimental_tx_status(client: &Client, sent_tx_hash: CryptoHash, sender_account_id: client::types::AccountId) -> Result<(), Box<dyn Error>> {
+    let payload_exp_tx_status = client::types::JsonRpcRequestForExperimentalTxStatus {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalTxStatusMethod::ExperimentalTxStatus,
+        params: client::types::RpcTransactionStatusRequest::Variant1 {
+            tx_hash: sent_tx_hash.clone(),
+            sender_account_id: sender_account_id.clone(),
+            wait_until: client::types::TxExecutionStatus::None,
+        }
+    };
+
+    let exp_tx_status: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client.experimental_tx_status(&payload_exp_tx_status).await?.into_inner();
+    println!("the_response exp_tx_status: {:#?}", exp_tx_status);
+
+    Ok(())
+}
+
+async fn test_experimental_validators_ordered(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_exp_validators = client::types::JsonRpcRequestForExperimentalValidatorsOrdered {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalValidatorsOrderedMethod::ExperimentalValidatorsOrdered,
+        params: client::types::RpcValidatorsOrderedRequest {
+            block_id: None
+        }
+    };
+
+    let exp_validators: client::types::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError = client.experimental_validators_ordered(&payload_exp_validators).await?.into_inner();
+    println!("the_response exp_validators: {:#?}", exp_validators);
+
+    Ok(())
+}
+
+async fn test_experimental_maintenance_windows(client_remote: &Client, sender_account_id: client::types::AccountId) -> Result<(), Box<dyn Error>> {
+    let payload_maintenance_windows = client::types::JsonRpcRequestForExperimentalMaintenanceWindows {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalMaintenanceWindowsMethod::ExperimentalMaintenanceWindows,
+        params: client::types::RpcMaintenanceWindowsRequest {
+            account_id: sender_account_id.clone(),
+        }
+    };
+
+    let maintenance_windows: client::types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError = client_remote.experimental_maintenance_windows(&payload_maintenance_windows).await?.into_inner();
+    println!("the_response maintenance_windows: {:#?}", maintenance_windows);
+
+    Ok(())
+}
+
+async fn test_experimental_split_storage_info(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_split_storage = client::types::JsonRpcRequestForExperimentalSplitStorageInfo {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalSplitStorageInfoMethod::ExperimentalSplitStorageInfo,
+        params: client::types::RpcSplitStorageInfoRequest(serde_json::Map::new())
+    };
+
+    let split_storage_info: client::types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError = client.experimental_split_storage_info(&payload_split_storage).await?.into_inner();
+    println!("the_response split_storage_info: {:#?}", split_storage_info);
+
+    Ok(())
+}
+
+async fn test_query_account(client: &Client, sender_account_id: client::types::AccountId) -> Result<(), Box<dyn Error>> {
+    let payload_query_account = client::types::JsonRpcRequestForQuery {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::Variant8 { 
+            account_id: sender_account_id,
+            request_type: client::types::RpcQueryRequestVariant8RequestType::ViewAccount,
+            finality: client::types::Finality::Final,
+        }
+    };
+
+    let query_account: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client.query(&payload_query_account).await?.into_inner();
+    println!("the_response query_account: {:#?}", query_account);
+
+    Ok(())
+}
+
+async fn test_function_call(client: &Client, sender_account_id: client::types::AccountId, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_function_call = client::types::JsonRpcRequestForQuery {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::Variant13 { 
+            account_id: sender_account_id.clone(),
+            request_type: client::types::RpcQueryRequestVariant13RequestType::CallFunction,
+            method_name: "get_greeting".to_string(),
+            args_base64: "".to_string(),
+            finality: client::types::Finality::Final,
+        }
+    };
+
+    let function_call: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client.query(&payload_function_call).await?.into_inner();
+    println!("the_response function_call: {:#?}", function_call);
+
+    Ok(())
+}
+
+async fn prepare_blockchain(signer: &Signer, client_local: Client) -> Result<(client::types::AccountId, CryptoHash, String, CryptoHash, CryptoHash), Box<dyn Error>> {
+    let sender_account_id: client::types::AccountId = "test.near".parse().unwrap();
 
     let payload_query_access_key = client::types::JsonRpcRequestForQuery {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForQueryMethod::Query,
         params: client::types::RpcQueryRequest::Variant11 { 
-            account_id: "test.near".parse().unwrap(),
+            account_id: sender_account_id.clone(),
             public_key: client::types::PublicKey(signer.public_key().to_string()),
             request_type: client::types::RpcQueryRequestVariant11RequestType::ViewAccessKey,
             finality: client::types::Finality::Final,
@@ -73,11 +551,11 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
 
     let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
     let tx = Transaction::V0(TransactionV0 {
-        signer_id: "test.near".parse().unwrap(),
+        signer_id: sender_account_id.clone(),
         public_key: signer.public_key(),
         nonce: access_key_nonce + 1,
         block_hash: access_key_block_hash.to_string().parse().unwrap(),
-        receiver_id: "test.near".parse().unwrap(),
+        receiver_id: sender_account_id.clone(),
         actions: vec![Action::Transfer(TransferAction { deposit: transfer_amount }), deploy_contract_action, function_call_action],
     });
     let signed_tx = tx.sign(&signer);
@@ -125,365 +603,10 @@ async fn print_transaction(signer: &Signer) -> Result<(), Box<dyn Error>> {
         return Err("final block is not in expected format".into());
     }
 
-    let payloadBlock = client::types::JsonRpcRequestForBlock {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForBlockMethod::Block,
-        params: client::types::RpcBlockRequest::BlockId({
-            client::types::BlockId::Variant1(block_final_hash.clone())
-        })
-    };
-
-    let payloadBroadcastAsync = client::types::JsonRpcRequestForBroadcastTxAsync {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForBroadcastTxAsyncMethod::BroadcastTxAsync,
-        params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
-            wait_until: client::types::TxExecutionStatus::Executed
-        }
-    };
-
-    let payloadBroadcastCommit = client::types::JsonRpcRequestForBroadcastTxCommit {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForBroadcastTxCommitMethod::BroadcastTxCommit,
-        params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
-            wait_until: client::types::TxExecutionStatus::Executed
-        }
-    };
-
-    let payloadChunk = client::types::JsonRpcRequestForChunk {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForChunkMethod::Chunk,
-        params: client::types::RpcChunkRequest::Variant0{
-            block_id: client::types::BlockId::Variant1(block_final_hash.clone()),
-            shard_id: client::types::ShardId(0)
-        }
-    };
-
-    let payloadGasPriceWithBlock = client::types::JsonRpcRequestForGasPrice {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
-        params: client::types::RpcGasPriceRequest {
-            block_id: Some(client::types::BlockId::Variant1(block_final_hash.clone()))
-        }
-    };
-
-    let payloadGasPriceWithoutBlock = client::types::JsonRpcRequestForGasPrice {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
-        params: client::types::RpcGasPriceRequest {
-            block_id: None
-        }
-    };
-
-    let payloadHealth = client::types::JsonRpcRequestForHealth {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForHealthMethod::Health,
-        params: client::types::RpcHealthRequest(serde_json::Map::new())
-    };
-
-    let payloadLightClientExecutionProof = client::types::JsonRpcRequestForLightClientProof {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForLightClientProofMethod::LightClientProof,
-        params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
-            light_client_head: block_final_hash.clone(),
-            sender_id: sender_account_id.clone(),
-            transaction_hash: sent_tx_hash.clone(),
-            type_: client::types::TypeTransactionOrReceiptId::Transaction,
-        }
-    };
-
-    let payloadNextLightClientBlock = client::types::JsonRpcRequestForNextLightClientBlock {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForNextLightClientBlockMethod::NextLightClientBlock,
-        params: client::types::RpcLightClientNextBlockRequest {
-            last_block_hash: block_final_hash.clone(),
-        }
-    };
-
-    let payloadNetworkInfo = client::types::JsonRpcRequestForNetworkInfo {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForNetworkInfoMethod::NetworkInfo,
-        params: client::types::RpcNetworkInfoRequest(serde_json::Map::new())
-    };
-
-    let payloadSendTx = client::types::JsonRpcRequestForSendTx {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
-        params: client::types::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::types::SignedTransaction(base64_signed_tx.clone()),
-            wait_until: client::types::TxExecutionStatus::Executed
-        }
-    };
-
-    let payloadStatus = client::types::JsonRpcRequestForStatus {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForStatusMethod::Status,
-        params: client::types::RpcStatusRequest(serde_json::Map::new())
-    };
-
-    let payloadValidators = client::types::JsonRpcRequestForValidators {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForValidatorsMethod::Validators,
-        params: client::types::RpcValidatorRequest::Latest
-    };
-
-    let payloadClientConfig = client::types::JsonRpcRequestForClientConfig {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForClientConfigMethod::ClientConfig,
-        params: client::types::RpcClientConfigRequest(serde_json::Map::new())
-    };
-
-    let payloadStateChanges = client::types::JsonRpcRequestForExperimentalChanges {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalChangesMethod::ExperimentalChanges,
-        params: client::types::RpcStateChangesInBlockByTypeRequest::Variant0 {
-            changes_type: client::types::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
-            account_ids: vec!["test.near".parse().unwrap()],
-            block_id: client::types::BlockId::Variant1(block_final_hash.clone()),
-        }
-    };
-
-    let payloadChangesInBlock = client::types::JsonRpcRequestForExperimentalChangesInBlock {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalChangesInBlockMethod::ExperimentalChangesInBlock,
-        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::Variant1(block_final_hash.clone()))
-    };
-
-    let payloadCongestionLevel = client::types::JsonRpcRequestForExperimentalCongestionLevel {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalCongestionLevelMethod::ExperimentalCongestionLevel,
-        params: client::types::RpcCongestionLevelRequest::Variant0 {
-            block_id: client::types::BlockId::Variant1(block_final_hash.clone()),
-            shard_id: client::types::ShardId(0)
-        }
-    };
-
-    let payloadGenesisConfig = client::types::JsonRpcRequestForExperimentalGenesisConfig {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalGenesisConfigMethod::ExperimentalGenesisConfig,
-        params: client::types::GenesisConfigRequest(serde_json::Map::new())
-    };
-
-    let payloadExpLightClientExecutionProof = client::types::JsonRpcRequestForExperimentalLightClientProof {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalLightClientProofMethod::ExperimentalLightClientProof,
-        params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
-            light_client_head: block_final_hash.clone(),
-            sender_id: sender_account_id.clone(),
-            transaction_hash: sent_tx_hash.clone(),
-            type_: client::types::TypeTransactionOrReceiptId::Transaction,
-        }
-    };
-
-    let payloadExpLightClientBlock = client::types::JsonRpcRequestForExperimentalLightClientBlockProof {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalLightClientBlockProofMethod::ExperimentalLightClientBlockProof,
-        params: client::types::RpcLightClientBlockProofRequest {
-            block_hash: block_final_hash.clone(),
-            light_client_head: block_final_hash.clone(),
-        }
-    };
-
-    let payloadProtocolConfig = client::types::JsonRpcRequestForExperimentalProtocolConfig {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalProtocolConfigMethod::ExperimentalProtocolConfig,
-        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::Variant1(block_final_hash.clone()))
-    };
-
-    let payloadReceipt = client::types::JsonRpcRequestForExperimentalReceipt {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalReceiptMethod::ExperimentalReceipt,
-        params: client::types::RpcReceiptRequest {
-            receipt_id: executed_receipt_id,
-        }
-    };
-
-    let payloadExpTxStatus = client::types::JsonRpcRequestForExperimentalTxStatus {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalTxStatusMethod::ExperimentalTxStatus,
-        params: client::types::RpcTransactionStatusRequest::Variant1 {
-            tx_hash: sent_tx_hash.clone(),
-            sender_account_id: sender_account_id.clone(),
-            wait_until: client::types::TxExecutionStatus::None,
-        }
-    };
-
-    let payloadExpValidators = client::types::JsonRpcRequestForExperimentalValidatorsOrdered {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalValidatorsOrderedMethod::ExperimentalValidatorsOrdered,
-        params: client::types::RpcValidatorsOrderedRequest {
-            block_id: None
-        }
-    };
-
-    let payloadMaintenanceWindows = client::types::JsonRpcRequestForExperimentalMaintenanceWindows {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalMaintenanceWindowsMethod::ExperimentalMaintenanceWindows,
-        params: client::types::RpcMaintenanceWindowsRequest {
-            account_id: sender_account_id.clone(),
-        }
-    };
-
-    let payloadSplitStorage = client::types::JsonRpcRequestForExperimentalSplitStorageInfo {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForExperimentalSplitStorageInfoMethod::ExperimentalSplitStorageInfo,
-        params: client::types::RpcSplitStorageInfoRequest(serde_json::Map::new())
-    };
-
-    let payloadQueryAccount = client::types::JsonRpcRequestForQuery {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForQueryMethod::Query,
-        params: client::types::RpcQueryRequest::Variant8 { 
-            account_id: "test.near".parse().unwrap(),
-            request_type: client::types::RpcQueryRequestVariant8RequestType::ViewAccount,
-            finality: client::types::Finality::Final,
-        }
-    };
-
-    let payloadFunctionCall = client::types::JsonRpcRequestForQuery {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForQueryMethod::Query,
-        params: client::types::RpcQueryRequest::Variant13 { 
-            account_id: "test.near".parse().unwrap(),
-            request_type: client::types::RpcQueryRequestVariant13RequestType::CallFunction,
-            method_name: "get_greeting".to_string(),
-            args_base64: "".to_string(), //near_openapi_client::types::Base64EncodedString("eyJwYXJhbXMiOlsiYWNjX2RlcG9zaXQiLCJ0ZXN0Lm5lYXIiXX0=".to_string()),
-            finality: client::types::Finality::Final,
-        }
-    };
-
-    let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError = client_local.block(&payloadBlock).await?.into_inner();
-    println!("the_response block: {:#?}", block);
-
-    let broadcast_async: client::types::JsonRpcResponseForCryptoHashAndRpcError = client_local.broadcast_tx_async(&payloadBroadcastAsync).await?.into_inner();
-    println!("the_response broadcast_async: {:#?}", broadcast_async);
-
-    let broadcast_commit: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.broadcast_tx_commit(&payloadBroadcastCommit).await?.into_inner();
-    println!("the_response broadcast_commit: {:#?}", broadcast_commit);
-    
-    let chunk: client::types::JsonRpcResponseForRpcChunkResponseAndRpcError = client_local.chunk(&payloadChunk).await?.into_inner();
-    println!("the_response chunk: {:#?}", chunk);
-
-    let gas_price_with_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithBlock).await?.into_inner();
-    println!("the_response gas_price_with_block: {:#?}", gas_price_with_block);
-
-    let gas_price_without_block: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError = client_local.gas_price(&payloadGasPriceWithoutBlock).await?.into_inner();
-    println!("the_response gas_price_without_block: {:#?}", gas_price_without_block);
-
-    let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError = client_local.health(&payloadHealth).await?.into_inner();
-    println!("the_response health: {:#?}", health);
-
-    let light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_local.light_client_proof(&payloadLightClientExecutionProof).await?.into_inner();
-    println!("the_response light_client_execution_proof: {:#?}", light_client_execution_proof);
-
-    let next_light_client_block: client::types::JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError = client_local.next_light_client_block(&payloadNextLightClientBlock).await?.into_inner();
-    println!("the_response next_light_client_block: {:#?}", next_light_client_block);
-
-    let network_info: client::types::JsonRpcResponseForRpcNetworkInfoResponseAndRpcError = client_local.network_info(&payloadNetworkInfo).await?.into_inner();
-    println!("the_response network_info: {:#?}", network_info);
-
-    let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.send_tx(&payloadSendTx).await?.into_inner();
-    println!("the_response send_tx: {:#?}", send_tx);
-
-    let payloadTx = client::types::JsonRpcRequestForTx {
-        id: String::from("dontcare"),
-        jsonrpc: String::from("2.0"),
-        method: client::types::JsonRpcRequestForTxMethod::Tx,
-        params: client::types::RpcTransactionStatusRequest::Variant1 {
-            tx_hash: sent_tx_hash.clone(),
-            sender_account_id: sender_account_id.clone(),
-            wait_until: client::types::TxExecutionStatus::None,
-        }
-    };
-
-    let tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.tx(&payloadTx).await?.into_inner();
-    println!("the_response tx: {:#?}", tx);
-
-    let status = client_local.status(&payloadStatus).await?;
-    println!("the_response status: {:#?}", status);
-
-    let validators: client::types::JsonRpcResponseForRpcValidatorResponseAndRpcError = client_local.validators(&payloadValidators).await?.into_inner();
-    println!("the_response validators: {:#?}", validators);
-
-    let client_config: client::types::JsonRpcResponseForRpcClientConfigResponseAndRpcError = client_local.client_config(&payloadClientConfig).await?.into_inner();
-    println!("the_response client_config: {:#?}", client_config);
-
-    let experimental_changes: client::types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError = client_local.experimental_changes(&payloadStateChanges).await?.into_inner();
-    println!("the_response experimental_changes: {:#?}", experimental_changes);
-
-    let experimental_changes_in_block: client::types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError = client_local.experimental_changes_in_block(&payloadChangesInBlock).await?.into_inner();
-    println!("the_response experimental_changes_in_block: {:#?}", experimental_changes_in_block);
-
-    let congestion_level: client::types::JsonRpcResponseForRpcCongestionLevelResponseAndRpcError = client_local.experimental_congestion_level(&payloadCongestionLevel).await?.into_inner();
-    println!("the_response congestion_level: {:#?}", congestion_level);
-
-    let genesis_config_local: client::types::JsonRpcResponseForGenesisConfigAndRpcError = client_local.experimental_genesis_config(&payloadGenesisConfig).await?.into_inner();
-    println!("the_response genesis_config_local: {:#?}", genesis_config_local);
-
-    let experimental_light_client_execution_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client_local.experimental_light_client_proof(&payloadExpLightClientExecutionProof).await?.into_inner();
-    println!("the_response experimental_light_client_execution_proof: {:#?}", experimental_light_client_execution_proof);
-
-    let experimental_next_light_client_block: client::types::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError = client_local.experimental_light_client_block_proof(&payloadExpLightClientBlock).await?.into_inner();
-    println!("the_response experimental_next_light_client_block: {:#?}", experimental_next_light_client_block);
-
-    let experimental_protocol_config: client::types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError = client_local.experimental_protocol_config(&payloadProtocolConfig).await?.into_inner();
-    println!("the_response experimental_protocol_config: {:#?}", experimental_protocol_config);
-
-    let experimental_receipt: client::types::JsonRpcResponseForRpcReceiptResponseAndRpcError = client_local.experimental_receipt(&payloadReceipt).await?.into_inner();
-    println!("the_response experimental_receipt: {:#?}", experimental_receipt);
-
-    let experimental_tx_status: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client_local.experimental_tx_status(&payloadExpTxStatus).await?.into_inner();
-    println!("the_response experimental_tx_status: {:#?}", experimental_tx_status);
-
-    let experimental_validators: client::types::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError = client_local.experimental_validators_ordered(&payloadExpValidators).await?.into_inner();
-    println!("the_response experimental_validators: {:#?}", experimental_validators);
-
-    // TODO: setup maintenance windows in the sandbox and test it locally
-    let experimental_maintenance_windows: client::types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError = client_remote.experimental_maintenance_windows(&payloadMaintenanceWindows).await?.into_inner();
-    println!("the_response experimental_maintenance_windows: {:#?}", experimental_maintenance_windows);
-
-    let experimental_split_storage: client::types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError = client_local.experimental_split_storage_info(&payloadSplitStorage).await?.into_inner();
-    println!("the_response experimental_split_storage: {:#?}", experimental_split_storage);
-
-    let query_account: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local.query(&payloadQueryAccount).await?.into_inner();
-    println!("the_response query_account: {:#?}", query_account);
-
-    let function_call: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local.query(&payloadFunctionCall).await?.into_inner();
-    println!("the_response function_call: {:#?}", function_call);
-
-    Ok(())
+    Ok((sender_account_id, block_final_hash, base64_signed_tx, sent_tx_hash, executed_receipt_id))
 }
 
-async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child), Box<dyn Error>> {
+async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>> {
     let mut home_dir = std::env::temp_dir();
     home_dir.push("test-sandboxxx");
 
@@ -503,5 +626,9 @@ async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child), Box<dyn Er
     validator_key.push("validator_key.json");
     let signer = InMemorySigner::from_file(&validator_key)?;
 
-    Ok((signer, child))
+
+    let client_local = Client::new(NEAR_RPC_URL_LOCAL);
+    let client_remote = Client::new(NEAR_RPC_URL_REMOTE);
+
+    Ok((signer, child, client_local, client_remote))
 }
