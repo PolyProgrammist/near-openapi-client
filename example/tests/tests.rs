@@ -6,7 +6,7 @@ use near_primitives::transaction::{Action, Transaction, TransactionV0, TransferA
 use std::error::Error;
 use tokio::time::{sleep, Duration};
 
-const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
+const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3040";
 const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 
 #[tokio::test]
@@ -1003,9 +1003,9 @@ async fn prepare_blockchain(
 async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
 {
     let mut home_dir = std::env::temp_dir();
-    home_dir.push("node_dir");
+    home_dir.push("mydir");
 
-    let rpc_port: u16 = 3030;
+    let rpc_port: u16 = 3040;
     let net_port: u16 = 3031;
 
     near_sandbox_utils::init(&home_dir)?
