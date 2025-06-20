@@ -16,6 +16,8 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
         prepare_blockchain(&signer, client_local.clone()).await?;
 
     test_block(&client_local, block_final_hash.clone()).await?;
+    test_status(&client_local).await?;
+
     test_broadcast_async(&client_local, base64_signed_tx.clone()).await?;
     test_broadcast_commit(&client_local, base64_signed_tx.clone()).await?;
     test_chunk(&client_local, block_final_hash.clone()).await?;
@@ -1003,7 +1005,7 @@ async fn prepare_blockchain(
 async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
 {
     let mut home_dir = std::env::temp_dir();
-    home_dir.push("mydir");
+    home_dir.push("node_dir");
 
     let rpc_port: u16 = 3040;
     let net_port: u16 = 3031;
@@ -1015,7 +1017,7 @@ async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Cli
 
     let child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, "master/b57299a7a8558d4a6813f51c2512c057289e70e2")?;
 
-    sleep(Duration::from_secs(2)).await;
+    sleep(Duration::from_secs(100)).await;
 
     let mut validator_key = home_dir.clone();
     validator_key.push("validator_key.json");
