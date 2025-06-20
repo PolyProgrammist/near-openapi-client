@@ -835,7 +835,7 @@ async fn test_function_call(
         if let client::types::RpcQueryResponse::Variant3 { result, .. } = result {
             assert_eq!(
                 result.len(),
-                7,
+                6,
                 "Expected function call response size to be 6 bytes"
             );
         } else {
@@ -907,7 +907,9 @@ async fn prepare_blockchain(
     let function_call_action = near_primitives::transaction::Action::FunctionCall(Box::new(
         near_primitives::transaction::FunctionCallAction {
             method_name: "set_greeting".to_string(),
-            args: b"hola".to_vec(),
+            args: serde_json::to_vec(&serde_json::json!({
+                "greeting": "hola"
+            }))?,
             gas: 300_000_000_000_000,
             deposit: 0,
         },
@@ -1001,7 +1003,7 @@ async fn prepare_blockchain(
 async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
 {
     let mut home_dir = std::env::temp_dir();
-    home_dir.push("test-sandboxxx");
+    home_dir.push("node_dir");
 
     let rpc_port: u16 = 3030;
     let net_port: u16 = 3031;
