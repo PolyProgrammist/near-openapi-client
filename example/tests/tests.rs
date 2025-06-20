@@ -1017,7 +1017,7 @@ async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Cli
 
     let child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, "master/b57299a7a8558d4a6813f51c2512c057289e70e2")?;
 
-    sleep(Duration::from_secs(100)).await;
+    sleep(Duration::from_secs(2)).await;
 
     let mut validator_key = home_dir.clone();
     validator_key.push("validator_key.json");

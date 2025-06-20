@@ -3,4 +3,4 @@
 # cargo progenitor -i openapi.json -o near-openapi -n near-openapi -v 0.1.0
 # cd near-openapi && cargo fmt && cd ..
 # python3 tx.py --lib-fix
-cd example && cargo test
+cd example && cargo test -- --nocapture
