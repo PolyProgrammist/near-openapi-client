@@ -1,25 +1,14 @@
 name: Test progenitor-generated client
 on:
   pull_request:
-env:
-  RUSTFLAGS: -D warnings
 jobs:
   run-example:
     name: "Test example on progenitor-generated client"
     runs-on: ubuntu-latest
-    container:
-      image: nearprotocol/nearcore:latest
-    environment: deploy
     timeout-minutes: 5 
     steps:
       - uses: actions/checkout@v4
-      - name: Install wget
-        run: apt update && apt install -y wget
-      - uses: taiki-e/install-action@v2
-        with:
-          tool: cargo
       - name: Build and run
         run: |
-          cargo install cargo-progenitor
-          echo "hey"
+          cargo install cargo-progenitor --git https://github.com/PolyProgrammist/progenitor --branch patch_rustfmt
           ./test.sh

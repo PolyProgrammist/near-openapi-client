@@ -1,3 +1,5 @@
 openapi.json
 near-openapi
+near-openapi-types/target
+near-openapi-client/target
 example/target

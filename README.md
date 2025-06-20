@@ -4,5 +4,5 @@
 How to generate & use:
 ```
 cargo install cargo-progenitor
-./build.sh
+./test.sh
 ```
