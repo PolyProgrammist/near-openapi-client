@@ -2,7 +2,7 @@
 name = "near-openapi-types"
 version = "0.1.0"
 edition = "2021"
-license = "SPECIFY A LICENSE BEFORE PUBLISHING"
+license = "MIT OR Apache-2.0"
 description = "Types for progenitor-generated client of NEAR JSON RPC API"
 
 [dependencies]
