@@ -17,7 +17,7 @@ generated_client_checksum=$(md5sum near-openapi-client/Cargo.toml near-openapi-c
 generated_types_checksum=$(md5sum near-openapi-types/Cargo.toml near-openapi-types/src/lib.rs | md5sum | awk '{print $1}')
 
 if [ "$repo_client_checksum" != "$generated_client_checksum" ] || [ "$repo_types_checksum" != "$generated_types_checksum" ]; then
-    echo "The crates are not up to date. Please run 'cargo progenitor' to update it."
+    echo "The crates are not up to date. Please run './generate.sh' to update it."
     exit 1
 else
     echo "The crates are up to date."

@@ -7,7 +7,7 @@ use std::error::Error;
 use tokio::time::{sleep, Duration};
 
 const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3040";
-const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
+const NEAR_RPC_URL_REMOTE: &str = "http://127.0.0.1:3040";
 
 #[tokio::test]
 async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
@@ -1005,7 +1005,7 @@ async fn prepare_blockchain(
 async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
 {
     let mut home_dir = std::env::temp_dir();
-    home_dir.push("node_dir");
+    home_dir.push("test_node");
 
     let rpc_port: u16 = 3040;
     let net_port: u16 = 3031;
