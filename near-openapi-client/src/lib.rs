@@ -690,11 +690,6 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        if let Some(body) = request.body() {
-            let body_bytes = body.as_bytes().unwrap_or(b"<non-bytes>");
-            println!("JSON body: {}", String::from_utf8_lossy(body_bytes));
-        }
-        // println!("Gas price request: {:?}", request.json());
         let info = OperationInfo {
             operation_id: "gas_price",
         };
