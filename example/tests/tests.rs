@@ -7,7 +7,7 @@ use std::error::Error;
 use tokio::time::{sleep, Duration};
 
 const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3040";
-const NEAR_RPC_URL_REMOTE: &str = "http://127.0.0.1:3040";
+const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 
 #[tokio::test]
 async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
@@ -1019,7 +1019,7 @@ async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Cli
 
     let child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, version)?;
 
-    sleep(Duration::from_secs(2)).await;
+    sleep(Duration::from_secs(5)).await;
 
     let mut validator_key = home_dir.clone();
     validator_key.push("validator_key.json");
