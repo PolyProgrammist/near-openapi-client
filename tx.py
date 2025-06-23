@@ -109,18 +109,28 @@ pub mod types {"""
     cargo_toml = all_cargo_toml_file.read()
     all_cargo_toml_file.close()
     
+    cargo_toml = re.sub('\[workspace\]', '', cargo_toml)
+    
     client_cargo_toml = re.sub('near-openapi', 'near-openapi-client', cargo_toml)
+    client_cargo_toml = re.sub('license = "SPECIFY A LICENSE BEFORE PUBLISHING"', """license = "MIT OR Apache-2.0"
+repository = "https://github.com/polyprogrammist/near-openapi-client"
+description = "Progenitor-generated client of NEAR JSON RPC API"
+""", client_cargo_toml)
     client_cargo_toml += 'near-openapi-types = { path = "../near-openapi-types" }\n'
     types_cargo_toml = re.sub('near-openapi', 'near-openapi-types', cargo_toml)
+    types_cargo_toml = re.sub('license = "SPECIFY A LICENSE BEFORE PUBLISHING"', """license = "MIT OR Apache-2.0"
+repository = "https://github.com/polyprogrammist/near-openapi-client"
+description = "Types for progenitor-generated client of NEAR JSON RPC API"
+""", types_cargo_toml)
     types_cargo_toml += 'near-account-id = { version = "1.1.1", features = ["serde"] }\n'
     
     client_cargo_toml_file = open('./near-openapi-client/Cargo.toml', 'w')
     client_cargo_toml_file.write(client_cargo_toml)
     client_cargo_toml_file.close()
     
-    client_cargo_toml_file = open('./near-openapi-types/Cargo.toml', 'w')
-    client_cargo_toml_file.write(types_cargo_toml)
-    client_cargo_toml_file.close()
+    types_cargo_toml_file = open('./near-openapi-types/Cargo.toml', 'w')
+    types_cargo_toml_file.write(types_cargo_toml)
+    types_cargo_toml_file.close()
     
     print('lib fixed')
 
