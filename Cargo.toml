@@ -10,4 +10,4 @@ resolver = "2"
 
 [workspace.dependencies]
 near-openapi-client = { path = "near-openapi-client" }
-near-openapi-types = { path = "near-openapi-types" }
+near-openapi-types = { path = "near-openapi-types", version = "0.2.1" }
