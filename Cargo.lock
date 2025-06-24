@@ -448,7 +448,7 @@ dependencies = [
 
 [[package]]
 name = "near-openapi-client"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "bytes",
  "chrono",
@@ -463,7 +463,7 @@ dependencies = [
 
 [[package]]
 name = "near-openapi-types"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "bytes",
  "chrono",
