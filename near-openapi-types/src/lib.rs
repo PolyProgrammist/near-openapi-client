@@ -2,8 +2,7 @@
 use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
 #[allow(unused_imports)]
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
-
-    pub use near_account_id::AccountId;
+pub use near_account_id::AccountId;
     #[doc = r" Error types."]
     pub mod error {
         #[doc = r" Error from a `TryFrom` or `FromStr` implementation."]
