@@ -1371,8 +1371,6 @@ dependencies = [
 [[package]]
 name = "near-openapi-client"
 version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2386a1c49d9ceebe9dea0c71e080e3a31efa24b8839b4057da1917a923d55a76"
 dependencies = [
  "bytes",
  "chrono",
@@ -1387,9 +1385,7 @@ dependencies = [
 
 [[package]]
 name = "near-openapi-types"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60bb4d0c0f1daea2bfc7243c61ab6ab12bd929761a7f99fcb1a2af609f890744"
+version = "0.1.1"
 dependencies = [
  "bytes",
  "chrono",

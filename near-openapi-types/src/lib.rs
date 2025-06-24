@@ -2,9 +2,7 @@
 use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
 #[allow(unused_imports)]
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
-#[doc = r" Types used as operation parameters and responses."]
-#[allow(clippy::all)]
-pub mod types {
+
     pub use near_account_id::AccountId;
     #[doc = r" Error types."]
     pub mod error {
@@ -26840,4 +26838,3 @@ pub mod types {
             super::TxExecutionStatus::ExecutedOptimistic
         }
     }
-}

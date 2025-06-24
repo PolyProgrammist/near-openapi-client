@@ -2,9 +2,10 @@
 name = "example"
 version = "0.1.0"
 edition = "2021"
+publish = false
 
 [dependencies]
-near-openapi-client = "0.1.1"
+near-openapi-client = { path = "../near-openapi-client" }
 reqwest = "0.12.12"
 serde = "1.0.218"
 serde_json = "1.0.139"
