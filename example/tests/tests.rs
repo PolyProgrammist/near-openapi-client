@@ -12,7 +12,7 @@ const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 #[tokio::test]
 async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
     let (signer, mut sandbox_node, client_local, client_remote) = prepare_sandbox().await.unwrap();
-    let (sender_account_id, block_final_hash, base64_signed_tx, sent_tx_hash, executed_receipt_id) =
+    let (sender_account_id, block_final_hash, base64_signed_tx, sent_tx_hash, executed_receipt_id, later_block_hash) =
         prepare_blockchain(&signer, client_local.clone()).await?;
 
     test_block(&client_local, block_final_hash.clone()).await?;
@@ -26,7 +26,7 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
     test_health(&client_local).await?;
     test_light_client_proof(
         &client_local,
-        block_final_hash.clone(),
+        later_block_hash.clone(),
         sender_account_id.clone(),
         sent_tx_hash.clone(),
     )
@@ -48,7 +48,7 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
     test_experimental_genesis_config(&client_local).await?;
     test_experimental_light_client_proof(
         &client_local,
-        block_final_hash.clone(),
+        later_block_hash.clone(),
         sender_account_id.clone(),
         sent_tx_hash.clone(),
     )
@@ -269,10 +269,9 @@ async fn test_light_client_proof(
     };
 
     let light_client_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client.light_client_proof(&payload_light_client_proof).await?.into_inner();
-    assert!(matches!(light_client_proof, client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError::Variant0 { result: _, .. }));
-
     println!("the_response light_client_proof: {:#?}", light_client_proof);
 
+    assert!(matches!(light_client_proof, client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError::Variant0 { result: _, .. }));
     Ok(())
 }
 
@@ -860,6 +859,7 @@ async fn prepare_blockchain(
         String,
         CryptoHash,
         CryptoHash,
+        CryptoHash,
     ),
     Box<dyn Error>,
 > {
@@ -993,31 +993,48 @@ async fn prepare_blockchain(
         return Err("final block is not in expected format".into());
     }
 
+    sleep(Duration::from_secs(2)).await;
+
+    let later_block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError =
+        client_local.block(&payload_block_final).await?.into_inner();
+    let later_block_hash: CryptoHash;
+    if let client::types::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 {
+        result, ..
+    } = later_block
+    {
+        later_block_hash = result.header.hash;
+    } else {
+        return Err("final block is not in expected format".into());
+    }
+
     Ok((
         sender_account_id,
         block_final_hash,
         base64_signed_tx,
         sent_tx_hash,
         executed_receipt_id,
+        later_block_hash,
     ))
 }
 
 async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
 {
     let mut home_dir = std::env::temp_dir();
-    home_dir.push("node_dir");
+    home_dir.push("test_node");
 
     let rpc_port: u16 = 3040;
     let net_port: u16 = 3031;
 
-    near_sandbox_utils::init(&home_dir)?
+    let version = "master/b57299a7a8558d4a6813f51c2512c057289e70e2";
+
+    near_sandbox_utils::init_with_version(&home_dir, version)?
         .wait_with_output()
         .await
         .unwrap();
 
-    let child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, "master/b57299a7a8558d4a6813f51c2512c057289e70e2")?;
+    let child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, version)?;
 
-    sleep(Duration::from_secs(2)).await;
+    sleep(Duration::from_secs(3)).await;
 
     let mut validator_key = home_dir.clone();
     validator_key.push("validator_key.json");

@@ -2,14 +2,14 @@ use near_openapi_client as client;
 use std::error::Error;
 use tokio::time::{sleep, Duration};
 
-const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3030";
+const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3050";
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     let mut home_dir = std::env::temp_dir();
-    home_dir.push("test-sandboxxx");
+    home_dir.push("main_example");
 
-    let rpc_port: u16 = 3030;
+    let rpc_port: u16 = 3050;
     let net_port: u16 = 3031;
 
     near_sandbox_utils::init(&home_dir)?

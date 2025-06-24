@@ -11,4 +11,5 @@ jobs:
       - name: Build and run
         run: |
           cargo install cargo-progenitor --git https://github.com/PolyProgrammist/progenitor --branch patch_rustfmt
-          ./test.sh
+          ./generate.sh
+          cd example && cargo test -- --nocapture
