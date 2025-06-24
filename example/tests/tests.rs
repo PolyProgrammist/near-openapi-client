@@ -90,7 +90,7 @@ async fn test_block(client: &Client, block_hash: CryptoHash) -> Result<(), Box<d
         client::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
-    println!("the_response block: {:#?}", block);
+    println!("response for block: {:#?}", block);
 
     Ok(())
 }
@@ -120,7 +120,7 @@ async fn test_broadcast_async(
         client::JsonRpcResponseForCryptoHashAndRpcError::Variant0 { result: _, .. }
     ));
 
-    println!("the_response broadcast_async: {:#?}", broadcast_async);
+    println!("response for broadcast_async: {:#?}", broadcast_async);
 
     Ok(())
 }
@@ -154,7 +154,7 @@ async fn test_broadcast_commit(
         }
     ));
 
-    println!("the_response broadcast_commit: {:#?}", broadcast_commit);
+    println!("response for broadcast_commit: {:#?}", broadcast_commit);
 
     Ok(())
 }
@@ -177,7 +177,7 @@ async fn test_chunk(client: &Client, block_hash: CryptoHash) -> Result<(), Box<d
         client::JsonRpcResponseForRpcChunkResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
-    println!("the_response chunk: {:#?}", chunk);
+    println!("response for chunk: {:#?}", chunk);
 
     Ok(())
 }
@@ -202,7 +202,7 @@ async fn test_gas_price_with_block(
         client::JsonRpcResponseForRpcGasPriceResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
-    println!("the_response gas_price with block: {:#?}", gas_price);
+    println!("response for gas_price with block: {:#?}", gas_price);
 
     Ok(())
 }
@@ -222,7 +222,7 @@ async fn test_gas_price_without_block(client: &Client) -> Result<(), Box<dyn Err
         client::JsonRpcResponseForRpcGasPriceResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
-    println!("the_response gas_price without block: {:#?}", gas_price);
+    println!("response for gas_price without block: {:#?}", gas_price);
 
     Ok(())
 }
@@ -245,7 +245,7 @@ async fn test_health(client: &Client) -> Result<(), Box<dyn Error>> {
         }
     ));
 
-    println!("the_response health: {:#?}", health);
+    println!("response for health: {:#?}", health);
 
     Ok(())
 }
@@ -269,7 +269,7 @@ async fn test_light_client_proof(
     };
 
     let light_client_proof: client::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client.light_client_proof(&payload_light_client_proof).await?.into_inner();
-    println!("the_response light_client_proof: {:#?}", light_client_proof);
+    println!("response for light_client_proof: {:#?}", light_client_proof);
 
     assert!(matches!(light_client_proof, client::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError::Variant0 { result: _, .. }));
     Ok(())
@@ -298,7 +298,7 @@ async fn test_next_light_client_block(
     ));
 
     println!(
-        "the_response next_light_client_block: {:#?}",
+        "response for next_light_client_block: {:#?}",
         next_light_client_block
     );
 
@@ -325,7 +325,7 @@ async fn test_network_info(client: &Client) -> Result<(), Box<dyn Error>> {
         }
     ));
 
-    println!("the_response network_info: {:#?}", network_info);
+    println!("response for network_info: {:#?}", network_info);
 
     Ok(())
 }
@@ -353,7 +353,7 @@ async fn test_send_tx(client: &Client, base64_signed_tx: String) -> Result<(), B
         }
     ));
 
-    println!("the_response send_tx: {:#?}", send_tx);
+    println!("response for send_tx: {:#?}", send_tx);
 
     Ok(())
 }
@@ -373,7 +373,7 @@ async fn test_status(client: &Client) -> Result<(), Box<dyn Error>> {
         client::JsonRpcResponseForRpcStatusResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
-    println!("the_response status: {:#?}", status);
+    println!("response for status: {:#?}", status);
 
     Ok(())
 }
@@ -396,7 +396,7 @@ async fn test_validators(client: &Client) -> Result<(), Box<dyn Error>> {
         }
     ));
 
-    println!("the_response validators: {:#?}", validators);
+    println!("response for validators: {:#?}", validators);
 
     Ok(())
 }
@@ -421,7 +421,7 @@ async fn test_client_config(client: &Client) -> Result<(), Box<dyn Error>> {
         }
     ));
 
-    println!("the_response client_config: {:#?}", client_config);
+    println!("response for client_config: {:#?}", client_config);
 
     Ok(())
 }
@@ -460,7 +460,7 @@ async fn test_experimental_changes(
     }
 
     println!(
-        "the_response experimental_changes: {:#?}",
+        "response for experimental_changes: {:#?}",
         experimental_changes
     );
 
@@ -485,7 +485,7 @@ async fn test_experimental_changes_in_block(
     }
 
     println!(
-        "the_response experimental_changes_in_block: {:#?}",
+        "response for experimental_changes_in_block: {:#?}",
         experimental_changes_in_block
     );
 
@@ -519,7 +519,7 @@ async fn test_experimental_congestion_level(
         }
     ));
 
-    println!("the_response congestion_level: {:#?}", congestion_level);
+    println!("response for congestion_level: {:#?}", congestion_level);
 
     Ok(())
 }
@@ -541,7 +541,7 @@ async fn test_experimental_genesis_config(client: &Client) -> Result<(), Box<dyn
         client::JsonRpcResponseForGenesisConfigAndRpcError::Variant0 { result: _, .. }
     ));
 
-    println!("the_response genesis_config: {:#?}", genesis_config);
+    println!("response for genesis_config: {:#?}", genesis_config);
 
     Ok(())
 }
@@ -568,7 +568,7 @@ async fn test_experimental_light_client_proof(
     assert!(matches!(exp_light_client_proof, client::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError::Variant0 { result: _, .. }));
 
     println!(
-        "the_response exp_light_client_proof: {:#?}",
+        "response for exp_light_client_proof: {:#?}",
         exp_light_client_proof
     );
 
@@ -599,7 +599,7 @@ async fn test_experimental_light_client_block(
     ));
 
     println!(
-        "the_response exp_light_client_block: {:#?}",
+        "response for exp_light_client_block: {:#?}",
         exp_light_client_block
     );
 
@@ -630,7 +630,7 @@ async fn test_experimental_protocol_config(
         }
     ));
 
-    println!("the_response protocol_config: {:#?}", protocol_config);
+    println!("response for protocol_config: {:#?}", protocol_config);
 
     Ok(())
 }
@@ -657,7 +657,7 @@ async fn test_experimental_receipt(
         client::JsonRpcResponseForRpcReceiptResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
-    println!("the_response receipt: {:#?}", receipt);
+    println!("response for receipt: {:#?}", receipt);
 
     Ok(())
 }
@@ -690,7 +690,7 @@ async fn test_experimental_tx_status(
         }
     ));
 
-    println!("the_response exp_tx_status: {:#?}", exp_tx_status);
+    println!("response for exp_tx_status: {:#?}", exp_tx_status);
 
     Ok(())
 }
@@ -718,7 +718,7 @@ async fn test_experimental_validators_ordered(client: &Client) -> Result<(), Box
         }
     ));
 
-    println!("the_response exp_validators: {:#?}", exp_validators);
+    println!("response for exp_validators: {:#?}", exp_validators);
 
     Ok(())
 }
@@ -750,7 +750,7 @@ async fn test_experimental_maintenance_windows(
     ));
 
     println!(
-        "the_response maintenance_windows: {:#?}",
+        "response for maintenance_windows: {:#?}",
         maintenance_windows
     );
 
@@ -774,7 +774,7 @@ async fn test_experimental_split_storage_info(client: &Client) -> Result<(), Box
         }
     ));
 
-    println!("the_response split_storage_info: {:#?}", split_storage_info);
+    println!("response for split_storage_info: {:#?}", split_storage_info);
 
     Ok(())
 }
@@ -801,7 +801,7 @@ async fn test_query_account(
         client::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
-    println!("the_response query_account: {:#?}", query_account);
+    println!("response for query_account: {:#?}", query_account);
 
     Ok(())
 }
@@ -844,7 +844,7 @@ async fn test_function_call(
         }
     }
 
-    println!("the_response function_call: {:#?}", function_call);
+    println!("response for function_call: {:#?}", function_call);
 
     Ok(())
 }
@@ -881,7 +881,7 @@ async fn prepare_blockchain(
         .query(&payload_query_access_key)
         .await?
         .into_inner();
-    println!("the_response access_key: {:#?}", access_key);
+    println!("response for access_key: {:#?}", access_key);
 
     let access_key_block_hash: CryptoHash;
     let access_key_nonce: u64;
@@ -949,7 +949,7 @@ async fn prepare_blockchain(
 
     let send_tx: client::JsonRpcResponseForRpcTransactionResponseAndRpcError =
         client_local.send_tx(&payload_send_tx).await?.into_inner();
-    println!("the_response send_tx: {:#?}", send_tx);
+    println!("response for send_tx: {:#?}", send_tx);
 
     let sent_tx_hash: CryptoHash;
     let executed_receipt_id: CryptoHash;
@@ -982,7 +982,7 @@ async fn prepare_blockchain(
 
     let block_final: client::JsonRpcResponseForRpcBlockResponseAndRpcError =
         client_local.block(&payload_block_final).await?.into_inner();
-    println!("the_response block_final: {:#?}", block_final);
+    println!("response for block_final: {:#?}", block_final);
     let block_final_hash: CryptoHash;
     if let client::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 {
         result, ..

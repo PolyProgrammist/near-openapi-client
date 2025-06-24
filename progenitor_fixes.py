@@ -133,6 +133,3 @@ description = "Types for progenitor-generated client of NEAR JSON RPC API"
     types_cargo_toml_file.close()
     
     print('lib fixed')
-
-
-# cd testokplain && cargo run > transaction.json && cd ../progenitor && python3 tx.py && cargo progenitor -i ../testokplain/transaction.json -o keeper -n keeper -v 0.1.0 && python3 tx.py && cd user && cargo run && cd ../..

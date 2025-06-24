@@ -32,7 +32,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let block_final: client::JsonRpcResponseForRpcBlockResponseAndRpcError =
         client_local.block(&payload_block_final).await?.into_inner();
-    println!("the_response block_final: {:#?}", block_final);
+    println!("response for block_final: {:#?}", block_final);
 
     child.kill().await?;
 
