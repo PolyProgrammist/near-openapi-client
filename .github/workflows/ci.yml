@@ -10,4 +10,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build and run
         run: |
+          cargo install cargo-progenitor --git https://github.com/PolyProgrammist/progenitor --branch patch_rustfmt
+          ./generate.sh
           cd example && cargo test -- --nocapture
