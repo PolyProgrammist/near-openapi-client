@@ -116,7 +116,7 @@ pub mod types {"""
 repository = "https://github.com/polyprogrammist/near-openapi-client"
 description = "Progenitor-generated client of NEAR JSON RPC API"
 """, client_cargo_toml)
-    client_cargo_toml += 'near-openapi-types = { path = "../near-openapi-types" }\n'
+    client_cargo_toml += 'near-openapi-types.workspace = true\n'
     types_cargo_toml = re.sub('near-openapi', 'near-openapi-types', cargo_toml)
     types_cargo_toml = re.sub('license = "SPECIFY A LICENSE BEFORE PUBLISHING"', """license = "MIT OR Apache-2.0"
 repository = "https://github.com/polyprogrammist/near-openapi-client"
