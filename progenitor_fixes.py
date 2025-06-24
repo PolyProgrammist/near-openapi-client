@@ -82,7 +82,7 @@ pub mod types {"""
     types = lib_rs[types_index:client_index]
     client = lib_rs[client_index:]
 
-    types = types_start + '\n    pub use near_account_id::AccountId;' + types[len(types_start):]
+    types = 'pub use near_account_id::AccountId;' + types[len(types_start):-2]
     account_id_start = types.find('#[doc = "NEAR Account Identifier')
     account_id_validity_start = types.find('#[doc = "`AccountIdValidityRulesVersion`"]')
     types = types[:account_id_start] + types[account_id_validity_start:]
@@ -90,7 +90,7 @@ pub mod types {"""
     types_lib_rs = dependencies + types
     client_lib_rs = dependencies + client
     
-    client_lib_rs = 'pub use near_openapi_types::types as types;\n' + client_lib_rs
+    client_lib_rs = 'pub use near_openapi_types::*;\nuse near_openapi_types as types;\n' + client_lib_rs
     client_lib_rs = re.sub('"{}/\w*', '"{}/', client_lib_rs)
 
     if not os.path.isdir('./near-openapi-client/src'):
@@ -133,6 +133,3 @@ description = "Types for progenitor-generated client of NEAR JSON RPC API"
     types_cargo_toml_file.close()
     
     print('lib fixed')
-
-
-# cd testokplain && cargo run > transaction.json && cd ../progenitor && python3 tx.py && cargo progenitor -i ../testokplain/transaction.json -o keeper -n keeper -v 0.1.0 && python3 tx.py && cd user && cargo run && cd ../..
