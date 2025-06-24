@@ -4,11 +4,9 @@ set -e
 repo_client_checksum=$(md5sum near-openapi-client/Cargo.toml near-openapi-client/src/lib.rs | md5sum | awk '{print $1}')
 repo_types_checksum=$(md5sum near-openapi-types/Cargo.toml near-openapi-types/src/lib.rs | md5sum | awk '{print $1}')
 
-rm -rf near-openapi-client near-openapi-types
-
 curl https://raw.githubusercontent.com/near/nearcore/refs/heads/master/chain/jsonrpc/openapi/progenitor.json > openapi.json
 python3 progenitor_fixes.py --spec-fix
-cargo progenitor -i openapi.json -o near-openapi -n near-openapi -v 0.1.1
+cargo progenitor -i openapi.json -o near-openapi -n near-openapi -v 0.0.0
 echo "[workspace]" >> near-openapi/Cargo.toml
 cd near-openapi && cargo fmt && cd ..
 python3 progenitor_fixes.py --lib-fix

@@ -1,9 +1,9 @@
 [package]
 name = "near-openapi-types"
-version = "0.2.0"
-edition = "2021"
-license = "MIT OR Apache-2.0"
-repository = "https://github.com/polyprogrammist/near-openapi-client"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
 description = "Types for progenitor-generated client of NEAR JSON RPC API"
 
 

@@ -112,14 +112,18 @@ pub mod types {"""
     cargo_toml = re.sub('\[workspace\]', '', cargo_toml)
     
     client_cargo_toml = re.sub('near-openapi', 'near-openapi-client', cargo_toml)
-    client_cargo_toml = re.sub('license = "SPECIFY A LICENSE BEFORE PUBLISHING"', """license = "MIT OR Apache-2.0"
-repository = "https://github.com/polyprogrammist/near-openapi-client"
+    client_cargo_toml = re.sub('version = "0.0.0"\nedition = "2021"\nlicense = "SPECIFY A LICENSE BEFORE PUBLISHING"', """version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
 description = "Progenitor-generated client of NEAR JSON RPC API"
 """, client_cargo_toml)
     client_cargo_toml += 'near-openapi-types.workspace = true\n'
     types_cargo_toml = re.sub('near-openapi', 'near-openapi-types', cargo_toml)
-    types_cargo_toml = re.sub('license = "SPECIFY A LICENSE BEFORE PUBLISHING"', """license = "MIT OR Apache-2.0"
-repository = "https://github.com/polyprogrammist/near-openapi-client"
+    types_cargo_toml = re.sub('version = "0.0.0"\nedition = "2021"\nlicense = "SPECIFY A LICENSE BEFORE PUBLISHING"', """version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
 description = "Types for progenitor-generated client of NEAR JSON RPC API"
 """, types_cargo_toml)
     types_cargo_toml += 'near-account-id = { version = "1.1.1", features = ["serde"] }\n'
