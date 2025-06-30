@@ -10,6 +10,8 @@ cargo progenitor -i openapi.json -o near-openapi -n near-openapi -v 0.0.0
 echo "[workspace]" >> near-openapi/Cargo.toml
 cd near-openapi && cargo fmt && cd ..
 python3 progenitor_fixes.py --lib-fix
+cd near-openapi-client && cargo fmt && cd ..
+cd near-openapi-types && cargo fmt && cd ..
 
 generated_client_checksum=$(md5sum near-openapi-client/Cargo.toml near-openapi-client/src/lib.rs | md5sum | awk '{print $1}')
 generated_types_checksum=$(md5sum near-openapi-types/Cargo.toml near-openapi-types/src/lib.rs | md5sum | awk '{print $1}')

@@ -22,15 +22,15 @@ const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 let client_remote = client::Client::new(NEAR_RPC_URL_LOCAL);
 
 // Construct request
-let payload_block_final = client::JsonRpcRequestForBlock {
+let payload_block_final = client::types::JsonRpcRequestForBlock {
     id: String::from("dontcare"),
     jsonrpc: String::from("2.0"),
-    method: client::JsonRpcRequestForBlockMethod::Block,
-    params: client::RpcBlockRequest::Finality(client::Finality::Final),
+    method: client::types::JsonRpcRequestForBlockMethod::Block,
+    params: client::types::RpcBlockRequest::Finality(client::types::Finality::Final),
 };
 
 // Make the request, get the response
-let block_final: client::JsonRpcResponseForRpcBlockResponseAndRpcError =
+let block_final: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError =
     client_local.block(&payload_block_final).await?.into_inner();
 println!("block_final: {:#?}", block_final);
 ```

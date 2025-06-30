@@ -23,14 +23,14 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let client_local = client::Client::new(NEAR_RPC_URL_LOCAL);
 
-    let payload_block_final = client::JsonRpcRequestForBlock {
+    let payload_block_final = client::types::JsonRpcRequestForBlock {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForBlockMethod::Block,
-        params: client::RpcBlockRequest::Finality(client::Finality::Final),
+        method: client::types::JsonRpcRequestForBlockMethod::Block,
+        params: client::types::RpcBlockRequest::Finality(client::types::Finality::Final),
     };
 
-    let block_final: client::JsonRpcResponseForRpcBlockResponseAndRpcError =
+    let block_final: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError =
         client_local.block(&payload_block_final).await?.into_inner();
     println!("response for block_final: {:#?}", block_final);
 
