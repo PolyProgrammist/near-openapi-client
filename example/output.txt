@@ -1,0 +1,1896 @@
+the_response access_key: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: Variant4 {
+        block_hash: CryptoHash(
+            "AkNQhBxkHBh1HJ61JnXAH3TBB9Rcs1FmSJtz8NVpjWNs",
+        ),
+        block_height: 4697,
+        nonce: 61,
+        permission: FullAccess,
+    },
+}
+the_response send_tx: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: Variant1 {
+        final_execution_status: Final,
+        receipts_outcome: [
+            ExecutionOutcomeWithIdView {
+                block_hash: CryptoHash(
+                    "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+                ),
+                id: CryptoHash(
+                    "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                ),
+                outcome: ExecutionOutcomeView {
+                    executor_id: AccountId(
+                        "test.near",
+                    ),
+                    gas_burnt: 7739108363652,
+                    logs: [],
+                    metadata: ExecutionMetadataView {
+                        gas_profile: Some(
+                            [],
+                        ),
+                        version: 3,
+                    },
+                    receipt_ids: [],
+                    status: SuccessValue(
+                        "",
+                    ),
+                    tokens_burnt: "773910836365200000000",
+                },
+                proof: [
+                    MerklePathItem {
+                        direction: Left,
+                        hash: CryptoHash(
+                            "HPDxUcnHzQh15EPtuYihgEuWzSJ5jXdY7yfBicisRFyZ",
+                        ),
+                    },
+                ],
+            },
+        ],
+        status: SuccessValue(
+            "",
+        ),
+        transaction: SignedTransactionView {
+            actions: [
+                Transfer {
+                    deposit: "1000000000000000000000000",
+                },
+                DeployContract {
+                    code: "bgnkEmqg5xByxPugVXk7gPqLCXWioTFki3A8ijwbOaY=",
+                },
+            ],
+            hash: CryptoHash(
+                "AsfJPVjVso21cXrthayex44vaSAMAfwKoiPKbbVxU5gT",
+            ),
+            nonce: 62,
+            priority_fee: 0,
+            public_key: PublicKey(
+                "ed25519:3wWfAcRoeNPc2CrfKTXW6zguUETdKyDHFrEqWNTsvHKz",
+            ),
+            receiver_id: AccountId(
+                "test.near",
+            ),
+            signature: Signature(
+                "ed25519:mrqyPh5CT4eNChoKr2Vv6AwDXVxUvTyJXX3qQSWgk87EKZ8jnAt5722duDkLF61AcCBQug1Ly9vdeJHWWiBHh9X",
+            ),
+            signer_id: AccountId(
+                "test.near",
+            ),
+        },
+        transaction_outcome: ExecutionOutcomeWithIdView {
+            block_hash: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+            id: CryptoHash(
+                "AsfJPVjVso21cXrthayex44vaSAMAfwKoiPKbbVxU5gT",
+            ),
+            outcome: ExecutionOutcomeView {
+                executor_id: AccountId(
+                    "test.near",
+                ),
+                gas_burnt: 1181448527967,
+                logs: [],
+                metadata: ExecutionMetadataView {
+                    gas_profile: None,
+                    version: 1,
+                },
+                receipt_ids: [
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ],
+                status: SuccessReceiptId(
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ),
+                tokens_burnt: "118144852796700000000",
+            },
+            proof: [
+                MerklePathItem {
+                    direction: Right,
+                    hash: CryptoHash(
+                        "7dfZRUXK2srxKG43XomEhbjvK628UQj7hMFrUeuVSnxG",
+                    ),
+                },
+            ],
+        },
+    },
+}
+the_response block_final: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcBlockResponse {
+        author: AccountId(
+            "test.near",
+        ),
+        chunks: [
+            ChunkHeaderView {
+                balance_burnt: "892055689161900000000",
+                bandwidth_requests: Some(
+                    V1(
+                        BandwidthRequestsV1 {
+                            requests: [],
+                        },
+                    ),
+                ),
+                chunk_hash: CryptoHash(
+                    "HE6Suk3JoCCBc5uvxS98be5D4D8YeMMzaV5vL6BwWR9z",
+                ),
+                congestion_info: Some(
+                    CongestionInfoView {
+                        allowed_shard: 0,
+                        buffered_receipts_gas: "0",
+                        delayed_receipts_gas: "0",
+                        receipt_bytes: 0,
+                    },
+                ),
+                encoded_length: 8,
+                encoded_merkle_root: CryptoHash(
+                    "79Bt7ivt9Qhp3c6dJYnueaTyPVweYxZRpQHASRRAiyuy",
+                ),
+                gas_limit: 1000000000000000,
+                gas_used: 8920556891619,
+                height_created: 4702,
+                height_included: 4702,
+                outcome_root: CryptoHash(
+                    "47pBbMKfEb2rg7oN58R6R9co2174cS3FykEj849AeYNs",
+                ),
+                outgoing_receipts_root: CryptoHash(
+                    "H4Rd6SGeEBTbxkitsCdzfu9xL9HtZ2eHoPCQXUeZ6bW4",
+                ),
+                prev_block_hash: CryptoHash(
+                    "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+                ),
+                prev_state_root: CryptoHash(
+                    "8QkKr3m7cKR7MdSh5DNtR7AhBwGLfUWvr3vkXVYAkiJp",
+                ),
+                rent_paid: "0",
+                shard_id: ShardId(
+                    0,
+                ),
+                signature: Signature(
+                    "ed25519:4XrGfgyafrm1c8zvo3pwVfV7rdqDnyXZwWpwcu4ncwBtukjvCXGoGpd6W8NqgnnapNEpLbBNEACP5KwRPMMJsbyv",
+                ),
+                tx_root: CryptoHash(
+                    "11111111111111111111111111111111",
+                ),
+                validator_proposals: [],
+                validator_reward: "0",
+            },
+        ],
+        header: BlockHeaderView {
+            approvals: [
+                Some(
+                    Signature(
+                        "ed25519:2wPtdCbYy6HdsC8koQcnacB53KjnaYkXwubpvd7NgNminhwuqSZFrdD9xpvhxrSdHPpN3xK31oJyuZjC66ggaBJN",
+                    ),
+                ),
+            ],
+            block_body_hash: Some(
+                CryptoHash(
+                    "CcSknZasAtmeY3V9MdCSVzMZfTCK245vfDrc8izYzksr",
+                ),
+            ),
+            block_merkle_root: CryptoHash(
+                "BTmBm1jTqNnz4YnUkJHFDMJYA6YyNSrmNTBb5jU6oGvu",
+            ),
+            block_ordinal: Some(
+                4703,
+            ),
+            challenges_result: [],
+            challenges_root: CryptoHash(
+                "11111111111111111111111111111111",
+            ),
+            chunk_endorsements: Some(
+                [
+                    [
+                        1,
+                    ],
+                ],
+            ),
+            chunk_headers_root: CryptoHash(
+                "TQ64eaTWXv2spY3Ts5MnfzwydfzwFMiyYo3fB1utxeH",
+            ),
+            chunk_mask: [
+                true,
+            ],
+            chunk_receipts_root: CryptoHash(
+                "9ETNjrt6MkwTgSVMMbpukfxRshSD1avBUUa4R4NuqwHv",
+            ),
+            chunk_tx_root: CryptoHash(
+                "7tkzFg8RHBmMw1ncRJZCCZAizgq4rwCftTKYLce8RU8t",
+            ),
+            chunks_included: 1,
+            epoch_id: CryptoHash(
+                "6ri2vhUc15bKjCA7qy7b76RsoGaD3P4ZjAUy4zTda6Vk",
+            ),
+            epoch_sync_data_hash: None,
+            gas_price: "100000000",
+            hash: CryptoHash(
+                "Hxvj4qBvkhzEuXGKWypjySYzwAkkNcBkdtbaKHU3x1ex",
+            ),
+            height: 4702,
+            last_ds_final_block: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+            last_final_block: CryptoHash(
+                "CQynAfGTjf6kpTUE5MHwhy4zU3ZC15hRiX1YwVJyT5ZW",
+            ),
+            latest_protocol_version: 78,
+            next_bp_hash: CryptoHash(
+                "7YmcTEaQeSRNcaqmsEKrJKRZrjDLngZxaoZqQpt4WDCd",
+            ),
+            next_epoch_id: CryptoHash(
+                "5rqnNcGV5YdajS5XPc5SpXeNHL7RpytNemAmuwf5qvY3",
+            ),
+            outcome_root: CryptoHash(
+                "7b7aMwCeb4sP8kKvkxU4Bk1DKXv8JXZQuEtFzUYkfD8W",
+            ),
+            prev_hash: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+            prev_height: Some(
+                4701,
+            ),
+            prev_state_root: CryptoHash(
+                "EG6t29ejSwkrDNqUhio37oYZaWYpa3LavqsG1nGRakHB",
+            ),
+            random_value: CryptoHash(
+                "EPb4EFKnmA2n8toiFLUqYSdDoCgxcmxhAGj86FymNb6g",
+            ),
+            rent_paid: "0",
+            signature: Signature(
+                "ed25519:3epGHQ5kZDJDF4YD6jxTjJjqon6HUmGWWSLEEQ7gLBBV9yK7VZaJdS4XT59BQwBdFguGLaKFuJe4fFtg2yqPyTk9",
+            ),
+            timestamp: 1749742028351256956,
+            timestamp_nanosec: "1749742028351256956",
+            total_supply: "2051888441326346036513779220439451",
+            validator_proposals: [],
+            validator_reward: "0",
+        },
+    },
+}
+the_response block: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcBlockResponse {
+        author: AccountId(
+            "test.near",
+        ),
+        chunks: [
+            ChunkHeaderView {
+                balance_burnt: "892055689161900000000",
+                bandwidth_requests: Some(
+                    V1(
+                        BandwidthRequestsV1 {
+                            requests: [],
+                        },
+                    ),
+                ),
+                chunk_hash: CryptoHash(
+                    "HE6Suk3JoCCBc5uvxS98be5D4D8YeMMzaV5vL6BwWR9z",
+                ),
+                congestion_info: Some(
+                    CongestionInfoView {
+                        allowed_shard: 0,
+                        buffered_receipts_gas: "0",
+                        delayed_receipts_gas: "0",
+                        receipt_bytes: 0,
+                    },
+                ),
+                encoded_length: 8,
+                encoded_merkle_root: CryptoHash(
+                    "79Bt7ivt9Qhp3c6dJYnueaTyPVweYxZRpQHASRRAiyuy",
+                ),
+                gas_limit: 1000000000000000,
+                gas_used: 8920556891619,
+                height_created: 4702,
+                height_included: 4702,
+                outcome_root: CryptoHash(
+                    "47pBbMKfEb2rg7oN58R6R9co2174cS3FykEj849AeYNs",
+                ),
+                outgoing_receipts_root: CryptoHash(
+                    "H4Rd6SGeEBTbxkitsCdzfu9xL9HtZ2eHoPCQXUeZ6bW4",
+                ),
+                prev_block_hash: CryptoHash(
+                    "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+                ),
+                prev_state_root: CryptoHash(
+                    "8QkKr3m7cKR7MdSh5DNtR7AhBwGLfUWvr3vkXVYAkiJp",
+                ),
+                rent_paid: "0",
+                shard_id: ShardId(
+                    0,
+                ),
+                signature: Signature(
+                    "ed25519:4XrGfgyafrm1c8zvo3pwVfV7rdqDnyXZwWpwcu4ncwBtukjvCXGoGpd6W8NqgnnapNEpLbBNEACP5KwRPMMJsbyv",
+                ),
+                tx_root: CryptoHash(
+                    "11111111111111111111111111111111",
+                ),
+                validator_proposals: [],
+                validator_reward: "0",
+            },
+        ],
+        header: BlockHeaderView {
+            approvals: [
+                Some(
+                    Signature(
+                        "ed25519:2wPtdCbYy6HdsC8koQcnacB53KjnaYkXwubpvd7NgNminhwuqSZFrdD9xpvhxrSdHPpN3xK31oJyuZjC66ggaBJN",
+                    ),
+                ),
+            ],
+            block_body_hash: Some(
+                CryptoHash(
+                    "CcSknZasAtmeY3V9MdCSVzMZfTCK245vfDrc8izYzksr",
+                ),
+            ),
+            block_merkle_root: CryptoHash(
+                "BTmBm1jTqNnz4YnUkJHFDMJYA6YyNSrmNTBb5jU6oGvu",
+            ),
+            block_ordinal: Some(
+                4703,
+            ),
+            challenges_result: [],
+            challenges_root: CryptoHash(
+                "11111111111111111111111111111111",
+            ),
+            chunk_endorsements: Some(
+                [
+                    [
+                        1,
+                    ],
+                ],
+            ),
+            chunk_headers_root: CryptoHash(
+                "TQ64eaTWXv2spY3Ts5MnfzwydfzwFMiyYo3fB1utxeH",
+            ),
+            chunk_mask: [
+                true,
+            ],
+            chunk_receipts_root: CryptoHash(
+                "9ETNjrt6MkwTgSVMMbpukfxRshSD1avBUUa4R4NuqwHv",
+            ),
+            chunk_tx_root: CryptoHash(
+                "7tkzFg8RHBmMw1ncRJZCCZAizgq4rwCftTKYLce8RU8t",
+            ),
+            chunks_included: 1,
+            epoch_id: CryptoHash(
+                "6ri2vhUc15bKjCA7qy7b76RsoGaD3P4ZjAUy4zTda6Vk",
+            ),
+            epoch_sync_data_hash: None,
+            gas_price: "100000000",
+            hash: CryptoHash(
+                "Hxvj4qBvkhzEuXGKWypjySYzwAkkNcBkdtbaKHU3x1ex",
+            ),
+            height: 4702,
+            last_ds_final_block: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+            last_final_block: CryptoHash(
+                "CQynAfGTjf6kpTUE5MHwhy4zU3ZC15hRiX1YwVJyT5ZW",
+            ),
+            latest_protocol_version: 78,
+            next_bp_hash: CryptoHash(
+                "7YmcTEaQeSRNcaqmsEKrJKRZrjDLngZxaoZqQpt4WDCd",
+            ),
+            next_epoch_id: CryptoHash(
+                "5rqnNcGV5YdajS5XPc5SpXeNHL7RpytNemAmuwf5qvY3",
+            ),
+            outcome_root: CryptoHash(
+                "7b7aMwCeb4sP8kKvkxU4Bk1DKXv8JXZQuEtFzUYkfD8W",
+            ),
+            prev_hash: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+            prev_height: Some(
+                4701,
+            ),
+            prev_state_root: CryptoHash(
+                "EG6t29ejSwkrDNqUhio37oYZaWYpa3LavqsG1nGRakHB",
+            ),
+            random_value: CryptoHash(
+                "EPb4EFKnmA2n8toiFLUqYSdDoCgxcmxhAGj86FymNb6g",
+            ),
+            rent_paid: "0",
+            signature: Signature(
+                "ed25519:3epGHQ5kZDJDF4YD6jxTjJjqon6HUmGWWSLEEQ7gLBBV9yK7VZaJdS4XT59BQwBdFguGLaKFuJe4fFtg2yqPyTk9",
+            ),
+            timestamp: 1749742028351256956,
+            timestamp_nanosec: "1749742028351256956",
+            total_supply: "2051888441326346036513779220439451",
+            validator_proposals: [],
+            validator_reward: "0",
+        },
+    },
+}
+the_response broadcast_async: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: CryptoHash(
+        "6zgh2u9DqHHiXzdy9ouTP7oGky2T4nugqzqt9wJZwNFm",
+    ),
+}
+the_response broadcast_commit: Variant1 {
+    error: RpcError {
+        cause: Some(
+            CauseRpcErrorKind {
+                subtype_0: None,
+                subtype_1: Some(
+                    Object {},
+                ),
+                subtype_2: Some(
+                    Object {},
+                ),
+            },
+        ),
+        code: -32000,
+        data: Some(
+            Object {
+                "TxExecutionError": Object {
+                    "InvalidTxError": String("Expired"),
+                },
+            },
+        ),
+        message: "Server error",
+        name: Some(
+            HandlerError,
+        ),
+    },
+    id: "dontcare",
+    jsonrpc: "2.0",
+}
+the_response chunk: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcChunkResponse {
+        author: AccountId(
+            "test.near",
+        ),
+        header: ChunkHeaderView {
+            balance_burnt: "892055689161900000000",
+            bandwidth_requests: Some(
+                V1(
+                    BandwidthRequestsV1 {
+                        requests: [],
+                    },
+                ),
+            ),
+            chunk_hash: CryptoHash(
+                "HE6Suk3JoCCBc5uvxS98be5D4D8YeMMzaV5vL6BwWR9z",
+            ),
+            congestion_info: Some(
+                CongestionInfoView {
+                    allowed_shard: 0,
+                    buffered_receipts_gas: "0",
+                    delayed_receipts_gas: "0",
+                    receipt_bytes: 0,
+                },
+            ),
+            encoded_length: 8,
+            encoded_merkle_root: CryptoHash(
+                "79Bt7ivt9Qhp3c6dJYnueaTyPVweYxZRpQHASRRAiyuy",
+            ),
+            gas_limit: 1000000000000000,
+            gas_used: 8920556891619,
+            height_created: 4702,
+            height_included: 4702,
+            outcome_root: CryptoHash(
+                "47pBbMKfEb2rg7oN58R6R9co2174cS3FykEj849AeYNs",
+            ),
+            outgoing_receipts_root: CryptoHash(
+                "H4Rd6SGeEBTbxkitsCdzfu9xL9HtZ2eHoPCQXUeZ6bW4",
+            ),
+            prev_block_hash: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+            prev_state_root: CryptoHash(
+                "8QkKr3m7cKR7MdSh5DNtR7AhBwGLfUWvr3vkXVYAkiJp",
+            ),
+            rent_paid: "0",
+            shard_id: ShardId(
+                0,
+            ),
+            signature: Signature(
+                "ed25519:4XrGfgyafrm1c8zvo3pwVfV7rdqDnyXZwWpwcu4ncwBtukjvCXGoGpd6W8NqgnnapNEpLbBNEACP5KwRPMMJsbyv",
+            ),
+            tx_root: CryptoHash(
+                "11111111111111111111111111111111",
+            ),
+            validator_proposals: [],
+            validator_reward: "0",
+        },
+        receipts: [],
+        transactions: [],
+    },
+}
+JSON body: {"id":"dontcare","jsonrpc":"2.0","method":"gas_price","params":{"block_id":"Hxvj4qBvkhzEuXGKWypjySYzwAkkNcBkdtbaKHU3x1ex"}}
+the_response gas_price_with_block: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcGasPriceResponse {
+        gas_price: "100000000",
+    },
+}
+JSON body: {"id":"dontcare","jsonrpc":"2.0","method":"gas_price","params":{}}
+the_response gas_price_without_block: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcGasPriceResponse {
+        gas_price: "100000000",
+    },
+}
+the_response health: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: None,
+}
+the_response light_client_execution_proof: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcLightClientExecutionProofResponse {
+        block_header_lite: LightClientBlockLiteView {
+            inner_lite: BlockHeaderInnerLiteView {
+                block_merkle_root: CryptoHash(
+                    "BTmBm1jTqNnz4YnUkJHFDMJYA6YyNSrmNTBb5jU6oGvu",
+                ),
+                epoch_id: CryptoHash(
+                    "6ri2vhUc15bKjCA7qy7b76RsoGaD3P4ZjAUy4zTda6Vk",
+                ),
+                height: 4702,
+                next_bp_hash: CryptoHash(
+                    "7YmcTEaQeSRNcaqmsEKrJKRZrjDLngZxaoZqQpt4WDCd",
+                ),
+                next_epoch_id: CryptoHash(
+                    "5rqnNcGV5YdajS5XPc5SpXeNHL7RpytNemAmuwf5qvY3",
+                ),
+                outcome_root: CryptoHash(
+                    "7b7aMwCeb4sP8kKvkxU4Bk1DKXv8JXZQuEtFzUYkfD8W",
+                ),
+                prev_state_root: CryptoHash(
+                    "EG6t29ejSwkrDNqUhio37oYZaWYpa3LavqsG1nGRakHB",
+                ),
+                timestamp: 1749742028351256956,
+                timestamp_nanosec: "1749742028351256956",
+            },
+            inner_rest_hash: CryptoHash(
+                "F58nGV21MPfKCN16BgJQv4KBoXMxECFYS87AUvapDpu",
+            ),
+            prev_block_hash: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+        },
+        block_proof: [],
+        outcome_proof: ExecutionOutcomeWithIdView {
+            block_hash: CryptoHash(
+                "Hxvj4qBvkhzEuXGKWypjySYzwAkkNcBkdtbaKHU3x1ex",
+            ),
+            id: CryptoHash(
+                "AsfJPVjVso21cXrthayex44vaSAMAfwKoiPKbbVxU5gT",
+            ),
+            outcome: ExecutionOutcomeView {
+                executor_id: AccountId(
+                    "test.near",
+                ),
+                gas_burnt: 1181448527967,
+                logs: [],
+                metadata: ExecutionMetadataView {
+                    gas_profile: None,
+                    version: 1,
+                },
+                receipt_ids: [
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ],
+                status: SuccessReceiptId(
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ),
+                tokens_burnt: "118144852796700000000",
+            },
+            proof: [
+                MerklePathItem {
+                    direction: Right,
+                    hash: CryptoHash(
+                        "7dfZRUXK2srxKG43XomEhbjvK628UQj7hMFrUeuVSnxG",
+                    ),
+                },
+            ],
+        },
+        outcome_root_proof: [],
+    },
+}
+the_response next_light_client_block: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcLightClientNextBlockResponse {
+        approvals_after_next: [],
+        inner_lite: None,
+        inner_rest_hash: None,
+        next_block_inner_hash: None,
+        next_bps: None,
+        prev_block_hash: None,
+    },
+}
+the_response network_info: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcNetworkInfoResponse {
+        active_peers: [],
+        known_producers: [],
+        num_active_peers: 0,
+        peer_max_count: 40,
+        received_bytes_per_sec: 0,
+        sent_bytes_per_sec: 0,
+    },
+}
+the_response send_tx: Variant1 {
+    error: RpcError {
+        cause: Some(
+            CauseRpcErrorKind {
+                subtype_0: None,
+                subtype_1: Some(
+                    Object {},
+                ),
+                subtype_2: Some(
+                    Object {},
+                ),
+            },
+        ),
+        code: -32000,
+        data: Some(
+            Object {
+                "TxExecutionError": Object {
+                    "InvalidTxError": String("Expired"),
+                },
+            },
+        ),
+        message: "Server error",
+        name: Some(
+            HandlerError,
+        ),
+    },
+    id: "dontcare",
+    jsonrpc: "2.0",
+}
+the_response tx: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: Variant1 {
+        final_execution_status: Final,
+        receipts_outcome: [
+            ExecutionOutcomeWithIdView {
+                block_hash: CryptoHash(
+                    "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+                ),
+                id: CryptoHash(
+                    "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                ),
+                outcome: ExecutionOutcomeView {
+                    executor_id: AccountId(
+                        "test.near",
+                    ),
+                    gas_burnt: 7739108363652,
+                    logs: [],
+                    metadata: ExecutionMetadataView {
+                        gas_profile: Some(
+                            [],
+                        ),
+                        version: 3,
+                    },
+                    receipt_ids: [],
+                    status: SuccessValue(
+                        "",
+                    ),
+                    tokens_burnt: "773910836365200000000",
+                },
+                proof: [
+                    MerklePathItem {
+                        direction: Left,
+                        hash: CryptoHash(
+                            "HPDxUcnHzQh15EPtuYihgEuWzSJ5jXdY7yfBicisRFyZ",
+                        ),
+                    },
+                ],
+            },
+        ],
+        status: SuccessValue(
+            "",
+        ),
+        transaction: SignedTransactionView {
+            actions: [
+                Transfer {
+                    deposit: "1000000000000000000000000",
+                },
+                DeployContract {
+                    code: "bgnkEmqg5xByxPugVXk7gPqLCXWioTFki3A8ijwbOaY=",
+                },
+            ],
+            hash: CryptoHash(
+                "AsfJPVjVso21cXrthayex44vaSAMAfwKoiPKbbVxU5gT",
+            ),
+            nonce: 62,
+            priority_fee: 0,
+            public_key: PublicKey(
+                "ed25519:3wWfAcRoeNPc2CrfKTXW6zguUETdKyDHFrEqWNTsvHKz",
+            ),
+            receiver_id: AccountId(
+                "test.near",
+            ),
+            signature: Signature(
+                "ed25519:mrqyPh5CT4eNChoKr2Vv6AwDXVxUvTyJXX3qQSWgk87EKZ8jnAt5722duDkLF61AcCBQug1Ly9vdeJHWWiBHh9X",
+            ),
+            signer_id: AccountId(
+                "test.near",
+            ),
+        },
+        transaction_outcome: ExecutionOutcomeWithIdView {
+            block_hash: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+            id: CryptoHash(
+                "AsfJPVjVso21cXrthayex44vaSAMAfwKoiPKbbVxU5gT",
+            ),
+            outcome: ExecutionOutcomeView {
+                executor_id: AccountId(
+                    "test.near",
+                ),
+                gas_burnt: 1181448527967,
+                logs: [],
+                metadata: ExecutionMetadataView {
+                    gas_profile: None,
+                    version: 1,
+                },
+                receipt_ids: [
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ],
+                status: SuccessReceiptId(
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ),
+                tokens_burnt: "118144852796700000000",
+            },
+            proof: [
+                MerklePathItem {
+                    direction: Right,
+                    hash: CryptoHash(
+                        "7dfZRUXK2srxKG43XomEhbjvK628UQj7hMFrUeuVSnxG",
+                    ),
+                },
+            ],
+        },
+    },
+}
+the_response status: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcStatusResponse {
+        chain_id: "test-chain-6bpGl",
+        detailed_debug_status: None,
+        genesis_hash: CryptoHash(
+            "C6mHStU7GYF7XsN4cFq9SKexWXPLma6jG3EzabwNyRzs",
+        ),
+        latest_protocol_version: 78,
+        node_key: Some(
+            PublicKey(
+                "ed25519:3wWfAcRoeNPc2CrfKTXW6zguUETdKyDHFrEqWNTsvHKz",
+            ),
+        ),
+        node_public_key: PublicKey(
+            "ed25519:Aje29tto4FjTfHU3KKzwHHYV7CKKxeziYXdksMXf4DR4",
+        ),
+        protocol_version: 78,
+        rpc_addr: Some(
+            "0.0.0.0:3030",
+        ),
+        sync_info: StatusSyncInfo {
+            earliest_block_hash: Some(
+                CryptoHash(
+                    "ErYv9JhvpJzzQLMzpmjjmLbmV18vAvgYhmuwmTcBdXFG",
+                ),
+            ),
+            earliest_block_height: Some(
+                1828,
+            ),
+            earliest_block_time: Some(
+                "2025-06-11T12:57:03.365588617Z",
+            ),
+            epoch_id: Some(
+                EpochId(
+                    CryptoHash(
+                        "6ri2vhUc15bKjCA7qy7b76RsoGaD3P4ZjAUy4zTda6Vk",
+                    ),
+                ),
+            ),
+            epoch_start_height: Some(
+                4681,
+            ),
+            latest_block_hash: CryptoHash(
+                "G3B7DUyzTd5nvSzxdNjcjjbe4BPy1qqyLJYUJx7xHzks",
+            ),
+            latest_block_height: 4705,
+            latest_block_time: "2025-06-12T15:27:08.971746922Z",
+            latest_state_root: CryptoHash(
+                "CYD6rNVHE1ogkatYsycdsCgHGkNgER1PBTzUMvq2sJdc",
+            ),
+            syncing: false,
+        },
+        uptime_sec: 3,
+        validator_account_id: Some(
+            AccountId(
+                "test.near",
+            ),
+        ),
+        validator_public_key: Some(
+            PublicKey(
+                "ed25519:3wWfAcRoeNPc2CrfKTXW6zguUETdKyDHFrEqWNTsvHKz",
+            ),
+        ),
+        validators: [
+            ValidatorInfo {
+                account_id: AccountId(
+                    "test.near",
+                ),
+            },
+        ],
+        version: Version {
+            build: "fc52cf2",
+            commit: "fc52cf2a8a1bea7dca0d525c5d1f3fa60fd305f6",
+            rustc_version: "1.86.0",
+            version: "trunk",
+        },
+    },
+}
+the_response validators: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcValidatorResponse {
+        current_fishermen: [],
+        current_proposals: [],
+        current_validators: [
+            CurrentEpochValidatorInfo {
+                account_id: AccountId(
+                    "test.near",
+                ),
+                is_slashed: false,
+                num_expected_blocks: 25,
+                num_expected_chunks: 25,
+                num_expected_chunks_per_shard: [
+                    25,
+                ],
+                num_expected_endorsements: 25,
+                num_expected_endorsements_per_shard: [
+                    25,
+                ],
+                num_produced_blocks: 25,
+                num_produced_chunks: 24,
+                num_produced_chunks_per_shard: [
+                    24,
+                ],
+                num_produced_endorsements: 24,
+                num_produced_endorsements_per_shard: [
+                    24,
+                ],
+                public_key: PublicKey(
+                    "ed25519:3wWfAcRoeNPc2CrfKTXW6zguUETdKyDHFrEqWNTsvHKz",
+                ),
+                shards: [
+                    ShardId(
+                        0,
+                    ),
+                ],
+                shards_endorsed: [
+                    ShardId(
+                        0,
+                    ),
+                ],
+                stake: "51660345267324044287258932669625",
+            },
+        ],
+        epoch_height: 78,
+        epoch_start_height: 4681,
+        next_fishermen: [],
+        next_validators: [
+            NextEpochValidatorInfo {
+                account_id: AccountId(
+                    "test.near",
+                ),
+                public_key: PublicKey(
+                    "ed25519:3wWfAcRoeNPc2CrfKTXW6zguUETdKyDHFrEqWNTsvHKz",
+                ),
+                shards: [
+                    ShardId(
+                        0,
+                    ),
+                ],
+                stake: "51660381073896546590215346508599",
+            },
+        ],
+        prev_epoch_kickout: [],
+    },
+}
+the_response client_config: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcClientConfigResponse {
+        archive: false,
+        block_fetch_horizon: 50,
+        block_header_fetch_horizon: 50,
+        block_production_tracking_delay: [
+            0,
+            100000000,
+        ],
+        catchup_step_period: [
+            0,
+            100000000,
+        ],
+        chain_id: "test-chain-6bpGl",
+        chunk_distribution_network: None,
+        chunk_request_retry_period: [
+            0,
+            400000000,
+        ],
+        chunk_wait_mult: [
+            1,
+            3,
+        ],
+        client_background_migration_threads: 8,
+        doomslug_step_period: [
+            0,
+            100000000,
+        ],
+        enable_multiline_logging: true,
+        enable_statistics_export: true,
+        epoch_length: 60,
+        epoch_sync: EpochSyncConfig {
+            disable_epoch_sync_for_bootstrapping: false,
+            epoch_sync_horizon: 216000,
+            ignore_epoch_sync_network_requests: false,
+            timeout_for_epoch_sync: DurationAsStdSchemaProvider {
+                nanos: 0,
+                secs: 60,
+            },
+        },
+        expected_shutdown: MutableConfigValue(
+            "null",
+        ),
+        gc: GcConfig {
+            gc_blocks_limit: 2,
+            gc_fork_clean_step: 100,
+            gc_num_epochs_to_keep: 5,
+            gc_step_period: DurationAsStdSchemaProvider {
+                nanos: 0,
+                secs: 1,
+            },
+        },
+        header_sync_expected_height_per_second: 10,
+        header_sync_initial_timeout: [
+            10,
+            0,
+        ],
+        header_sync_progress_timeout: [
+            2,
+            0,
+        ],
+        header_sync_stall_ban_timeout: [
+            120,
+            0,
+        ],
+        log_summary_period: [
+            10,
+            0,
+        ],
+        log_summary_style: Colored,
+        max_block_production_delay: [
+            0,
+            500000000,
+        ],
+        max_block_wait_delay: [
+            6,
+            0,
+        ],
+        max_gas_burnt_view: None,
+        min_block_production_delay: [
+            0,
+            120000000,
+        ],
+        min_num_peers: 3,
+        num_block_producer_seats: 50,
+        orphan_state_witness_max_size: 40000000,
+        orphan_state_witness_pool_size: 25,
+        produce_chunk_add_transactions_time_limit: "[0,200000000]",
+        produce_empty_blocks: true,
+        resharding_config: MutableConfigValue(
+            "{\"batch_size\":500000,\"batch_delay\":{\"secs\":0,\"nanos\":5000000},\"retry_delay\":{\"secs\":10,\"nanos\":0},\"initial_delay\":{\"secs\":0,\"nanos\":0},\"max_poll_time\":{\"secs\":7200,\"nanos\":0},\"catch_up_blocks\":20}",
+        ),
+        rpc_addr: Some(
+            "0.0.0.0:3030",
+        ),
+        save_latest_witnesses: false,
+        save_trie_changes: true,
+        skip_sync_wait: true,
+        state_sync: StateSyncConfig {
+            dump: None,
+            sync: None,
+        },
+        state_sync_enabled: true,
+        state_sync_external_backoff: [
+            60,
+            0,
+        ],
+        state_sync_external_timeout: [
+            60,
+            0,
+        ],
+        state_sync_p2p_timeout: [
+            10,
+            0,
+        ],
+        state_sync_retry_backoff: [
+            1,
+            0,
+        ],
+        sync_check_period: [
+            10,
+            0,
+        ],
+        sync_height_threshold: 1,
+        sync_max_block_requests: 10,
+        sync_step_period: [
+            0,
+            10000000,
+        ],
+        tracked_shards_config: AllShards,
+        transaction_pool_size_limit: Some(
+            100000000,
+        ),
+        transaction_request_handler_threads: 4,
+        trie_viewer_state_size_limit: Some(
+            50000,
+        ),
+        ttl_account_id_router: [
+            3600,
+            0,
+        ],
+        tx_routing_height_horizon: 4,
+        version: Version {
+            build: "fc52cf2",
+            commit: "fc52cf2a8a1bea7dca0d525c5d1f3fa60fd305f6",
+            rustc_version: "1.86.0",
+            version: "trunk",
+        },
+        view_client_threads: 4,
+        view_client_throttle_period: [
+            30,
+            0,
+        ],
+    },
+}
+the_response experimental_changes: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcStateChangesInBlockResponse {
+        block_hash: CryptoHash(
+            "Hxvj4qBvkhzEuXGKWypjySYzwAkkNcBkdtbaKHU3x1ex",
+        ),
+        changes: [],
+    },
+}
+the_response experimental_changes_in_block: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcStateChangesInBlockByTypeResponse {
+        block_hash: CryptoHash(
+            "Hxvj4qBvkhzEuXGKWypjySYzwAkkNcBkdtbaKHU3x1ex",
+        ),
+        changes: [],
+    },
+}
+the_response congestion_level: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcCongestionLevelResponse {
+        congestion_level: 0.0,
+    },
+}
+the_response genesis_config_local: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: GenesisConfig {
+        avg_hidden_validator_seats_per_shard: [
+            0,
+        ],
+        block_producer_kickout_threshold: 90,
+        chain_id: "test-chain-6bpGl",
+        chunk_producer_assignment_changes_limit: 5,
+        chunk_producer_kickout_threshold: 90,
+        chunk_validator_only_kickout_threshold: 80,
+        dynamic_resharding: false,
+        epoch_length: 60,
+        fishermen_threshold: "10000000000000000000000000",
+        gas_limit: 1000000000000000,
+        gas_price_adjustment_rate: [
+            1,
+            100,
+        ],
+        genesis_height: 0,
+        genesis_time: 2025-06-04T12:33:52.679193891Z,
+        max_gas_price: "10000000000000000000000",
+        max_inflation_rate: [
+            1,
+            20,
+        ],
+        max_kickout_stake_perc: 100,
+        min_gas_price: "100000000",
+        minimum_stake_divisor: 10,
+        minimum_stake_ratio: [
+            1,
+            6250,
+        ],
+        minimum_validators_per_shard: 1,
+        num_block_producer_seats: 50,
+        num_block_producer_seats_per_shard: [
+            50,
+        ],
+        num_blocks_per_year: 31536000,
+        num_chunk_only_producer_seats: 300,
+        num_chunk_producer_seats: 100,
+        num_chunk_validator_seats: 300,
+        online_max_threshold: [
+            99,
+            100,
+        ],
+        online_min_threshold: [
+            9,
+            10,
+        ],
+        protocol_reward_rate: [
+            1,
+            10,
+        ],
+        protocol_treasury_account: AccountId(
+            "test.near",
+        ),
+        protocol_upgrade_stake_threshold: [
+            4,
+            5,
+        ],
+        protocol_version: 77,
+        shard_layout: V2(
+            ShardLayoutV2 {
+                boundary_accounts: [],
+                id_to_index_map: {
+                    "0": 0,
+                },
+                index_to_id_map: {
+                    "0": ShardId(
+                        0,
+                    ),
+                },
+                shard_ids: [
+                    ShardId(
+                        0,
+                    ),
+                ],
+                shards_parent_map: None,
+                shards_split_map: None,
+                version: 0,
+            },
+        ),
+        shuffle_shard_assignment_for_chunk_producers: false,
+        target_validator_mandates_per_shard: 68,
+        total_supply: "2050000000000000000000000000000000",
+        transaction_validity_period: 100,
+        use_production_config: false,
+        validators: [
+            AccountInfo {
+                account_id: AccountId(
+                    "test.near",
+                ),
+                amount: "50000000000000000000000000000000",
+                public_key: PublicKey(
+                    "ed25519:3wWfAcRoeNPc2CrfKTXW6zguUETdKyDHFrEqWNTsvHKz",
+                ),
+            },
+        ],
+    },
+}
+the_response experimental_light_client_execution_proof: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcLightClientExecutionProofResponse {
+        block_header_lite: LightClientBlockLiteView {
+            inner_lite: BlockHeaderInnerLiteView {
+                block_merkle_root: CryptoHash(
+                    "BTmBm1jTqNnz4YnUkJHFDMJYA6YyNSrmNTBb5jU6oGvu",
+                ),
+                epoch_id: CryptoHash(
+                    "6ri2vhUc15bKjCA7qy7b76RsoGaD3P4ZjAUy4zTda6Vk",
+                ),
+                height: 4702,
+                next_bp_hash: CryptoHash(
+                    "7YmcTEaQeSRNcaqmsEKrJKRZrjDLngZxaoZqQpt4WDCd",
+                ),
+                next_epoch_id: CryptoHash(
+                    "5rqnNcGV5YdajS5XPc5SpXeNHL7RpytNemAmuwf5qvY3",
+                ),
+                outcome_root: CryptoHash(
+                    "7b7aMwCeb4sP8kKvkxU4Bk1DKXv8JXZQuEtFzUYkfD8W",
+                ),
+                prev_state_root: CryptoHash(
+                    "EG6t29ejSwkrDNqUhio37oYZaWYpa3LavqsG1nGRakHB",
+                ),
+                timestamp: 1749742028351256956,
+                timestamp_nanosec: "1749742028351256956",
+            },
+            inner_rest_hash: CryptoHash(
+                "F58nGV21MPfKCN16BgJQv4KBoXMxECFYS87AUvapDpu",
+            ),
+            prev_block_hash: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+        },
+        block_proof: [],
+        outcome_proof: ExecutionOutcomeWithIdView {
+            block_hash: CryptoHash(
+                "Hxvj4qBvkhzEuXGKWypjySYzwAkkNcBkdtbaKHU3x1ex",
+            ),
+            id: CryptoHash(
+                "AsfJPVjVso21cXrthayex44vaSAMAfwKoiPKbbVxU5gT",
+            ),
+            outcome: ExecutionOutcomeView {
+                executor_id: AccountId(
+                    "test.near",
+                ),
+                gas_burnt: 1181448527967,
+                logs: [],
+                metadata: ExecutionMetadataView {
+                    gas_profile: None,
+                    version: 1,
+                },
+                receipt_ids: [
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ],
+                status: SuccessReceiptId(
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ),
+                tokens_burnt: "118144852796700000000",
+            },
+            proof: [
+                MerklePathItem {
+                    direction: Right,
+                    hash: CryptoHash(
+                        "7dfZRUXK2srxKG43XomEhbjvK628UQj7hMFrUeuVSnxG",
+                    ),
+                },
+            ],
+        },
+        outcome_root_proof: [],
+    },
+}
+the_response experimental_next_light_client_block: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcLightClientBlockProofResponse {
+        block_header_lite: LightClientBlockLiteView {
+            inner_lite: BlockHeaderInnerLiteView {
+                block_merkle_root: CryptoHash(
+                    "BTmBm1jTqNnz4YnUkJHFDMJYA6YyNSrmNTBb5jU6oGvu",
+                ),
+                epoch_id: CryptoHash(
+                    "6ri2vhUc15bKjCA7qy7b76RsoGaD3P4ZjAUy4zTda6Vk",
+                ),
+                height: 4702,
+                next_bp_hash: CryptoHash(
+                    "7YmcTEaQeSRNcaqmsEKrJKRZrjDLngZxaoZqQpt4WDCd",
+                ),
+                next_epoch_id: CryptoHash(
+                    "5rqnNcGV5YdajS5XPc5SpXeNHL7RpytNemAmuwf5qvY3",
+                ),
+                outcome_root: CryptoHash(
+                    "7b7aMwCeb4sP8kKvkxU4Bk1DKXv8JXZQuEtFzUYkfD8W",
+                ),
+                prev_state_root: CryptoHash(
+                    "EG6t29ejSwkrDNqUhio37oYZaWYpa3LavqsG1nGRakHB",
+                ),
+                timestamp: 1749742028351256956,
+                timestamp_nanosec: "1749742028351256956",
+            },
+            inner_rest_hash: CryptoHash(
+                "F58nGV21MPfKCN16BgJQv4KBoXMxECFYS87AUvapDpu",
+            ),
+            prev_block_hash: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+        },
+        block_proof: [],
+    },
+}
+the_response experimental_protocol_config: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcProtocolConfigResponse {
+        avg_hidden_validator_seats_per_shard: [
+            0,
+        ],
+        block_producer_kickout_threshold: 90,
+        chain_id: "test-chain-6bpGl",
+        chunk_producer_kickout_threshold: 90,
+        chunk_validator_only_kickout_threshold: 80,
+        dynamic_resharding: false,
+        epoch_length: 60,
+        fishermen_threshold: "10000000000000000000000000",
+        gas_limit: 1000000000000000,
+        gas_price_adjustment_rate: [
+            1,
+            100,
+        ],
+        genesis_height: 0,
+        genesis_time: 2025-06-04T12:33:52.679193891Z,
+        max_gas_price: "10000000000000000000000",
+        max_inflation_rate: [
+            1,
+            20,
+        ],
+        max_kickout_stake_perc: 100,
+        min_gas_price: "100000000",
+        minimum_stake_divisor: 10,
+        minimum_stake_ratio: [
+            1,
+            6250,
+        ],
+        minimum_validators_per_shard: 1,
+        num_block_producer_seats: 50,
+        num_block_producer_seats_per_shard: [
+            50,
+        ],
+        num_blocks_per_year: 31536000,
+        online_max_threshold: [
+            99,
+            100,
+        ],
+        online_min_threshold: [
+            9,
+            10,
+        ],
+        protocol_reward_rate: [
+            1,
+            10,
+        ],
+        protocol_treasury_account: AccountId(
+            "test.near",
+        ),
+        protocol_upgrade_stake_threshold: [
+            4,
+            5,
+        ],
+        protocol_version: 78,
+        runtime_config: RuntimeConfigView {
+            account_creation_config: AccountCreationConfigView {
+                min_allowed_top_level_account_length: 65,
+                registrar_account_id: AccountId(
+                    "registrar",
+                ),
+            },
+            congestion_control_config: CongestionControlConfigView {
+                allowed_shard_outgoing_gas: 1000000000000000,
+                max_congestion_incoming_gas: 400000000000000000,
+                max_congestion_memory_consumption: 1000000000,
+                max_congestion_missed_chunks: 5,
+                max_congestion_outgoing_gas: 10000000000000000,
+                max_outgoing_gas: 300000000000000000,
+                max_tx_gas: 500000000000000,
+                min_outgoing_gas: 1000000000000000,
+                min_tx_gas: 20000000000000,
+                outgoing_receipts_big_size_limit: 4718592,
+                outgoing_receipts_usual_size_limit: 102400,
+                reject_tx_congestion_threshold: 0.8,
+            },
+            storage_amount_per_byte: "10000000000000000000",
+            transaction_costs: RuntimeFeesConfigView {
+                action_creation_config: ActionCreationConfigView {
+                    add_key_cost: AccessKeyCreationConfigView {
+                        full_access_cost: Fee {
+                            execution: 101765125000,
+                            send_not_sir: 101765125000,
+                            send_sir: 101765125000,
+                        },
+                        function_call_cost: Fee {
+                            execution: 102217625000,
+                            send_not_sir: 102217625000,
+                            send_sir: 102217625000,
+                        },
+                        function_call_cost_per_byte: Fee {
+                            execution: 1925331,
+                            send_not_sir: 47683715,
+                            send_sir: 1925331,
+                        },
+                    },
+                    create_account_cost: Fee {
+                        execution: 3850000000000,
+                        send_not_sir: 3850000000000,
+                        send_sir: 3850000000000,
+                    },
+                    delegate_cost: Fee {
+                        execution: 200000000000,
+                        send_not_sir: 200000000000,
+                        send_sir: 200000000000,
+                    },
+                    delete_account_cost: Fee {
+                        execution: 147489000000,
+                        send_not_sir: 147489000000,
+                        send_sir: 147489000000,
+                    },
+                    delete_key_cost: Fee {
+                        execution: 94946625000,
+                        send_not_sir: 94946625000,
+                        send_sir: 94946625000,
+                    },
+                    deploy_contract_cost: Fee {
+                        execution: 184765750000,
+                        send_not_sir: 184765750000,
+                        send_sir: 184765750000,
+                    },
+                    deploy_contract_cost_per_byte: Fee {
+                        execution: 64572944,
+                        send_not_sir: 47683715,
+                        send_sir: 6812999,
+                    },
+                    function_call_cost: Fee {
+                        execution: 780000000000,
+                        send_not_sir: 200000000000,
+                        send_sir: 200000000000,
+                    },
+                    function_call_cost_per_byte: Fee {
+                        execution: 2235934,
+                        send_not_sir: 47683715,
+                        send_sir: 2235934,
+                    },
+                    stake_cost: Fee {
+                        execution: 102217625000,
+                        send_not_sir: 141715687500,
+                        send_sir: 141715687500,
+                    },
+                    transfer_cost: Fee {
+                        execution: 115123062500,
+                        send_not_sir: 115123062500,
+                        send_sir: 115123062500,
+                    },
+                },
+                action_receipt_creation_config: Fee {
+                    execution: 108059500000,
+                    send_not_sir: 108059500000,
+                    send_sir: 108059500000,
+                },
+                burnt_gas_reward: [
+                    3,
+                    10,
+                ],
+                data_receipt_creation_config: DataReceiptCreationConfigView {
+                    base_cost: Fee {
+                        execution: 36486732312,
+                        send_not_sir: 36486732312,
+                        send_sir: 36486732312,
+                    },
+                    cost_per_byte: Fee {
+                        execution: 17212011,
+                        send_not_sir: 47683715,
+                        send_sir: 17212011,
+                    },
+                },
+                pessimistic_gas_price_inflation_ratio: [
+                    1,
+                    1,
+                ],
+                storage_usage_config: StorageUsageConfigView {
+                    num_bytes_account: 100,
+                    num_extra_bytes_record: 40,
+                },
+            },
+            wasm_config: VmConfigView {
+                discard_custom_sections: true,
+                eth_implicit_accounts: true,
+                ext_costs: ExtCostsConfigView {
+                    alt_bn128_g1_multiexp_base: 713000000000,
+                    alt_bn128_g1_multiexp_element: 320000000000,
+                    alt_bn128_g1_sum_base: 3000000000,
+                    alt_bn128_g1_sum_element: 5000000000,
+                    alt_bn128_pairing_check_base: 9686000000000,
+                    alt_bn128_pairing_check_element: 5102000000000,
+                    base: 264768111,
+                    bls12381_g1_multiexp_base: 16500000000,
+                    bls12381_g1_multiexp_element: 930000000000,
+                    bls12381_g2_multiexp_base: 18600000000,
+                    bls12381_g2_multiexp_element: 1995000000000,
+                    bls12381_map_fp2_to_g2_base: 1500000000,
+                    bls12381_map_fp2_to_g2_element: 900000000000,
+                    bls12381_map_fp_to_g1_base: 1500000000,
+                    bls12381_map_fp_to_g1_element: 252000000000,
+                    bls12381_p1_decompress_base: 15000000000,
+                    bls12381_p1_decompress_element: 81000000000,
+                    bls12381_p1_sum_base: 16500000000,
+                    bls12381_p1_sum_element: 6000000000,
+                    bls12381_p2_decompress_base: 15000000000,
+                    bls12381_p2_decompress_element: 165000000000,
+                    bls12381_p2_sum_base: 18600000000,
+                    bls12381_p2_sum_element: 15000000000,
+                    bls12381_pairing_base: 2130000000000,
+                    bls12381_pairing_element: 2130000000000,
+                    contract_compile_base: 0,
+                    contract_compile_bytes: 0,
+                    contract_loading_base: 35445963,
+                    contract_loading_bytes: 1089295,
+                    ecrecover_base: 278821988457,
+                    ed25519_verify_base: 210000000000,
+                    ed25519_verify_byte: 9000000,
+                    keccak256_base: 5879491275,
+                    keccak256_byte: 21471105,
+                    keccak512_base: 5811388236,
+                    keccak512_byte: 36649701,
+                    log_base: 3543313050,
+                    log_byte: 13198791,
+                    promise_and_base: 1465013400,
+                    promise_and_per_promise: 5452176,
+                    promise_return: 560152386,
+                    read_cached_trie_node: 2280000000,
+                    read_memory_base: 2609863200,
+                    read_memory_byte: 3801333,
+                    read_register_base: 2517165186,
+                    read_register_byte: 98562,
+                    ripemd160_base: 853675086,
+                    ripemd160_block: 680107584,
+                    sha256_base: 4540970250,
+                    sha256_byte: 24117351,
+                    storage_has_key_base: 54039896625,
+                    storage_has_key_byte: 30790845,
+                    storage_iter_create_from_byte: 0,
+                    storage_iter_create_prefix_base: 0,
+                    storage_iter_create_prefix_byte: 0,
+                    storage_iter_create_range_base: 0,
+                    storage_iter_create_to_byte: 0,
+                    storage_iter_next_base: 0,
+                    storage_iter_next_key_byte: 0,
+                    storage_iter_next_value_byte: 0,
+                    storage_large_read_overhead_base: 1,
+                    storage_large_read_overhead_byte: 1,
+                    storage_read_base: 56356845749,
+                    storage_read_key_byte: 30952533,
+                    storage_read_value_byte: 5611004,
+                    storage_remove_base: 53473030500,
+                    storage_remove_key_byte: 38220384,
+                    storage_remove_ret_value_byte: 11531556,
+                    storage_write_base: 64196736000,
+                    storage_write_evicted_byte: 32117307,
+                    storage_write_key_byte: 70482867,
+                    storage_write_value_byte: 31018539,
+                    touching_trie_node: 16101955926,
+                    utf16_decoding_base: 3543313050,
+                    utf16_decoding_byte: 163577493,
+                    utf8_decoding_base: 3111779061,
+                    utf8_decoding_byte: 291580479,
+                    validator_stake_base: 911834726400,
+                    validator_total_stake_base: 911834726400,
+                    write_memory_base: 2803794861,
+                    write_memory_byte: 2723772,
+                    write_register_base: 2865522486,
+                    write_register_byte: 3801564,
+                    yield_create_base: 153411779276,
+                    yield_create_byte: 15643988,
+                    yield_resume_base: 1195627285210,
+                    yield_resume_byte: 47683715,
+                },
+                fix_contract_loading_cost: false,
+                global_contract_host_fns: true,
+                grow_mem_cost: 1,
+                implicit_account_creation: true,
+                limit_config: LimitConfig {
+                    account_id_validity_rules_version: AccountIdValidityRulesVersion(
+                        1,
+                    ),
+                    initial_memory_pages: 1024,
+                    max_actions_per_receipt: 100,
+                    max_arguments_length: 4194304,
+                    max_contract_size: 4194304,
+                    max_functions_number_per_contract: Some(
+                        10000,
+                    ),
+                    max_gas_burnt: 300000000000000,
+                    max_length_method_name: 256,
+                    max_length_returned_data: 4194304,
+                    max_length_storage_key: 2048,
+                    max_length_storage_value: 4194304,
+                    max_locals_per_contract: Some(
+                        1000000,
+                    ),
+                    max_memory_pages: 2048,
+                    max_number_bytes_method_names: 2000,
+                    max_number_input_data_dependencies: 128,
+                    max_number_logs: 100,
+                    max_number_registers: 100,
+                    max_promises_per_function_call_action: 1024,
+                    max_receipt_size: 4194304,
+                    max_register_size: 104857600,
+                    max_stack_height: 262144,
+                    max_total_log_length: 16384,
+                    max_total_prepaid_gas: 300000000000000,
+                    max_transaction_size: 1572864,
+                    max_yield_payload_size: 1024,
+                    per_receipt_storage_proof_size_limit: 4000000,
+                    registers_memory_limit: 1073741824,
+                    yield_timeout_length_in_blocks: 200,
+                },
+                regular_op_cost: 822756,
+                saturating_float_to_int: true,
+                storage_get_mode: FlatStorage,
+                vm_kind: NearVm,
+            },
+            witness_config: WitnessConfigView {
+                combined_transactions_size_limit: 4194304,
+                main_storage_proof_size_soft_limit: 4000000,
+                new_transactions_validation_state_size_soft_limit: 572864,
+            },
+        },
+        shard_layout: V2(
+            ShardLayoutV2 {
+                boundary_accounts: [],
+                id_to_index_map: {
+                    "0": 0,
+                },
+                index_to_id_map: {
+                    "0": ShardId(
+                        0,
+                    ),
+                },
+                shard_ids: [
+                    ShardId(
+                        0,
+                    ),
+                ],
+                shards_parent_map: None,
+                shards_split_map: None,
+                version: 0,
+            },
+        ),
+        shuffle_shard_assignment_for_chunk_producers: false,
+        target_validator_mandates_per_shard: 68,
+        transaction_validity_period: 100,
+    },
+}
+the_response experimental_receipt: Variant1 {
+    error: RpcError {
+        cause: Some(
+            CauseRpcErrorKind {
+                subtype_0: None,
+                subtype_1: Some(
+                    Object {},
+                ),
+                subtype_2: Some(
+                    Object {},
+                ),
+            },
+        ),
+        code: -32000,
+        data: Some(
+            Object {
+                "info": Object {
+                    "receipt_id": String("Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV"),
+                },
+                "name": String("UNKNOWN_RECEIPT"),
+            },
+        ),
+        message: "Server error",
+        name: Some(
+            HandlerError,
+        ),
+    },
+    id: "dontcare",
+    jsonrpc: "2.0",
+}
+the_response experimental_tx_status: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: Variant0 {
+        final_execution_status: Final,
+        receipts: [],
+        receipts_outcome: [
+            ExecutionOutcomeWithIdView {
+                block_hash: CryptoHash(
+                    "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+                ),
+                id: CryptoHash(
+                    "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                ),
+                outcome: ExecutionOutcomeView {
+                    executor_id: AccountId(
+                        "test.near",
+                    ),
+                    gas_burnt: 7739108363652,
+                    logs: [],
+                    metadata: ExecutionMetadataView {
+                        gas_profile: Some(
+                            [],
+                        ),
+                        version: 3,
+                    },
+                    receipt_ids: [],
+                    status: SuccessValue(
+                        "",
+                    ),
+                    tokens_burnt: "773910836365200000000",
+                },
+                proof: [
+                    MerklePathItem {
+                        direction: Left,
+                        hash: CryptoHash(
+                            "HPDxUcnHzQh15EPtuYihgEuWzSJ5jXdY7yfBicisRFyZ",
+                        ),
+                    },
+                ],
+            },
+        ],
+        status: SuccessValue(
+            "",
+        ),
+        transaction: SignedTransactionView {
+            actions: [
+                Transfer {
+                    deposit: "1000000000000000000000000",
+                },
+                DeployContract {
+                    code: "bgnkEmqg5xByxPugVXk7gPqLCXWioTFki3A8ijwbOaY=",
+                },
+            ],
+            hash: CryptoHash(
+                "AsfJPVjVso21cXrthayex44vaSAMAfwKoiPKbbVxU5gT",
+            ),
+            nonce: 62,
+            priority_fee: 0,
+            public_key: PublicKey(
+                "ed25519:3wWfAcRoeNPc2CrfKTXW6zguUETdKyDHFrEqWNTsvHKz",
+            ),
+            receiver_id: AccountId(
+                "test.near",
+            ),
+            signature: Signature(
+                "ed25519:mrqyPh5CT4eNChoKr2Vv6AwDXVxUvTyJXX3qQSWgk87EKZ8jnAt5722duDkLF61AcCBQug1Ly9vdeJHWWiBHh9X",
+            ),
+            signer_id: AccountId(
+                "test.near",
+            ),
+        },
+        transaction_outcome: ExecutionOutcomeWithIdView {
+            block_hash: CryptoHash(
+                "3kzsYFkeouTzeXSUDTEHF1w1hwKcDcR8hxu1uvqwggxM",
+            ),
+            id: CryptoHash(
+                "AsfJPVjVso21cXrthayex44vaSAMAfwKoiPKbbVxU5gT",
+            ),
+            outcome: ExecutionOutcomeView {
+                executor_id: AccountId(
+                    "test.near",
+                ),
+                gas_burnt: 1181448527967,
+                logs: [],
+                metadata: ExecutionMetadataView {
+                    gas_profile: None,
+                    version: 1,
+                },
+                receipt_ids: [
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ],
+                status: SuccessReceiptId(
+                    CryptoHash(
+                        "Ftw7axwsYsUf17AMWCoLdZWbtp81Fg1hdCUK8U91ctPV",
+                    ),
+                ),
+                tokens_burnt: "118144852796700000000",
+            },
+            proof: [
+                MerklePathItem {
+                    direction: Right,
+                    hash: CryptoHash(
+                        "7dfZRUXK2srxKG43XomEhbjvK628UQj7hMFrUeuVSnxG",
+                    ),
+                },
+            ],
+        },
+    },
+}
+the_response experimental_validators: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: [
+        ValidatorStakeView {
+            account_id: AccountId(
+                "test.near",
+            ),
+            public_key: PublicKey(
+                "ed25519:3wWfAcRoeNPc2CrfKTXW6zguUETdKyDHFrEqWNTsvHKz",
+            ),
+            stake: "51660345267324044287258932669625",
+            validator_stake_struct_version: V1,
+        },
+    ],
+}
+the_response experimental_maintenance_windows: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: [
+        RangeOfUint64 {
+            end: 150806156,
+            start: 150825111,
+        },
+    ],
+}
+the_response experimental_split_storage: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: RpcSplitStorageInfoResponse {
+        cold_head_height: None,
+        final_head_height: Some(
+            4703,
+        ),
+        head_height: Some(
+            4705,
+        ),
+        hot_db_kind: Some(
+            "RPC",
+        ),
+    },
+}
+the_response query_account: Variant0 {
+    id: "dontcare",
+    jsonrpc: "2.0",
+    result: Variant0 {
+        amount: "999999999994690278695014300000000",
+        block_hash: CryptoHash(
+            "F11nMBAB2avixVFz1CaRgZJJLtSFjp2v5tkVnkprqGfj",
+        ),
+        block_height: 4703,
+        code_hash: CryptoHash(
+            "8QYbUJBzXHFyTDLJAGGbw2gRARxUGFyAQDVcXpRdoaHs",
+        ),
+        global_contract_account_id: None,
+        global_contract_hash: None,
+        locked: "51660381073896546590215346508599",
+        storage_paid_at: 0,
+        storage_usage: 113715,
+    },
+}
+error Invalid Response Payload (b"{\"jsonrpc\":\"2.0\",\"result\":{\"block_hash\":\"F11nMBAB2avixVFz1CaRgZJJLtSFjp2v5tkVnkprqGfj\",\"block_height\":4703,\"error\":\"wasm execution failed with error: CompilationError(PrepareError(Deserialization))\",\"logs\":[]},\"id\":\"dontcare\"}"): data did not match any variant of untagged enum JsonRpcResponseForRpcQueryResponseAndRpcError

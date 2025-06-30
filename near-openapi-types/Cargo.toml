@@ -1,0 +1,21 @@
+[package]
+name = "near-openapi-types"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Types for progenitor-generated client of NEAR JSON RPC API"
+
+
+[dependencies]
+bytes = "1.9"
+chrono = { version = "0.4", default-features=false, features = ["serde"] }
+futures-core = "0.3"
+progenitor-client = "0.11.0"
+reqwest = { version = "0.12", default-features=false, features = ["json", "stream"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_urlencoded = "0.7"
+
+
+near-account-id = { version = "1.1.1", features = ["serde"] }
