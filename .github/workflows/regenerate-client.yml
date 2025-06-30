@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build and run
+      - name: Regenerate client
         run: |
           cargo install cargo-progenitor --git https://github.com/PolyProgrammist/progenitor --branch patch_rustfmt
           ./generate.sh
