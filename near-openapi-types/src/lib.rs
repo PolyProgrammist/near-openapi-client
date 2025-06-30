@@ -2988,60 +2988,6 @@ impl ::std::convert::From<CryptoHash> for BlockId {
         Self::Variant1(value)
     }
 }
-#[doc = "`BlockSelectorBlockId`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"block_id\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"block_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/BlockId\""]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct BlockSelectorBlockId {
-    pub block_id: BlockId,
-}
-impl ::std::convert::From<&BlockSelectorBlockId> for BlockSelectorBlockId {
-    fn from(value: &BlockSelectorBlockId) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`BlockSelectorFinality`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"finality\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"finality\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/Finality\""]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct BlockSelectorFinality {
-    pub finality: Finality,
-}
-impl ::std::convert::From<&BlockSelectorFinality> for BlockSelectorFinality {
-    fn from(value: &BlockSelectorFinality) -> Self {
-        value.clone()
-    }
-}
 #[doc = "`BlockStatusView`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -17290,15 +17236,61 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcQueryRequest\","]
+#[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/ViewAccountByBlockId\""]
+#[doc = "      \"title\": \"viewaccbyblock\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"block_id\","]
+#[doc = "            \"request_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"block_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "            },"]
+#[doc = "            \"request_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"view_account\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/ViewAccountByFinality\""]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/ViewCodeByFinality\""]
+#[doc = "      \"title\": \"viewaccbyfinality\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"finality\","]
+#[doc = "            \"request_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"finality\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "            },"]
+#[doc = "            \"request_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"view_account\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -17307,28 +17299,168 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum RpcQueryRequest {
-    AccountByBlockId(ViewAccountByBlockId),
-    AccountByFinality(ViewAccountByFinality),
-    CodeByFinality(ViewCodeByFinality),
+    Viewaccbyblock {
+        account_id: AccountId,
+        block_id: BlockId,
+        request_type: RpcQueryRequestViewaccbyblockRequestType,
+    },
+    Viewaccbyfinality {
+        account_id: AccountId,
+        finality: Finality,
+        request_type: RpcQueryRequestViewaccbyfinalityRequestType,
+    },
 }
 impl ::std::convert::From<&Self> for RpcQueryRequest {
     fn from(value: &RpcQueryRequest) -> Self {
         value.clone()
     }
 }
-impl ::std::convert::From<ViewAccountByBlockId> for RpcQueryRequest {
-    fn from(value: ViewAccountByBlockId) -> Self {
-        Self::AccountByBlockId(value)
+#[doc = "`RpcQueryRequestViewaccbyblockRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_account\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum RpcQueryRequestViewaccbyblockRequestType {
+    #[serde(rename = "view_account")]
+    ViewAccount,
+}
+impl ::std::convert::From<&Self> for RpcQueryRequestViewaccbyblockRequestType {
+    fn from(value: &RpcQueryRequestViewaccbyblockRequestType) -> Self {
+        value.clone()
     }
 }
-impl ::std::convert::From<ViewAccountByFinality> for RpcQueryRequest {
-    fn from(value: ViewAccountByFinality) -> Self {
-        Self::AccountByFinality(value)
+impl ::std::fmt::Display for RpcQueryRequestViewaccbyblockRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccount => write!(f, "view_account"),
+        }
     }
 }
-impl ::std::convert::From<ViewCodeByFinality> for RpcQueryRequest {
-    fn from(value: ViewCodeByFinality) -> Self {
-        Self::CodeByFinality(value)
+impl ::std::str::FromStr for RpcQueryRequestViewaccbyblockRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_account" => Ok(Self::ViewAccount),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for RpcQueryRequestViewaccbyblockRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestViewaccbyblockRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestViewaccbyblockRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`RpcQueryRequestViewaccbyfinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_account\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum RpcQueryRequestViewaccbyfinalityRequestType {
+    #[serde(rename = "view_account")]
+    ViewAccount,
+}
+impl ::std::convert::From<&Self> for RpcQueryRequestViewaccbyfinalityRequestType {
+    fn from(value: &RpcQueryRequestViewaccbyfinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for RpcQueryRequestViewaccbyfinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccount => write!(f, "view_account"),
+        }
+    }
+}
+impl ::std::str::FromStr for RpcQueryRequestViewaccbyfinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_account" => Ok(Self::ViewAccount),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for RpcQueryRequestViewaccbyfinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for RpcQueryRequestViewaccbyfinalityRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for RpcQueryRequestViewaccbyfinalityRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 #[doc = "`RpcQueryResponse`"]
@@ -23621,520 +23753,6 @@ pub struct Version {
 impl ::std::convert::From<&Version> for Version {
     fn from(value: &Version) -> Self {
         value.clone()
-    }
-}
-#[doc = "`ViewAccountByBlockId`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"allOf\": ["]
-#[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/ViewAccountRequestBase\""]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/BlockSelector_BlockId\""]
-#[doc = "    }"]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct ViewAccountByBlockId {
-    pub account_id: AccountId,
-    pub block_id: BlockId,
-    pub request_type: ViewAccountByBlockIdRequestType,
-}
-impl ::std::convert::From<&ViewAccountByBlockId> for ViewAccountByBlockId {
-    fn from(value: &ViewAccountByBlockId) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`ViewAccountByBlockIdRequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_account\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum ViewAccountByBlockIdRequestType {
-    #[serde(rename = "view_account")]
-    ViewAccount,
-}
-impl ::std::convert::From<&Self> for ViewAccountByBlockIdRequestType {
-    fn from(value: &ViewAccountByBlockIdRequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for ViewAccountByBlockIdRequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccount => write!(f, "view_account"),
-        }
-    }
-}
-impl ::std::str::FromStr for ViewAccountByBlockIdRequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_account" => Ok(Self::ViewAccount),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for ViewAccountByBlockIdRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ViewAccountByBlockIdRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ViewAccountByBlockIdRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`ViewAccountByFinality`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"allOf\": ["]
-#[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/ViewAccountRequestBase\""]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/BlockSelector_Finality\""]
-#[doc = "    }"]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct ViewAccountByFinality {
-    pub account_id: AccountId,
-    pub finality: Finality,
-    pub request_type: ViewAccountByFinalityRequestType,
-}
-impl ::std::convert::From<&ViewAccountByFinality> for ViewAccountByFinality {
-    fn from(value: &ViewAccountByFinality) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`ViewAccountByFinalityRequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_account\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum ViewAccountByFinalityRequestType {
-    #[serde(rename = "view_account")]
-    ViewAccount,
-}
-impl ::std::convert::From<&Self> for ViewAccountByFinalityRequestType {
-    fn from(value: &ViewAccountByFinalityRequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for ViewAccountByFinalityRequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccount => write!(f, "view_account"),
-        }
-    }
-}
-impl ::std::str::FromStr for ViewAccountByFinalityRequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_account" => Ok(Self::ViewAccount),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for ViewAccountByFinalityRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ViewAccountByFinalityRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ViewAccountByFinalityRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`ViewAccountRequestBase`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"account_id\","]
-#[doc = "    \"request_type\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"account_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "    },"]
-#[doc = "    \"request_type\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"enum\": ["]
-#[doc = "        \"view_account\""]
-#[doc = "      ]"]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct ViewAccountRequestBase {
-    pub account_id: AccountId,
-    pub request_type: ViewAccountRequestBaseRequestType,
-}
-impl ::std::convert::From<&ViewAccountRequestBase> for ViewAccountRequestBase {
-    fn from(value: &ViewAccountRequestBase) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`ViewAccountRequestBaseRequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_account\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum ViewAccountRequestBaseRequestType {
-    #[serde(rename = "view_account")]
-    ViewAccount,
-}
-impl ::std::convert::From<&Self> for ViewAccountRequestBaseRequestType {
-    fn from(value: &ViewAccountRequestBaseRequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for ViewAccountRequestBaseRequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccount => write!(f, "view_account"),
-        }
-    }
-}
-impl ::std::str::FromStr for ViewAccountRequestBaseRequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_account" => Ok(Self::ViewAccount),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for ViewAccountRequestBaseRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ViewAccountRequestBaseRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ViewAccountRequestBaseRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`ViewCodeByFinality`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"allOf\": ["]
-#[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/ViewCodeRequestBase\""]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/BlockSelector_Finality\""]
-#[doc = "    }"]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct ViewCodeByFinality {
-    pub account_id: AccountId,
-    pub finality: Finality,
-    pub request_type: ViewCodeByFinalityRequestType,
-}
-impl ::std::convert::From<&ViewCodeByFinality> for ViewCodeByFinality {
-    fn from(value: &ViewCodeByFinality) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`ViewCodeByFinalityRequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_code\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum ViewCodeByFinalityRequestType {
-    #[serde(rename = "view_code")]
-    ViewCode,
-}
-impl ::std::convert::From<&Self> for ViewCodeByFinalityRequestType {
-    fn from(value: &ViewCodeByFinalityRequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for ViewCodeByFinalityRequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewCode => write!(f, "view_code"),
-        }
-    }
-}
-impl ::std::str::FromStr for ViewCodeByFinalityRequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_code" => Ok(Self::ViewCode),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for ViewCodeByFinalityRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ViewCodeByFinalityRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ViewCodeByFinalityRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`ViewCodeRequestBase`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"account_id\","]
-#[doc = "    \"request_type\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"account_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "    },"]
-#[doc = "    \"request_type\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"enum\": ["]
-#[doc = "        \"view_code\""]
-#[doc = "      ]"]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct ViewCodeRequestBase {
-    pub account_id: AccountId,
-    pub request_type: ViewCodeRequestBaseRequestType,
-}
-impl ::std::convert::From<&ViewCodeRequestBase> for ViewCodeRequestBase {
-    fn from(value: &ViewCodeRequestBase) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`ViewCodeRequestBaseRequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_code\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum ViewCodeRequestBaseRequestType {
-    #[serde(rename = "view_code")]
-    ViewCode,
-}
-impl ::std::convert::From<&Self> for ViewCodeRequestBaseRequestType {
-    fn from(value: &ViewCodeRequestBaseRequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for ViewCodeRequestBaseRequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewCode => write!(f, "view_code"),
-        }
-    }
-}
-impl ::std::str::FromStr for ViewCodeRequestBaseRequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_code" => Ok(Self::ViewCode),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for ViewCodeRequestBaseRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ViewCodeRequestBaseRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ViewCodeRequestBaseRequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 #[doc = "`ViewStateResult`"]

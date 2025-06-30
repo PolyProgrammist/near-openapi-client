@@ -10177,105 +10177,63 @@
                 ],
                 "type": "object"
             },
-            "ViewAccountRequestBase": {
-                "type": "object",
-                "properties": {
-                    "account_id": {
-                        "$ref": "#/components/schemas/AccountId"
-                    },
-                    "request_type": {
-                        "type": "string",
-                        "enum": [
-                            "view_account"
-                        ]
-                    }
-                },
-                "required": [
-                    "request_type",
-                    "account_id"
-                ]
-            },
-            "ViewCodeRequestBase": {
-                "type": "object",
-                "properties": {
-                    "account_id": {
-                        "$ref": "#/components/schemas/AccountId"
-                    },
-                    "request_type": {
-                        "type": "string",
-                        "enum": [
-                            "view_code"
-                        ]
-                    }
-                },
-                "required": [
-                    "request_type",
-                    "account_id"
-                ]
-            },
-            "BlockSelector_BlockId": {
-                "type": "object",
-                "properties": {
-                    "block_id": {
-                        "$ref": "#/components/schemas/BlockId"
-                    }
-                },
-                "required": [
-                    "block_id"
-                ]
-            },
-            "BlockSelector_Finality": {
-                "type": "object",
-                "properties": {
-                    "finality": {
-                        "$ref": "#/components/schemas/Finality"
-                    }
-                },
-                "required": [
-                    "finality"
-                ]
-            },
-            "ViewAccountByBlockId": {
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/ViewAccountRequestBase"
-                    },
-                    {
-                        "$ref": "#/components/schemas/BlockSelector_BlockId"
-                    }
-                ]
-            },
-            "ViewAccountByFinality": {
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/ViewAccountRequestBase"
-                    },
-                    {
-                        "$ref": "#/components/schemas/BlockSelector_Finality"
-                    }
-                ]
-            },
-            "ViewCodeByFinality": {
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/ViewCodeRequestBase"
-                    },
-                    {
-                        "$ref": "#/components/schemas/BlockSelector_Finality"
-                    }
-                ]
-            },
             "RpcQueryRequest": {
                 "title": "RpcQueryRequest",
+                "type": "object",
                 "oneOf": [
                     {
-                        "$ref": "#/components/schemas/ViewAccountByBlockId"
+                        "title": "viewaccbyblock",
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_account"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
                     },
                     {
-                        "$ref": "#/components/schemas/ViewAccountByFinality"
-                    },
-                    {
-                        "$ref": "#/components/schemas/ViewCodeByFinality"
+                        "title": "viewaccbyfinality",
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_account"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "finality"
+                                ],
+                                "type": "object"
+                            }
+                        ]
                     }
                 ]
             },
