@@ -6,7 +6,7 @@ pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 #[derive(Clone, Debug)]
 #[doc = "Client for NEAR Protocol JSON RPC API\n\nVersion: 1.0.0"]
 pub struct Client {
-    pub(crate) baseurl: Strin,
+    pub(crate) baseurl: String,
     pub(crate) client: reqwest::Client,
 }
 impl Client {
