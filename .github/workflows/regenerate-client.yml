@@ -18,6 +18,10 @@ jobs:
         run: |
           cargo install cargo-progenitor --git https://github.com/PolyProgrammist/progenitor --branch patch_rustfmt
           ./generate.sh
+          if git diff --quiet; then
+            echo "No changes, exiting."
+            exit 0
+          fi
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
