@@ -19,7 +19,7 @@ jobs:
           cargo install cargo-progenitor --git https://github.com/PolyProgrammist/progenitor --branch patch_rustfmt
           ./generate.sh
           if git diff --quiet; then
-            echo "No changes, exiting."
+            echo "No changes, exiting"
             exit 0
           fi
 
