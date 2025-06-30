@@ -1,4 +1,4 @@
-use client::CryptoHash;
+use client::types::CryptoHash;
 use client::Client;
 use near_crypto::{InMemorySigner, Signer};
 use near_openapi_client as client;
@@ -74,20 +74,20 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
 }
 
 async fn test_block(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
-    let payload_block = client::JsonRpcRequestForBlock {
+    let payload_block = client::types::JsonRpcRequestForBlock {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForBlockMethod::Block,
-        params: client::RpcBlockRequest::BlockId({
-            client::BlockId::Variant1(block_hash.clone())
+        method: client::types::JsonRpcRequestForBlockMethod::Block,
+        params: client::types::RpcBlockRequest::BlockId({
+            client::types::BlockId::Variant1(block_hash.clone())
         }),
     };
 
-    let block: client::JsonRpcResponseForRpcBlockResponseAndRpcError =
+    let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError =
         client.block(&payload_block).await?.into_inner();
     assert!(matches!(
         block,
-        client::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
     println!("response for block: {:#?}", block);
@@ -99,25 +99,25 @@ async fn test_broadcast_async(
     client: &Client,
     base64_signed_tx: String,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_broadcast_async = client::JsonRpcRequestForBroadcastTxAsync {
+    let payload_broadcast_async = client::types::JsonRpcRequestForBroadcastTxAsync {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForBroadcastTxAsyncMethod::BroadcastTxAsync,
-        params: client::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::SignedTransaction(
+        method: client::types::JsonRpcRequestForBroadcastTxAsyncMethod::BroadcastTxAsync,
+        params: client::types::RpcSendTransactionRequest {
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(
                 base64_signed_tx.clone(),
             ),
-            wait_until: client::TxExecutionStatus::Executed,
+            wait_until: client::types::TxExecutionStatus::Executed,
         },
     };
 
-    let broadcast_async: client::JsonRpcResponseForCryptoHashAndRpcError = client
+    let broadcast_async: client::types::JsonRpcResponseForCryptoHashAndRpcError = client
         .broadcast_tx_async(&payload_broadcast_async)
         .await?
         .into_inner();
     assert!(matches!(
         broadcast_async,
-        client::JsonRpcResponseForCryptoHashAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForCryptoHashAndRpcError::Variant0 { result: _, .. }
     ));
 
     println!("response for broadcast_async: {:#?}", broadcast_async);
@@ -129,26 +129,26 @@ async fn test_broadcast_commit(
     client: &Client,
     base64_signed_tx: String,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_broadcast_commit = client::JsonRpcRequestForBroadcastTxCommit {
+    let payload_broadcast_commit = client::types::JsonRpcRequestForBroadcastTxCommit {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForBroadcastTxCommitMethod::BroadcastTxCommit,
-        params: client::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::SignedTransaction(
+        method: client::types::JsonRpcRequestForBroadcastTxCommitMethod::BroadcastTxCommit,
+        params: client::types::RpcSendTransactionRequest {
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(
                 base64_signed_tx.clone(),
             ),
-            wait_until: client::TxExecutionStatus::Executed,
+            wait_until: client::types::TxExecutionStatus::Executed,
         },
     };
 
-    let broadcast_commit: client::JsonRpcResponseForRpcTransactionResponseAndRpcError =
+    let broadcast_commit: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError =
         client
             .broadcast_tx_commit(&payload_broadcast_commit)
             .await?
             .into_inner();
     assert!(matches!(
         broadcast_commit,
-        client::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -160,21 +160,21 @@ async fn test_broadcast_commit(
 }
 
 async fn test_chunk(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
-    let payload_chunk = client::JsonRpcRequestForChunk {
+    let payload_chunk = client::types::JsonRpcRequestForChunk {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForChunkMethod::Chunk,
-        params: client::RpcChunkRequest::Variant0 {
-            block_id: client::BlockId::Variant1(block_hash.clone()),
-            shard_id: client::ShardId(0),
+        method: client::types::JsonRpcRequestForChunkMethod::Chunk,
+        params: client::types::RpcChunkRequest::Variant0 {
+            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+            shard_id: client::types::ShardId(0),
         },
     };
 
-    let chunk: client::JsonRpcResponseForRpcChunkResponseAndRpcError =
+    let chunk: client::types::JsonRpcResponseForRpcChunkResponseAndRpcError =
         client.chunk(&payload_chunk).await?.into_inner();
     assert!(matches!(
         chunk,
-        client::JsonRpcResponseForRpcChunkResponseAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForRpcChunkResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
     println!("response for chunk: {:#?}", chunk);
@@ -186,20 +186,20 @@ async fn test_gas_price_with_block(
     client: &Client,
     block_hash: CryptoHash,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_gas_price = client::JsonRpcRequestForGasPrice {
+    let payload_gas_price = client::types::JsonRpcRequestForGasPrice {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForGasPriceMethod::GasPrice,
-        params: client::RpcGasPriceRequest {
-            block_id: Some(client::BlockId::Variant1(block_hash.clone())),
+        method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
+        params: client::types::RpcGasPriceRequest {
+            block_id: Some(client::types::BlockId::Variant1(block_hash.clone())),
         },
     };
 
-    let gas_price: client::JsonRpcResponseForRpcGasPriceResponseAndRpcError =
+    let gas_price: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError =
         client.gas_price(&payload_gas_price).await?.into_inner();
     assert!(matches!(
         gas_price,
-        client::JsonRpcResponseForRpcGasPriceResponseAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
     println!("response for gas_price with block: {:#?}", gas_price);
@@ -208,18 +208,18 @@ async fn test_gas_price_with_block(
 }
 
 async fn test_gas_price_without_block(client: &Client) -> Result<(), Box<dyn Error>> {
-    let payload_gas_price = client::JsonRpcRequestForGasPrice {
+    let payload_gas_price = client::types::JsonRpcRequestForGasPrice {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForGasPriceMethod::GasPrice,
-        params: client::RpcGasPriceRequest { block_id: None },
+        method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
+        params: client::types::RpcGasPriceRequest { block_id: None },
     };
 
-    let gas_price: client::JsonRpcResponseForRpcGasPriceResponseAndRpcError =
+    let gas_price: client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError =
         client.gas_price(&payload_gas_price).await?.into_inner();
     assert!(matches!(
         gas_price,
-        client::JsonRpcResponseForRpcGasPriceResponseAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForRpcGasPriceResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
     println!("response for gas_price without block: {:#?}", gas_price);
@@ -228,18 +228,18 @@ async fn test_gas_price_without_block(client: &Client) -> Result<(), Box<dyn Err
 }
 
 async fn test_health(client: &Client) -> Result<(), Box<dyn Error>> {
-    let payload_health = client::JsonRpcRequestForHealth {
+    let payload_health = client::types::JsonRpcRequestForHealth {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForHealthMethod::Health,
-        params: client::RpcHealthRequest(serde_json::Map::new()),
+        method: client::types::JsonRpcRequestForHealthMethod::Health,
+        params: client::types::RpcHealthRequest(serde_json::Map::new()),
     };
 
-    let health: client::JsonRpcResponseForNullableRpcHealthResponseAndRpcError =
+    let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError =
         client.health(&payload_health).await?.into_inner();
     assert!(matches!(
         health,
-        client::JsonRpcResponseForNullableRpcHealthResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -253,25 +253,25 @@ async fn test_health(client: &Client) -> Result<(), Box<dyn Error>> {
 async fn test_light_client_proof(
     client: &Client,
     block_hash: CryptoHash,
-    sender_account_id: client::AccountId,
+    sender_account_id: client::types::AccountId,
     sent_tx_hash: CryptoHash,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_light_client_proof = client::JsonRpcRequestForLightClientProof {
+    let payload_light_client_proof = client::types::JsonRpcRequestForLightClientProof {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForLightClientProofMethod::LightClientProof,
-        params: client::RpcLightClientExecutionProofRequest::Variant0 {
+        method: client::types::JsonRpcRequestForLightClientProofMethod::LightClientProof,
+        params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
             light_client_head: block_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: sent_tx_hash.clone(),
-            type_: client::TypeTransactionOrReceiptId::Transaction,
+            type_: client::types::TypeTransactionOrReceiptId::Transaction,
         },
     };
 
-    let light_client_proof: client::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client.light_client_proof(&payload_light_client_proof).await?.into_inner();
+    let light_client_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client.light_client_proof(&payload_light_client_proof).await?.into_inner();
     println!("response for light_client_proof: {:#?}", light_client_proof);
 
-    assert!(matches!(light_client_proof, client::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError::Variant0 { result: _, .. }));
+    assert!(matches!(light_client_proof, client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError::Variant0 { result: _, .. }));
     Ok(())
 }
 
@@ -279,19 +279,19 @@ async fn test_next_light_client_block(
     client: &Client,
     block_hash: CryptoHash,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_next_light_client_block = client::JsonRpcRequestForNextLightClientBlock {
+    let payload_next_light_client_block = client::types::JsonRpcRequestForNextLightClientBlock {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForNextLightClientBlockMethod::NextLightClientBlock,
-        params: client::RpcLightClientNextBlockRequest {
+        method: client::types::JsonRpcRequestForNextLightClientBlockMethod::NextLightClientBlock,
+        params: client::types::RpcLightClientNextBlockRequest {
             last_block_hash: block_hash.clone(),
         },
     };
 
-    let next_light_client_block: client::JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError = client.next_light_client_block(&payload_next_light_client_block).await?.into_inner();
+    let next_light_client_block: client::types::JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError = client.next_light_client_block(&payload_next_light_client_block).await?.into_inner();
     assert!(matches!(
         next_light_client_block,
-        client::JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -306,20 +306,20 @@ async fn test_next_light_client_block(
 }
 
 async fn test_network_info(client: &Client) -> Result<(), Box<dyn Error>> {
-    let payload_network_info = client::JsonRpcRequestForNetworkInfo {
+    let payload_network_info = client::types::JsonRpcRequestForNetworkInfo {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForNetworkInfoMethod::NetworkInfo,
-        params: client::RpcNetworkInfoRequest(serde_json::Map::new()),
+        method: client::types::JsonRpcRequestForNetworkInfoMethod::NetworkInfo,
+        params: client::types::RpcNetworkInfoRequest(serde_json::Map::new()),
     };
 
-    let network_info: client::JsonRpcResponseForRpcNetworkInfoResponseAndRpcError = client
+    let network_info: client::types::JsonRpcResponseForRpcNetworkInfoResponseAndRpcError = client
         .network_info(&payload_network_info)
         .await?
         .into_inner();
     assert!(matches!(
         network_info,
-        client::JsonRpcResponseForRpcNetworkInfoResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcNetworkInfoResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -331,23 +331,23 @@ async fn test_network_info(client: &Client) -> Result<(), Box<dyn Error>> {
 }
 
 async fn test_send_tx(client: &Client, base64_signed_tx: String) -> Result<(), Box<dyn Error>> {
-    let payload_send_tx = client::JsonRpcRequestForSendTx {
+    let payload_send_tx = client::types::JsonRpcRequestForSendTx {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForSendTxMethod::SendTx,
-        params: client::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::SignedTransaction(
+        method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
+        params: client::types::RpcSendTransactionRequest {
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(
                 base64_signed_tx.clone(),
             ),
-            wait_until: client::TxExecutionStatus::Executed,
+            wait_until: client::types::TxExecutionStatus::Executed,
         },
     };
 
-    let send_tx: client::JsonRpcResponseForRpcTransactionResponseAndRpcError =
+    let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError =
         client.send_tx(&payload_send_tx).await?.into_inner();
     assert!(matches!(
         send_tx,
-        client::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -359,18 +359,18 @@ async fn test_send_tx(client: &Client, base64_signed_tx: String) -> Result<(), B
 }
 
 async fn test_status(client: &Client) -> Result<(), Box<dyn Error>> {
-    let payload_status = client::JsonRpcRequestForStatus {
+    let payload_status = client::types::JsonRpcRequestForStatus {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForStatusMethod::Status,
-        params: client::RpcStatusRequest(serde_json::Map::new()),
+        method: client::types::JsonRpcRequestForStatusMethod::Status,
+        params: client::types::RpcStatusRequest(serde_json::Map::new()),
     };
 
-    let status: client::JsonRpcResponseForRpcStatusResponseAndRpcError =
+    let status: client::types::JsonRpcResponseForRpcStatusResponseAndRpcError =
         client.status(&payload_status).await?.into_inner();
     assert!(matches!(
         status,
-        client::JsonRpcResponseForRpcStatusResponseAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForRpcStatusResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
     println!("response for status: {:#?}", status);
@@ -379,18 +379,18 @@ async fn test_status(client: &Client) -> Result<(), Box<dyn Error>> {
 }
 
 async fn test_validators(client: &Client) -> Result<(), Box<dyn Error>> {
-    let payload_validators = client::JsonRpcRequestForValidators {
+    let payload_validators = client::types::JsonRpcRequestForValidators {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForValidatorsMethod::Validators,
-        params: client::RpcValidatorRequest::Latest,
+        method: client::types::JsonRpcRequestForValidatorsMethod::Validators,
+        params: client::types::RpcValidatorRequest::Latest,
     };
 
-    let validators: client::JsonRpcResponseForRpcValidatorResponseAndRpcError =
+    let validators: client::types::JsonRpcResponseForRpcValidatorResponseAndRpcError =
         client.validators(&payload_validators).await?.into_inner();
     assert!(matches!(
         validators,
-        client::JsonRpcResponseForRpcValidatorResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcValidatorResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -402,20 +402,20 @@ async fn test_validators(client: &Client) -> Result<(), Box<dyn Error>> {
 }
 
 async fn test_client_config(client: &Client) -> Result<(), Box<dyn Error>> {
-    let payload_client_config = client::JsonRpcRequestForClientConfig {
+    let payload_client_config = client::types::JsonRpcRequestForClientConfig {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForClientConfigMethod::ClientConfig,
-        params: client::RpcClientConfigRequest(serde_json::Map::new()),
+        method: client::types::JsonRpcRequestForClientConfigMethod::ClientConfig,
+        params: client::types::RpcClientConfigRequest(serde_json::Map::new()),
     };
 
-    let client_config: client::JsonRpcResponseForRpcClientConfigResponseAndRpcError = client
+    let client_config: client::types::JsonRpcResponseForRpcClientConfigResponseAndRpcError = client
         .client_config(&payload_client_config)
         .await?
         .into_inner();
     assert!(matches!(
         client_config,
-        client::JsonRpcResponseForRpcClientConfigResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcClientConfigResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -429,29 +429,29 @@ async fn test_client_config(client: &Client) -> Result<(), Box<dyn Error>> {
 async fn test_experimental_changes(
     client: &Client,
     block_hash: CryptoHash,
-    sender_account_id: client::AccountId,
+    sender_account_id: client::types::AccountId,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_experimental_changes = client::JsonRpcRequestForExperimentalChanges {
+    let payload_experimental_changes = client::types::JsonRpcRequestForExperimentalChanges {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalChangesMethod::ExperimentalChanges,
-        params: client::RpcStateChangesInBlockByTypeRequest::Variant0 {
-            changes_type: client::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
+        method: client::types::JsonRpcRequestForExperimentalChangesMethod::ExperimentalChanges,
+        params: client::types::RpcStateChangesInBlockByTypeRequest::Variant0 {
+            changes_type: client::types::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
             account_ids: vec![sender_account_id],
-            block_id: client::BlockId::Variant1(block_hash.clone()),
+            block_id: client::types::BlockId::Variant1(block_hash.clone()),
         }
     };
 
-    let experimental_changes: client::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError = client.experimental_changes(&payload_experimental_changes).await?.into_inner();
+    let experimental_changes: client::types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError = client.experimental_changes(&payload_experimental_changes).await?.into_inner();
     assert!(matches!(
         experimental_changes,
-        client::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
     ));
 
-    if let client::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError::Variant0 {
+    if let client::types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError::Variant0 {
         result,
         ..
     } = &experimental_changes
@@ -471,16 +471,16 @@ async fn test_experimental_changes_in_block(
     client: &Client,
     block_hash: CryptoHash,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_experimental_changes_in_block = client::JsonRpcRequestForExperimentalChangesInBlock {
+    let payload_experimental_changes_in_block = client::types::JsonRpcRequestForExperimentalChangesInBlock {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalChangesInBlockMethod::ExperimentalChangesInBlock,
-        params: client::RpcStateChangesInBlockRequest::BlockId(client::BlockId::Variant1(block_hash.clone()))
+        method: client::types::JsonRpcRequestForExperimentalChangesInBlockMethod::ExperimentalChangesInBlock,
+        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
     };
 
-    let experimental_changes_in_block: client::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError = client.experimental_changes_in_block(&payload_experimental_changes_in_block).await?.into_inner();
-    assert!(matches!(experimental_changes_in_block, client::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError::Variant0 { result: _, .. }));
-    if let client::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError::Variant0 { result, .. } = &experimental_changes_in_block {
+    let experimental_changes_in_block: client::types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError = client.experimental_changes_in_block(&payload_experimental_changes_in_block).await?.into_inner();
+    assert!(matches!(experimental_changes_in_block, client::types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError::Variant0 { result: _, .. }));
+    if let client::types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError::Variant0 { result, .. } = &experimental_changes_in_block {
         assert!(!result.changes.is_empty(), "Expected non-empty changes in block");
     }
 
@@ -496,24 +496,24 @@ async fn test_experimental_congestion_level(
     client: &Client,
     block_hash: CryptoHash,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_congestion_level = client::JsonRpcRequestForExperimentalCongestionLevel {
+    let payload_congestion_level = client::types::JsonRpcRequestForExperimentalCongestionLevel {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalCongestionLevelMethod::ExperimentalCongestionLevel,
-        params: client::RpcCongestionLevelRequest::Variant0 {
-            block_id: client::BlockId::Variant1(block_hash.clone()),
-            shard_id: client::ShardId(0)
+        method: client::types::JsonRpcRequestForExperimentalCongestionLevelMethod::ExperimentalCongestionLevel,
+        params: client::types::RpcCongestionLevelRequest::Variant0 {
+            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+            shard_id: client::types::ShardId(0)
         }
     };
 
-    let congestion_level: client::JsonRpcResponseForRpcCongestionLevelResponseAndRpcError =
+    let congestion_level: client::types::JsonRpcResponseForRpcCongestionLevelResponseAndRpcError =
         client
             .experimental_congestion_level(&payload_congestion_level)
             .await?
             .into_inner();
     assert!(matches!(
         congestion_level,
-        client::JsonRpcResponseForRpcCongestionLevelResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcCongestionLevelResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -525,20 +525,20 @@ async fn test_experimental_congestion_level(
 }
 
 async fn test_experimental_genesis_config(client: &Client) -> Result<(), Box<dyn Error>> {
-    let payload_genesis_config = client::JsonRpcRequestForExperimentalGenesisConfig {
+    let payload_genesis_config = client::types::JsonRpcRequestForExperimentalGenesisConfig {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalGenesisConfigMethod::ExperimentalGenesisConfig,
-        params: client::GenesisConfigRequest(serde_json::Map::new())
+        method: client::types::JsonRpcRequestForExperimentalGenesisConfigMethod::ExperimentalGenesisConfig,
+        params: client::types::GenesisConfigRequest(serde_json::Map::new())
     };
 
-    let genesis_config: client::JsonRpcResponseForGenesisConfigAndRpcError = client
+    let genesis_config: client::types::JsonRpcResponseForGenesisConfigAndRpcError = client
         .experimental_genesis_config(&payload_genesis_config)
         .await?
         .into_inner();
     assert!(matches!(
         genesis_config,
-        client::JsonRpcResponseForGenesisConfigAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForGenesisConfigAndRpcError::Variant0 { result: _, .. }
     ));
 
     println!("response for genesis_config: {:#?}", genesis_config);
@@ -549,23 +549,23 @@ async fn test_experimental_genesis_config(client: &Client) -> Result<(), Box<dyn
 async fn test_experimental_light_client_proof(
     client: &Client,
     block_hash: CryptoHash,
-    sender_account_id: client::AccountId,
+    sender_account_id: client::types::AccountId,
     sent_tx_hash: CryptoHash,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_exp_light_client_proof = client::JsonRpcRequestForExperimentalLightClientProof {
+    let payload_exp_light_client_proof = client::types::JsonRpcRequestForExperimentalLightClientProof {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalLightClientProofMethod::ExperimentalLightClientProof,
-        params: client::RpcLightClientExecutionProofRequest::Variant0 {
+        method: client::types::JsonRpcRequestForExperimentalLightClientProofMethod::ExperimentalLightClientProof,
+        params: client::types::RpcLightClientExecutionProofRequest::Variant0 {
             light_client_head: block_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: sent_tx_hash.clone(),
-            type_: client::TypeTransactionOrReceiptId::Transaction,
+            type_: client::types::TypeTransactionOrReceiptId::Transaction,
         }
     };
 
-    let exp_light_client_proof: client::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client.experimental_light_client_proof(&payload_exp_light_client_proof).await?.into_inner();
-    assert!(matches!(exp_light_client_proof, client::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError::Variant0 { result: _, .. }));
+    let exp_light_client_proof: client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError = client.experimental_light_client_proof(&payload_exp_light_client_proof).await?.into_inner();
+    assert!(matches!(exp_light_client_proof, client::types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError::Variant0 { result: _, .. }));
 
     println!(
         "response for exp_light_client_proof: {:#?}",
@@ -579,20 +579,20 @@ async fn test_experimental_light_client_block(
     client: &Client,
     block_hash: CryptoHash,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_exp_light_client_block = client::JsonRpcRequestForExperimentalLightClientBlockProof {
+    let payload_exp_light_client_block = client::types::JsonRpcRequestForExperimentalLightClientBlockProof {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalLightClientBlockProofMethod::ExperimentalLightClientBlockProof,
-        params: client::RpcLightClientBlockProofRequest {
+        method: client::types::JsonRpcRequestForExperimentalLightClientBlockProofMethod::ExperimentalLightClientBlockProof,
+        params: client::types::RpcLightClientBlockProofRequest {
             block_hash: block_hash.clone(),
             light_client_head: block_hash.clone(),
         }
     };
 
-    let exp_light_client_block: client::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError = client.experimental_light_client_block_proof(&payload_exp_light_client_block).await?.into_inner();
+    let exp_light_client_block: client::types::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError = client.experimental_light_client_block_proof(&payload_exp_light_client_block).await?.into_inner();
     assert!(matches!(
         exp_light_client_block,
-        client::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -610,21 +610,21 @@ async fn test_experimental_protocol_config(
     client: &Client,
     block_hash: CryptoHash,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_protocol_config = client::JsonRpcRequestForExperimentalProtocolConfig {
+    let payload_protocol_config = client::types::JsonRpcRequestForExperimentalProtocolConfig {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalProtocolConfigMethod::ExperimentalProtocolConfig,
-        params: client::RpcProtocolConfigRequest::BlockId(client::BlockId::Variant1(block_hash.clone()))
+        method: client::types::JsonRpcRequestForExperimentalProtocolConfigMethod::ExperimentalProtocolConfig,
+        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
     };
 
-    let protocol_config: client::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError =
+    let protocol_config: client::types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError =
         client
             .experimental_protocol_config(&payload_protocol_config)
             .await?
             .into_inner();
     assert!(matches!(
         protocol_config,
-        client::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -639,22 +639,22 @@ async fn test_experimental_receipt(
     client: &Client,
     executed_receipt_id: CryptoHash,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_receipt = client::JsonRpcRequestForExperimentalReceipt {
+    let payload_receipt = client::types::JsonRpcRequestForExperimentalReceipt {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalReceiptMethod::ExperimentalReceipt,
-        params: client::RpcReceiptRequest {
+        method: client::types::JsonRpcRequestForExperimentalReceiptMethod::ExperimentalReceipt,
+        params: client::types::RpcReceiptRequest {
             receipt_id: executed_receipt_id,
         },
     };
 
-    let receipt: client::JsonRpcResponseForRpcReceiptResponseAndRpcError = client
+    let receipt: client::types::JsonRpcResponseForRpcReceiptResponseAndRpcError = client
         .experimental_receipt(&payload_receipt)
         .await?
         .into_inner();
     assert!(matches!(
         receipt,
-        client::JsonRpcResponseForRpcReceiptResponseAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForRpcReceiptResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
     println!("response for receipt: {:#?}", receipt);
@@ -665,26 +665,26 @@ async fn test_experimental_receipt(
 async fn test_experimental_tx_status(
     client: &Client,
     sent_tx_hash: CryptoHash,
-    sender_account_id: client::AccountId,
+    sender_account_id: client::types::AccountId,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_exp_tx_status = client::JsonRpcRequestForExperimentalTxStatus {
+    let payload_exp_tx_status = client::types::JsonRpcRequestForExperimentalTxStatus {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalTxStatusMethod::ExperimentalTxStatus,
-        params: client::RpcTransactionStatusRequest::Variant1 {
+        method: client::types::JsonRpcRequestForExperimentalTxStatusMethod::ExperimentalTxStatus,
+        params: client::types::RpcTransactionStatusRequest::Variant1 {
             tx_hash: sent_tx_hash.clone(),
             sender_account_id: sender_account_id.clone(),
-            wait_until: client::TxExecutionStatus::None,
+            wait_until: client::types::TxExecutionStatus::None,
         },
     };
 
-    let exp_tx_status: client::JsonRpcResponseForRpcTransactionResponseAndRpcError = client
+    let exp_tx_status: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError = client
         .experimental_tx_status(&payload_exp_tx_status)
         .await?
         .into_inner();
     assert!(matches!(
         exp_tx_status,
-        client::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -696,23 +696,23 @@ async fn test_experimental_tx_status(
 }
 
 async fn test_experimental_validators_ordered(client: &Client) -> Result<(), Box<dyn Error>> {
-    let payload_exp_validators = client::JsonRpcRequestForExperimentalValidatorsOrdered {
+    let payload_exp_validators = client::types::JsonRpcRequestForExperimentalValidatorsOrdered {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalValidatorsOrderedMethod::ExperimentalValidatorsOrdered,
-        params: client::RpcValidatorsOrderedRequest {
+        method: client::types::JsonRpcRequestForExperimentalValidatorsOrderedMethod::ExperimentalValidatorsOrdered,
+        params: client::types::RpcValidatorsOrderedRequest {
             block_id: None
         }
     };
 
-    let exp_validators: client::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError =
+    let exp_validators: client::types::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError =
         client
             .experimental_validators_ordered(&payload_exp_validators)
             .await?
             .into_inner();
     assert!(matches!(
         exp_validators,
-        client::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -725,25 +725,25 @@ async fn test_experimental_validators_ordered(client: &Client) -> Result<(), Box
 
 async fn test_experimental_maintenance_windows(
     client_remote: &Client,
-    sender_account_id: client::AccountId,
+    sender_account_id: client::types::AccountId,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_maintenance_windows = client::JsonRpcRequestForExperimentalMaintenanceWindows {
+    let payload_maintenance_windows = client::types::JsonRpcRequestForExperimentalMaintenanceWindows {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalMaintenanceWindowsMethod::ExperimentalMaintenanceWindows,
-        params: client::RpcMaintenanceWindowsRequest {
+        method: client::types::JsonRpcRequestForExperimentalMaintenanceWindowsMethod::ExperimentalMaintenanceWindows,
+        params: client::types::RpcMaintenanceWindowsRequest {
             account_id: sender_account_id.clone(),
         }
     };
 
-    let maintenance_windows: client::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError =
+    let maintenance_windows: client::types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError =
         client_remote
             .experimental_maintenance_windows(&payload_maintenance_windows)
             .await?
             .into_inner();
     assert!(matches!(
         maintenance_windows,
-        client::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError::Variant0 {
+        client::types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -758,17 +758,17 @@ async fn test_experimental_maintenance_windows(
 }
 
 async fn test_experimental_split_storage_info(client: &Client) -> Result<(), Box<dyn Error>> {
-    let payload_split_storage = client::JsonRpcRequestForExperimentalSplitStorageInfo {
+    let payload_split_storage = client::types::JsonRpcRequestForExperimentalSplitStorageInfo {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForExperimentalSplitStorageInfoMethod::ExperimentalSplitStorageInfo,
-        params: client::RpcSplitStorageInfoRequest(serde_json::Map::new())
+        method: client::types::JsonRpcRequestForExperimentalSplitStorageInfoMethod::ExperimentalSplitStorageInfo,
+        params: client::types::RpcSplitStorageInfoRequest(serde_json::Map::new())
     };
 
-    let split_storage_info: client::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError = client.experimental_split_storage_info(&payload_split_storage).await?.into_inner();
+    let split_storage_info: client::types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError = client.experimental_split_storage_info(&payload_split_storage).await?.into_inner();
     assert!(matches!(
         split_storage_info,
-        client::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError::Variant0 {
+        client::types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError::Variant0 {
             result: _,
             ..
         }
@@ -781,24 +781,24 @@ async fn test_experimental_split_storage_info(client: &Client) -> Result<(), Box
 
 async fn test_query_account(
     client: &Client,
-    sender_account_id: client::AccountId,
+    sender_account_id: client::types::AccountId,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_query_account = client::JsonRpcRequestForQuery {
+    let payload_query_account = client::types::JsonRpcRequestForQuery {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForQueryMethod::Query,
-        params: client::RpcQueryRequest::Variant8 {
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::Variant8 {
             account_id: sender_account_id,
-            request_type: client::RpcQueryRequestVariant8RequestType::ViewAccount,
-            finality: client::Finality::Final,
+            request_type: client::types::RpcQueryRequestVariant8RequestType::ViewAccount,
+            finality: client::types::Finality::Final,
         },
     };
 
-    let query_account: client::JsonRpcResponseForRpcQueryResponseAndRpcError =
+    let query_account: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError =
         client.query(&payload_query_account).await?.into_inner();
     assert!(matches!(
         query_account,
-        client::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { result: _, .. }
     ));
 
     println!("response for query_account: {:#?}", query_account);
@@ -808,32 +808,32 @@ async fn test_query_account(
 
 async fn test_function_call(
     client: &Client,
-    sender_account_id: client::AccountId,
+    sender_account_id: client::types::AccountId,
 ) -> Result<(), Box<dyn Error>> {
-    let payload_function_call = client::JsonRpcRequestForQuery {
+    let payload_function_call = client::types::JsonRpcRequestForQuery {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForQueryMethod::Query,
-        params: client::RpcQueryRequest::Variant13 {
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::Variant13 {
             account_id: sender_account_id.clone(),
-            request_type: client::RpcQueryRequestVariant13RequestType::CallFunction,
+            request_type: client::types::RpcQueryRequestVariant13RequestType::CallFunction,
             method_name: "get_greeting".to_string(),
             args_base64: "".to_string(),
-            finality: client::Finality::Final,
+            finality: client::types::Finality::Final,
         },
     };
 
-    let function_call: client::JsonRpcResponseForRpcQueryResponseAndRpcError =
+    let function_call: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError =
         client.query(&payload_function_call).await?.into_inner();
     assert!(matches!(
         function_call,
-        client::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { result: _, .. }
+        client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 { result: _, .. }
     ));
-    if let client::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 {
+    if let client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 {
         result, ..
     } = &function_call
     {
-        if let client::RpcQueryResponse::Variant3 { result, .. } = result {
+        if let client::types::RpcQueryResponse::Variant3 { result, .. } = result {
             assert_eq!(
                 result.len(),
                 6,
@@ -854,7 +854,7 @@ async fn prepare_blockchain(
     client_local: Client,
 ) -> Result<
     (
-        client::AccountId,
+        client::types::AccountId,
         CryptoHash,
         String,
         CryptoHash,
@@ -863,21 +863,21 @@ async fn prepare_blockchain(
     ),
     Box<dyn Error>,
 > {
-    let sender_account_id: client::AccountId = "test.near".parse().unwrap();
+    let sender_account_id: client::types::AccountId = "test.near".parse().unwrap();
 
-    let payload_query_access_key = client::JsonRpcRequestForQuery {
+    let payload_query_access_key = client::types::JsonRpcRequestForQuery {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForQueryMethod::Query,
-        params: client::RpcQueryRequest::Variant11 {
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::Variant11 {
             account_id: sender_account_id.clone(),
-            public_key: client::PublicKey(signer.public_key().to_string()),
-            request_type: client::RpcQueryRequestVariant11RequestType::ViewAccessKey,
-            finality: client::Finality::Final,
+            public_key: client::types::PublicKey(signer.public_key().to_string()),
+            request_type: client::types::RpcQueryRequestVariant11RequestType::ViewAccessKey,
+            finality: client::types::Finality::Final,
         },
     };
 
-    let access_key: client::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local
+    let access_key: client::types::JsonRpcResponseForRpcQueryResponseAndRpcError = client_local
         .query(&payload_query_access_key)
         .await?
         .into_inner();
@@ -885,11 +885,11 @@ async fn prepare_blockchain(
 
     let access_key_block_hash: CryptoHash;
     let access_key_nonce: u64;
-    if let client::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 {
+    if let client::types::JsonRpcResponseForRpcQueryResponseAndRpcError::Variant0 {
         result, ..
     } = access_key
     {
-        if let client::RpcQueryResponse::Variant4 {
+        if let client::types::RpcQueryResponse::Variant4 {
             block_hash, nonce, ..
         } = result
         {
@@ -935,30 +935,30 @@ async fn prepare_blockchain(
     let signed_tx = tx.sign(&signer);
     let base64_signed_tx = near_primitives::serialize::to_base64(&borsh::to_vec(&signed_tx)?);
 
-    let payload_send_tx = client::JsonRpcRequestForSendTx {
+    let payload_send_tx = client::types::JsonRpcRequestForSendTx {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForSendTxMethod::SendTx,
-        params: client::RpcSendTransactionRequest {
-            signed_tx_base64: near_openapi_client::SignedTransaction(
+        method: client::types::JsonRpcRequestForSendTxMethod::SendTx,
+        params: client::types::RpcSendTransactionRequest {
+            signed_tx_base64: near_openapi_client::types::SignedTransaction(
                 base64_signed_tx.clone(),
             ),
-            wait_until: client::TxExecutionStatus::Executed,
+            wait_until: client::types::TxExecutionStatus::Executed,
         },
     };
 
-    let send_tx: client::JsonRpcResponseForRpcTransactionResponseAndRpcError =
+    let send_tx: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError =
         client_local.send_tx(&payload_send_tx).await?.into_inner();
     println!("response for send_tx: {:#?}", send_tx);
 
     let sent_tx_hash: CryptoHash;
     let executed_receipt_id: CryptoHash;
-    if let client::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 {
+    if let client::types::JsonRpcResponseForRpcTransactionResponseAndRpcError::Variant0 {
         result,
         ..
     } = send_tx
     {
-        if let client::RpcTransactionResponse::Variant1 {
+        if let client::types::RpcTransactionResponse::Variant1 {
             receipts_outcome,
             transaction,
             ..
@@ -973,18 +973,18 @@ async fn prepare_blockchain(
         return Err("couldn't get transaction info".into());
     }
 
-    let payload_block_final = client::JsonRpcRequestForBlock {
+    let payload_block_final = client::types::JsonRpcRequestForBlock {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
-        method: client::JsonRpcRequestForBlockMethod::Block,
-        params: client::RpcBlockRequest::Finality(client::Finality::Final),
+        method: client::types::JsonRpcRequestForBlockMethod::Block,
+        params: client::types::RpcBlockRequest::Finality(client::types::Finality::Final),
     };
 
-    let block_final: client::JsonRpcResponseForRpcBlockResponseAndRpcError =
+    let block_final: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError =
         client_local.block(&payload_block_final).await?.into_inner();
     println!("response for block_final: {:#?}", block_final);
     let block_final_hash: CryptoHash;
-    if let client::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 {
+    if let client::types::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 {
         result, ..
     } = block_final
     {
@@ -995,10 +995,10 @@ async fn prepare_blockchain(
 
     sleep(Duration::from_secs(2)).await;
 
-    let later_block: client::JsonRpcResponseForRpcBlockResponseAndRpcError =
+    let later_block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError =
         client_local.block(&payload_block_final).await?.into_inner();
     let later_block_hash: CryptoHash;
-    if let client::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 {
+    if let client::types::JsonRpcResponseForRpcBlockResponseAndRpcError::Variant0 {
         result, ..
     } = later_block
     {

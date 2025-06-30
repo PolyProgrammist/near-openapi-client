@@ -90,7 +90,7 @@ pub mod types {"""
     types_lib_rs = dependencies + types
     client_lib_rs = dependencies + client
     
-    client_lib_rs = 'pub use near_openapi_types::*;\nuse near_openapi_types as types;\n' + client_lib_rs
+    client_lib_rs = 'pub use near_openapi_types as types;\n' + client_lib_rs
     client_lib_rs = re.sub('"{}/\w*', '"{}/', client_lib_rs)
 
     if not os.path.isdir('./near-openapi-client/src'):

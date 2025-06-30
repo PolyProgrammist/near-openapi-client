@@ -1,5 +1,4 @@
-pub use near_openapi_types::*;
-use near_openapi_types as types;
+pub use near_openapi_types as types;
 #[allow(unused_imports)]
 use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
 #[allow(unused_imports)]
