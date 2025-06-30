@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.2.1...near-openapi-types-v0.2.2) - 2025-06-30
+
+### Other
+
+- cargo fmt in client and types, remove pub use of types internals in client
+
 ## [0.2.0](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.1.1...near-openapi-types-v0.2.0) - 2025-06-24
 
 ### Other
