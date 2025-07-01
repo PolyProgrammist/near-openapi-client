@@ -79,7 +79,7 @@ async fn test_block(client: &Client, block_hash: CryptoHash) -> Result<(), Box<d
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForBlockMethod::Block,
         params: client::types::RpcBlockRequest::BlockId({
-            client::types::BlockId::Variant1(block_hash.clone())
+            client::types::BlockId::CryptoHash(block_hash.clone())
         }),
     };
 
@@ -164,8 +164,8 @@ async fn test_chunk(client: &Client, block_hash: CryptoHash) -> Result<(), Box<d
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForChunkMethod::Chunk,
-        params: client::types::RpcChunkRequest::Variant0 {
-            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+        params: client::types::RpcChunkRequest::BlockShardId {
+            block_id: client::types::BlockId::CryptoHash(block_hash.clone()),
             shard_id: client::types::ShardId(0),
         },
     };
@@ -191,7 +191,7 @@ async fn test_gas_price_with_block(
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
         params: client::types::RpcGasPriceRequest {
-            block_id: Some(client::types::BlockId::Variant1(block_hash.clone())),
+            block_id: Some(client::types::BlockId::CryptoHash(block_hash.clone())),
         },
     };
 
@@ -264,7 +264,7 @@ async fn test_light_client_proof(
             light_client_head: block_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: sent_tx_hash.clone(),
-            type_: client::types::TypeTransactionOrReceiptId::Transaction,
+            type_: client::types::RpcLightClientExecutionProofRequestVariant0Type::Transaction,
         },
     };
 
@@ -438,7 +438,7 @@ async fn test_experimental_changes(
         params: client::types::RpcStateChangesInBlockByTypeRequest::Variant0 {
             changes_type: client::types::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
             account_ids: vec![sender_account_id],
-            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+            block_id: client::types::BlockId::CryptoHash(block_hash.clone()),
         }
     };
 
@@ -475,7 +475,7 @@ async fn test_experimental_changes_in_block(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalChangesInBlockMethod::ExperimentalChangesInBlock,
-        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
+        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::CryptoHash(block_hash.clone()))
     };
 
     let experimental_changes_in_block: client::types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError = client.experimental_changes_in_block(&payload_experimental_changes_in_block).await?.into_inner();
@@ -500,8 +500,8 @@ async fn test_experimental_congestion_level(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalCongestionLevelMethod::ExperimentalCongestionLevel,
-        params: client::types::RpcCongestionLevelRequest::Variant0 {
-            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+        params: client::types::RpcCongestionLevelRequest::BlockShardId {
+            block_id: client::types::BlockId::CryptoHash(block_hash.clone()),
             shard_id: client::types::ShardId(0)
         }
     };
@@ -560,7 +560,7 @@ async fn test_experimental_light_client_proof(
             light_client_head: block_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: sent_tx_hash.clone(),
-            type_: client::types::TypeTransactionOrReceiptId::Transaction,
+            type_: client::types::RpcLightClientExecutionProofRequestVariant0Type::Transaction,
         }
     };
 
@@ -614,7 +614,7 @@ async fn test_experimental_protocol_config(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalProtocolConfigMethod::ExperimentalProtocolConfig,
-        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
+        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::CryptoHash(block_hash.clone()))
     };
 
     let protocol_config: client::types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError =

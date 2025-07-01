@@ -2754,6 +2754,7 @@
                     {
                         "format": "uint64",
                         "minimum": 0,
+                        "title": "block_height",
                         "type": "integer"
                     },
                     {
@@ -2831,15 +2832,6 @@
                     "blocks_to_catchup"
                 ],
                 "type": "object"
-            },
-            "CauseRpcErrorKind": {
-                "anyOf": [
-                    {
-                        "$ref": "#/components/schemas/RpcRequestValidationErrorKind"
-                    },
-                    {},
-                    {}
-                ]
             },
             "ChunkDistributionNetworkConfig": {
                 "description": "Config for the Chunk Distribution Network feature.\n This allows nodes to push and pull chunks from a central stream.\n The two benefits of this approach are: (1) less request/response traffic\n on the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain.",
@@ -3292,6 +3284,7 @@
                         "type": "array"
                     },
                     "shards_endorsed": {
+                        "default": [],
                         "description": "Shards this validator is assigned to as chunk validator in the current epoch.",
                         "items": {
                             "$ref": "#/components/schemas/ShardId"
@@ -3309,8 +3302,7 @@
                     "stake",
                     "shards",
                     "num_produced_blocks",
-                    "num_expected_blocks",
-                    "shards_endorsed"
+                    "num_expected_blocks"
                 ],
                 "type": "object"
             },
@@ -4833,6 +4825,29 @@
                         "description": "How often gc should be run"
                     }
                 },
+                "type": "object"
+            },
+            "GasKeyView": {
+                "properties": {
+                    "balance": {
+                        "format": "uint128",
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "num_nonces": {
+                        "format": "uint32",
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "permission": {
+                        "$ref": "#/components/schemas/AccessKeyPermissionView"
+                    }
+                },
+                "required": [
+                    "num_nonces",
+                    "balance",
+                    "permission"
+                ],
                 "type": "object"
             },
             "GenesisConfig": {
@@ -8258,14 +8273,6 @@
             "MutableConfigValue": {
                 "type": "string"
             },
-            "NameRpcErrorKind": {
-                "enum": [
-                    "REQUEST_VALIDATION_ERROR",
-                    "HANDLER_ERROR",
-                    "INTERNAL_ERROR"
-                ],
-                "type": "string"
-            },
             "NetworkInfoView": {
                 "properties": {
                     "connected_peers": {
@@ -8960,6 +8967,7 @@
                             "block_id",
                             "shard_id"
                         ],
+                        "title": "block_shard_id",
                         "type": "object"
                     },
                     {
@@ -8971,6 +8979,7 @@
                         "required": [
                             "chunk_id"
                         ],
+                        "title": "chunk_hash",
                         "type": "object"
                     }
                 ],
@@ -9515,6 +9524,7 @@
                             "block_id",
                             "shard_id"
                         ],
+                        "title": "block_shard_id",
                         "type": "object"
                     },
                     {
@@ -9526,6 +9536,7 @@
                         "required": [
                             "chunk_id"
                         ],
+                        "title": "chunk_hash",
                         "type": "object"
                     }
                 ],
@@ -9545,33 +9556,76 @@
                 "type": "object"
             },
             "RpcError": {
-                "properties": {
-                    "cause": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/CauseRpcErrorKind"
+                "additionalProperties": false,
+                "description": "This struct may be returned from JSON RPC server in case of error\n It is expected that this struct has impl From<_> all other RPC errors\n like [RpcBlockError](crate::types::blocks::RpcBlockError)",
+                "oneOf": [
+                    {
+                        "properties": {
+                            "cause": {
+                                "$ref": "#/components/schemas/RpcRequestValidationErrorKind"
+                            },
+                            "name": {
+                                "enum": [
+                                    "REQUEST_VALIDATION_ERROR"
+                                ],
+                                "type": "string"
                             }
+                        },
+                        "required": [
+                            "name",
+                            "cause"
                         ],
-                        "nullable": true
+                        "type": "object"
                     },
+                    {
+                        "properties": {
+                            "cause": {},
+                            "name": {
+                                "enum": [
+                                    "HANDLER_ERROR"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "cause"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "cause": {},
+                            "name": {
+                                "enum": [
+                                    "INTERNAL_ERROR"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "cause"
+                        ],
+                        "type": "object"
+                    }
+                ],
+                "properties": {
+                    "cause": {},
                     "code": {
+                        "description": "Deprecated please use the `error_struct` instead",
                         "format": "int64",
                         "type": "integer"
                     },
                     "data": {
+                        "description": "Deprecated please use the `error_struct` instead",
                         "nullable": true
                     },
                     "message": {
+                        "description": "Deprecated please use the `error_struct` instead",
                         "type": "string"
                     },
-                    "name": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/NameRpcErrorKind"
-                            }
-                        ],
-                        "nullable": true
-                    }
+                    "name": {}
                 },
                 "required": [
                     "code",
@@ -9665,7 +9719,7 @@
                 "type": "object"
             },
             "RpcLightClientExecutionProofRequest": {
-                "anyOf": [
+                "oneOf": [
                     {
                         "properties": {
                             "sender_id": {
@@ -9673,12 +9727,20 @@
                             },
                             "transaction_hash": {
                                 "$ref": "#/components/schemas/CryptoHash"
+                            },
+                            "type": {
+                                "enum": [
+                                    "transaction"
+                                ],
+                                "type": "string"
                             }
                         },
                         "required": [
+                            "type",
                             "transaction_hash",
                             "sender_id"
                         ],
+                        "title": "transaction",
                         "type": "object"
                     },
                     {
@@ -9688,25 +9750,29 @@
                             },
                             "receiver_id": {
                                 "$ref": "#/components/schemas/AccountId"
+                            },
+                            "type": {
+                                "enum": [
+                                    "receipt"
+                                ],
+                                "type": "string"
                             }
                         },
                         "required": [
+                            "type",
                             "receipt_id",
                             "receiver_id"
                         ],
+                        "title": "receipt",
                         "type": "object"
                     }
                 ],
                 "properties": {
                     "light_client_head": {
                         "$ref": "#/components/schemas/CryptoHash"
-                    },
-                    "type": {
-                        "$ref": "#/components/schemas/TypeTransactionOrReceiptId"
                     }
                 },
                 "required": [
-                    "type",
                     "light_client_head"
                 ],
                 "title": "RpcLightClientExecutionProofRequest",
@@ -10182,8 +10248,18 @@
                 "type": "object",
                 "oneOf": [
                     {
-                        "title": "viewaccbyblock",
                         "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
                             {
                                 "properties": {
                                     "account_id": {
@@ -10194,23 +10270,281 @@
                                             "view_account"
                                         ],
                                         "type": "string"
-                                    },
-                                    "block_id": {
-                                        "$ref": "#/components/schemas/BlockId"
                                     }
                                 },
                                 "required": [
                                     "request_type",
-                                    "account_id",
-                                    "block_id"
+                                    "account_id"
                                 ],
                                 "type": "object"
                             }
                         ]
                     },
                     {
-                        "title": "viewaccbyfinality",
                         "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_code"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "include_proof": {
+                                        "type": "boolean"
+                                    },
+                                    "prefix_base64": {
+                                        "format": "bytes",
+                                        "type": "string"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_state"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "prefix_base64"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "public_key": {
+                                        "$ref": "#/components/schemas/PublicKey"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_access_key"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "public_key"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_access_key_list"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "args_base64": {
+                                        "format": "bytes",
+                                        "type": "string"
+                                    },
+                                    "method_name": {
+                                        "type": "string"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "call_function"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "method_name",
+                                    "args_base64"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "code_hash": {
+                                        "$ref": "#/components/schemas/CryptoHash"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_global_contract_code"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "code_hash"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_global_contract_code_by_account_id"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
+                                    "finality"
+                                ],
+                                "type": "object"
+                            },
                             {
                                 "properties": {
                                     "account_id": {
@@ -10221,15 +10555,548 @@
                                             "view_account"
                                         ],
                                         "type": "string"
-                                    },
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
                                     "finality": {
                                         "$ref": "#/components/schemas/Finality"
                                     }
                                 },
                                 "required": [
+                                    "finality"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_code"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
+                                    "finality"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "include_proof": {
+                                        "type": "boolean"
+                                    },
+                                    "prefix_base64": {
+                                        "format": "bytes",
+                                        "type": "string"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_state"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
                                     "request_type",
                                     "account_id",
+                                    "prefix_base64"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
                                     "finality"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "public_key": {
+                                        "$ref": "#/components/schemas/PublicKey"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_access_key"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "public_key"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
+                                    "finality"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_access_key_list"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
+                                    "finality"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "args_base64": {
+                                        "format": "bytes",
+                                        "type": "string"
+                                    },
+                                    "method_name": {
+                                        "type": "string"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "call_function"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "method_name",
+                                    "args_base64"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
+                                    "finality"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "code_hash": {
+                                        "$ref": "#/components/schemas/CryptoHash"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_global_contract_code"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "code_hash"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
+                                    "finality"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_global_contract_code_by_account_id"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_account"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_code"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "include_proof": {
+                                        "type": "boolean"
+                                    },
+                                    "prefix_base64": {
+                                        "format": "bytes",
+                                        "type": "string"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_state"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "prefix_base64"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "public_key": {
+                                        "$ref": "#/components/schemas/PublicKey"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_access_key"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "public_key"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_access_key_list"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "args_base64": {
+                                        "format": "bytes",
+                                        "type": "string"
+                                    },
+                                    "method_name": {
+                                        "type": "string"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "call_function"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id",
+                                    "method_name",
+                                    "args_base64"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "code_hash": {
+                                        "$ref": "#/components/schemas/CryptoHash"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_global_contract_code"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "code_hash"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "request_type": {
+                                        "enum": [
+                                            "view_global_contract_code_by_account_id"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "request_type",
+                                    "account_id"
                                 ],
                                 "type": "object"
                             }
@@ -10515,6 +11382,42 @@
                             },
                             {
                                 "properties": {
+                                    "changes_type": {
+                                        "enum": [
+                                            "single_gas_key_changes"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "keys": {
+                                        "items": {
+                                            "$ref": "#/components/schemas/AccountWithPublicKey"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "required": [
+                                    "changes_type",
+                                    "keys"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
                                     "account_ids": {
                                         "items": {
                                             "$ref": "#/components/schemas/AccountId"
@@ -10524,6 +11427,42 @@
                                     "changes_type": {
                                         "enum": [
                                             "all_access_key_changes"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "changes_type",
+                                    "account_ids"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "block_id": {
+                                        "$ref": "#/components/schemas/BlockId"
+                                    }
+                                },
+                                "required": [
+                                    "block_id"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_ids": {
+                                        "items": {
+                                            "$ref": "#/components/schemas/AccountId"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "changes_type": {
+                                        "enum": [
+                                            "all_gas_key_changes"
                                         ],
                                         "type": "string"
                                     }
@@ -10700,6 +11639,42 @@
                             },
                             {
                                 "properties": {
+                                    "changes_type": {
+                                        "enum": [
+                                            "single_gas_key_changes"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "keys": {
+                                        "items": {
+                                            "$ref": "#/components/schemas/AccountWithPublicKey"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "required": [
+                                    "changes_type",
+                                    "keys"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
+                                    "finality"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
                                     "account_ids": {
                                         "items": {
                                             "$ref": "#/components/schemas/AccountId"
@@ -10709,6 +11684,42 @@
                                     "changes_type": {
                                         "enum": [
                                             "all_access_key_changes"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "changes_type",
+                                    "account_ids"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "finality": {
+                                        "$ref": "#/components/schemas/Finality"
+                                    }
+                                },
+                                "required": [
+                                    "finality"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_ids": {
+                                        "items": {
+                                            "$ref": "#/components/schemas/AccountId"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "changes_type": {
+                                        "enum": [
+                                            "all_gas_key_changes"
                                         ],
                                         "type": "string"
                                     }
@@ -10885,6 +11896,42 @@
                             },
                             {
                                 "properties": {
+                                    "changes_type": {
+                                        "enum": [
+                                            "single_gas_key_changes"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "keys": {
+                                        "items": {
+                                            "$ref": "#/components/schemas/AccountWithPublicKey"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "required": [
+                                    "changes_type",
+                                    "keys"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
                                     "account_ids": {
                                         "items": {
                                             "$ref": "#/components/schemas/AccountId"
@@ -10894,6 +11941,42 @@
                                     "changes_type": {
                                         "enum": [
                                             "all_access_key_changes"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "changes_type",
+                                    "account_ids"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "sync_checkpoint": {
+                                        "$ref": "#/components/schemas/SyncCheckpoint"
+                                    }
+                                },
+                                "required": [
+                                    "sync_checkpoint"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "account_ids": {
+                                        "items": {
+                                            "$ref": "#/components/schemas/AccountId"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "changes_type": {
+                                        "enum": [
+                                            "all_gas_key_changes"
                                         ],
                                         "type": "string"
                                     }
@@ -12035,199 +13118,403 @@
                     }
                 ]
             },
-            "StateChangeValueViewContent": {
-                "anyOf": [
+            "StateChangeWithCauseView": {
+                "oneOf": [
                     {
-                        "description": "A view of the account",
                         "properties": {
-                            "account_id": {
-                                "$ref": "#/components/schemas/AccountId"
+                            "change": {
+                                "description": "A view of the account",
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "amount": {
+                                        "type": "string"
+                                    },
+                                    "code_hash": {
+                                        "$ref": "#/components/schemas/CryptoHash"
+                                    },
+                                    "global_contract_account_id": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/AccountId"
+                                            }
+                                        ],
+                                        "nullable": true
+                                    },
+                                    "global_contract_hash": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/CryptoHash"
+                                            }
+                                        ],
+                                        "nullable": true
+                                    },
+                                    "locked": {
+                                        "type": "string"
+                                    },
+                                    "storage_paid_at": {
+                                        "default": 0,
+                                        "description": "TODO(2271): deprecated.",
+                                        "format": "uint64",
+                                        "minimum": 0,
+                                        "type": "integer"
+                                    },
+                                    "storage_usage": {
+                                        "format": "uint64",
+                                        "minimum": 0,
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "account_id",
+                                    "amount",
+                                    "locked",
+                                    "code_hash",
+                                    "storage_usage"
+                                ],
+                                "type": "object"
                             },
-                            "amount": {
+                            "type": {
+                                "enum": [
+                                    "account_update"
+                                ],
                                 "type": "string"
-                            },
-                            "code_hash": {
-                                "$ref": "#/components/schemas/CryptoHash"
-                            },
-                            "global_contract_account_id": {
-                                "allOf": [
-                                    {
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "change"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "change": {
+                                "properties": {
+                                    "account_id": {
                                         "$ref": "#/components/schemas/AccountId"
                                     }
+                                },
+                                "required": [
+                                    "account_id"
                                 ],
-                                "nullable": true
+                                "type": "object"
                             },
-                            "global_contract_hash": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/CryptoHash"
+                            "type": {
+                                "enum": [
+                                    "account_deletion"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "change"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "change": {
+                                "properties": {
+                                    "access_key": {
+                                        "$ref": "#/components/schemas/AccessKeyView"
+                                    },
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "public_key": {
+                                        "$ref": "#/components/schemas/PublicKey"
                                     }
+                                },
+                                "required": [
+                                    "account_id",
+                                    "public_key",
+                                    "access_key"
                                 ],
-                                "nullable": true
+                                "type": "object"
                             },
-                            "locked": {
-                                "type": "string"
-                            },
-                            "storage_paid_at": {
-                                "default": 0,
-                                "description": "TODO(2271): deprecated.",
-                                "format": "uint64",
-                                "minimum": 0,
-                                "type": "integer"
-                            },
-                            "storage_usage": {
-                                "format": "uint64",
-                                "minimum": 0,
-                                "type": "integer"
-                            }
-                        },
-                        "required": [
-                            "account_id",
-                            "amount",
-                            "locked",
-                            "code_hash",
-                            "storage_usage"
-                        ],
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "account_id": {
-                                "$ref": "#/components/schemas/AccountId"
-                            }
-                        },
-                        "required": [
-                            "account_id"
-                        ],
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "access_key": {
-                                "$ref": "#/components/schemas/AccessKeyView"
-                            },
-                            "account_id": {
-                                "$ref": "#/components/schemas/AccountId"
-                            },
-                            "public_key": {
-                                "$ref": "#/components/schemas/PublicKey"
-                            }
-                        },
-                        "required": [
-                            "account_id",
-                            "public_key",
-                            "access_key"
-                        ],
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "account_id": {
-                                "$ref": "#/components/schemas/AccountId"
-                            },
-                            "public_key": {
-                                "$ref": "#/components/schemas/PublicKey"
-                            }
-                        },
-                        "required": [
-                            "account_id",
-                            "public_key"
-                        ],
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "account_id": {
-                                "$ref": "#/components/schemas/AccountId"
-                            },
-                            "key_base64": {
-                                "format": "bytes",
-                                "type": "string"
-                            },
-                            "value_base64": {
-                                "format": "bytes",
+                            "type": {
+                                "enum": [
+                                    "access_key_update"
+                                ],
                                 "type": "string"
                             }
                         },
                         "required": [
-                            "account_id",
-                            "key_base64",
-                            "value_base64"
+                            "type",
+                            "change"
                         ],
                         "type": "object"
                     },
                     {
                         "properties": {
-                            "account_id": {
-                                "$ref": "#/components/schemas/AccountId"
+                            "change": {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "public_key": {
+                                        "$ref": "#/components/schemas/PublicKey"
+                                    }
+                                },
+                                "required": [
+                                    "account_id",
+                                    "public_key"
+                                ],
+                                "type": "object"
                             },
-                            "key_base64": {
-                                "format": "bytes",
+                            "type": {
+                                "enum": [
+                                    "access_key_deletion"
+                                ],
                                 "type": "string"
                             }
                         },
                         "required": [
-                            "account_id",
-                            "key_base64"
+                            "type",
+                            "change"
                         ],
                         "type": "object"
                     },
                     {
                         "properties": {
-                            "account_id": {
-                                "$ref": "#/components/schemas/AccountId"
+                            "change": {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "gas_key": {
+                                        "$ref": "#/components/schemas/GasKeyView"
+                                    },
+                                    "public_key": {
+                                        "$ref": "#/components/schemas/PublicKey"
+                                    }
+                                },
+                                "required": [
+                                    "account_id",
+                                    "public_key",
+                                    "gas_key"
+                                ],
+                                "type": "object"
                             },
-                            "code_base64": {
+                            "type": {
+                                "enum": [
+                                    "gas_key_update"
+                                ],
                                 "type": "string"
                             }
                         },
                         "required": [
-                            "account_id",
-                            "code_base64"
+                            "type",
+                            "change"
                         ],
                         "type": "object"
                     },
                     {
                         "properties": {
-                            "account_id": {
-                                "$ref": "#/components/schemas/AccountId"
+                            "change": {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "index": {
+                                        "format": "uint32",
+                                        "minimum": 0,
+                                        "type": "integer"
+                                    },
+                                    "nonce": {
+                                        "format": "uint64",
+                                        "minimum": 0,
+                                        "type": "integer"
+                                    },
+                                    "public_key": {
+                                        "$ref": "#/components/schemas/PublicKey"
+                                    }
+                                },
+                                "required": [
+                                    "account_id",
+                                    "public_key",
+                                    "index",
+                                    "nonce"
+                                ],
+                                "type": "object"
+                            },
+                            "type": {
+                                "enum": [
+                                    "gas_key_nonce_update"
+                                ],
+                                "type": "string"
                             }
                         },
                         "required": [
-                            "account_id"
+                            "type",
+                            "change"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "change": {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "public_key": {
+                                        "$ref": "#/components/schemas/PublicKey"
+                                    }
+                                },
+                                "required": [
+                                    "account_id",
+                                    "public_key"
+                                ],
+                                "type": "object"
+                            },
+                            "type": {
+                                "enum": [
+                                    "gas_key_deletion"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "change"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "change": {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "key_base64": {
+                                        "format": "bytes",
+                                        "type": "string"
+                                    },
+                                    "value_base64": {
+                                        "format": "bytes",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "account_id",
+                                    "key_base64",
+                                    "value_base64"
+                                ],
+                                "type": "object"
+                            },
+                            "type": {
+                                "enum": [
+                                    "data_update"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "change"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "change": {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "key_base64": {
+                                        "format": "bytes",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "account_id",
+                                    "key_base64"
+                                ],
+                                "type": "object"
+                            },
+                            "type": {
+                                "enum": [
+                                    "data_deletion"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "change"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "change": {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    },
+                                    "code_base64": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "account_id",
+                                    "code_base64"
+                                ],
+                                "type": "object"
+                            },
+                            "type": {
+                                "enum": [
+                                    "contract_code_update"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "change"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "change": {
+                                "properties": {
+                                    "account_id": {
+                                        "$ref": "#/components/schemas/AccountId"
+                                    }
+                                },
+                                "required": [
+                                    "account_id"
+                                ],
+                                "type": "object"
+                            },
+                            "type": {
+                                "enum": [
+                                    "contract_code_deletion"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "change"
                         ],
                         "type": "object"
                     }
-                ]
-            },
-            "StateChangeValueViewType": {
-                "enum": [
-                    "account_update",
-                    "account_deletion",
-                    "access_key_update",
-                    "data_update",
-                    "data_deletion",
-                    "contract_code_update",
-                    "contract_code_deletion"
                 ],
-                "type": "string"
-            },
-            "StateChangeWithCauseView": {
                 "properties": {
                     "cause": {
                         "$ref": "#/components/schemas/StateChangeCauseView"
-                    },
-                    "change": {
-                        "$ref": "#/components/schemas/StateChangeValueViewContent"
-                    },
-                    "type": {
-                        "$ref": "#/components/schemas/StateChangeValueViewType"
                     }
                 },
                 "required": [
-                    "cause",
-                    "type",
-                    "change"
+                    "cause"
                 ],
                 "type": "object"
             },
@@ -12647,13 +13934,6 @@
                     }
                 ]
             },
-            "TypeTransactionOrReceiptId": {
-                "enum": [
-                    "transaction",
-                    "receipt"
-                ],
-                "type": "string"
-            },
             "UseGlobalContractAction": {
                 "description": "Use global contract action",
                 "properties": {
@@ -12780,6 +14060,13 @@
                         "description": "NearVM.",
                         "enum": [
                             "NearVm"
+                        ],
+                        "type": "string"
+                    },
+                    {
+                        "description": "NearVM. Exists temporarily while bulk memory and reftypes are getting enabled.",
+                        "enum": [
+                            "NearVm2"
                         ],
                         "type": "string"
                     }
