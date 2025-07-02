@@ -29,13 +29,13 @@ pub mod error {
         }
     }
 }
-#[doc = "Access key provides limited access to an account. Each access key belongs to some account and\n is identified by a unique (within the account) public key. One account may have large number of\n access keys. Access keys allow to act on behalf of the account by restricting transactions\n that can be issued.\n `account_id,public_key` is a key in the state"]
+#[doc = "Access key provides limited access to an account. Each access key belongs to some account and\nis identified by a unique (within the account) public key. One account may have large number of\naccess keys. Access keys allow to act on behalf of the account by restricting transactions\nthat can be issued.\n`account_id,public_key` is a key in the state"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Access key provides limited access to an account. Each access key belongs to some account and\\n is identified by a unique (within the account) public key. One account may have large number of\\n access keys. Access keys allow to act on behalf of the account by restricting transactions\\n that can be issued.\\n `account_id,public_key` is a key in the state\","]
+#[doc = "  \"description\": \"Access key provides limited access to an account. Each access key belongs to some account and\\nis identified by a unique (within the account) public key. One account may have large number of\\naccess keys. Access keys allow to act on behalf of the account by restricting transactions\\nthat can be issued.\\n`account_id,public_key` is a key in the state\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"nonce\","]
@@ -43,7 +43,7 @@ pub mod error {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"nonce\": {"]
-#[doc = "      \"description\": \"Nonce for this access key, used for tx nonce generation. When access key is created, nonce\\n is set to `(block_height - 1) * 1e6` to avoid tx hash collision on access key re-creation.\\n See <https://github.com/near/nearcore/issues/3779> for more details.\","]
+#[doc = "      \"description\": \"Nonce for this access key, used for tx nonce generation. When access key is created, nonce\\nis set to `(block_height - 1) * 1e6` to avoid tx hash collision on access key re-creation.\\nSee <https://github.com/near/nearcore/issues/3779> for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -62,7 +62,7 @@ pub mod error {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct AccessKey {
-    #[doc = "Nonce for this access key, used for tx nonce generation. When access key is created, nonce\n is set to `(block_height - 1) * 1e6` to avoid tx hash collision on access key re-creation.\n See <https://github.com/near/nearcore/issues/3779> for more details."]
+    #[doc = "Nonce for this access key, used for tx nonce generation. When access key is created, nonce\nis set to `(block_height - 1) * 1e6` to avoid tx hash collision on access key re-creation.\nSee <https://github.com/near/nearcore/issues/3779> for more details."]
     pub nonce: u64,
     #[doc = "Defines permissions for this access key."]
     pub permission: AccessKeyPermission,
@@ -211,7 +211,7 @@ impl ::std::convert::From<&AccessKeyList> for AccessKeyList {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Grants full access to the account.\\n NOTE: It's used to replace account-level public keys.\","]
+#[doc = "      \"description\": \"Grants full access to the account.\\nNOTE: It's used to replace account-level public keys.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"FullAccess\""]
@@ -224,7 +224,7 @@ impl ::std::convert::From<&AccessKeyList> for AccessKeyList {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub enum AccessKeyPermission {
     FunctionCall(FunctionCallPermission),
-    #[doc = "Grants full access to the account.\n NOTE: It's used to replace account-level public keys."]
+    #[doc = "Grants full access to the account.\nNOTE: It's used to replace account-level public keys."]
     FullAccess,
 }
 impl ::std::convert::From<&Self> for AccessKeyPermission {
@@ -353,10 +353,11 @@ impl ::std::convert::From<&AccessKeyView> for AccessKeyView {
 #[doc = "      \"description\": \"The minimum length of the top-level account ID that is allowed to be created by any account.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"registrar_account_id\": {"]
-#[doc = "      \"description\": \"The account ID of the account registrar. This account ID allowed to create top-level\\n accounts of any valid length.\","]
+#[doc = "      \"description\": \"The account ID of the account registrar. This account ID allowed to create top-level\\naccounts of any valid length.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
@@ -371,7 +372,7 @@ impl ::std::convert::From<&AccessKeyView> for AccessKeyView {
 pub struct AccountCreationConfigView {
     #[doc = "The minimum length of the top-level account ID that is allowed to be created by any account."]
     pub min_allowed_top_level_account_length: u8,
-    #[doc = "The account ID of the account registrar. This account ID allowed to create top-level\n accounts of any valid length."]
+    #[doc = "The account ID of the account registrar. This account ID allowed to create top-level\naccounts of any valid length."]
     pub registrar_account_id: AccountId,
 }
 impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigView {
@@ -432,6 +433,7 @@ impl ::std::convert::From<&AccountDataView> for AccountDataView {
 #[doc = "{"]
 #[doc = "  \"type\": \"integer\","]
 #[doc = "  \"format\": \"uint8\","]
+#[doc = "  \"maximum\": 255.0,"]
 #[doc = "  \"minimum\": 0.0"]
 #[doc = "}"]
 #[doc = r" ```"]
@@ -549,30 +551,22 @@ impl ::std::convert::From<&AccountInfo> for AccountInfo {
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
 #[doc = "    \"global_contract_account_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"global_contract_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -654,7 +648,7 @@ impl ::std::convert::From<&AccountWithPublicKey> for AccountWithPublicKey {
 #[doc = "{"]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\n a new account ID must pass validation rules described here\\n <http://nomicon.io/Primitives/Account.html>.\","]
+#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<http://nomicon.io/Primitives/Account.html>.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"CreateAccount\""]
@@ -793,7 +787,7 @@ impl ::std::convert::From<&AccountWithPublicKey> for AccountWithPublicKey {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub enum Action {
-    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\n a new account ID must pass validation rules described here\n <http://nomicon.io/Primitives/Account.html>."]
+    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\na new account ID must pass validation rules described here\n<http://nomicon.io/Primitives/Account.html>."]
     CreateAccount(CreateAccountAction),
     #[doc = "Sets a Wasm code to a receiver_id"]
     DeployContract(DeployContractAction),
@@ -906,7 +900,7 @@ impl ::std::convert::From<UseGlobalContractAction> for Action {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"delegate_cost\": {"]
-#[doc = "      \"description\": \"Base cost for processing a delegate action.\\n\\n This is on top of the costs for the actions inside the delegate action.\","]
+#[doc = "      \"description\": \"Base cost for processing a delegate action.\\n\\nThis is on top of the costs for the actions inside the delegate action.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/Fee\""]
@@ -987,7 +981,7 @@ pub struct ActionCreationConfigView {
     pub add_key_cost: AccessKeyCreationConfigView,
     #[doc = "Base cost of creating an account."]
     pub create_account_cost: Fee,
-    #[doc = "Base cost for processing a delegate action.\n\n This is on top of the costs for the actions inside the delegate action."]
+    #[doc = "Base cost for processing a delegate action.\n\nThis is on top of the costs for the actions inside the delegate action."]
     pub delegate_cost: Fee,
     #[doc = "Base cost of deleting an account."]
     pub delete_account_cost: Fee,
@@ -1024,7 +1018,7 @@ impl ::std::convert::From<&ActionCreationConfigView> for ActionCreationConfigVie
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"index\": {"]
-#[doc = "      \"description\": \"Index of the failed action in the transaction.\\n Action index is not defined if ActionError.kind is `ActionErrorKind::LackBalanceForState`\","]
+#[doc = "      \"description\": \"Index of the failed action in the transaction.\\nAction index is not defined if ActionError.kind is `ActionErrorKind::LackBalanceForState`\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"integer\","]
 #[doc = "        \"null\""]
@@ -1046,7 +1040,7 @@ impl ::std::convert::From<&ActionCreationConfigView> for ActionCreationConfigVie
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ActionError {
-    #[doc = "Index of the failed action in the transaction.\n Action index is not defined if ActionError.kind is `ActionErrorKind::LackBalanceForState`"]
+    #[doc = "Index of the failed action in the transaction.\nAction index is not defined if ActionError.kind is `ActionErrorKind::LackBalanceForState`"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub index: ::std::option::Option<u64>,
     #[doc = "The kind of ActionError happened"]
@@ -1161,7 +1155,7 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Administrative actions like `DeployContract`, `Stake`, `AddKey`, `DeleteKey`. can be proceed only if sender=receiver\\n or the first TX action is a `CreateAccount` action\","]
+#[doc = "      \"description\": \"Administrative actions like `DeployContract`, `Stake`, `AddKey`, `DeleteKey`. can be proceed only if sender=receiver\\nor the first TX action is a `CreateAccount` action\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ActorNoPermission\""]
@@ -1383,7 +1377,7 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Error occurs when a new `ActionReceipt` created by the `FunctionCall` action fails\\n receipt validation.\","]
+#[doc = "      \"description\": \"Error occurs when a new `ActionReceipt` created by the `FunctionCall` action fails\\nreceipt validation.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"NewReceiptValidationError\""]
@@ -1396,7 +1390,7 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Error occurs when a `CreateAccount` action is called on a NEAR-implicit or ETH-implicit account.\\n See NEAR-implicit account creation NEP: <https://github.com/nearprotocol/NEPs/pull/71>.\\n Also, see ETH-implicit account creation NEP: <https://github.com/near/NEPs/issues/518>.\\n\\n TODO(#8598): This error is named very poorly. A better name would be\\n `OnlyNamedAccountCreationAllowed`.\","]
+#[doc = "      \"description\": \"Error occurs when a `CreateAccount` action is called on a NEAR-implicit or ETH-implicit account.\\nSee NEAR-implicit account creation NEP: <https://github.com/nearprotocol/NEPs/pull/71>.\\nAlso, see ETH-implicit account creation NEP: <https://github.com/near/NEPs/issues/518>.\\n\\nTODO(#8598): This error is named very poorly. A better name would be\\n`OnlyNamedAccountCreationAllowed`.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"OnlyImplicitAccountCreationAllowed\""]
@@ -1588,7 +1582,7 @@ pub enum ActionErrorKind {
         account_id: AccountId,
         predecessor_id: AccountId,
     },
-    #[doc = "Administrative actions like `DeployContract`, `Stake`, `AddKey`, `DeleteKey`. can be proceed only if sender=receiver\n or the first TX action is a `CreateAccount` action"]
+    #[doc = "Administrative actions like `DeployContract`, `Stake`, `AddKey`, `DeleteKey`. can be proceed only if sender=receiver\nor the first TX action is a `CreateAccount` action"]
     ActorNoPermission {
         account_id: AccountId,
         actor_id: AccountId,
@@ -1628,9 +1622,9 @@ pub enum ActionErrorKind {
     },
     #[doc = "An error occurred during a `FunctionCall` Action, parameter is debug message."]
     FunctionCallError(FunctionCallError),
-    #[doc = "Error occurs when a new `ActionReceipt` created by the `FunctionCall` action fails\n receipt validation."]
+    #[doc = "Error occurs when a new `ActionReceipt` created by the `FunctionCall` action fails\nreceipt validation."]
     NewReceiptValidationError(ReceiptValidationError),
-    #[doc = "Error occurs when a `CreateAccount` action is called on a NEAR-implicit or ETH-implicit account.\n See NEAR-implicit account creation NEP: <https://github.com/nearprotocol/NEPs/pull/71>.\n Also, see ETH-implicit account creation NEP: <https://github.com/near/NEPs/issues/518>.\n\n TODO(#8598): This error is named very poorly. A better name would be\n `OnlyNamedAccountCreationAllowed`."]
+    #[doc = "Error occurs when a `CreateAccount` action is called on a NEAR-implicit or ETH-implicit account.\nSee NEAR-implicit account creation NEP: <https://github.com/nearprotocol/NEPs/pull/71>.\nAlso, see ETH-implicit account creation NEP: <https://github.com/near/NEPs/issues/518>.\n\nTODO(#8598): This error is named very poorly. A better name would be\n`OnlyNamedAccountCreationAllowed`."]
     OnlyImplicitAccountCreationAllowed { account_id: AccountId },
     #[doc = "Delete account whose state is large is temporarily banned."]
     DeleteAccountWithLargeState { account_id: AccountId },
@@ -1726,8 +1720,7 @@ impl ::std::convert::From<InvalidAccessKeyError> for ActionErrorKind {
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
 #[doc = "            \"args\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/FunctionArgs\""]
 #[doc = "            },"]
 #[doc = "            \"deposit\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -1970,7 +1963,7 @@ pub enum ActionView {
         code: ::std::string::String,
     },
     FunctionCall {
-        args: ::std::string::String,
+        args: FunctionArgs,
         deposit: ::std::string::String,
         gas: u64,
         method_name: ::std::string::String,
@@ -2296,7 +2289,7 @@ impl ::std::convert::From<&Self> for ActionView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"The transaction includes a feature that the current protocol version\\n does not support.\\n\\n Note: we stringify the protocol feature name instead of using\\n `ProtocolFeature` here because we don't want to leak the internals of\\n that type into observable borsh serialization.\","]
+#[doc = "      \"description\": \"The transaction includes a feature that the current protocol version\\ndoes not support.\\n\\nNote: we stringify the protocol feature name instead of using\\n`ProtocolFeature` here because we don't want to leak the internals of\\nthat type into observable borsh serialization.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"UnsupportedProtocolFeature\""]
@@ -2360,7 +2353,7 @@ pub enum ActionsValidationError {
     FunctionCallZeroAttachedGas,
     #[doc = "There should be the only one DelegateAction"]
     DelegateActionMustBeOnlyOne,
-    #[doc = "The transaction includes a feature that the current protocol version\n does not support.\n\n Note: we stringify the protocol feature name instead of using\n `ProtocolFeature` here because we don't want to leak the internals of\n that type into observable borsh serialization."]
+    #[doc = "The transaction includes a feature that the current protocol version\ndoes not support.\n\nNote: we stringify the protocol feature name instead of using\n`ProtocolFeature` here because we don't want to leak the internals of\nthat type into observable borsh serialization."]
     UnsupportedProtocolFeature {
         protocol_feature: ::std::string::String,
         version: u32,
@@ -2415,13 +2408,13 @@ impl ::std::convert::From<&AddKeyAction> for AddKeyAction {
         value.clone()
     }
 }
-#[doc = "`BandwidthRequest` describes the size of receipts that a shard would like to send to another shard.\n When a shard wants to send a lot of receipts to another shard, it needs to create a request and wait\n for a bandwidth grant from the bandwidth scheduler."]
+#[doc = "`BandwidthRequest` describes the size of receipts that a shard would like to send to another shard.\nWhen a shard wants to send a lot of receipts to another shard, it needs to create a request and wait\nfor a bandwidth grant from the bandwidth scheduler."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"`BandwidthRequest` describes the size of receipts that a shard would like to send to another shard.\\n When a shard wants to send a lot of receipts to another shard, it needs to create a request and wait\\n for a bandwidth grant from the bandwidth scheduler.\","]
+#[doc = "  \"description\": \"`BandwidthRequest` describes the size of receipts that a shard would like to send to another shard.\\nWhen a shard wants to send a lot of receipts to another shard, it needs to create a request and wait\\nfor a bandwidth grant from the bandwidth scheduler.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"requested_values_bitmap\","]
@@ -2440,6 +2433,7 @@ impl ::std::convert::From<&AddKeyAction> for AddKeyAction {
 #[doc = "      \"description\": \"Requesting bandwidth to this shard.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint16\","]
+#[doc = "      \"maximum\": 65535.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -2458,13 +2452,13 @@ impl ::std::convert::From<&BandwidthRequest> for BandwidthRequest {
         value.clone()
     }
 }
-#[doc = "Bitmap which describes which values from the predefined list are being requested.\n The nth bit is set to 1 when the nth value from the list is being requested."]
+#[doc = "Bitmap which describes which values from the predefined list are being requested.\nThe nth bit is set to 1 when the nth value from the list is being requested."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Bitmap which describes which values from the predefined list are being requested.\\n The nth bit is set to 1 when the nth value from the list is being requested.\","]
+#[doc = "  \"description\": \"Bitmap which describes which values from the predefined list are being requested.\\nThe nth bit is set to 1 when the nth value from the list is being requested.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"data\""]
@@ -2475,6 +2469,7 @@ impl ::std::convert::From<&BandwidthRequest> for BandwidthRequest {
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
 #[doc = "        \"format\": \"uint8\","]
+#[doc = "        \"maximum\": 255.0,"]
 #[doc = "        \"minimum\": 0.0"]
 #[doc = "      },"]
 #[doc = "      \"maxItems\": 5,"]
@@ -2493,13 +2488,13 @@ impl ::std::convert::From<&BandwidthRequestBitmap> for BandwidthRequestBitmap {
         value.clone()
     }
 }
-#[doc = "A list of shard's bandwidth requests.\n Describes how much the shard would like to send to other shards."]
+#[doc = "A list of shard's bandwidth requests.\nDescribes how much the shard would like to send to other shards."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"A list of shard's bandwidth requests.\\n Describes how much the shard would like to send to other shards.\","]
+#[doc = "  \"description\": \"A list of shard's bandwidth requests.\\nDescribes how much the shard would like to send to other shards.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
@@ -2676,31 +2671,23 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "    \"approvals\": {"]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
-#[doc = "        \"oneOf\": ["]
+#[doc = "        \"anyOf\": ["]
 #[doc = "          {"]
-#[doc = "            \"type\": \"null\""]
+#[doc = "            \"$ref\": \"#/components/schemas/Signature\""]
 #[doc = "          },"]
 #[doc = "          {"]
-#[doc = "            \"allOf\": ["]
-#[doc = "              {"]
-#[doc = "                \"$ref\": \"#/components/schemas/Signature\""]
-#[doc = "              }"]
-#[doc = "            ]"]
+#[doc = "            \"type\": \"null\""]
 #[doc = "          }"]
 #[doc = "        ]"]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"block_body_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -2734,6 +2721,7 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "        \"items\": {"]
 #[doc = "          \"type\": \"integer\","]
 #[doc = "          \"format\": \"uint8\","]
+#[doc = "          \"maximum\": 255.0,"]
 #[doc = "          \"minimum\": 0.0"]
 #[doc = "        }"]
 #[doc = "      }"]
@@ -2762,16 +2750,12 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
 #[doc = "    \"epoch_sync_data_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -3046,6 +3030,7 @@ impl ::std::convert::From<&BlockStatusView> for BlockStatusView {
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
 #[doc = "        \"format\": \"uint8\","]
+#[doc = "        \"maximum\": 255.0,"]
 #[doc = "        \"minimum\": 0.0"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -3085,9 +3070,7 @@ impl ::std::convert::From<&CallResult> for CallResult {
 #[doc = "    },"]
 #[doc = "    \"shard_sync_status\": {"]
 #[doc = "      \"type\": \"object\","]
-#[doc = "      \"additionalProperties\": {"]
-#[doc = "        \"type\": \"string\""]
-#[doc = "      }"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    \"sync_block_hash\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -3104,8 +3087,7 @@ impl ::std::convert::From<&CallResult> for CallResult {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct CatchupStatusView {
     pub blocks_to_catchup: ::std::vec::Vec<BlockStatusView>,
-    pub shard_sync_status:
-        ::std::collections::HashMap<::std::string::String, ::std::string::String>,
+    pub shard_sync_status: CatchupStatusViewShardSyncStatus,
     pub sync_block_hash: CryptoHash,
     pub sync_block_height: u64,
 }
@@ -3114,13 +3096,37 @@ impl ::std::convert::From<&CatchupStatusView> for CatchupStatusView {
         value.clone()
     }
 }
-#[doc = "Config for the Chunk Distribution Network feature.\n This allows nodes to push and pull chunks from a central stream.\n The two benefits of this approach are: (1) less request/response traffic\n on the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain."]
+#[doc = "`CatchupStatusViewShardSyncStatus`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Config for the Chunk Distribution Network feature.\\n This allows nodes to push and pull chunks from a central stream.\\n The two benefits of this approach are: (1) less request/response traffic\\n on the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"additionalProperties\": false"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(deny_unknown_fields)]
+pub struct CatchupStatusViewShardSyncStatus {}
+impl ::std::convert::From<&CatchupStatusViewShardSyncStatus> for CatchupStatusViewShardSyncStatus {
+    fn from(value: &CatchupStatusViewShardSyncStatus) -> Self {
+        value.clone()
+    }
+}
+impl ::std::default::Default for CatchupStatusViewShardSyncStatus {
+    fn default() -> Self {
+        Self {}
+    }
+}
+#[doc = "Config for the Chunk Distribution Network feature.\nThis allows nodes to push and pull chunks from a central stream.\nThe two benefits of this approach are: (1) less request/response traffic\non the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Config for the Chunk Distribution Network feature.\\nThis allows nodes to push and pull chunks from a central stream.\\nThe two benefits of this approach are: (1) less request/response traffic\\non the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"enabled\","]
@@ -3216,16 +3222,12 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"bandwidth_requests\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/BandwidthRequests\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/BandwidthRequests\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -3233,16 +3235,12 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
 #[doc = "    \"congestion_info\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CongestionInfoView\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CongestionInfoView\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -3385,7 +3383,7 @@ impl ::std::convert::From<&ChunkHeaderView> for ChunkHeaderView {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"This is for defense in depth.\\n We expect our runtime-independent preparation code to fully catch all invalid wasms,\\n but, if it ever misses something we’ll emit this error\","]
+#[doc = "      \"description\": \"This is for defense in depth.\\nWe expect our runtime-independent preparation code to fully catch all invalid wasms,\\nbut, if it ever misses something we’ll emit this error\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"WasmerCompileError\""]
@@ -3415,7 +3413,7 @@ pub enum CompilationError {
         account_id: AccountId,
     },
     PrepareError(PrepareError),
-    #[doc = "This is for defense in depth.\n We expect our runtime-independent preparation code to fully catch all invalid wasms,\n but, if it ever misses something we’ll emit this error"]
+    #[doc = "This is for defense in depth.\nWe expect our runtime-independent preparation code to fully catch all invalid wasms,\nbut, if it ever misses something we’ll emit this error"]
     WasmerCompileError {
         msg: ::std::string::String,
     },
@@ -3453,19 +3451,19 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"allowed_shard_outgoing_gas\": {"]
-#[doc = "      \"description\": \"How much gas the chosen allowed shard can send to a 100% congested shard.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"How much gas the chosen allowed shard can send to a 100% congested shard.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_congestion_incoming_gas\": {"]
-#[doc = "      \"description\": \"How much gas in delayed receipts of a shard is 100% incoming congestion.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"How much gas in delayed receipts of a shard is 100% incoming congestion.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_congestion_memory_consumption\": {"]
-#[doc = "      \"description\": \"How much memory space of all delayed and buffered receipts in a shard is\\n considered 100% congested.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"How much memory space of all delayed and buffered receipts in a shard is\\nconsidered 100% congested.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -3477,49 +3475,49 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_congestion_outgoing_gas\": {"]
-#[doc = "      \"description\": \"How much gas in outgoing buffered receipts of a shard is 100% congested.\\n\\n Outgoing congestion contributes to overall congestion, which reduces how\\n much other shards are allowed to forward to this shard.\","]
+#[doc = "      \"description\": \"How much gas in outgoing buffered receipts of a shard is 100% congested.\\n\\nOutgoing congestion contributes to overall congestion, which reduces how\\nmuch other shards are allowed to forward to this shard.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_outgoing_gas\": {"]
-#[doc = "      \"description\": \"The maximum amount of gas attached to receipts a shard can forward to\\n another shard per chunk.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"The maximum amount of gas attached to receipts a shard can forward to\\nanother shard per chunk.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_tx_gas\": {"]
-#[doc = "      \"description\": \"The maximum amount of gas in a chunk spent on converting new transactions to\\n receipts.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"The maximum amount of gas in a chunk spent on converting new transactions to\\nreceipts.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"min_outgoing_gas\": {"]
-#[doc = "      \"description\": \"The minimum gas each shard can send to a shard that is not fully congested.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"The minimum gas each shard can send to a shard that is not fully congested.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"min_tx_gas\": {"]
-#[doc = "      \"description\": \"The minimum amount of gas in a chunk spent on converting new transactions\\n to receipts, as long as the receiving shard is not congested.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"The minimum amount of gas in a chunk spent on converting new transactions\\nto receipts, as long as the receiving shard is not congested.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"outgoing_receipts_big_size_limit\": {"]
-#[doc = "      \"description\": \"Large size limit for outgoing receipts to a shard, used when it's safe\\n to send a lot of receipts without making the state witness too large.\\n It limits the total sum of outgoing receipts, not individual receipts.\","]
+#[doc = "      \"description\": \"Large size limit for outgoing receipts to a shard, used when it's safe\\nto send a lot of receipts without making the state witness too large.\\nIt limits the total sum of outgoing receipts, not individual receipts.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"outgoing_receipts_usual_size_limit\": {"]
-#[doc = "      \"description\": \"The standard size limit for outgoing receipts aimed at a single shard.\\n This limit is pretty small to keep the size of source_receipt_proofs under control.\\n It limits the total sum of outgoing receipts, not individual receipts.\","]
+#[doc = "      \"description\": \"The standard size limit for outgoing receipts aimed at a single shard.\\nThis limit is pretty small to keep the size of source_receipt_proofs under control.\\nIt limits the total sum of outgoing receipts, not individual receipts.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"reject_tx_congestion_threshold\": {"]
-#[doc = "      \"description\": \"How much congestion a shard can tolerate before it stops all shards from\\n accepting new transactions with the receiver set to the congested shard.\","]
+#[doc = "      \"description\": \"How much congestion a shard can tolerate before it stops all shards from\\naccepting new transactions with the receiver set to the congested shard.\","]
 #[doc = "      \"type\": \"number\","]
 #[doc = "      \"format\": \"double\""]
 #[doc = "    }"]
@@ -3529,27 +3527,27 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct CongestionControlConfigView {
-    #[doc = "How much gas the chosen allowed shard can send to a 100% congested shard.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "How much gas the chosen allowed shard can send to a 100% congested shard.\n\nSee [`CongestionControlConfig`] for more details."]
     pub allowed_shard_outgoing_gas: u64,
-    #[doc = "How much gas in delayed receipts of a shard is 100% incoming congestion.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "How much gas in delayed receipts of a shard is 100% incoming congestion.\n\nSee [`CongestionControlConfig`] for more details."]
     pub max_congestion_incoming_gas: u64,
-    #[doc = "How much memory space of all delayed and buffered receipts in a shard is\n considered 100% congested.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "How much memory space of all delayed and buffered receipts in a shard is\nconsidered 100% congested.\n\nSee [`CongestionControlConfig`] for more details."]
     pub max_congestion_memory_consumption: u64,
     #[doc = "How many missed chunks in a row in a shard is considered 100% congested."]
     pub max_congestion_missed_chunks: u64,
-    #[doc = "How much gas in outgoing buffered receipts of a shard is 100% congested.\n\n Outgoing congestion contributes to overall congestion, which reduces how\n much other shards are allowed to forward to this shard."]
+    #[doc = "How much gas in outgoing buffered receipts of a shard is 100% congested.\n\nOutgoing congestion contributes to overall congestion, which reduces how\nmuch other shards are allowed to forward to this shard."]
     pub max_congestion_outgoing_gas: u64,
-    #[doc = "The maximum amount of gas attached to receipts a shard can forward to\n another shard per chunk.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "The maximum amount of gas attached to receipts a shard can forward to\nanother shard per chunk.\n\nSee [`CongestionControlConfig`] for more details."]
     pub max_outgoing_gas: u64,
-    #[doc = "The maximum amount of gas in a chunk spent on converting new transactions to\n receipts.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "The maximum amount of gas in a chunk spent on converting new transactions to\nreceipts.\n\nSee [`CongestionControlConfig`] for more details."]
     pub max_tx_gas: u64,
-    #[doc = "The minimum gas each shard can send to a shard that is not fully congested.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "The minimum gas each shard can send to a shard that is not fully congested.\n\nSee [`CongestionControlConfig`] for more details."]
     pub min_outgoing_gas: u64,
-    #[doc = "The minimum amount of gas in a chunk spent on converting new transactions\n to receipts, as long as the receiving shard is not congested.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "The minimum amount of gas in a chunk spent on converting new transactions\nto receipts, as long as the receiving shard is not congested.\n\nSee [`CongestionControlConfig`] for more details."]
     pub min_tx_gas: u64,
-    #[doc = "Large size limit for outgoing receipts to a shard, used when it's safe\n to send a lot of receipts without making the state witness too large.\n It limits the total sum of outgoing receipts, not individual receipts."]
+    #[doc = "Large size limit for outgoing receipts to a shard, used when it's safe\nto send a lot of receipts without making the state witness too large.\nIt limits the total sum of outgoing receipts, not individual receipts."]
     pub outgoing_receipts_big_size_limit: u64,
-    #[doc = "The standard size limit for outgoing receipts aimed at a single shard.\n This limit is pretty small to keep the size of source_receipt_proofs under control.\n It limits the total sum of outgoing receipts, not individual receipts."]
+    #[doc = "The standard size limit for outgoing receipts aimed at a single shard.\nThis limit is pretty small to keep the size of source_receipt_proofs under control.\nIt limits the total sum of outgoing receipts, not individual receipts."]
     pub outgoing_receipts_usual_size_limit: u64,
     pub reject_tx_congestion_threshold: f64,
 }
@@ -3575,6 +3573,7 @@ impl ::std::convert::From<&CongestionControlConfigView> for CongestionControlCon
 #[doc = "    \"allowed_shard\": {"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint16\","]
+#[doc = "      \"maximum\": 65535.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"buffered_receipts_gas\": {"]
@@ -3803,7 +3802,7 @@ impl ::std::fmt::Display for CryptoHash {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_expected_chunks_per_shard\": {"]
-#[doc = "      \"description\": \"Number of chunks this validator was expected to produce in each shard.\\n Each entry in the array corresponds to the shard in the `shards_produced` array.\","]
+#[doc = "      \"description\": \"Number of chunks this validator was expected to produce in each shard.\\nEach entry in the array corresponds to the shard in the `shards_produced` array.\","]
 #[doc = "      \"default\": [],"]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
@@ -3819,7 +3818,7 @@ impl ::std::fmt::Display for CryptoHash {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_expected_endorsements_per_shard\": {"]
-#[doc = "      \"description\": \"Number of chunks this validator was expected to validate and endorse in each shard.\\n Each entry in the array corresponds to the shard in the `shards_endorsed` array.\","]
+#[doc = "      \"description\": \"Number of chunks this validator was expected to validate and endorse in each shard.\\nEach entry in the array corresponds to the shard in the `shards_endorsed` array.\","]
 #[doc = "      \"default\": [],"]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
@@ -3895,12 +3894,12 @@ pub struct CurrentEpochValidatorInfo {
     pub num_expected_blocks: u64,
     #[serde(default)]
     pub num_expected_chunks: u64,
-    #[doc = "Number of chunks this validator was expected to produce in each shard.\n Each entry in the array corresponds to the shard in the `shards_produced` array."]
+    #[doc = "Number of chunks this validator was expected to produce in each shard.\nEach entry in the array corresponds to the shard in the `shards_produced` array."]
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub num_expected_chunks_per_shard: ::std::vec::Vec<u64>,
     #[serde(default)]
     pub num_expected_endorsements: u64,
-    #[doc = "Number of chunks this validator was expected to validate and endorse in each shard.\n Each entry in the array corresponds to the shard in the `shards_endorsed` array."]
+    #[doc = "Number of chunks this validator was expected to validate and endorse in each shard.\nEach entry in the array corresponds to the shard in the `shards_endorsed` array."]
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub num_expected_endorsements_per_shard: ::std::vec::Vec<u64>,
     pub num_produced_blocks: u64,
@@ -3938,7 +3937,7 @@ impl ::std::convert::From<&CurrentEpochValidatorInfo> for CurrentEpochValidatorI
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"base_cost\": {"]
-#[doc = "      \"description\": \"Base cost of creating a data receipt.\\n Both `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\\n is charged for each input dependency. The dependencies are specified when a receipt is\\n created using `promise_then` and `promise_batch_then`.\\n NOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\\n Even if the last action is not a function call (in case of success it will return empty\\n value).\","]
+#[doc = "      \"description\": \"Base cost of creating a data receipt.\\nBoth `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\\nis charged for each input dependency. The dependencies are specified when a receipt is\\ncreated using `promise_then` and `promise_batch_then`.\\nNOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\\nEven if the last action is not a function call (in case of success it will return empty\\nvalue).\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/Fee\""]
@@ -3946,7 +3945,7 @@ impl ::std::convert::From<&CurrentEpochValidatorInfo> for CurrentEpochValidatorI
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"cost_per_byte\": {"]
-#[doc = "      \"description\": \"Additional cost per byte sent.\\n Both `send` and `exec` costs are burned when a function call finishes execution and returns\\n `N` bytes of data to every output dependency. For each output dependency the cost is\\n `(send(sir) + exec()) * N`.\","]
+#[doc = "      \"description\": \"Additional cost per byte sent.\\nBoth `send` and `exec` costs are burned when a function call finishes execution and returns\\n`N` bytes of data to every output dependency. For each output dependency the cost is\\n`(send(sir) + exec()) * N`.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/Fee\""]
@@ -3959,9 +3958,9 @@ impl ::std::convert::From<&CurrentEpochValidatorInfo> for CurrentEpochValidatorI
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct DataReceiptCreationConfigView {
-    #[doc = "Base cost of creating a data receipt.\n Both `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\n is charged for each input dependency. The dependencies are specified when a receipt is\n created using `promise_then` and `promise_batch_then`.\n NOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\n Even if the last action is not a function call (in case of success it will return empty\n value)."]
+    #[doc = "Base cost of creating a data receipt.\nBoth `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\nis charged for each input dependency. The dependencies are specified when a receipt is\ncreated using `promise_then` and `promise_batch_then`.\nNOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\nEven if the last action is not a function call (in case of success it will return empty\nvalue)."]
     pub base_cost: Fee,
-    #[doc = "Additional cost per byte sent.\n Both `send` and `exec` costs are burned when a function call finishes execution and returns\n `N` bytes of data to every output dependency. For each output dependency the cost is\n `(send(sir) + exec()) * N`."]
+    #[doc = "Additional cost per byte sent.\nBoth `send` and `exec` costs are burned when a function call finishes execution and returns\n`N` bytes of data to every output dependency. For each output dependency the cost is\n`(send(sir) + exec()) * N`."]
     pub cost_per_byte: Fee,
 }
 impl ::std::convert::From<&DataReceiptCreationConfigView> for DataReceiptCreationConfigView {
@@ -4019,7 +4018,7 @@ impl ::std::convert::From<&DataReceiverView> for DataReceiverView {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"actions\": {"]
-#[doc = "      \"description\": \"List of actions to be executed.\\n\\n With the meta transactions MVP defined in NEP-366, nested\\n DelegateActions are not allowed. A separate type is used to enforce it.\","]
+#[doc = "      \"description\": \"List of actions to be executed.\\n\\nWith the meta transactions MVP defined in NEP-366, nested\\nDelegateActions are not allowed. A separate type is used to enforce it.\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"$ref\": \"#/components/schemas/NonDelegateAction\""]
@@ -4032,7 +4031,7 @@ impl ::std::convert::From<&DataReceiverView> for DataReceiverView {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"nonce\": {"]
-#[doc = "      \"description\": \"Nonce to ensure that the same delegate action is not sent twice by a\\n relayer and should match for given account's `public_key`.\\n After this action is processed it will increment.\","]
+#[doc = "      \"description\": \"Nonce to ensure that the same delegate action is not sent twice by a\\nrelayer and should match for given account's `public_key`.\\nAfter this action is processed it will increment.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -4067,11 +4066,11 @@ impl ::std::convert::From<&DataReceiverView> for DataReceiverView {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct DelegateAction {
-    #[doc = "List of actions to be executed.\n\n With the meta transactions MVP defined in NEP-366, nested\n DelegateActions are not allowed. A separate type is used to enforce it."]
+    #[doc = "List of actions to be executed.\n\nWith the meta transactions MVP defined in NEP-366, nested\nDelegateActions are not allowed. A separate type is used to enforce it."]
     pub actions: ::std::vec::Vec<NonDelegateAction>,
     #[doc = "The maximal height of the block in the blockchain below which the given DelegateAction is valid."]
     pub max_block_height: u64,
-    #[doc = "Nonce to ensure that the same delegate action is not sent twice by a\n relayer and should match for given account's `public_key`.\n After this action is processed it will increment."]
+    #[doc = "Nonce to ensure that the same delegate action is not sent twice by a\nrelayer and should match for given account's `public_key`.\nAfter this action is processed it will increment."]
     pub nonce: u64,
     #[doc = "Public key used to sign this delegated action."]
     pub public_key: PublicKey,
@@ -4362,17 +4361,13 @@ impl ::std::convert::TryFrom<::std::string::String> for Direction {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"iteration_delay\": {"]
-#[doc = "      \"description\": \"How often to check if a new epoch has started.\\n Feel free to set to `None`, defaults are sensible.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"description\": \"How often to check if a new epoch has started.\\nFeel free to set to `None`, defaults are sensible.\","]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/DurationAsStdSchemaProvider\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/DurationAsStdSchemaProvider\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -4385,7 +4380,7 @@ impl ::std::convert::TryFrom<::std::string::String> for Direction {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"restart_dump_for_shards\": {"]
-#[doc = "      \"description\": \"Use in case a node that dumps state to the external storage\\n gets in trouble.\","]
+#[doc = "      \"description\": \"Use in case a node that dumps state to the external storage\\ngets in trouble.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"array\","]
 #[doc = "        \"null\""]
@@ -4403,12 +4398,12 @@ pub struct DumpConfig {
     #[doc = "Location of a json file with credentials allowing write access to the bucket."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub credentials_file: ::std::option::Option<::std::string::String>,
-    #[doc = "How often to check if a new epoch has started.\n Feel free to set to `None`, defaults are sensible."]
+    #[doc = "How often to check if a new epoch has started.\nFeel free to set to `None`, defaults are sensible."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub iteration_delay: ::std::option::Option<DurationAsStdSchemaProvider>,
     #[doc = "Specifies where to write the obtained state parts."]
     pub location: ExternalStorageLocation,
-    #[doc = "Use in case a node that dumps state to the external storage\n gets in trouble."]
+    #[doc = "Use in case a node that dumps state to the external storage\ngets in trouble."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub restart_dump_for_shards: ::std::option::Option<::std::vec::Vec<ShardId>>,
 }
@@ -4451,13 +4446,13 @@ impl ::std::convert::From<&DurationAsStdSchemaProvider> for DurationAsStdSchemaP
         value.clone()
     }
 }
-#[doc = "Epoch identifier -- wrapped hash, to make it easier to distinguish.\n EpochId of epoch T is the hash of last block in T-2\n EpochId of first two epochs is 0"]
+#[doc = "Epoch identifier -- wrapped hash, to make it easier to distinguish.\nEpochId of epoch T is the hash of last block in T-2\nEpochId of first two epochs is 0"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Epoch identifier -- wrapped hash, to make it easier to distinguish.\\n EpochId of epoch T is the hash of last block in T-2\\n EpochId of first two epochs is 0\","]
+#[doc = "  \"description\": \"Epoch identifier -- wrapped hash, to make it easier to distinguish.\\nEpochId of epoch T is the hash of last block in T-2\\nEpochId of first two epochs is 0\","]
 #[doc = "  \"allOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -4532,23 +4527,23 @@ impl ::std::fmt::Display for EpochId {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"disable_epoch_sync_for_bootstrapping\": {"]
-#[doc = "      \"description\": \"If true, even if the node started from genesis, it will not perform epoch sync.\\n There should be no reason to set this flag in production, because on both mainnet\\n and testnet it would be infeasible to catch up from genesis without epoch sync.\","]
+#[doc = "      \"description\": \"If true, even if the node started from genesis, it will not perform epoch sync.\\nThere should be no reason to set this flag in production, because on both mainnet\\nand testnet it would be infeasible to catch up from genesis without epoch sync.\","]
 #[doc = "      \"default\": false,"]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"epoch_sync_horizon\": {"]
-#[doc = "      \"description\": \"This serves as two purposes: (1) the node will not epoch sync and instead resort to\\n header sync, if the genesis block is within this many blocks from the current block;\\n (2) the node will reject an epoch sync proof if the provided proof is for an epoch\\n that is more than this many blocks behind the current block.\","]
+#[doc = "      \"description\": \"This serves as two purposes: (1) the node will not epoch sync and instead resort to\\nheader sync, if the genesis block is within this many blocks from the current block;\\n(2) the node will reject an epoch sync proof if the provided proof is for an epoch\\nthat is more than this many blocks behind the current block.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"ignore_epoch_sync_network_requests\": {"]
-#[doc = "      \"description\": \"If true, the node will ignore epoch sync requests from the network. It is strongly\\n recommended not to set this flag, because it will prevent other nodes from\\n bootstrapping. This flag is only included as a kill-switch and may be removed in a\\n future release. Please note that epoch sync requests are heavily rate limited and\\n cached, and therefore should not affect the performance of the node or introduce\\n any non-negligible increase in network traffic.\","]
+#[doc = "      \"description\": \"If true, the node will ignore epoch sync requests from the network. It is strongly\\nrecommended not to set this flag, because it will prevent other nodes from\\nbootstrapping. This flag is only included as a kill-switch and may be removed in a\\nfuture release. Please note that epoch sync requests are heavily rate limited and\\ncached, and therefore should not affect the performance of the node or introduce\\nany non-negligible increase in network traffic.\","]
 #[doc = "      \"default\": false,"]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"timeout_for_epoch_sync\": {"]
-#[doc = "      \"description\": \"Timeout for epoch sync requests. The node will continue retrying indefinitely even\\n if this timeout is exceeded.\","]
+#[doc = "      \"description\": \"Timeout for epoch sync requests. The node will continue retrying indefinitely even\\nif this timeout is exceeded.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/DurationAsStdSchemaProvider\""]
@@ -4561,15 +4556,15 @@ impl ::std::fmt::Display for EpochId {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct EpochSyncConfig {
-    #[doc = "If true, even if the node started from genesis, it will not perform epoch sync.\n There should be no reason to set this flag in production, because on both mainnet\n and testnet it would be infeasible to catch up from genesis without epoch sync."]
+    #[doc = "If true, even if the node started from genesis, it will not perform epoch sync.\nThere should be no reason to set this flag in production, because on both mainnet\nand testnet it would be infeasible to catch up from genesis without epoch sync."]
     #[serde(default)]
     pub disable_epoch_sync_for_bootstrapping: bool,
-    #[doc = "This serves as two purposes: (1) the node will not epoch sync and instead resort to\n header sync, if the genesis block is within this many blocks from the current block;\n (2) the node will reject an epoch sync proof if the provided proof is for an epoch\n that is more than this many blocks behind the current block."]
+    #[doc = "This serves as two purposes: (1) the node will not epoch sync and instead resort to\nheader sync, if the genesis block is within this many blocks from the current block;\n(2) the node will reject an epoch sync proof if the provided proof is for an epoch\nthat is more than this many blocks behind the current block."]
     pub epoch_sync_horizon: u64,
-    #[doc = "If true, the node will ignore epoch sync requests from the network. It is strongly\n recommended not to set this flag, because it will prevent other nodes from\n bootstrapping. This flag is only included as a kill-switch and may be removed in a\n future release. Please note that epoch sync requests are heavily rate limited and\n cached, and therefore should not affect the performance of the node or introduce\n any non-negligible increase in network traffic."]
+    #[doc = "If true, the node will ignore epoch sync requests from the network. It is strongly\nrecommended not to set this flag, because it will prevent other nodes from\nbootstrapping. This flag is only included as a kill-switch and may be removed in a\nfuture release. Please note that epoch sync requests are heavily rate limited and\ncached, and therefore should not affect the performance of the node or introduce\nany non-negligible increase in network traffic."]
     #[serde(default)]
     pub ignore_epoch_sync_network_requests: bool,
-    #[doc = "Timeout for epoch sync requests. The node will continue retrying indefinitely even\n if this timeout is exceeded."]
+    #[doc = "Timeout for epoch sync requests. The node will continue retrying indefinitely even\nif this timeout is exceeded."]
     pub timeout_for_epoch_sync: DurationAsStdSchemaProvider,
 }
 impl ::std::convert::From<&EpochSyncConfig> for EpochSyncConfig {
@@ -4634,7 +4629,7 @@ impl ::std::convert::From<&ExecutionMetadataView> for ExecutionMetadataView {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"executor_id\": {"]
-#[doc = "      \"description\": \"The id of the account on which the execution happens. For transaction this is signer_id,\\n for receipt this is receiver_id.\","]
+#[doc = "      \"description\": \"The id of the account on which the execution happens. For transaction this is signer_id,\\nfor receipt this is receiver_id.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
@@ -4681,7 +4676,7 @@ impl ::std::convert::From<&ExecutionMetadataView> for ExecutionMetadataView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"tokens_burnt\": {"]
-#[doc = "      \"description\": \"The amount of tokens burnt corresponding to the burnt gas amount.\\n This value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\\n the prepaid gas price might be lower than the actual gas price and it creates a deficit.\\n `tokens_burnt` also contains the penalty subtracted from refunds, while\\n `gas_burnt` only contains the gas that we actually burn for the execution.\","]
+#[doc = "      \"description\": \"The amount of tokens burnt corresponding to the burnt gas amount.\\nThis value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\\nthe prepaid gas price might be lower than the actual gas price and it creates a deficit.\\n`tokens_burnt` also contains the penalty subtracted from refunds, while\\n`gas_burnt` only contains the gas that we actually burn for the execution.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -4690,7 +4685,7 @@ impl ::std::convert::From<&ExecutionMetadataView> for ExecutionMetadataView {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ExecutionOutcomeView {
-    #[doc = "The id of the account on which the execution happens. For transaction this is signer_id,\n for receipt this is receiver_id."]
+    #[doc = "The id of the account on which the execution happens. For transaction this is signer_id,\nfor receipt this is receiver_id."]
     pub executor_id: AccountId,
     #[doc = "The amount of the gas burnt by the given transaction or receipt."]
     pub gas_burnt: u64,
@@ -4703,7 +4698,7 @@ pub struct ExecutionOutcomeView {
     pub receipt_ids: ::std::vec::Vec<CryptoHash>,
     #[doc = "Execution status. Contains the result in case of successful execution."]
     pub status: ExecutionStatusView,
-    #[doc = "The amount of tokens burnt corresponding to the burnt gas amount.\n This value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\n the prepaid gas price might be lower than the actual gas price and it creates a deficit.\n `tokens_burnt` also contains the penalty subtracted from refunds, while\n `gas_burnt` only contains the gas that we actually burn for the execution."]
+    #[doc = "The amount of tokens burnt corresponding to the burnt gas amount.\nThis value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\nthe prepaid gas price might be lower than the actual gas price and it creates a deficit.\n`tokens_burnt` also contains the penalty subtracted from refunds, while\n`gas_burnt` only contains the gas that we actually burn for the execution."]
     pub tokens_burnt: ::std::string::String,
 }
 impl ::std::convert::From<&ExecutionOutcomeView> for ExecutionOutcomeView {
@@ -4797,7 +4792,7 @@ impl ::std::convert::From<&ExecutionOutcomeWithIdView> for ExecutionOutcomeWithI
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"The final action of the receipt returned a promise or the signed transaction was converted\\n to a receipt. Contains the receipt_id of the generated receipt.\","]
+#[doc = "      \"description\": \"The final action of the receipt returned a promise or the signed transaction was converted\\nto a receipt. Contains the receipt_id of the generated receipt.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"SuccessReceiptId\""]
@@ -4821,7 +4816,7 @@ pub enum ExecutionStatusView {
     Failure(TxExecutionError),
     #[doc = "The final action succeeded and returned some value or an empty vec encoded in base64."]
     SuccessValue(::std::string::String),
-    #[doc = "The final action of the receipt returned a promise or the signed transaction was converted\n to a receipt. Contains the receipt_id of the generated receipt."]
+    #[doc = "The final action of the receipt returned a promise or the signed transaction was converted\nto a receipt. Contains the receipt_id of the generated receipt."]
     SuccessReceiptId(CryptoHash),
 }
 impl ::std::convert::From<&Self> for ExecutionStatusView {
@@ -4839,13 +4834,13 @@ impl ::std::convert::From<CryptoHash> for ExecutionStatusView {
         Self::SuccessReceiptId(value)
     }
 }
-#[doc = "Typed view of ExtCostsConfig to preserve JSON output field names in protocol\n config RPC output."]
+#[doc = "Typed view of ExtCostsConfig to preserve JSON output field names in protocol\nconfig RPC output."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Typed view of ExtCostsConfig to preserve JSON output field names in protocol\\n config RPC output.\","]
+#[doc = "  \"description\": \"Typed view of ExtCostsConfig to preserve JSON output field names in protocol\\nconfig RPC output.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"alt_bn128_g1_multiexp_base\","]
@@ -5617,7 +5612,7 @@ impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"external_storage_fallback_threshold\": {"]
-#[doc = "      \"description\": \"The number of attempts the node will make to obtain a part from peers in\\n the network before it fetches from external storage.\","]
+#[doc = "      \"description\": \"The number of attempts the node will make to obtain a part from peers in\\nthe network before it fetches from external storage.\","]
 #[doc = "      \"default\": 3,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
@@ -5632,14 +5627,14 @@ impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"num_concurrent_requests\": {"]
-#[doc = "      \"description\": \"When fetching state parts from external storage, throttle fetch requests\\n to this many concurrent requests.\","]
+#[doc = "      \"description\": \"When fetching state parts from external storage, throttle fetch requests\\nto this many concurrent requests.\","]
 #[doc = "      \"default\": 25,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint32\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_concurrent_requests_during_catchup\": {"]
-#[doc = "      \"description\": \"During catchup, the node will use a different number of concurrent requests\\n to reduce the performance impact of state sync.\","]
+#[doc = "      \"description\": \"During catchup, the node will use a different number of concurrent requests\\nto reduce the performance impact of state sync.\","]
 #[doc = "      \"default\": 5,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint32\","]
@@ -5651,15 +5646,15 @@ impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ExternalStorageConfig {
-    #[doc = "The number of attempts the node will make to obtain a part from peers in\n the network before it fetches from external storage."]
+    #[doc = "The number of attempts the node will make to obtain a part from peers in\nthe network before it fetches from external storage."]
     #[serde(default = "defaults::default_u64::<u64, 3>")]
     pub external_storage_fallback_threshold: u64,
     #[doc = "Location of state parts."]
     pub location: ExternalStorageLocation,
-    #[doc = "When fetching state parts from external storage, throttle fetch requests\n to this many concurrent requests."]
+    #[doc = "When fetching state parts from external storage, throttle fetch requests\nto this many concurrent requests."]
     #[serde(default = "defaults::default_u64::<u32, 25>")]
     pub num_concurrent_requests: u32,
-    #[doc = "During catchup, the node will use a different number of concurrent requests\n to reduce the performance impact of state sync."]
+    #[doc = "During catchup, the node will use a different number of concurrent requests\nto reduce the performance impact of state sync."]
     #[serde(default = "defaults::default_u64::<u32, 5>")]
     pub num_concurrent_requests_during_catchup: u32,
 }
@@ -5766,13 +5761,13 @@ impl ::std::convert::From<&Self> for ExternalStorageLocation {
         value.clone()
     }
 }
-#[doc = "Costs associated with an object that can only be sent over the network (and executed\n by the receiver).\n NOTE: `send_sir` or `send_not_sir` fees are usually burned when the item is being created.\n And `execution` fee is burned when the item is being executed."]
+#[doc = "Costs associated with an object that can only be sent over the network (and executed\nby the receiver).\nNOTE: `send_sir` or `send_not_sir` fees are usually burned when the item is being created.\nAnd `execution` fee is burned when the item is being executed."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Costs associated with an object that can only be sent over the network (and executed\\n by the receiver).\\n NOTE: `send_sir` or `send_not_sir` fees are usually burned when the item is being created.\\n And `execution` fee is burned when the item is being executed.\","]
+#[doc = "  \"description\": \"Costs associated with an object that can only be sent over the network (and executed\\nby the receiver).\\nNOTE: `send_sir` or `send_not_sir` fees are usually burned when the item is being created.\\nAnd `execution` fee is burned when the item is being executed.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"execution\","]
@@ -5793,7 +5788,7 @@ impl ::std::convert::From<&Self> for ExternalStorageLocation {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"send_sir\": {"]
-#[doc = "      \"description\": \"Fee for sending an object from the sender to itself, guaranteeing that it does not leave\\n the shard.\","]
+#[doc = "      \"description\": \"Fee for sending an object from the sender to itself, guaranteeing that it does not leave\\nthe shard.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -5808,7 +5803,7 @@ pub struct Fee {
     pub execution: u64,
     #[doc = "Fee for sending an object potentially across the shards."]
     pub send_not_sir: u64,
-    #[doc = "Fee for sending an object from the sender to itself, guaranteeing that it does not leave\n the shard."]
+    #[doc = "Fee for sending an object from the sender to itself, guaranteeing that it does not leave\nthe shard."]
     pub send_sir: u64,
 }
 impl ::std::convert::From<&Fee> for Fee {
@@ -5816,13 +5811,13 @@ impl ::std::convert::From<&Fee> for Fee {
         value.clone()
     }
 }
-#[doc = "Execution outcome of the transaction and all the subsequent receipts.\n Could be not finalized yet"]
+#[doc = "Execution outcome of the transaction and all the subsequent receipts.\nCould be not finalized yet"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Execution outcome of the transaction and all the subsequent receipts.\\n Could be not finalized yet\","]
+#[doc = "  \"description\": \"Execution outcome of the transaction and all the subsequent receipts.\\nCould be not finalized yet\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"receipts_outcome\","]
@@ -5839,7 +5834,7 @@ impl ::std::convert::From<&Fee> for Fee {
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"status\": {"]
-#[doc = "      \"description\": \"Execution status defined by chain.rs:get_final_transaction_result\\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id\","]
+#[doc = "      \"description\": \"Execution status defined by chain.rs:get_final_transaction_result\\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/FinalExecutionStatus\""]
@@ -5870,7 +5865,7 @@ impl ::std::convert::From<&Fee> for Fee {
 pub struct FinalExecutionOutcomeView {
     #[doc = "The execution outcome of receipts."]
     pub receipts_outcome: ::std::vec::Vec<ExecutionOutcomeWithIdView>,
-    #[doc = "Execution status defined by chain.rs:get_final_transaction_result\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
+    #[doc = "Execution status defined by chain.rs:get_final_transaction_result\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
     pub status: FinalExecutionStatus,
     #[doc = "Signed Transaction"]
     pub transaction: SignedTransactionView,
@@ -5882,13 +5877,13 @@ impl ::std::convert::From<&FinalExecutionOutcomeView> for FinalExecutionOutcomeV
         value.clone()
     }
 }
-#[doc = "Final execution outcome of the transaction and all of subsequent the receipts. Also includes\n the generated receipt."]
+#[doc = "Final execution outcome of the transaction and all of subsequent the receipts. Also includes\nthe generated receipt."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Final execution outcome of the transaction and all of subsequent the receipts. Also includes\\n the generated receipt.\","]
+#[doc = "  \"description\": \"Final execution outcome of the transaction and all of subsequent the receipts. Also includes\\nthe generated receipt.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"receipts\","]
@@ -5913,7 +5908,7 @@ impl ::std::convert::From<&FinalExecutionOutcomeView> for FinalExecutionOutcomeV
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"status\": {"]
-#[doc = "      \"description\": \"Execution status defined by chain.rs:get_final_transaction_result\\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id\","]
+#[doc = "      \"description\": \"Execution status defined by chain.rs:get_final_transaction_result\\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/FinalExecutionStatus\""]
@@ -5946,7 +5941,7 @@ pub struct FinalExecutionOutcomeWithReceiptView {
     pub receipts: ::std::vec::Vec<ReceiptView>,
     #[doc = "The execution outcome of receipts."]
     pub receipts_outcome: ::std::vec::Vec<ExecutionOutcomeWithIdView>,
-    #[doc = "Execution status defined by chain.rs:get_final_transaction_result\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
+    #[doc = "Execution status defined by chain.rs:get_final_transaction_result\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
     pub status: FinalExecutionStatus,
     #[doc = "Signed Transaction"]
     pub transaction: SignedTransactionView,
@@ -6115,6 +6110,63 @@ impl ::std::convert::TryFrom<::std::string::String> for Finality {
         value.parse()
     }
 }
+#[doc = "This type is used to mark function arguments.\n\nNOTE: The main reason for this to exist (except the type-safety) is that the value is\ntransparently serialized and deserialized as a base64-encoded string when serde is used\n(serde_json)."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"This type is used to mark function arguments.\\n\\nNOTE: The main reason for this to exist (except the type-safety) is that the value is\\ntransparently serialized and deserialized as a base64-encoded string when serde is used\\n(serde_json).\","]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"format\": \"bytes\""]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+#[serde(transparent)]
+pub struct FunctionArgs(pub ::std::string::String);
+impl ::std::ops::Deref for FunctionArgs {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<FunctionArgs> for ::std::string::String {
+    fn from(value: FunctionArgs) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<&FunctionArgs> for FunctionArgs {
+    fn from(value: &FunctionArgs) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::std::string::String> for FunctionArgs {
+    fn from(value: ::std::string::String) -> Self {
+        Self(value)
+    }
+}
+impl ::std::str::FromStr for FunctionArgs {
+    type Err = ::std::convert::Infallible;
+    fn from_str(value: &str) -> ::std::result::Result<Self, Self::Err> {
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::fmt::Display for FunctionArgs {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
 #[doc = "`FunctionCallAction`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -6159,13 +6211,13 @@ impl ::std::convert::From<&FunctionCallAction> for FunctionCallAction {
         value.clone()
     }
 }
-#[doc = "Serializable version of `near-vm-runner::FunctionCallError`.\n\n Must never reorder/remove elements, can only add new variants at the end (but do that very\n carefully). It describes stable serialization format, and only used by serialization logic."]
+#[doc = "Serializable version of `near-vm-runner::FunctionCallError`.\n\nMust never reorder/remove elements, can only add new variants at the end (but do that very\ncarefully). It describes stable serialization format, and only used by serialization logic."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Serializable version of `near-vm-runner::FunctionCallError`.\\n\\n Must never reorder/remove elements, can only add new variants at the end (but do that very\\n carefully). It describes stable serialization format, and only used by serialization logic.\","]
+#[doc = "  \"description\": \"Serializable version of `near-vm-runner::FunctionCallError`.\\n\\nMust never reorder/remove elements, can only add new variants at the end (but do that very\\ncarefully). It describes stable serialization format, and only used by serialization logic.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"string\","]
@@ -6188,7 +6240,7 @@ impl ::std::convert::From<&FunctionCallAction> for FunctionCallAction {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Wasm binary env link error\\n\\n Note: this is only to deserialize old data, use execution error for new data\","]
+#[doc = "      \"description\": \"Wasm binary env link error\\n\\nNote: this is only to deserialize old data, use execution error for new data\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"LinkError\""]
@@ -6222,7 +6274,7 @@ impl ::std::convert::From<&FunctionCallAction> for FunctionCallAction {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"A trap happened during execution of a binary\\n\\n Note: this is only to deserialize old data, use execution error for new data\","]
+#[doc = "      \"description\": \"A trap happened during execution of a binary\\n\\nNote: this is only to deserialize old data, use execution error for new data\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"WasmTrap\""]
@@ -6270,13 +6322,13 @@ pub enum FunctionCallError {
     EvmError,
     #[doc = "Wasm compilation error"]
     CompilationError(CompilationError),
-    #[doc = "Wasm binary env link error\n\n Note: this is only to deserialize old data, use execution error for new data"]
+    #[doc = "Wasm binary env link error\n\nNote: this is only to deserialize old data, use execution error for new data"]
     LinkError {
         msg: ::std::string::String,
     },
     #[doc = "Import/export resolve error"]
     MethodResolveError(MethodResolveError),
-    #[doc = "A trap happened during execution of a binary\n\n Note: this is only to deserialize old data, use execution error for new data"]
+    #[doc = "A trap happened during execution of a binary\n\nNote: this is only to deserialize old data, use execution error for new data"]
     WasmTrap(WasmTrap),
     #[doc = "Note: this is only to deserialize old data, use execution error for new data"]
     HostError(HostError),
@@ -6307,13 +6359,13 @@ impl ::std::convert::From<HostError> for FunctionCallError {
         Self::HostError(value)
     }
 }
-#[doc = "Grants limited permission to make transactions with FunctionCallActions\n The permission can limit the allowed balance to be spent on the prepaid gas.\n It also restrict the account ID of the receiver for this function call.\n It also can restrict the method name for the allowed function calls."]
+#[doc = "Grants limited permission to make transactions with FunctionCallActions\nThe permission can limit the allowed balance to be spent on the prepaid gas.\nIt also restrict the account ID of the receiver for this function call.\nIt also can restrict the method name for the allowed function calls."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Grants limited permission to make transactions with FunctionCallActions\\n The permission can limit the allowed balance to be spent on the prepaid gas.\\n It also restrict the account ID of the receiver for this function call.\\n It also can restrict the method name for the allowed function calls.\","]
+#[doc = "  \"description\": \"Grants limited permission to make transactions with FunctionCallActions\\nThe permission can limit the allowed balance to be spent on the prepaid gas.\\nIt also restrict the account ID of the receiver for this function call.\\nIt also can restrict the method name for the allowed function calls.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"method_names\","]
@@ -6321,14 +6373,14 @@ impl ::std::convert::From<HostError> for FunctionCallError {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"allowance\": {"]
-#[doc = "      \"description\": \"Allowance is a balance limit to use by this access key to pay for function call gas and\\n transaction fees. When this access key is used, both account balance and the allowance is\\n decreased by the same value.\\n `None` means unlimited allowance.\\n NOTE: To change or increase the allowance, the old access key needs to be deleted and a new\\n access key should be created.\","]
+#[doc = "      \"description\": \"Allowance is a balance limit to use by this access key to pay for function call gas and\\ntransaction fees. When this access key is used, both account balance and the allowance is\\ndecreased by the same value.\\n`None` means unlimited allowance.\\nNOTE: To change or increase the allowance, the old access key needs to be deleted and a new\\naccess key should be created.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"string\","]
 #[doc = "        \"null\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"method_names\": {"]
-#[doc = "      \"description\": \"A list of method names that can be used. The access key only allows transactions with the\\n function call of one of the given method names.\\n Empty list means any method name can be used.\","]
+#[doc = "      \"description\": \"A list of method names that can be used. The access key only allows transactions with the\\nfunction call of one of the given method names.\\nEmpty list means any method name can be used.\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"string\""]
@@ -6344,10 +6396,10 @@ impl ::std::convert::From<HostError> for FunctionCallError {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct FunctionCallPermission {
-    #[doc = "Allowance is a balance limit to use by this access key to pay for function call gas and\n transaction fees. When this access key is used, both account balance and the allowance is\n decreased by the same value.\n `None` means unlimited allowance.\n NOTE: To change or increase the allowance, the old access key needs to be deleted and a new\n access key should be created."]
+    #[doc = "Allowance is a balance limit to use by this access key to pay for function call gas and\ntransaction fees. When this access key is used, both account balance and the allowance is\ndecreased by the same value.\n`None` means unlimited allowance.\nNOTE: To change or increase the allowance, the old access key needs to be deleted and a new\naccess key should be created."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub allowance: ::std::option::Option<::std::string::String>,
-    #[doc = "A list of method names that can be used. The access key only allows transactions with the\n function call of one of the given method names.\n Empty list means any method name can be used."]
+    #[doc = "A list of method names that can be used. The access key only allows transactions with the\nfunction call of one of the given method names.\nEmpty list means any method name can be used."]
     pub method_names: ::std::vec::Vec<::std::string::String>,
     #[doc = "The access key only allows transactions with the given receiver's account id."]
     pub receiver_id: ::std::string::String,
@@ -6408,14 +6460,14 @@ impl ::std::convert::From<&GasKeyView> for GasKeyView {
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"gc_blocks_limit\": {"]
-#[doc = "      \"description\": \"Maximum number of blocks to garbage collect at every garbage collection\\n call.\","]
+#[doc = "      \"description\": \"Maximum number of blocks to garbage collect at every garbage collection\\ncall.\","]
 #[doc = "      \"default\": 2,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"gc_fork_clean_step\": {"]
-#[doc = "      \"description\": \"Maximum number of height to go through at each garbage collection step\\n when cleaning forks during garbage collection.\","]
+#[doc = "      \"description\": \"Maximum number of height to go through at each garbage collection step\\nwhen cleaning forks during garbage collection.\","]
 #[doc = "      \"default\": 100,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
@@ -6431,8 +6483,8 @@ impl ::std::convert::From<&GasKeyView> for GasKeyView {
 #[doc = "    \"gc_step_period\": {"]
 #[doc = "      \"description\": \"How often gc should be run\","]
 #[doc = "      \"default\": {"]
-#[doc = "        \"nanos\": 0,"]
-#[doc = "        \"secs\": 1"]
+#[doc = "        \"nanos\": 500000000,"]
+#[doc = "        \"secs\": 0"]
 #[doc = "      },"]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
@@ -6446,10 +6498,10 @@ impl ::std::convert::From<&GasKeyView> for GasKeyView {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct GcConfig {
-    #[doc = "Maximum number of blocks to garbage collect at every garbage collection\n call."]
+    #[doc = "Maximum number of blocks to garbage collect at every garbage collection\ncall."]
     #[serde(default = "defaults::default_u64::<u64, 2>")]
     pub gc_blocks_limit: u64,
-    #[doc = "Maximum number of height to go through at each garbage collection step\n when cleaning forks during garbage collection."]
+    #[doc = "Maximum number of height to go through at each garbage collection step\nwhen cleaning forks during garbage collection."]
     #[serde(default = "defaults::default_u64::<u64, 100>")]
     pub gc_fork_clean_step: u64,
     #[doc = "Number of epochs for which we keep store data."]
@@ -6520,14 +6572,15 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"description\": \"Threshold for kicking out block producers, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"chain_id\": {"]
-#[doc = "      \"description\": \"ID of the blockchain. This must be unique for every blockchain.\\n If your testnet blockchains do not have unique chain IDs, you will have a bad time.\","]
+#[doc = "      \"description\": \"ID of the blockchain. This must be unique for every blockchain.\\nIf your testnet blockchains do not have unique chain IDs, you will have a bad time.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"chunk_producer_assignment_changes_limit\": {"]
-#[doc = "      \"description\": \"Limits the number of shard changes in chunk producer assignments,\\n if algorithm is able to choose assignment with better balance of\\n number of chunk producers for shards.\","]
+#[doc = "      \"description\": \"Limits the number of shard changes in chunk producer assignments,\\nif algorithm is able to choose assignment with better balance of\\nnumber of chunk producers for shards.\","]
 #[doc = "      \"default\": 5,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
@@ -6537,6 +6590,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"description\": \"Threshold for kicking out chunk producers, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"chunk_validator_only_kickout_threshold\": {"]
@@ -6544,6 +6598,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"default\": 80,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"dynamic_resharding\": {"]
@@ -6605,6 +6660,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"default\": 100,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"min_gas_price\": {"]
@@ -6619,7 +6675,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"minimum_stake_ratio\": {"]
-#[doc = "      \"description\": \"The lowest ratio s/s_total any block producer can have.\\n See <https://github.com/near/NEPs/pull/167> for details\","]
+#[doc = "      \"description\": \"The lowest ratio s/s_total any block producer can have.\\nSee <https://github.com/near/NEPs/pull/167> for details\","]
 #[doc = "      \"default\": ["]
 #[doc = "        1,"]
 #[doc = "        6250"]
@@ -6646,7 +6702,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_block_producer_seats_per_shard\": {"]
-#[doc = "      \"description\": \"Defines number of shards and number of block producer seats per each shard at genesis.\\n Note: not used with protocol_feature_chunk_only_producers -- replaced by minimum_validators_per_shard\\n Note: not used before as all block producers produce chunks for all shards\","]
+#[doc = "      \"description\": \"Defines number of shards and number of block producer seats per each shard at genesis.\\nNote: not used with protocol_feature_chunk_only_producers -- replaced by minimum_validators_per_shard\\nNote: not used before as all block producers produce chunks for all shards\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
@@ -6668,7 +6724,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_chunk_producer_seats\": {"]
-#[doc = "      \"description\": \"Number of chunk producers.\\n Don't mess it up with chunk-only producers feature which is deprecated.\","]
+#[doc = "      \"description\": \"Number of chunk producers.\\nDon't mess it up with chunk-only producers feature which is deprecated.\","]
 #[doc = "      \"default\": 100,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
@@ -6772,7 +6828,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"shuffle_shard_assignment_for_chunk_producers\": {"]
-#[doc = "      \"description\": \"If true, shuffle the chunk producers across shards. In other words, if\\n the shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\\n the set of chunk producers for shard `i`, if this flag were true, the\\n shard assignments might become, for example, `[S_2, S_0, S_3, S_1]`.\","]
+#[doc = "      \"description\": \"If true, shuffle the chunk producers across shards. In other words, if\\nthe shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\\nthe set of chunk producers for shard `i`, if this flag were true, the\\nshard assignments might become, for example, `[S_2, S_0, S_3, S_1]`.\","]
 #[doc = "      \"default\": false,"]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
@@ -6794,7 +6850,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"use_production_config\": {"]
-#[doc = "      \"description\": \"This is only for test purposes. We hard code some configs for mainnet and testnet\\n in AllEpochConfig, and we want to have a way to test that code path. This flag is for that.\\n If set to true, the node will use the same config override path as mainnet and testnet.\","]
+#[doc = "      \"description\": \"This is only for test purposes. We hard code some configs for mainnet and testnet\\nin AllEpochConfig, and we want to have a way to test that code path. This flag is for that.\\nIf set to true, the node will use the same config override path as mainnet and testnet.\","]
 #[doc = "      \"default\": false,"]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
@@ -6815,9 +6871,9 @@ pub struct GenesisConfig {
     pub avg_hidden_validator_seats_per_shard: ::std::vec::Vec<u64>,
     #[doc = "Threshold for kicking out block producers, between 0 and 100."]
     pub block_producer_kickout_threshold: u8,
-    #[doc = "ID of the blockchain. This must be unique for every blockchain.\n If your testnet blockchains do not have unique chain IDs, you will have a bad time."]
+    #[doc = "ID of the blockchain. This must be unique for every blockchain.\nIf your testnet blockchains do not have unique chain IDs, you will have a bad time."]
     pub chain_id: ::std::string::String,
-    #[doc = "Limits the number of shard changes in chunk producer assignments,\n if algorithm is able to choose assignment with better balance of\n number of chunk producers for shards."]
+    #[doc = "Limits the number of shard changes in chunk producer assignments,\nif algorithm is able to choose assignment with better balance of\nnumber of chunk producers for shards."]
     #[serde(default = "defaults::default_u64::<u64, 5>")]
     pub chunk_producer_assignment_changes_limit: u64,
     #[doc = "Threshold for kicking out chunk producers, between 0 and 100."]
@@ -6850,7 +6906,7 @@ pub struct GenesisConfig {
     #[doc = "The minimum stake required for staking is last seat price divided by this number."]
     #[serde(default = "defaults::default_u64::<u64, 10>")]
     pub minimum_stake_divisor: u64,
-    #[doc = "The lowest ratio s/s_total any block producer can have.\n See <https://github.com/near/NEPs/pull/167> for details"]
+    #[doc = "The lowest ratio s/s_total any block producer can have.\nSee <https://github.com/near/NEPs/pull/167> for details"]
     #[serde(default = "defaults::genesis_config_minimum_stake_ratio")]
     pub minimum_stake_ratio: [i32; 2usize],
     #[doc = "The minimum number of validators each shard must have"]
@@ -6858,14 +6914,14 @@ pub struct GenesisConfig {
     pub minimum_validators_per_shard: u64,
     #[doc = "Number of block producer seats at genesis."]
     pub num_block_producer_seats: u64,
-    #[doc = "Defines number of shards and number of block producer seats per each shard at genesis.\n Note: not used with protocol_feature_chunk_only_producers -- replaced by minimum_validators_per_shard\n Note: not used before as all block producers produce chunks for all shards"]
+    #[doc = "Defines number of shards and number of block producer seats per each shard at genesis.\nNote: not used with protocol_feature_chunk_only_producers -- replaced by minimum_validators_per_shard\nNote: not used before as all block producers produce chunks for all shards"]
     pub num_block_producer_seats_per_shard: ::std::vec::Vec<u64>,
     #[doc = "Expected number of blocks per year"]
     pub num_blocks_per_year: u64,
     #[doc = "Deprecated."]
     #[serde(default = "defaults::default_u64::<u64, 300>")]
     pub num_chunk_only_producer_seats: u64,
-    #[doc = "Number of chunk producers.\n Don't mess it up with chunk-only producers feature which is deprecated."]
+    #[doc = "Number of chunk producers.\nDon't mess it up with chunk-only producers feature which is deprecated."]
     #[serde(default = "defaults::default_u64::<u64, 100>")]
     pub num_chunk_producer_seats: u64,
     #[serde(default = "defaults::default_u64::<u64, 300>")]
@@ -6888,7 +6944,7 @@ pub struct GenesisConfig {
     #[doc = "Layout information regarding how to split accounts to shards"]
     #[serde(default = "defaults::genesis_config_shard_layout")]
     pub shard_layout: ShardLayout,
-    #[doc = "If true, shuffle the chunk producers across shards. In other words, if\n the shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\n the set of chunk producers for shard `i`, if this flag were true, the\n shard assignments might become, for example, `[S_2, S_0, S_3, S_1]`."]
+    #[doc = "If true, shuffle the chunk producers across shards. In other words, if\nthe shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\nthe set of chunk producers for shard `i`, if this flag were true, the\nshard assignments might become, for example, `[S_2, S_0, S_3, S_1]`."]
     #[serde(default)]
     pub shuffle_shard_assignment_for_chunk_producers: bool,
     #[doc = "Number of target chunk validator mandates for each shard."]
@@ -6898,7 +6954,7 @@ pub struct GenesisConfig {
     pub total_supply: ::std::string::String,
     #[doc = "Number of blocks for which a given transaction is valid"]
     pub transaction_validity_period: u64,
-    #[doc = "This is only for test purposes. We hard code some configs for mainnet and testnet\n in AllEpochConfig, and we want to have a way to test that code path. This flag is for that.\n If set to true, the node will use the same config override path as mainnet and testnet."]
+    #[doc = "This is only for test purposes. We hard code some configs for mainnet and testnet\nin AllEpochConfig, and we want to have a way to test that code path. This flag is for that.\nIf set to true, the node will use the same config override path as mainnet and testnet."]
     #[serde(default)]
     pub use_production_config: bool,
     #[doc = "List of initial validators."]
@@ -6916,22 +6972,20 @@ impl ::std::convert::From<&GenesisConfig> for GenesisConfig {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"GenesisConfigRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct GenesisConfigRequest(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct GenesisConfigRequest(pub ());
 impl ::std::ops::Deref for GenesisConfigRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<GenesisConfigRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<GenesisConfigRequest> for () {
     fn from(value: GenesisConfigRequest) -> Self {
         value.0
     }
@@ -6941,10 +6995,8 @@ impl ::std::convert::From<&GenesisConfigRequest> for GenesisConfigRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for GenesisConfigRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for GenesisConfigRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -6956,14 +7008,14 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "{"]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Contract is deployed under its code hash.\\n Users will be able reference it by that hash.\\n This effectively makes the contract immutable.\","]
+#[doc = "      \"description\": \"Contract is deployed under its code hash.\\nUsers will be able reference it by that hash.\\nThis effectively makes the contract immutable.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"CodeHash\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Contract is deployed under the owner account id.\\n Users will be able reference it by that account id.\\n This allows the owner to update the contract for all its users.\","]
+#[doc = "      \"description\": \"Contract is deployed under the owner account id.\\nUsers will be able reference it by that account id.\\nThis allows the owner to update the contract for all its users.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"AccountId\""]
@@ -6986,9 +7038,9 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
     PartialOrd,
 )]
 pub enum GlobalContractDeployMode {
-    #[doc = "Contract is deployed under its code hash.\n Users will be able reference it by that hash.\n This effectively makes the contract immutable."]
+    #[doc = "Contract is deployed under its code hash.\nUsers will be able reference it by that hash.\nThis effectively makes the contract immutable."]
     CodeHash,
-    #[doc = "Contract is deployed under the owner account id.\n Users will be able reference it by that account id.\n This allows the owner to update the contract for all its users."]
+    #[doc = "Contract is deployed under the owner account id.\nUsers will be able reference it by that account id.\nThis allows the owner to update the contract for all its users."]
     AccountId,
 }
 impl ::std::convert::From<&Self> for GlobalContractDeployMode {
@@ -7638,7 +7690,7 @@ impl ::std::convert::From<AccountId> for GlobalContractIdentifier {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Invalid input to alt_bn128 family of functions (e.g., point which isn't\\n on the curve).\","]
+#[doc = "      \"description\": \"Invalid input to alt_bn128 family of functions (e.g., point which isn't\\non the curve).\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"AltBn128InvalidInput\""]
@@ -7659,7 +7711,7 @@ impl ::std::convert::From<AccountId> for GlobalContractIdentifier {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Invalid input to ed25519 signature verification function (e.g. signature cannot be\\n derived from bytes).\","]
+#[doc = "      \"description\": \"Invalid input to ed25519 signature verification function (e.g. signature cannot be\\nderived from bytes).\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"Ed25519VerifyInvalidInput\""]
@@ -7753,9 +7805,9 @@ pub enum HostError {
     #[doc = "General errors for ECDSA recover."]
     #[serde(rename = "ECRecoverError")]
     EcRecoverError { msg: ::std::string::String },
-    #[doc = "Invalid input to alt_bn128 family of functions (e.g., point which isn't\n on the curve)."]
+    #[doc = "Invalid input to alt_bn128 family of functions (e.g., point which isn't\non the curve)."]
     AltBn128InvalidInput { msg: ::std::string::String },
-    #[doc = "Invalid input to ed25519 signature verification function (e.g. signature cannot be\n derived from bytes)."]
+    #[doc = "Invalid input to ed25519 signature verification function (e.g. signature cannot be\nderived from bytes)."]
     Ed25519VerifyInvalidInput { msg: ::std::string::String },
 }
 impl ::std::convert::From<&Self> for HostError {
@@ -8215,7 +8267,7 @@ impl ::std::convert::From<&Self> for InvalidAccessKeyError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"The receiver shard of the transaction is too congested to accept new\\n transactions at the moment.\","]
+#[doc = "      \"description\": \"The receiver shard of the transaction is too congested to accept new\\ntransactions at the moment.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ShardCongested\""]
@@ -8245,7 +8297,7 @@ impl ::std::convert::From<&Self> for InvalidAccessKeyError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"The receiver shard of the transaction missed several chunks and rejects\\n new transaction until it can make progress again.\","]
+#[doc = "      \"description\": \"The receiver shard of the transaction missed several chunks and rejects\\nnew transaction until it can make progress again.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ShardStuck\""]
@@ -8336,13 +8388,13 @@ pub enum InvalidTxError {
     #[doc = "Transaction version is invalid."]
     InvalidTransactionVersion,
     StorageError(StorageError),
-    #[doc = "The receiver shard of the transaction is too congested to accept new\n transactions at the moment."]
+    #[doc = "The receiver shard of the transaction is too congested to accept new\ntransactions at the moment."]
     ShardCongested {
         congestion_level: f64,
         #[doc = "The congested shard."]
         shard_id: u32,
     },
-    #[doc = "The receiver shard of the transaction missed several chunks and rejects\n new transaction until it can make progress again."]
+    #[doc = "The receiver shard of the transaction missed several chunks and rejects\nnew transaction until it can make progress again."]
     ShardStuck {
         #[doc = "The number of blocks since the last included chunk of the shard."]
         missed_chunks: u64,
@@ -8721,6 +8773,124 @@ impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForBroadc
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForBroadcastTxCommitMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForChanges`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_changes\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"changes\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcStateChangesInBlockByTypeRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForChanges {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForChangesMethod,
+    pub params: RpcStateChangesInBlockByTypeRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForChanges> for JsonRpcRequestForChanges {
+    fn from(value: &JsonRpcRequestForChanges) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForChangesMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForChangesMethod {
+    #[serde(rename = "changes")]
+    Changes,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForChangesMethod {
+    fn from(value: &JsonRpcRequestForChangesMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForChangesMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Changes => write!(f, "changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForChangesMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "changes" => Ok(Self::Changes),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForChangesMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForChangesMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForChangesMethod {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -11926,16 +12096,12 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForGenesisConfigAndRpcError 
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"result\": {"]
-#[doc = "          \"oneOf\": ["]
+#[doc = "          \"anyOf\": ["]
 #[doc = "            {"]
-#[doc = "              \"type\": \"null\""]
+#[doc = "              \"$ref\": \"#/components/schemas/RpcHealthResponse\""]
 #[doc = "            },"]
 #[doc = "            {"]
-#[doc = "              \"allOf\": ["]
-#[doc = "                {"]
-#[doc = "                  \"$ref\": \"#/components/schemas/RpcHealthResponse\""]
-#[doc = "                }"]
-#[doc = "              ]"]
+#[doc = "              \"type\": \"null\""]
 #[doc = "            }"]
 #[doc = "          ]"]
 #[doc = "        }"]
@@ -13179,13 +13345,13 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcValidatorResponseAndRp
         value.clone()
     }
 }
-#[doc = "Information about a Producer: its account name, peer_id and a list of connected peers that\n the node can use to send message for this producer."]
+#[doc = "Information about a Producer: its account name, peer_id and a list of connected peers that\nthe node can use to send message for this producer."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Information about a Producer: its account name, peer_id and a list of connected peers that\\n the node can use to send message for this producer.\","]
+#[doc = "  \"description\": \"Information about a Producer: its account name, peer_id and a list of connected peers that\\nthe node can use to send message for this producer.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_id\","]
@@ -13260,13 +13426,13 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
         value.clone()
     }
 }
-#[doc = "Describes limits for VM and Runtime.\n TODO #4139: consider switching to strongly-typed wrappers instead of raw quantities"]
+#[doc = "Describes limits for VM and Runtime.\nTODO #4139: consider switching to strongly-typed wrappers instead of raw quantities"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Describes limits for VM and Runtime.\\n TODO #4139: consider switching to strongly-typed wrappers instead of raw quantities\","]
+#[doc = "  \"description\": \"Describes limits for VM and Runtime.\\nTODO #4139: consider switching to strongly-typed wrappers instead of raw quantities\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"initial_memory_pages\","]
@@ -13297,7 +13463,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_id_validity_rules_version\": {"]
-#[doc = "      \"description\": \"Whether to enforce account_id well-formed-ness where it wasn't enforced\\n historically.\","]
+#[doc = "      \"description\": \"Whether to enforce account_id well-formed-ness where it wasn't enforced\\nhistorically.\","]
 #[doc = "      \"default\": 0,"]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
@@ -13306,7 +13472,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"initial_memory_pages\": {"]
-#[doc = "      \"description\": \"The initial number of memory pages.\\n NOTE: It's not a limiter itself, but it's a value we use for initial_memory_pages.\","]
+#[doc = "      \"description\": \"The initial number of memory pages.\\nNOTE: It's not a limiter itself, but it's a value we use for initial_memory_pages.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint32\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -13384,7 +13550,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_number_bytes_method_names\": {"]
-#[doc = "      \"description\": \"Max total length of all method names (including terminating character) for a function call\\n permission access key.\","]
+#[doc = "      \"description\": \"Max total length of all method names (including terminating character) for a function call\\npermission access key.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -13402,7 +13568,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_number_registers\": {"]
-#[doc = "      \"description\": \"Maximum number of registers that can be used simultaneously.\\n\\n Note that due to an implementation quirk [read: a bug] in VMLogic, if we\\n have this number of registers, no subsequent writes to the registers\\n will succeed even if they replace an existing register.\","]
+#[doc = "      \"description\": \"Maximum number of registers that can be used simultaneously.\\n\\nNote that due to an implementation quirk [read: a bug] in VMLogic, if we\\nhave this number of registers, no subsequent writes to the registers\\nwill succeed even if they replace an existing register.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -13426,7 +13592,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_stack_height\": {"]
-#[doc = "      \"description\": \"How tall the stack is allowed to grow?\\n\\n See <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\\n is calculated.\","]
+#[doc = "      \"description\": \"How tall the stack is allowed to grow?\\n\\nSee <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\\nis calculated.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint32\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -13479,10 +13645,10 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct LimitConfig {
-    #[doc = "Whether to enforce account_id well-formed-ness where it wasn't enforced\n historically."]
+    #[doc = "Whether to enforce account_id well-formed-ness where it wasn't enforced\nhistorically."]
     #[serde(default = "defaults::limit_config_account_id_validity_rules_version")]
     pub account_id_validity_rules_version: AccountIdValidityRulesVersion,
-    #[doc = "The initial number of memory pages.\n NOTE: It's not a limiter itself, but it's a value we use for initial_memory_pages."]
+    #[doc = "The initial number of memory pages.\nNOTE: It's not a limiter itself, but it's a value we use for initial_memory_pages."]
     pub initial_memory_pages: u32,
     #[doc = "Max number of actions per receipt."]
     pub max_actions_per_receipt: u64,
@@ -13508,13 +13674,13 @@ pub struct LimitConfig {
     pub max_locals_per_contract: ::std::option::Option<u64>,
     #[doc = "What is the maximal memory pages amount is allowed to have for a contract."]
     pub max_memory_pages: u32,
-    #[doc = "Max total length of all method names (including terminating character) for a function call\n permission access key."]
+    #[doc = "Max total length of all method names (including terminating character) for a function call\npermission access key."]
     pub max_number_bytes_method_names: u64,
     #[doc = "Max number of input data dependencies"]
     pub max_number_input_data_dependencies: u64,
     #[doc = "Maximum number of log entries."]
     pub max_number_logs: u64,
-    #[doc = "Maximum number of registers that can be used simultaneously.\n\n Note that due to an implementation quirk [read: a bug] in VMLogic, if we\n have this number of registers, no subsequent writes to the registers\n will succeed even if they replace an existing register."]
+    #[doc = "Maximum number of registers that can be used simultaneously.\n\nNote that due to an implementation quirk [read: a bug] in VMLogic, if we\nhave this number of registers, no subsequent writes to the registers\nwill succeed even if they replace an existing register."]
     pub max_number_registers: u64,
     #[doc = "Max number of promises that a function call can create"]
     pub max_promises_per_function_call_action: u64,
@@ -13522,7 +13688,7 @@ pub struct LimitConfig {
     pub max_receipt_size: u64,
     #[doc = "Maximum number of bytes that can be stored in a single register."]
     pub max_register_size: u64,
-    #[doc = "How tall the stack is allowed to grow?\n\n See <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\n is calculated."]
+    #[doc = "How tall the stack is allowed to grow?\n\nSee <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\nis calculated."]
     pub max_stack_height: u32,
     #[doc = "Maximum total length in bytes of all log messages."]
     pub max_total_log_length: u64,
@@ -14051,13 +14217,13 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
         value.clone()
     }
 }
-#[doc = "This is Action which mustn't contain DelegateAction.\n\n This struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\n\n Important: Don't make the inner Action public, this must only be constructed\n through the correct interface that ensures the inner Action is actually not\n a delegate action. That would break an assumption of this type, which we use\n in several places. For example, borsh de-/serialization relies on it. If the\n invariant is broken, we may end up with a `Transaction` or `Receipt` that we\n can serialize but deserializing it back causes a parsing error."]
+#[doc = "This is Action which mustn't contain DelegateAction.\n\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\n\nImportant: Don't make the inner Action public, this must only be constructed\nthrough the correct interface that ensures the inner Action is actually not\na delegate action. That would break an assumption of this type, which we use\nin several places. For example, borsh de-/serialization relies on it. If the\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\ncan serialize but deserializing it back causes a parsing error."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"This is Action which mustn't contain DelegateAction.\\n\\n This struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\\n\\n Important: Don't make the inner Action public, this must only be constructed\\n through the correct interface that ensures the inner Action is actually not\\n a delegate action. That would break an assumption of this type, which we use\\n in several places. For example, borsh de-/serialization relies on it. If the\\n invariant is broken, we may end up with a `Transaction` or `Receipt` that we\\n can serialize but deserializing it back causes a parsing error.\","]
+#[doc = "  \"description\": \"This is Action which mustn't contain DelegateAction.\\n\\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\\n\\nImportant: Don't make the inner Action public, this must only be constructed\\nthrough the correct interface that ensures the inner Action is actually not\\na delegate action. That would break an assumption of this type, which we use\\nin several places. For example, borsh de-/serialization relies on it. If the\\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\\ncan serialize but deserializing it back causes a parsing error.\","]
 #[doc = "  \"allOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"$ref\": \"#/components/schemas/Action\""]
@@ -14181,16 +14347,12 @@ impl ::std::fmt::Display for PeerId {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -14201,16 +14363,12 @@ impl ::std::fmt::Display for PeerId {
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"block_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -14329,21 +14487,21 @@ impl ::std::convert::From<&PeerInfoView> for PeerInfoView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Gas instrumentation failed.\\n\\n This most likely indicates the module isn't valid.\","]
+#[doc = "      \"description\": \"Gas instrumentation failed.\\n\\nThis most likely indicates the module isn't valid.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"GasInstrumentation\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Stack instrumentation failed.\\n\\n This  most likely indicates the module isn't valid.\","]
+#[doc = "      \"description\": \"Stack instrumentation failed.\\n\\nThis  most likely indicates the module isn't valid.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"StackHeightInstrumentation\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Error happened during instantiation.\\n\\n This might indicate that `start` function trapped, or module isn't\\n instantiable and/or un-linkable.\","]
+#[doc = "      \"description\": \"Error happened during instantiation.\\n\\nThis might indicate that `start` function trapped, or module isn't\\ninstantiable and/or un-linkable.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"Instantiate\""]
@@ -14393,11 +14551,11 @@ pub enum PrepareError {
     Deserialization,
     #[doc = "Internal memory declaration has been found in the module."]
     InternalMemoryDeclared,
-    #[doc = "Gas instrumentation failed.\n\n This most likely indicates the module isn't valid."]
+    #[doc = "Gas instrumentation failed.\n\nThis most likely indicates the module isn't valid."]
     GasInstrumentation,
-    #[doc = "Stack instrumentation failed.\n\n This  most likely indicates the module isn't valid."]
+    #[doc = "Stack instrumentation failed.\n\nThis  most likely indicates the module isn't valid."]
     StackHeightInstrumentation,
-    #[doc = "Error happened during instantiation.\n\n This might indicate that `start` function trapped, or module isn't\n instantiable and/or un-linkable."]
+    #[doc = "Error happened during instantiation.\n\nThis might indicate that `start` function trapped, or module isn't\ninstantiable and/or un-linkable."]
     Instantiate,
     #[doc = "Error creating memory."]
     Memory,
@@ -15221,24 +15379,20 @@ impl ::std::convert::From<&RpcChunkResponse> for RpcChunkResponse {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcClientConfigRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcClientConfigRequest(
-    pub ::serde_json::Map<::std::string::String, ::serde_json::Value>,
-);
+pub struct RpcClientConfigRequest(pub ());
 impl ::std::ops::Deref for RpcClientConfigRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcClientConfigRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcClientConfigRequest> for () {
     fn from(value: RpcClientConfigRequest) -> Self {
         value.0
     }
@@ -15248,10 +15402,8 @@ impl ::std::convert::From<&RpcClientConfigRequest> for RpcClientConfigRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcClientConfigRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcClientConfigRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -15296,8 +15448,10 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "    \"produce_chunk_add_transactions_time_limit\","]
 #[doc = "    \"produce_empty_blocks\","]
 #[doc = "    \"resharding_config\","]
+#[doc = "    \"save_invalid_witnesses\","]
 #[doc = "    \"save_latest_witnesses\","]
 #[doc = "    \"save_trie_changes\","]
+#[doc = "    \"save_tx_outcomes\","]
 #[doc = "    \"skip_sync_wait\","]
 #[doc = "    \"state_sync\","]
 #[doc = "    \"state_sync_enabled\","]
@@ -15361,17 +15515,13 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"chunk_distribution_network\": {"]
-#[doc = "      \"description\": \"Optional config for the Chunk Distribution Network feature.\\n If set to `None` then this node does not participate in the Chunk Distribution Network.\\n Nodes not participating will still function fine, but possibly with higher\\n latency due to the need of requesting chunks over the peer-to-peer network.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"description\": \"Optional config for the Chunk Distribution Network feature.\\nIf set to `None` then this node does not participate in the Chunk Distribution Network.\\nNodes not participating will still function fine, but possibly with higher\\nlatency due to the need of requesting chunks over the peer-to-peer network.\","]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ChunkDistributionNetworkConfig\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/ChunkDistributionNetworkConfig\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -15531,7 +15681,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"minItems\": 2"]
 #[doc = "    },"]
 #[doc = "    \"max_gas_burnt_view\": {"]
-#[doc = "      \"description\": \"Max burnt gas per view method.  If present, overrides value stored in\\n genesis file.  The value only affects the RPCs without influencing the\\n protocol thus changing it per-node doesn’t affect the blockchain.\","]
+#[doc = "      \"description\": \"Max burnt gas per view method.  If present, overrides value stored in\\ngenesis file.  The value only affects the RPCs without influencing the\\nprotocol thus changing it per-node doesn’t affect the blockchain.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"integer\","]
 #[doc = "        \"null\""]
@@ -15563,19 +15713,19 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"orphan_state_witness_max_size\": {"]
-#[doc = "      \"description\": \"Maximum size of state witnesses in the OrphanStateWitnessPool.\\n\\n We keep only orphan witnesses which are smaller than this size.\\n This limits the maximum memory usage of OrphanStateWitnessPool.\","]
+#[doc = "      \"description\": \"Maximum size of state witnesses in the OrphanStateWitnessPool.\\n\\nWe keep only orphan witnesses which are smaller than this size.\\nThis limits the maximum memory usage of OrphanStateWitnessPool.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"orphan_state_witness_pool_size\": {"]
-#[doc = "      \"description\": \"OrphanStateWitnessPool keeps instances of ChunkStateWitness which can't be processed\\n because the previous block isn't available. The witnesses wait in the pool until the\\n required block appears. This variable controls how many witnesses can be stored in the pool.\","]
+#[doc = "      \"description\": \"OrphanStateWitnessPool keeps instances of ChunkStateWitness which can't be processed\\nbecause the previous block isn't available. The witnesses wait in the pool until the\\nrequired block appears. This variable controls how many witnesses can be stored in the pool.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"produce_chunk_add_transactions_time_limit\": {"]
-#[doc = "      \"description\": \"Limit the time of adding transactions to a chunk.\\n A node produces a chunk by adding transactions from the transaction pool until\\n some limit is reached. This time limit ensures that adding transactions won't take\\n longer than the specified duration, which helps to produce the chunk quickly.\","]
+#[doc = "      \"description\": \"Limit the time of adding transactions to a chunk.\\nA node produces a chunk by adding transactions from the transaction pool until\\nsome limit is reached. This time limit ensures that adding transactions won't take\\nlonger than the specified duration, which helps to produce the chunk quickly.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"produce_empty_blocks\": {"]
@@ -15592,12 +15742,20 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "        \"null\""]
 #[doc = "      ]"]
 #[doc = "    },"]
+#[doc = "    \"save_invalid_witnesses\": {"]
+#[doc = "      \"description\": \"Save observed instances of invalid ChunkStateWitness to the database in DBCol::InvalidChunkStateWitnesses.\\nSaving invalid witnesses is useful for analysis and debugging.\\nThis option can cause extra load on the database and is not recommended for production use.\","]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
 #[doc = "    \"save_latest_witnesses\": {"]
-#[doc = "      \"description\": \"Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\\n Saving the latest witnesses is useful for analysis and debugging.\\n When this option is enabled, the node will save ALL witnesses it observes, even invalid ones,\\n which can cause extra load on the database. This option is not recommended for production use,\\n as a large number of incoming witnesses could cause denial of service.\","]
+#[doc = "      \"description\": \"Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\\nSaving the latest witnesses is useful for analysis and debugging.\\nThis option can cause extra load on the database and is not recommended for production use.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"save_trie_changes\": {"]
-#[doc = "      \"description\": \"save_trie_changes should be set to true iff\\n - archive if false - non-archival nodes need trie changes to perform garbage collection\\n - archive is true, cold_store is configured and migration to split_storage is finished - node\\n working in split storage mode needs trie changes in order to do garbage collection on hot.\","]
+#[doc = "      \"description\": \"save_trie_changes should be set to true iff\\n- archive if false - non-archival nodes need trie changes to perform garbage collection\\n- archive is true, cold_store is configured and migration to split_storage is finished - node\\nworking in split storage mode needs trie changes in order to do garbage collection on hot.\","]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
+#[doc = "    \"save_tx_outcomes\": {"]
+#[doc = "      \"description\": \"Whether to persist transaction outcomes to disk or not.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"skip_sync_wait\": {"]
@@ -15613,7 +15771,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"state_sync_enabled\": {"]
-#[doc = "      \"description\": \"Whether to use the State Sync mechanism.\\n If disabled, the node will do Block Sync instead of State Sync.\","]
+#[doc = "      \"description\": \"Whether to use the State Sync mechanism.\\nIf disabled, the node will do Block Sync instead of State Sync.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"state_sync_external_backoff\": {"]
@@ -15698,7 +15856,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"$ref\": \"#/components/schemas/TrackedShardsConfig\""]
 #[doc = "    },"]
 #[doc = "    \"transaction_pool_size_limit\": {"]
-#[doc = "      \"description\": \"Limit of the size of per-shard transaction pool measured in bytes. If not set, the size\\n will be unbounded.\","]
+#[doc = "      \"description\": \"Limit of the size of per-shard transaction pool measured in bytes. If not set, the size\\nwill be unbounded.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"integer\","]
 #[doc = "        \"null\""]
@@ -15732,7 +15890,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"minItems\": 2"]
 #[doc = "    },"]
 #[doc = "    \"tx_routing_height_horizon\": {"]
-#[doc = "      \"description\": \"If the node is not a chunk producer within that many blocks, then route\\n to upcoming chunk producers.\","]
+#[doc = "      \"description\": \"If the node is not a chunk producer within that many blocks, then route\\nto upcoming chunk producers.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -15780,7 +15938,7 @@ pub struct RpcClientConfigResponse {
     pub catchup_step_period: [u64; 2usize],
     #[doc = "Chain id for status."]
     pub chain_id: ::std::string::String,
-    #[doc = "Optional config for the Chunk Distribution Network feature.\n If set to `None` then this node does not participate in the Chunk Distribution Network.\n Nodes not participating will still function fine, but possibly with higher\n latency due to the need of requesting chunks over the peer-to-peer network."]
+    #[doc = "Optional config for the Chunk Distribution Network feature.\nIf set to `None` then this node does not participate in the Chunk Distribution Network.\nNodes not participating will still function fine, but possibly with higher\nlatency due to the need of requesting chunks over the peer-to-peer network."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub chunk_distribution_network: ::std::option::Option<ChunkDistributionNetworkConfig>,
     #[doc = "Time between checking to re-request chunks."]
@@ -15818,7 +15976,7 @@ pub struct RpcClientConfigResponse {
     pub max_block_production_delay: [u64; 2usize],
     #[doc = "Maximum duration before skipping given height."]
     pub max_block_wait_delay: [u64; 2usize],
-    #[doc = "Max burnt gas per view method.  If present, overrides value stored in\n genesis file.  The value only affects the RPCs without influencing the\n protocol thus changing it per-node doesn’t affect the blockchain."]
+    #[doc = "Max burnt gas per view method.  If present, overrides value stored in\ngenesis file.  The value only affects the RPCs without influencing the\nprotocol thus changing it per-node doesn’t affect the blockchain."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub max_gas_burnt_view: ::std::option::Option<u64>,
     #[doc = "Minimum duration before producing block."]
@@ -15827,11 +15985,11 @@ pub struct RpcClientConfigResponse {
     pub min_num_peers: u32,
     #[doc = "Number of block producer seats"]
     pub num_block_producer_seats: u64,
-    #[doc = "Maximum size of state witnesses in the OrphanStateWitnessPool.\n\n We keep only orphan witnesses which are smaller than this size.\n This limits the maximum memory usage of OrphanStateWitnessPool."]
+    #[doc = "Maximum size of state witnesses in the OrphanStateWitnessPool.\n\nWe keep only orphan witnesses which are smaller than this size.\nThis limits the maximum memory usage of OrphanStateWitnessPool."]
     pub orphan_state_witness_max_size: u64,
-    #[doc = "OrphanStateWitnessPool keeps instances of ChunkStateWitness which can't be processed\n because the previous block isn't available. The witnesses wait in the pool until the\n required block appears. This variable controls how many witnesses can be stored in the pool."]
+    #[doc = "OrphanStateWitnessPool keeps instances of ChunkStateWitness which can't be processed\nbecause the previous block isn't available. The witnesses wait in the pool until the\nrequired block appears. This variable controls how many witnesses can be stored in the pool."]
     pub orphan_state_witness_pool_size: u32,
-    #[doc = "Limit the time of adding transactions to a chunk.\n A node produces a chunk by adding transactions from the transaction pool until\n some limit is reached. This time limit ensures that adding transactions won't take\n longer than the specified duration, which helps to produce the chunk quickly."]
+    #[doc = "Limit the time of adding transactions to a chunk.\nA node produces a chunk by adding transactions from the transaction pool until\nsome limit is reached. This time limit ensures that adding transactions won't take\nlonger than the specified duration, which helps to produce the chunk quickly."]
     pub produce_chunk_add_transactions_time_limit: ::std::string::String,
     #[doc = "Produce empty blocks, use `false` for testing."]
     pub produce_empty_blocks: bool,
@@ -15839,15 +15997,19 @@ pub struct RpcClientConfigResponse {
     #[doc = "Listening rpc port for status."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub rpc_addr: ::std::option::Option<::std::string::String>,
-    #[doc = "Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\n Saving the latest witnesses is useful for analysis and debugging.\n When this option is enabled, the node will save ALL witnesses it observes, even invalid ones,\n which can cause extra load on the database. This option is not recommended for production use,\n as a large number of incoming witnesses could cause denial of service."]
+    #[doc = "Save observed instances of invalid ChunkStateWitness to the database in DBCol::InvalidChunkStateWitnesses.\nSaving invalid witnesses is useful for analysis and debugging.\nThis option can cause extra load on the database and is not recommended for production use."]
+    pub save_invalid_witnesses: bool,
+    #[doc = "Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\nSaving the latest witnesses is useful for analysis and debugging.\nThis option can cause extra load on the database and is not recommended for production use."]
     pub save_latest_witnesses: bool,
-    #[doc = "save_trie_changes should be set to true iff\n - archive if false - non-archival nodes need trie changes to perform garbage collection\n - archive is true, cold_store is configured and migration to split_storage is finished - node\n working in split storage mode needs trie changes in order to do garbage collection on hot."]
+    #[doc = "save_trie_changes should be set to true iff\n- archive if false - non-archival nodes need trie changes to perform garbage collection\n- archive is true, cold_store is configured and migration to split_storage is finished - node\nworking in split storage mode needs trie changes in order to do garbage collection on hot."]
     pub save_trie_changes: bool,
+    #[doc = "Whether to persist transaction outcomes to disk or not."]
+    pub save_tx_outcomes: bool,
     #[doc = "Skip waiting for sync (for testing or single node testnet)."]
     pub skip_sync_wait: bool,
     #[doc = "Options for syncing state."]
     pub state_sync: StateSyncConfig,
-    #[doc = "Whether to use the State Sync mechanism.\n If disabled, the node will do Block Sync instead of State Sync."]
+    #[doc = "Whether to use the State Sync mechanism.\nIf disabled, the node will do Block Sync instead of State Sync."]
     pub state_sync_enabled: bool,
     #[doc = "Additional waiting period after a failed request to external storage"]
     pub state_sync_external_backoff: [u64; 2usize],
@@ -15866,7 +16028,7 @@ pub struct RpcClientConfigResponse {
     #[doc = "While syncing, how long to check for each step."]
     pub sync_step_period: [u64; 2usize],
     pub tracked_shards_config: TrackedShardsConfig,
-    #[doc = "Limit of the size of per-shard transaction pool measured in bytes. If not set, the size\n will be unbounded."]
+    #[doc = "Limit of the size of per-shard transaction pool measured in bytes. If not set, the size\nwill be unbounded."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub transaction_pool_size_limit: ::std::option::Option<u64>,
     pub transaction_request_handler_threads: u32,
@@ -15875,7 +16037,7 @@ pub struct RpcClientConfigResponse {
     pub trie_viewer_state_size_limit: ::std::option::Option<u64>,
     #[doc = "Time to persist Accounts Id in the router without removing them."]
     pub ttl_account_id_router: [u64; 2usize],
-    #[doc = "If the node is not a chunk producer within that many blocks, then route\n to upcoming chunk producers."]
+    #[doc = "If the node is not a chunk producer within that many blocks, then route\nto upcoming chunk producers."]
     pub tx_routing_height_horizon: u64,
     #[doc = "Version of the binary."]
     pub version: Version,
@@ -15974,13 +16136,13 @@ impl ::std::convert::From<&RpcCongestionLevelResponse> for RpcCongestionLevelRes
         value.clone()
     }
 }
-#[doc = "This struct may be returned from JSON RPC server in case of error\n It is expected that this struct has impl From<_> all other RPC errors\n like [RpcBlockError](crate::types::blocks::RpcBlockError)"]
+#[doc = "This struct may be returned from JSON RPC server in case of error\nIt is expected that this struct has impl From<_> all other RPC errors\nlike [RpcBlockError](crate::types::blocks::RpcBlockError)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"This struct may be returned from JSON RPC server in case of error\\n It is expected that this struct has impl From<_> all other RPC errors\\n like [RpcBlockError](crate::types::blocks::RpcBlockError)\","]
+#[doc = "  \"description\": \"This struct may be returned from JSON RPC server in case of error\\nIt is expected that this struct has impl From<_> all other RPC errors\\nlike [RpcBlockError](crate::types::blocks::RpcBlockError)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -16326,16 +16488,12 @@ impl ::std::convert::TryFrom<::std::string::String> for RpcErrorVariant2Name {
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"block_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/BlockId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    }"]
@@ -16394,22 +16552,20 @@ impl ::std::convert::From<&RpcGasPriceResponse> for RpcGasPriceResponse {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcHealthRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcHealthRequest(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct RpcHealthRequest(pub ());
 impl ::std::ops::Deref for RpcHealthRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcHealthRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcHealthRequest> for () {
     fn from(value: RpcHealthRequest) -> Self {
         value.0
     }
@@ -16419,10 +16575,8 @@ impl ::std::convert::From<&RpcHealthRequest> for RpcHealthRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcHealthRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcHealthRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -16432,22 +16586,20 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcHealthResponse(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct RpcHealthResponse(pub ());
 impl ::std::ops::Deref for RpcHealthResponse {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcHealthResponse>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcHealthResponse> for () {
     fn from(value: RpcHealthResponse) -> Self {
         value.0
     }
@@ -16457,10 +16609,8 @@ impl ::std::convert::From<&RpcHealthResponse> for RpcHealthResponse {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcHealthResponse
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcHealthResponse {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -16903,16 +17053,12 @@ impl ::std::convert::From<&RpcLightClientNextBlockRequest> for RpcLightClientNex
 #[doc = "    \"approvals_after_next\": {"]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
-#[doc = "        \"oneOf\": ["]
+#[doc = "        \"anyOf\": ["]
 #[doc = "          {"]
-#[doc = "            \"type\": \"null\""]
+#[doc = "            \"$ref\": \"#/components/schemas/Signature\""]
 #[doc = "          },"]
 #[doc = "          {"]
-#[doc = "            \"allOf\": ["]
-#[doc = "              {"]
-#[doc = "                \"$ref\": \"#/components/schemas/Signature\""]
-#[doc = "              }"]
-#[doc = "            ]"]
+#[doc = "            \"type\": \"null\""]
 #[doc = "          }"]
 #[doc = "        ]"]
 #[doc = "      }"]
@@ -17009,22 +17155,20 @@ impl ::std::convert::From<&RpcMaintenanceWindowsRequest> for RpcMaintenanceWindo
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcNetworkInfoRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcNetworkInfoRequest(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct RpcNetworkInfoRequest(pub ());
 impl ::std::ops::Deref for RpcNetworkInfoRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcNetworkInfoRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcNetworkInfoRequest> for () {
     fn from(value: RpcNetworkInfoRequest) -> Self {
         value.0
     }
@@ -17034,10 +17178,8 @@ impl ::std::convert::From<&RpcNetworkInfoRequest> for RpcNetworkInfoRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcNetworkInfoRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcNetworkInfoRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -17121,16 +17263,12 @@ impl ::std::convert::From<&RpcNetworkInfoResponse> for RpcNetworkInfoResponse {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -17291,22 +17429,25 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "      \"description\": \"Threshold for kicking out block producers, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"chain_id\": {"]
-#[doc = "      \"description\": \"ID of the blockchain. This must be unique for every blockchain.\\n If your testnet blockchains do not have unique chain IDs, you will have a bad time.\","]
+#[doc = "      \"description\": \"ID of the blockchain. This must be unique for every blockchain.\\nIf your testnet blockchains do not have unique chain IDs, you will have a bad time.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"chunk_producer_kickout_threshold\": {"]
 #[doc = "      \"description\": \"Threshold for kicking out chunk producers, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"chunk_validator_only_kickout_threshold\": {"]
 #[doc = "      \"description\": \"Threshold for kicking out nodes which are only chunk validators, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"dynamic_resharding\": {"]
@@ -17368,6 +17509,7 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "      \"description\": \"Max stake percentage of the validators we will kick out.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"min_gas_price\": {"]
@@ -17381,7 +17523,7 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"minimum_stake_ratio\": {"]
-#[doc = "      \"description\": \"The lowest ratio s/s_total any block producer can have.\\n See <https://github.com/near/NEPs/pull/167> for details\","]
+#[doc = "      \"description\": \"The lowest ratio s/s_total any block producer can have.\\nSee <https://github.com/near/NEPs/pull/167> for details\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
@@ -17488,7 +17630,7 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"shuffle_shard_assignment_for_chunk_producers\": {"]
-#[doc = "      \"description\": \"If true, shuffle the chunk producers across shards. In other words, if\\n the shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\\n the set of chunk producers for shard `i`, if this flag were true, the\\n shard assignments might become, for example, `[S_2, S_0, S_3, S_1]`.\","]
+#[doc = "      \"description\": \"If true, shuffle the chunk producers across shards. In other words, if\\nthe shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\\nthe set of chunk producers for shard `i`, if this flag were true, the\\nshard assignments might become, for example, `[S_2, S_0, S_3, S_1]`.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"target_validator_mandates_per_shard\": {"]
@@ -17513,7 +17655,7 @@ pub struct RpcProtocolConfigResponse {
     pub avg_hidden_validator_seats_per_shard: ::std::vec::Vec<u64>,
     #[doc = "Threshold for kicking out block producers, between 0 and 100."]
     pub block_producer_kickout_threshold: u8,
-    #[doc = "ID of the blockchain. This must be unique for every blockchain.\n If your testnet blockchains do not have unique chain IDs, you will have a bad time."]
+    #[doc = "ID of the blockchain. This must be unique for every blockchain.\nIf your testnet blockchains do not have unique chain IDs, you will have a bad time."]
     pub chain_id: ::std::string::String,
     #[doc = "Threshold for kicking out chunk producers, between 0 and 100."]
     pub chunk_producer_kickout_threshold: u8,
@@ -17543,7 +17685,7 @@ pub struct RpcProtocolConfigResponse {
     pub min_gas_price: ::std::string::String,
     #[doc = "The minimum stake required for staking is last seat price divided by this number."]
     pub minimum_stake_divisor: u64,
-    #[doc = "The lowest ratio s/s_total any block producer can have.\n See <https://github.com/near/NEPs/pull/167> for details"]
+    #[doc = "The lowest ratio s/s_total any block producer can have.\nSee <https://github.com/near/NEPs/pull/167> for details"]
     pub minimum_stake_ratio: [i32; 2usize],
     #[doc = "The minimum number of validators each shard must have"]
     pub minimum_validators_per_shard: u64,
@@ -17569,7 +17711,7 @@ pub struct RpcProtocolConfigResponse {
     pub runtime_config: RuntimeConfigView,
     #[doc = "Layout information regarding how to split accounts to shards"]
     pub shard_layout: ShardLayout,
-    #[doc = "If true, shuffle the chunk producers across shards. In other words, if\n the shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\n the set of chunk producers for shard `i`, if this flag were true, the\n shard assignments might become, for example, `[S_2, S_0, S_3, S_1]`."]
+    #[doc = "If true, shuffle the chunk producers across shards. In other words, if\nthe shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\nthe set of chunk producers for shard `i`, if this flag were true, the\nshard assignments might become, for example, `[S_2, S_0, S_3, S_1]`."]
     pub shuffle_shard_assignment_for_chunk_producers: bool,
     #[doc = "Number of target chunk validator mandates for each shard."]
     pub target_validator_mandates_per_shard: u64,
@@ -17684,8 +17826,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"type\": \"boolean\""]
 #[doc = "            },"]
 #[doc = "            \"prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            },"]
 #[doc = "            \"request_type\": {"]
 #[doc = "              \"type\": \"string\","]
@@ -17793,8 +17934,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"args_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/FunctionArgs\""]
 #[doc = "            },"]
 #[doc = "            \"method_name\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -17969,8 +18109,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"type\": \"boolean\""]
 #[doc = "            },"]
 #[doc = "            \"prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            },"]
 #[doc = "            \"request_type\": {"]
 #[doc = "              \"type\": \"string\","]
@@ -18078,8 +18217,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"args_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/FunctionArgs\""]
 #[doc = "            },"]
 #[doc = "            \"method_name\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -18254,8 +18392,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"type\": \"boolean\""]
 #[doc = "            },"]
 #[doc = "            \"prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            },"]
 #[doc = "            \"request_type\": {"]
 #[doc = "              \"type\": \"string\","]
@@ -18363,8 +18500,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"args_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/FunctionArgs\""]
 #[doc = "            },"]
 #[doc = "            \"method_name\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -18467,7 +18603,7 @@ pub enum RpcQueryRequest {
         block_id: BlockId,
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
         include_proof: ::std::option::Option<bool>,
-        prefix_base64: ::std::string::String,
+        prefix_base64: StoreKey,
         request_type: RpcQueryRequestVariant2RequestType,
     },
     Variant3 {
@@ -18483,7 +18619,7 @@ pub enum RpcQueryRequest {
     },
     Variant5 {
         account_id: AccountId,
-        args_base64: ::std::string::String,
+        args_base64: FunctionArgs,
         block_id: BlockId,
         method_name: ::std::string::String,
         request_type: RpcQueryRequestVariant5RequestType,
@@ -18513,7 +18649,7 @@ pub enum RpcQueryRequest {
         finality: Finality,
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
         include_proof: ::std::option::Option<bool>,
-        prefix_base64: ::std::string::String,
+        prefix_base64: StoreKey,
         request_type: RpcQueryRequestVariant10RequestType,
     },
     Variant11 {
@@ -18529,7 +18665,7 @@ pub enum RpcQueryRequest {
     },
     Variant13 {
         account_id: AccountId,
-        args_base64: ::std::string::String,
+        args_base64: FunctionArgs,
         finality: Finality,
         method_name: ::std::string::String,
         request_type: RpcQueryRequestVariant13RequestType,
@@ -18558,7 +18694,7 @@ pub enum RpcQueryRequest {
         account_id: AccountId,
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
         include_proof: ::std::option::Option<bool>,
-        prefix_base64: ::std::string::String,
+        prefix_base64: StoreKey,
         request_type: RpcQueryRequestVariant18RequestType,
         sync_checkpoint: SyncCheckpoint,
     },
@@ -18575,7 +18711,7 @@ pub enum RpcQueryRequest {
     },
     Variant21 {
         account_id: AccountId,
-        args_base64: ::std::string::String,
+        args_base64: FunctionArgs,
         method_name: ::std::string::String,
         request_type: RpcQueryRequestVariant21RequestType,
         sync_checkpoint: SyncCheckpoint,
@@ -20738,14 +20874,14 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
         }
     }
 }
-#[doc = "It is a [serializable view] of [`StateChangesRequest`].\n\n [serializable view]: ./index.html\n [`StateChangesRequest`]: ../types/struct.StateChangesRequest.html"]
+#[doc = "It is a [serializable view] of [`StateChangesRequest`].\n\n[serializable view]: ./index.html\n[`StateChangesRequest`]: ../types/struct.StateChangesRequest.html"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcStateChangesInBlockByTypeRequest\","]
-#[doc = "  \"description\": \"It is a [serializable view] of [`StateChangesRequest`].\\n\\n [serializable view]: ./index.html\\n [`StateChangesRequest`]: ../types/struct.StateChangesRequest.html\","]
+#[doc = "  \"description\": \"It is a [serializable view] of [`StateChangesRequest`].\\n\\n[serializable view]: ./index.html\\n[`StateChangesRequest`]: ../types/struct.StateChangesRequest.html\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -20998,8 +21134,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"key_prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -21255,8 +21390,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"key_prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -21512,8 +21646,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"key_prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -21560,7 +21693,7 @@ pub enum RpcStateChangesInBlockByTypeRequest {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
         changes_type: RpcStateChangesInBlockByTypeRequestVariant6ChangesType,
-        key_prefix_base64: ::std::string::String,
+        key_prefix_base64: StoreKey,
     },
     Variant7 {
         account_ids: ::std::vec::Vec<AccountId>,
@@ -21596,7 +21729,7 @@ pub enum RpcStateChangesInBlockByTypeRequest {
         account_ids: ::std::vec::Vec<AccountId>,
         changes_type: RpcStateChangesInBlockByTypeRequestVariant13ChangesType,
         finality: Finality,
-        key_prefix_base64: ::std::string::String,
+        key_prefix_base64: StoreKey,
     },
     Variant14 {
         account_ids: ::std::vec::Vec<AccountId>,
@@ -21631,7 +21764,7 @@ pub enum RpcStateChangesInBlockByTypeRequest {
     Variant20 {
         account_ids: ::std::vec::Vec<AccountId>,
         changes_type: RpcStateChangesInBlockByTypeRequestVariant20ChangesType,
-        key_prefix_base64: ::std::string::String,
+        key_prefix_base64: StoreKey,
         sync_checkpoint: SyncCheckpoint,
     },
 }
@@ -23390,22 +23523,20 @@ impl ::std::convert::From<&RpcStateChangesInBlockResponse> for RpcStateChangesIn
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcStatusRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcStatusRequest(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct RpcStatusRequest(pub ());
 impl ::std::ops::Deref for RpcStatusRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcStatusRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcStatusRequest> for () {
     fn from(value: RpcStatusRequest) -> Self {
         value.0
     }
@@ -23415,10 +23546,8 @@ impl ::std::convert::From<&RpcStatusRequest> for RpcStatusRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcStatusRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcStatusRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -23447,16 +23576,12 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "    },"]
 #[doc = "    \"detailed_debug_status\": {"]
 #[doc = "      \"description\": \"Information about last blocks, network, epoch and chain & chunk info.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/DetailedDebugStatus\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/DetailedDebugStatus\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -23476,16 +23601,12 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "    },"]
 #[doc = "    \"node_key\": {"]
 #[doc = "      \"description\": \"Deprecated; same as `validator_public_key` which you should use instead.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -23504,7 +23625,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"rpc_addr\": {"]
-#[doc = "      \"description\": \"Address for RPC server.  None if node doesn’t have RPC endpoint enabled.\","]
+#[doc = "      \"description\": \"Address for RPC server.  None if node doesn't have RPC endpoint enabled.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"string\","]
 #[doc = "        \"null\""]
@@ -23525,31 +23646,23 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "    },"]
 #[doc = "    \"validator_account_id\": {"]
 #[doc = "      \"description\": \"Validator id of the node\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"validator_public_key\": {"]
 #[doc = "      \"description\": \"Public key of the validator.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -23590,7 +23703,7 @@ pub struct RpcStatusResponse {
     pub node_public_key: PublicKey,
     #[doc = "Currently active protocol version."]
     pub protocol_version: u32,
-    #[doc = "Address for RPC server.  None if node doesn’t have RPC endpoint enabled."]
+    #[doc = "Address for RPC server.  None if node doesn't have RPC endpoint enabled."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub rpc_addr: ::std::option::Option<::std::string::String>,
     #[doc = "Sync status of the node."]
@@ -23648,7 +23761,7 @@ pub enum RpcTransactionResponse {
         receipts: ::std::vec::Vec<ReceiptView>,
         #[doc = "The execution outcome of receipts."]
         receipts_outcome: ::std::vec::Vec<ExecutionOutcomeWithIdView>,
-        #[doc = "Execution status defined by chain.rs:get_final_transaction_result\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
+        #[doc = "Execution status defined by chain.rs:get_final_transaction_result\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
         status: FinalExecutionStatus,
         #[doc = "Signed Transaction"]
         transaction: SignedTransactionView,
@@ -23659,7 +23772,7 @@ pub enum RpcTransactionResponse {
         final_execution_status: TxExecutionStatus,
         #[doc = "The execution outcome of receipts."]
         receipts_outcome: ::std::vec::Vec<ExecutionOutcomeWithIdView>,
-        #[doc = "Execution status defined by chain.rs:get_final_transaction_result\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
+        #[doc = "Execution status defined by chain.rs:get_final_transaction_result\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
         status: FinalExecutionStatus,
         #[doc = "Signed Transaction"]
         transaction: SignedTransactionView,
@@ -23917,16 +24030,12 @@ impl ::std::convert::From<&RpcValidatorResponse> for RpcValidatorResponse {
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"block_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/BlockId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    }"]
@@ -23985,11 +24094,11 @@ impl ::std::default::Default for RpcValidatorsOrderedRequest {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_amount_per_byte\": {"]
-#[doc = "      \"description\": \"Amount of yN per byte required to have on the account.  See\\n <https://nomicon.io/Economics/Economic#state-stake> for details.\","]
+#[doc = "      \"description\": \"Amount of yN per byte required to have on the account.  See\\n<https://nomicon.io/Economics/Economic#state-stake> for details.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"transaction_costs\": {"]
-#[doc = "      \"description\": \"Costs of different actions that need to be performed when sending and\\n processing transaction and receipts.\","]
+#[doc = "      \"description\": \"Costs of different actions that need to be performed when sending and\\nprocessing transaction and receipts.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/RuntimeFeesConfigView\""]
@@ -24022,9 +24131,9 @@ pub struct RuntimeConfigView {
     pub account_creation_config: AccountCreationConfigView,
     #[doc = "The configuration for congestion control."]
     pub congestion_control_config: CongestionControlConfigView,
-    #[doc = "Amount of yN per byte required to have on the account.  See\n <https://nomicon.io/Economics/Economic#state-stake> for details."]
+    #[doc = "Amount of yN per byte required to have on the account.  See\n<https://nomicon.io/Economics/Economic#state-stake> for details."]
     pub storage_amount_per_byte: ::std::string::String,
-    #[doc = "Costs of different actions that need to be performed when sending and\n processing transaction and receipts."]
+    #[doc = "Costs of different actions that need to be performed when sending and\nprocessing transaction and receipts."]
     pub transaction_costs: RuntimeFeesConfigView,
     #[doc = "Config of wasm operations."]
     pub wasm_config: VmConfigView,
@@ -24061,7 +24170,7 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"action_receipt_creation_config\": {"]
-#[doc = "      \"description\": \"Describes the cost of creating an action receipt, `ActionReceipt`, excluding the actual cost\\n of actions.\\n - `send` cost is burned when a receipt is created using `promise_create` or\\n     `promise_batch_create`\\n - `exec` cost is burned when the receipt is being executed.\","]
+#[doc = "      \"description\": \"Describes the cost of creating an action receipt, `ActionReceipt`, excluding the actual cost\\nof actions.\\n- `send` cost is burned when a receipt is created using `promise_create` or\\n    `promise_batch_create`\\n- `exec` cost is burned when the receipt is being executed.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/Fee\""]
@@ -24112,7 +24221,7 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
 pub struct RuntimeFeesConfigView {
     #[doc = "Describes the cost of creating a certain action, `Action`. Includes all variants."]
     pub action_creation_config: ActionCreationConfigView,
-    #[doc = "Describes the cost of creating an action receipt, `ActionReceipt`, excluding the actual cost\n of actions.\n - `send` cost is burned when a receipt is created using `promise_create` or\n     `promise_batch_create`\n - `exec` cost is burned when the receipt is being executed."]
+    #[doc = "Describes the cost of creating an action receipt, `ActionReceipt`, excluding the actual cost\nof actions.\n- `send` cost is burned when a receipt is created using `promise_create` or\n    `promise_batch_create`\n- `exec` cost is burned when the receipt is being executed."]
     pub action_receipt_creation_config: Fee,
     #[doc = "Fraction of the burnt gas to reward to the contract account for execution."]
     pub burnt_gas_reward: [i32; 2usize],
@@ -24128,13 +24237,13 @@ impl ::std::convert::From<&RuntimeFeesConfigView> for RuntimeFeesConfigView {
         value.clone()
     }
 }
-#[doc = "The shard identifier. It may be an arbitrary number - it does not need to be\n a number in the range 0..NUM_SHARDS. The shard ids do not need to be\n sequential or contiguous.\n\n The shard id is wrapped in a new type to prevent the old pattern of using\n indices in range 0..NUM_SHARDS and casting to ShardId. Once the transition\n if fully complete it potentially may be simplified to a regular type alias."]
+#[doc = "The shard identifier. It may be an arbitrary number - it does not need to be\na number in the range 0..NUM_SHARDS. The shard ids do not need to be\nsequential or contiguous.\n\nThe shard id is wrapped in a new type to prevent the old pattern of using\nindices in range 0..NUM_SHARDS and casting to ShardId. Once the transition\nif fully complete it potentially may be simplified to a regular type alias."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"The shard identifier. It may be an arbitrary number - it does not need to be\\n a number in the range 0..NUM_SHARDS. The shard ids do not need to be\\n sequential or contiguous.\\n\\n The shard id is wrapped in a new type to prevent the old pattern of using\\n indices in range 0..NUM_SHARDS and casting to ShardId. Once the transition\\n if fully complete it potentially may be simplified to a regular type alias.\","]
+#[doc = "  \"description\": \"The shard identifier. It may be an arbitrary number - it does not need to be\\na number in the range 0..NUM_SHARDS. The shard ids do not need to be\\nsequential or contiguous.\\n\\nThe shard id is wrapped in a new type to prevent the old pattern of using\\nindices in range 0..NUM_SHARDS and casting to ShardId. Once the transition\\nif fully complete it potentially may be simplified to a regular type alias.\","]
 #[doc = "  \"type\": \"integer\","]
 #[doc = "  \"format\": \"uint64\","]
 #[doc = "  \"minimum\": 0.0"]
@@ -24194,13 +24303,13 @@ impl ::std::fmt::Display for ShardId {
         self.0.fmt(f)
     }
 }
-#[doc = "A versioned struct that contains all information needed to assign accounts to shards.\n\n Because of re-sharding, the chain may use different shard layout to split shards at different\n times. Currently, `ShardLayout` is stored as part of `EpochConfig`, which is generated each\n epoch given the epoch protocol version. In mainnet/testnet, we use two shard layouts since\n re-sharding has only happened once. It is stored as part of genesis config, see\n default_simple_nightshade_shard_layout() Below is an overview for some important\n functionalities of ShardLayout interface."]
+#[doc = "A versioned struct that contains all information needed to assign accounts to shards.\n\nBecause of re-sharding, the chain may use different shard layout to split shards at different\ntimes. Currently, `ShardLayout` is stored as part of `EpochConfig`, which is generated each\nepoch given the epoch protocol version. In mainnet/testnet, we use two shard layouts since\nre-sharding has only happened once. It is stored as part of genesis config, see\ndefault_simple_nightshade_shard_layout() Below is an overview for some important\nfunctionalities of ShardLayout interface."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"A versioned struct that contains all information needed to assign accounts to shards.\\n\\n Because of re-sharding, the chain may use different shard layout to split shards at different\\n times. Currently, `ShardLayout` is stored as part of `EpochConfig`, which is generated each\\n epoch given the epoch protocol version. In mainnet/testnet, we use two shard layouts since\\n re-sharding has only happened once. It is stored as part of genesis config, see\\n default_simple_nightshade_shard_layout() Below is an overview for some important\\n functionalities of ShardLayout interface.\","]
+#[doc = "  \"description\": \"A versioned struct that contains all information needed to assign accounts to shards.\\n\\nBecause of re-sharding, the chain may use different shard layout to split shards at different\\ntimes. Currently, `ShardLayout` is stored as part of `EpochConfig`, which is generated each\\nepoch given the epoch protocol version. In mainnet/testnet, we use two shard layouts since\\nre-sharding has only happened once. It is stored as part of genesis config, see\\ndefault_simple_nightshade_shard_layout() Below is an overview for some important\\nfunctionalities of ShardLayout interface.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
@@ -24268,13 +24377,13 @@ impl ::std::convert::From<ShardLayoutV2> for ShardLayout {
         Self::V2(value)
     }
 }
-#[doc = "A shard layout that maps accounts evenly across all shards -- by calculate the hash of account\n id and mod number of shards. This is added to capture the old `account_id_to_shard_id` algorithm,\n to keep backward compatibility for some existing tests.\n `parent_shards` for `ShardLayoutV1` is always `None`, meaning it can only be the first shard layout\n a chain uses."]
+#[doc = "A shard layout that maps accounts evenly across all shards -- by calculate the hash of account\nid and mod number of shards. This is added to capture the old `account_id_to_shard_id` algorithm,\nto keep backward compatibility for some existing tests.\n`parent_shards` for `ShardLayoutV1` is always `None`, meaning it can only be the first shard layout\na chain uses."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"A shard layout that maps accounts evenly across all shards -- by calculate the hash of account\\n id and mod number of shards. This is added to capture the old `account_id_to_shard_id` algorithm,\\n to keep backward compatibility for some existing tests.\\n `parent_shards` for `ShardLayoutV1` is always `None`, meaning it can only be the first shard layout\\n a chain uses.\","]
+#[doc = "  \"description\": \"A shard layout that maps accounts evenly across all shards -- by calculate the hash of account\\nid and mod number of shards. This is added to capture the old `account_id_to_shard_id` algorithm,\\nto keep backward compatibility for some existing tests.\\n`parent_shards` for `ShardLayoutV1` is always `None`, meaning it can only be the first shard layout\\na chain uses.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"num_shards\","]
@@ -24322,14 +24431,14 @@ impl ::std::convert::From<&ShardLayoutV0> for ShardLayoutV0 {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"boundary_accounts\": {"]
-#[doc = "      \"description\": \"The boundary accounts are the accounts on boundaries between shards.\\n Each shard contains a range of accounts from one boundary account to\\n another - or the smallest or largest account possible. The total\\n number of shards is equal to the number of boundary accounts plus 1.\","]
+#[doc = "      \"description\": \"The boundary accounts are the accounts on boundaries between shards.\\nEach shard contains a range of accounts from one boundary account to\\nanother - or the smallest or largest account possible. The total\\nnumber of shards is equal to the number of boundary accounts plus 1.\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"shards_split_map\": {"]
-#[doc = "      \"description\": \"Maps shards from the last shard layout to shards that it splits to in this shard layout,\\n Useful for constructing states for the shards.\\n None for the genesis shard layout\","]
+#[doc = "      \"description\": \"Maps shards from the last shard layout to shards that it splits to in this shard layout,\\nUseful for constructing states for the shards.\\nNone for the genesis shard layout\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"array\","]
 #[doc = "        \"null\""]
@@ -24342,7 +24451,7 @@ impl ::std::convert::From<&ShardLayoutV0> for ShardLayoutV0 {
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"to_parent_shard_map\": {"]
-#[doc = "      \"description\": \"Maps shard in this shard layout to their parent shard\\n Since shard_ids always range from 0 to num_shards - 1, we use vec instead of a hashmap\","]
+#[doc = "      \"description\": \"Maps shard in this shard layout to their parent shard\\nSince shard_ids always range from 0 to num_shards - 1, we use vec instead of a hashmap\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"array\","]
 #[doc = "        \"null\""]
@@ -24363,12 +24472,12 @@ impl ::std::convert::From<&ShardLayoutV0> for ShardLayoutV0 {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ShardLayoutV1 {
-    #[doc = "The boundary accounts are the accounts on boundaries between shards.\n Each shard contains a range of accounts from one boundary account to\n another - or the smallest or largest account possible. The total\n number of shards is equal to the number of boundary accounts plus 1."]
+    #[doc = "The boundary accounts are the accounts on boundaries between shards.\nEach shard contains a range of accounts from one boundary account to\nanother - or the smallest or largest account possible. The total\nnumber of shards is equal to the number of boundary accounts plus 1."]
     pub boundary_accounts: ::std::vec::Vec<AccountId>,
-    #[doc = "Maps shards from the last shard layout to shards that it splits to in this shard layout,\n Useful for constructing states for the shards.\n None for the genesis shard layout"]
+    #[doc = "Maps shards from the last shard layout to shards that it splits to in this shard layout,\nUseful for constructing states for the shards.\nNone for the genesis shard layout"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub shards_split_map: ::std::option::Option<::std::vec::Vec<::std::vec::Vec<ShardId>>>,
-    #[doc = "Maps shard in this shard layout to their parent shard\n Since shard_ids always range from 0 to num_shards - 1, we use vec instead of a hashmap"]
+    #[doc = "Maps shard in this shard layout to their parent shard\nSince shard_ids always range from 0 to num_shards - 1, we use vec instead of a hashmap"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub to_parent_shard_map: ::std::option::Option<::std::vec::Vec<ShardId>>,
     #[doc = "Version of the shard layout, this is useful for uniquely identify the shard layout"]
@@ -24379,13 +24488,13 @@ impl ::std::convert::From<&ShardLayoutV1> for ShardLayoutV1 {
         value.clone()
     }
 }
-#[doc = "Counterpart to `ShardLayoutV2` composed of maps with string keys to aid\n serde serialization."]
+#[doc = "Counterpart to `ShardLayoutV2` composed of maps with string keys to aid\nserde serialization."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Counterpart to `ShardLayoutV2` composed of maps with string keys to aid\\n serde serialization.\","]
+#[doc = "  \"description\": \"Counterpart to `ShardLayoutV2` composed of maps with string keys to aid\\nserde serialization.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"boundary_accounts\","]
@@ -24471,13 +24580,13 @@ impl ::std::convert::From<&ShardLayoutV2> for ShardLayoutV2 {
         value.clone()
     }
 }
-#[doc = "`ShardUId` is a unique representation for shards from different shard layouts.\n\n Comparing to `ShardId`, which is just an ordinal number ranging from 0 to NUM_SHARDS-1,\n `ShardUId` provides a way to unique identify shards when shard layouts may change across epochs.\n This is important because we store states indexed by shards in our database, so we need a\n way to unique identify shard even when shards change across epochs.\n Another difference between `ShardUId` and `ShardId` is that `ShardUId` should only exist in\n a node's internal state while `ShardId` can be exposed to outside APIs and used in protocol\n level information (for example, `ShardChunkHeader` contains `ShardId` instead of `ShardUId`)"]
+#[doc = "`ShardUId` is a unique representation for shards from different shard layouts.\n\nComparing to `ShardId`, which is just an ordinal number ranging from 0 to NUM_SHARDS-1,\n`ShardUId` provides a way to unique identify shards when shard layouts may change across epochs.\nThis is important because we store states indexed by shards in our database, so we need a\nway to unique identify shard even when shards change across epochs.\nAnother difference between `ShardUId` and `ShardId` is that `ShardUId` should only exist in\na node's internal state while `ShardId` can be exposed to outside APIs and used in protocol\nlevel information (for example, `ShardChunkHeader` contains `ShardId` instead of `ShardUId`)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"`ShardUId` is a unique representation for shards from different shard layouts.\\n\\n Comparing to `ShardId`, which is just an ordinal number ranging from 0 to NUM_SHARDS-1,\\n `ShardUId` provides a way to unique identify shards when shard layouts may change across epochs.\\n This is important because we store states indexed by shards in our database, so we need a\\n way to unique identify shard even when shards change across epochs.\\n Another difference between `ShardUId` and `ShardId` is that `ShardUId` should only exist in\\n a node's internal state while `ShardId` can be exposed to outside APIs and used in protocol\\n level information (for example, `ShardChunkHeader` contains `ShardId` instead of `ShardUId`)\","]
+#[doc = "  \"description\": \"`ShardUId` is a unique representation for shards from different shard layouts.\\n\\nComparing to `ShardId`, which is just an ordinal number ranging from 0 to NUM_SHARDS-1,\\n`ShardUId` provides a way to unique identify shards when shard layouts may change across epochs.\\nThis is important because we store states indexed by shards in our database, so we need a\\nway to unique identify shard even when shards change across epochs.\\nAnother difference between `ShardUId` and `ShardId` is that `ShardUId` should only exist in\\na node's internal state while `ShardId` can be exposed to outside APIs and used in protocol\\nlevel information (for example, `ShardChunkHeader` contains `ShardId` instead of `ShardUId`)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"shard_id\","]
@@ -25011,13 +25120,13 @@ impl ::std::convert::From<&Self> for StateChangeCauseView {
         value.clone()
     }
 }
-#[doc = "It is a [serializable view] of [`StateChangeKind`].\n\n [serializable view]: ./index.html\n [`StateChangeKind`]: ../types/struct.StateChangeKind.html"]
+#[doc = "It is a [serializable view] of [`StateChangeKind`].\n\n[serializable view]: ./index.html\n[`StateChangeKind`]: ../types/struct.StateChangeKind.html"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"It is a [serializable view] of [`StateChangeKind`].\\n\\n [serializable view]: ./index.html\\n [`StateChangeKind`]: ../types/struct.StateChangeKind.html\","]
+#[doc = "  \"description\": \"It is a [serializable view] of [`StateChangeKind`].\\n\\n[serializable view]: ./index.html\\n[`StateChangeKind`]: ../types/struct.StateChangeKind.html\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
@@ -25148,30 +25257,22 @@ impl ::std::convert::From<&Self> for StateChangeKindView {
 #[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "            },"]
 #[doc = "            \"global_contract_account_id\": {"]
-#[doc = "              \"oneOf\": ["]
+#[doc = "              \"anyOf\": ["]
 #[doc = "                {"]
-#[doc = "                  \"type\": \"null\""]
+#[doc = "                  \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "                },"]
 #[doc = "                {"]
-#[doc = "                  \"allOf\": ["]
-#[doc = "                    {"]
-#[doc = "                      \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "                    }"]
-#[doc = "                  ]"]
+#[doc = "                  \"type\": \"null\""]
 #[doc = "                }"]
 #[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"global_contract_hash\": {"]
-#[doc = "              \"oneOf\": ["]
+#[doc = "              \"anyOf\": ["]
 #[doc = "                {"]
-#[doc = "                  \"type\": \"null\""]
+#[doc = "                  \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "                },"]
 #[doc = "                {"]
-#[doc = "                  \"allOf\": ["]
-#[doc = "                    {"]
-#[doc = "                      \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "                    }"]
-#[doc = "                  ]"]
+#[doc = "                  \"type\": \"null\""]
 #[doc = "                }"]
 #[doc = "              ]"]
 #[doc = "            },"]
@@ -25415,12 +25516,10 @@ impl ::std::convert::From<&Self> for StateChangeKindView {
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"key_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            },"]
 #[doc = "            \"value_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreValue\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        },"]
@@ -25450,8 +25549,7 @@ impl ::std::convert::From<&Self> for StateChangeKindView {
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"key_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        },"]
@@ -25635,30 +25733,22 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseView {
 #[doc = "    },"]
 #[doc = "    \"gas_key\": false,"]
 #[doc = "    \"global_contract_account_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"global_contract_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -26657,8 +26747,7 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseView
 #[doc = "    \"global_contract_hash\": false,"]
 #[doc = "    \"index\": false,"]
 #[doc = "    \"key_base64\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "    },"]
 #[doc = "    \"locked\": false,"]
 #[doc = "    \"nonce\": false,"]
@@ -26666,8 +26755,7 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseView
 #[doc = "    \"storage_paid_at\": false,"]
 #[doc = "    \"storage_usage\": false,"]
 #[doc = "    \"value_base64\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreValue\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -26676,8 +26764,8 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseView
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct StateChangeWithCauseViewVariant7Change {
     pub account_id: AccountId,
-    pub key_base64: ::std::string::String,
-    pub value_base64: ::std::string::String,
+    pub key_base64: StoreKey,
+    pub value_base64: StoreValue,
 }
 impl ::std::convert::From<&StateChangeWithCauseViewVariant7Change>
     for StateChangeWithCauseViewVariant7Change
@@ -26782,8 +26870,7 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseView
 #[doc = "    \"global_contract_hash\": false,"]
 #[doc = "    \"index\": false,"]
 #[doc = "    \"key_base64\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "    },"]
 #[doc = "    \"locked\": false,"]
 #[doc = "    \"nonce\": false,"]
@@ -26798,7 +26885,7 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseView
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct StateChangeWithCauseViewVariant8Change {
     pub account_id: AccountId,
-    pub key_base64: ::std::string::String,
+    pub key_base64: StoreKey,
 }
 impl ::std::convert::From<&StateChangeWithCauseViewVariant8Change>
     for StateChangeWithCauseViewVariant8Change
@@ -27013,12 +27100,10 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseView
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"key\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "    },"]
 #[doc = "    \"value\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreValue\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -27026,8 +27111,8 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseView
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct StateItem {
-    pub key: ::std::string::String,
-    pub value: ::std::string::String,
+    pub key: StoreKey,
+    pub value: StoreValue,
 }
 impl ::std::convert::From<&StateItem> for StateItem {
     fn from(value: &StateItem) -> Self {
@@ -27045,16 +27130,12 @@ impl ::std::convert::From<&StateItem> for StateItem {
 #[doc = "  \"properties\": {"]
 #[doc = "    \"dump\": {"]
 #[doc = "      \"description\": \"`none` value disables state dump to external storage.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/DumpConfig\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/DumpConfig\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -27102,16 +27183,12 @@ impl ::std::default::Default for StateSyncConfig {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"earliest_block_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -27130,16 +27207,12 @@ impl ::std::default::Default for StateSyncConfig {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"epoch_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/EpochId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/EpochId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -27195,13 +27268,13 @@ impl ::std::convert::From<&StatusSyncInfo> for StatusSyncInfo {
         value.clone()
     }
 }
-#[doc = "Errors which may occur during working with trie storages, storing\n trie values (trie nodes and state values) by their hashes."]
+#[doc = "Errors which may occur during working with trie storages, storing\ntrie values (trie nodes and state values) by their hashes."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Errors which may occur during working with trie storages, storing\\n trie values (trie nodes and state values) by their hashes.\","]
+#[doc = "  \"description\": \"Errors which may occur during working with trie storages, storing\\ntrie values (trie nodes and state values) by their hashes.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"description\": \"Key-value db internal failure\","]
@@ -27224,14 +27297,14 @@ impl ::std::convert::From<&StatusSyncInfo> for StatusSyncInfo {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Found trie node which shouldn't be part of state. Raised during\\n validation of state sync parts where incorrect node was passed.\\n TODO (#8997): consider including hash of trie node.\","]
+#[doc = "      \"description\": \"Found trie node which shouldn't be part of state. Raised during\\nvalidation of state sync parts where incorrect node was passed.\\nTODO (#8997): consider including hash of trie node.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"UnexpectedTrieValue\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Either invalid state or key-value db is corrupted.\\n For PartialStorage it cannot be corrupted.\\n Error message is unreliable and for debugging purposes only. It's also probably ok to\\n panic in every place that produces this error.\\n We can check if db is corrupted by verifying everything in the state trie.\","]
+#[doc = "      \"description\": \"Either invalid state or key-value db is corrupted.\\nFor PartialStorage it cannot be corrupted.\\nError message is unreliable and for debugging purposes only. It's also probably ok to\\npanic in every place that produces this error.\\nWe can check if db is corrupted by verifying everything in the state trie.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"StorageInconsistentState\""]
@@ -27244,7 +27317,7 @@ impl ::std::convert::From<&StatusSyncInfo> for StatusSyncInfo {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Flat storage error, meaning that it doesn't support some block anymore.\\n We guarantee that such block cannot become final, thus block processing\\n must resume normally.\","]
+#[doc = "      \"description\": \"Flat storage error, meaning that it doesn't support some block anymore.\\nWe guarantee that such block cannot become final, thus block processing\\nmust resume normally.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"FlatStorageBlockNotSupported\""]
@@ -27279,11 +27352,11 @@ pub enum StorageError {
     StorageInternalError,
     #[doc = "Requested trie value by its hash which is missing in storage."]
     MissingTrieValue(MissingTrieValue),
-    #[doc = "Found trie node which shouldn't be part of state. Raised during\n validation of state sync parts where incorrect node was passed.\n TODO (#8997): consider including hash of trie node."]
+    #[doc = "Found trie node which shouldn't be part of state. Raised during\nvalidation of state sync parts where incorrect node was passed.\nTODO (#8997): consider including hash of trie node."]
     UnexpectedTrieValue,
-    #[doc = "Either invalid state or key-value db is corrupted.\n For PartialStorage it cannot be corrupted.\n Error message is unreliable and for debugging purposes only. It's also probably ok to\n panic in every place that produces this error.\n We can check if db is corrupted by verifying everything in the state trie."]
+    #[doc = "Either invalid state or key-value db is corrupted.\nFor PartialStorage it cannot be corrupted.\nError message is unreliable and for debugging purposes only. It's also probably ok to\npanic in every place that produces this error.\nWe can check if db is corrupted by verifying everything in the state trie."]
     StorageInconsistentState(::std::string::String),
-    #[doc = "Flat storage error, meaning that it doesn't support some block anymore.\n We guarantee that such block cannot become final, thus block processing\n must resume normally."]
+    #[doc = "Flat storage error, meaning that it doesn't support some block anymore.\nWe guarantee that such block cannot become final, thus block processing\nmust resume normally."]
     FlatStorageBlockNotSupported(::std::string::String),
     #[doc = "In-memory trie could not be loaded for some reason."]
     MemTrieLoadingError(::std::string::String),
@@ -27413,6 +27486,120 @@ pub struct StorageUsageConfigView {
 impl ::std::convert::From<&StorageUsageConfigView> for StorageUsageConfigView {
     fn from(value: &StorageUsageConfigView) -> Self {
         value.clone()
+    }
+}
+#[doc = "This type is used to mark keys (arrays of bytes) that are queried from store.\n\nNOTE: Currently, this type is only used in the view_client and RPC to be able to transparently\npretty-serialize the bytes arrays as base64-encoded strings (see `serialize.rs`)."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"This type is used to mark keys (arrays of bytes) that are queried from store.\\n\\nNOTE: Currently, this type is only used in the view_client and RPC to be able to transparently\\npretty-serialize the bytes arrays as base64-encoded strings (see `serialize.rs`).\","]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"format\": \"bytes\""]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+#[serde(transparent)]
+pub struct StoreKey(pub ::std::string::String);
+impl ::std::ops::Deref for StoreKey {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<StoreKey> for ::std::string::String {
+    fn from(value: StoreKey) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<&StoreKey> for StoreKey {
+    fn from(value: &StoreKey) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::std::string::String> for StoreKey {
+    fn from(value: ::std::string::String) -> Self {
+        Self(value)
+    }
+}
+impl ::std::str::FromStr for StoreKey {
+    type Err = ::std::convert::Infallible;
+    fn from_str(value: &str) -> ::std::result::Result<Self, Self::Err> {
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::fmt::Display for StoreKey {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+#[doc = "This type is used to mark values returned from store (arrays of bytes).\n\nNOTE: Currently, this type is only used in the view_client and RPC to be able to transparently\npretty-serialize the bytes arrays as base64-encoded strings (see `serialize.rs`)."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"This type is used to mark values returned from store (arrays of bytes).\\n\\nNOTE: Currently, this type is only used in the view_client and RPC to be able to transparently\\npretty-serialize the bytes arrays as base64-encoded strings (see `serialize.rs`).\","]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"format\": \"bytes\""]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+#[serde(transparent)]
+pub struct StoreValue(pub ::std::string::String);
+impl ::std::ops::Deref for StoreValue {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<StoreValue> for ::std::string::String {
+    fn from(value: StoreValue) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<&StoreValue> for StoreValue {
+    fn from(value: &StoreValue) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::std::string::String> for StoreValue {
+    fn from(value: ::std::string::String) -> Self {
+        Self(value)
+    }
+}
+impl ::std::str::FromStr for StoreValue {
+    type Err = ::std::convert::Infallible;
+    fn from_str(value: &str) -> ::std::result::Result<Self, Self::Err> {
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::fmt::Display for StoreValue {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        self.0.fmt(f)
     }
 }
 #[doc = "`SyncCheckpoint`"]
@@ -27573,13 +27760,13 @@ impl ::std::convert::From<&Tier1ProxyView> for Tier1ProxyView {
         value.clone()
     }
 }
-#[doc = "Describes the expected behavior of the node regarding shard tracking.\n If the node is an active validator, it will also track the shards it is responsible for as a validator."]
+#[doc = "Describes the expected behavior of the node regarding shard tracking.\nIf the node is an active validator, it will also track the shards it is responsible for as a validator."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Describes the expected behavior of the node regarding shard tracking.\\n If the node is an active validator, it will also track the shards it is responsible for as a validator.\","]
+#[doc = "  \"description\": \"Describes the expected behavior of the node regarding shard tracking.\\nIf the node is an active validator, it will also track the shards it is responsible for as a validator.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"description\": \"Tracks no shards (light client).\","]
@@ -27625,7 +27812,7 @@ impl ::std::convert::From<&Tier1ProxyView> for Tier1ProxyView {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Rotate between these sets of tracked shards.\\n Used to simulate the behavior of chunk only producers without staking tokens.\","]
+#[doc = "      \"description\": \"Rotate between these sets of tracked shards.\\nUsed to simulate the behavior of chunk only producers without staking tokens.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"Schedule\""]
@@ -27673,7 +27860,7 @@ pub enum TrackedShardsConfig {
     AllShards,
     #[doc = "Tracks shards that are assigned to given validator account."]
     ShadowValidator(AccountId),
-    #[doc = "Rotate between these sets of tracked shards.\n Used to simulate the behavior of chunk only producers without staking tokens."]
+    #[doc = "Rotate between these sets of tracked shards.\nUsed to simulate the behavior of chunk only producers without staking tokens."]
     Schedule(::std::vec::Vec<::std::vec::Vec<ShardId>>),
     #[doc = "Tracks shards that contain one of the given account."]
     Accounts(::std::vec::Vec<AccountId>),
@@ -27812,7 +27999,7 @@ impl ::std::convert::From<InvalidTxError> for TxExecutionError {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Transaction is included into the block +\\n All non-refund transaction receipts finished their execution.\\n The corresponding blocks for tx and each receipt may be not finalized yet\","]
+#[doc = "      \"description\": \"Transaction is included into the block +\\nAll non-refund transaction receipts finished their execution.\\nThe corresponding blocks for tx and each receipt may be not finalized yet\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"EXECUTED_OPTIMISTIC\""]
@@ -27826,14 +28013,14 @@ impl ::std::convert::From<InvalidTxError> for TxExecutionError {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Transaction is included into finalized block +\\n All non-refund transaction receipts finished their execution.\\n The corresponding blocks for each receipt may be not finalized yet\","]
+#[doc = "      \"description\": \"Transaction is included into finalized block +\\nAll non-refund transaction receipts finished their execution.\\nThe corresponding blocks for each receipt may be not finalized yet\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"EXECUTED\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Transaction is included into finalized block +\\n Execution of all transaction receipts is finalized, including refund receipts\","]
+#[doc = "      \"description\": \"Transaction is included into finalized block +\\nExecution of all transaction receipts is finalized, including refund receipts\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"FINAL\""]
@@ -27862,16 +28049,16 @@ pub enum TxExecutionStatus {
     #[doc = "Transaction is included into the block. The block may be not finalized yet"]
     #[serde(rename = "INCLUDED")]
     Included,
-    #[doc = "Transaction is included into the block +\n All non-refund transaction receipts finished their execution.\n The corresponding blocks for tx and each receipt may be not finalized yet"]
+    #[doc = "Transaction is included into the block +\nAll non-refund transaction receipts finished their execution.\nThe corresponding blocks for tx and each receipt may be not finalized yet"]
     #[serde(rename = "EXECUTED_OPTIMISTIC")]
     ExecutedOptimistic,
     #[doc = "Transaction is included into finalized block"]
     #[serde(rename = "INCLUDED_FINAL")]
     IncludedFinal,
-    #[doc = "Transaction is included into finalized block +\n All non-refund transaction receipts finished their execution.\n The corresponding blocks for each receipt may be not finalized yet"]
+    #[doc = "Transaction is included into finalized block +\nAll non-refund transaction receipts finished their execution.\nThe corresponding blocks for each receipt may be not finalized yet"]
     #[serde(rename = "EXECUTED")]
     Executed,
-    #[doc = "Transaction is included into finalized block +\n Execution of all transaction receipts is finalized, including refund receipts"]
+    #[doc = "Transaction is included into finalized block +\nExecution of all transaction receipts is finalized, including refund receipts"]
     #[serde(rename = "FINAL")]
     Final,
 }
@@ -28125,7 +28312,7 @@ impl ::std::convert::From<&ValidatorInfo> for ValidatorInfo {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Validator's last block proposal was for a protocol version older than\\n the network's voted protocol version.\","]
+#[doc = "      \"description\": \"Validator's last block proposal was for a protocol version older than\\nthe network's voted protocol version.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ProtocolVersionTooOld\""]
@@ -28177,7 +28364,7 @@ pub enum ValidatorKickoutReason {
     DidNotGetASeat,
     #[doc = "Validator didn't produce enough chunk endorsements."]
     NotEnoughChunkEndorsements { expected: u64, produced: u64 },
-    #[doc = "Validator's last block proposal was for a protocol version older than\n the network's voted protocol version."]
+    #[doc = "Validator's last block proposal was for a protocol version older than\nthe network's voted protocol version."]
     ProtocolVersionTooOld { network_version: u32, version: u32 },
 }
 impl ::std::convert::From<&Self> for ValidatorKickoutReason {
@@ -28465,6 +28652,7 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "    \"grow_mem_cost\","]
 #[doc = "    \"implicit_account_creation\","]
 #[doc = "    \"limit_config\","]
+#[doc = "    \"reftypes_bulk_memory\","]
 #[doc = "    \"regular_op_cost\","]
 #[doc = "    \"saturating_float_to_int\","]
 #[doc = "    \"storage_get_mode\","]
@@ -28506,12 +28694,16 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"limit_config\": {"]
-#[doc = "      \"description\": \"Describes limits for VM and Runtime.\\n\\n TODO: Consider changing this to `VMLimitConfigView` to avoid dependency\\n on runtime.\","]
+#[doc = "      \"description\": \"Describes limits for VM and Runtime.\\n\\nTODO: Consider changing this to `VMLimitConfigView` to avoid dependency\\non runtime.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/LimitConfig\""]
 #[doc = "        }"]
 #[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"reftypes_bulk_memory\": {"]
+#[doc = "      \"description\": \"See [VMConfig::reftypes_bulk_memory](crate::vm::Config::reftypes_bulk_memory).\","]
+#[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"regular_op_cost\": {"]
 #[doc = "      \"description\": \"Gas cost of a regular operation.\","]
@@ -28559,8 +28751,10 @@ pub struct VmConfigView {
     pub grow_mem_cost: u32,
     #[doc = "See [VMConfig::implicit_account_creation](crate::vm::Config::implicit_account_creation)."]
     pub implicit_account_creation: bool,
-    #[doc = "Describes limits for VM and Runtime.\n\n TODO: Consider changing this to `VMLimitConfigView` to avoid dependency\n on runtime."]
+    #[doc = "Describes limits for VM and Runtime.\n\nTODO: Consider changing this to `VMLimitConfigView` to avoid dependency\non runtime."]
     pub limit_config: LimitConfig,
+    #[doc = "See [VMConfig::reftypes_bulk_memory](crate::vm::Config::reftypes_bulk_memory)."]
+    pub reftypes_bulk_memory: bool,
     #[doc = "Gas cost of a regular operation."]
     pub regular_op_cost: u32,
     #[doc = "See [VMConfig::saturating_float_to_int](crate::vm::Config::saturating_float_to_int)."]
@@ -28878,21 +29072,21 @@ impl ::std::convert::TryFrom<::std::string::String> for WasmTrap {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"combined_transactions_size_limit\": {"]
-#[doc = "      \"description\": \"A witness contains transactions from both the previous chunk and the current one.\\n This parameter limits the sum of sizes of transactions from both of those chunks.\","]
+#[doc = "      \"description\": \"Maximum size of transactions contained inside ChunkStateWitness.\\n\\nA witness contains transactions from both the previous chunk and the current one.\\nThis parameter limits the sum of sizes of transactions from both of those chunks.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"main_storage_proof_size_soft_limit\": {"]
-#[doc = "      \"description\": \"Size limit for storage proof generated while executing receipts in a chunk.\\n After this limit is reached we defer execution of any new receipts.\","]
+#[doc = "      \"description\": \"Size limit for storage proof generated while executing receipts in a chunk.\\nAfter this limit is reached we defer execution of any new receipts.\","]
 #[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"new_transactions_validation_state_size_soft_limit\": {"]
 #[doc = "      \"description\": \"Soft size limit of storage proof used to validate new transactions in ChunkStateWitness.\","]
 #[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -28901,12 +29095,12 @@ impl ::std::convert::TryFrom<::std::string::String> for WasmTrap {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct WitnessConfigView {
-    #[doc = "A witness contains transactions from both the previous chunk and the current one.\n This parameter limits the sum of sizes of transactions from both of those chunks."]
+    #[doc = "Maximum size of transactions contained inside ChunkStateWitness.\n\nA witness contains transactions from both the previous chunk and the current one.\nThis parameter limits the sum of sizes of transactions from both of those chunks."]
     pub combined_transactions_size_limit: u32,
-    #[doc = "Size limit for storage proof generated while executing receipts in a chunk.\n After this limit is reached we defer execution of any new receipts."]
-    pub main_storage_proof_size_soft_limit: u32,
+    #[doc = "Size limit for storage proof generated while executing receipts in a chunk.\nAfter this limit is reached we defer execution of any new receipts."]
+    pub main_storage_proof_size_soft_limit: u64,
     #[doc = "Soft size limit of storage proof used to validate new transactions in ChunkStateWitness."]
-    pub new_transactions_validation_state_size_soft_limit: u32,
+    pub new_transactions_validation_state_size_soft_limit: u64,
 }
 impl ::std::convert::From<&WitnessConfigView> for WitnessConfigView {
     fn from(value: &WitnessConfigView) -> Self {
@@ -28930,8 +29124,8 @@ pub mod defaults {
     }
     pub(super) fn gc_config_gc_step_period() -> super::DurationAsStdSchemaProvider {
         super::DurationAsStdSchemaProvider {
-            nanos: 0_i32,
-            secs: 1_i64,
+            nanos: 500000000_i32,
+            secs: 0_i64,
         }
     }
     pub(super) fn genesis_config_minimum_stake_ratio() -> [i32; 2usize] {

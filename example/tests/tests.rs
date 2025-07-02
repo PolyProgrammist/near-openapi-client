@@ -232,7 +232,7 @@ async fn test_health(client: &Client) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForHealthMethod::Health,
-        params: client::types::RpcHealthRequest(serde_json::Map::new()),
+        params: client::types::RpcHealthRequest(()),
     };
 
     let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError =
@@ -310,7 +310,7 @@ async fn test_network_info(client: &Client) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForNetworkInfoMethod::NetworkInfo,
-        params: client::types::RpcNetworkInfoRequest(serde_json::Map::new()),
+        params: client::types::RpcNetworkInfoRequest(()),
     };
 
     let network_info: client::types::JsonRpcResponseForRpcNetworkInfoResponseAndRpcError = client
@@ -363,7 +363,7 @@ async fn test_status(client: &Client) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForStatusMethod::Status,
-        params: client::types::RpcStatusRequest(serde_json::Map::new()),
+        params: client::types::RpcStatusRequest(()),
     };
 
     let status: client::types::JsonRpcResponseForRpcStatusResponseAndRpcError =
@@ -406,7 +406,7 @@ async fn test_client_config(client: &Client) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForClientConfigMethod::ClientConfig,
-        params: client::types::RpcClientConfigRequest(serde_json::Map::new()),
+        params: client::types::RpcClientConfigRequest(()),
     };
 
     let client_config: client::types::JsonRpcResponseForRpcClientConfigResponseAndRpcError = client
@@ -529,7 +529,7 @@ async fn test_experimental_genesis_config(client: &Client) -> Result<(), Box<dyn
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalGenesisConfigMethod::ExperimentalGenesisConfig,
-        params: client::types::GenesisConfigRequest(serde_json::Map::new())
+        params: client::types::GenesisConfigRequest(())
     };
 
     let genesis_config: client::types::JsonRpcResponseForGenesisConfigAndRpcError = client
@@ -818,7 +818,7 @@ async fn test_function_call(
             account_id: sender_account_id.clone(),
             request_type: client::types::RpcQueryRequestVariant13RequestType::CallFunction,
             method_name: "get_greeting".to_string(),
-            args_base64: "".to_string(),
+            args_base64: client::types::FunctionArgs("".to_string()),
             finality: client::types::Finality::Final,
         },
     };
@@ -1020,12 +1020,12 @@ async fn prepare_blockchain(
 async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
 {
     let mut home_dir = std::env::temp_dir();
-    home_dir.push("test_node");
+    home_dir.push("test_node_a7d");
 
     let rpc_port: u16 = 3040;
     let net_port: u16 = 3031;
 
-    let version = "master/b57299a7a8558d4a6813f51c2512c057289e70e2";
+    let version = "master/a7dc91c14928974401da4cf3b8ba9341a547e6aa";
 
     near_sandbox_utils::init_with_version(&home_dir, version)?
         .wait_with_output()
