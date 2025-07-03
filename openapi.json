@@ -10419,8 +10419,6 @@
                 "type": "object"
             },
             "RpcQueryRequest": {
-                "title": "RpcQueryRequest",
-                "type": "object",
                 "oneOf": [
                     {
                         "allOf": [
@@ -10453,7 +10451,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_account_by_block_id"
                     },
                     {
                         "allOf": [
@@ -10486,7 +10485,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_code_by_block_id"
                     },
                     {
                         "allOf": [
@@ -10526,7 +10526,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_state_by_block_id"
                     },
                     {
                         "allOf": [
@@ -10563,7 +10564,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_access_key_by_block_id"
                     },
                     {
                         "allOf": [
@@ -10596,7 +10598,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_access_key_list_by_block_id"
                     },
                     {
                         "allOf": [
@@ -10637,7 +10640,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "call_function_by_block_id"
                     },
                     {
                         "allOf": [
@@ -10670,7 +10674,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_global_contract_code_by_block_id"
                     },
                     {
                         "allOf": [
@@ -10703,7 +10708,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_global_contract_code_by_account_id_by_block_id"
                     },
                     {
                         "allOf": [
@@ -10736,7 +10742,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_account_by_finality"
                     },
                     {
                         "allOf": [
@@ -10769,7 +10776,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_code_by_finality"
                     },
                     {
                         "allOf": [
@@ -10809,7 +10817,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_state_by_finality"
                     },
                     {
                         "allOf": [
@@ -10846,7 +10855,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_access_key_by_finality"
                     },
                     {
                         "allOf": [
@@ -10879,7 +10889,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_access_key_list_by_finality"
                     },
                     {
                         "allOf": [
@@ -10920,7 +10931,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "call_function_by_finality"
                     },
                     {
                         "allOf": [
@@ -10953,7 +10965,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_global_contract_code_by_finality"
                     },
                     {
                         "allOf": [
@@ -10986,7 +10999,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_global_contract_code_by_account_id_by_finality"
                     },
                     {
                         "allOf": [
@@ -11019,7 +11033,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_account_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -11052,7 +11067,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_code_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -11092,7 +11108,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_state_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -11129,7 +11146,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_access_key_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -11162,7 +11180,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_access_key_list_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -11203,7 +11222,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "call_function_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -11236,7 +11256,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_global_contract_code_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -11269,9 +11290,12 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "view_global_contract_code_by_account_id_by_sync_checkpoint"
                     }
-                ]
+                ],
+                "title": "RpcQueryRequest",
+                "type": "object"
             },
             "RpcQueryResponse": {
                 "anyOf": [

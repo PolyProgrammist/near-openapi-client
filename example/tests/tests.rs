@@ -787,9 +787,9 @@ async fn test_query_account(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForQueryMethod::Query,
-        params: client::types::RpcQueryRequest::Variant8 {
+        params: client::types::RpcQueryRequest::ViewAccountByFinality {
             account_id: sender_account_id,
-            request_type: client::types::RpcQueryRequestVariant8RequestType::ViewAccount,
+            request_type: client::types::ViewAccountByFinalityRequestType::ViewAccount,
             finality: client::types::Finality::Final,
         },
     };
@@ -814,9 +814,9 @@ async fn test_function_call(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForQueryMethod::Query,
-        params: client::types::RpcQueryRequest::Variant13 {
+        params: client::types::RpcQueryRequest::CallFunctionByFinality {
             account_id: sender_account_id.clone(),
-            request_type: client::types::RpcQueryRequestVariant13RequestType::CallFunction,
+            request_type: client::types::CallFunctionByFinalityRequestType::CallFunction,
             method_name: "get_greeting".to_string(),
             args_base64: client::types::FunctionArgs("".to_string()),
             finality: client::types::Finality::Final,
@@ -869,10 +869,10 @@ async fn prepare_blockchain(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForQueryMethod::Query,
-        params: client::types::RpcQueryRequest::Variant11 {
+        params: client::types::RpcQueryRequest::ViewAccessKeyByFinality {
             account_id: sender_account_id.clone(),
             public_key: client::types::PublicKey(signer.public_key().to_string()),
-            request_type: client::types::RpcQueryRequestVariant11RequestType::ViewAccessKey,
+            request_type: client::types::ViewAccessKeyByFinalityRequestType::ViewAccessKey,
             finality: client::types::Finality::Final,
         },
     };
