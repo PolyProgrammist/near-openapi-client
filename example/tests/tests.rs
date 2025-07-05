@@ -435,8 +435,8 @@ async fn test_experimental_changes(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalChangesMethod::ExperimentalChanges,
-        params: client::types::RpcStateChangesInBlockByTypeRequest::Variant0 {
-            changes_type: client::types::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
+        params: client::types::RpcStateChangesInBlockByTypeRequest::AccountChangesByBlockId {
+            changes_type: client::types::AccountChangesByBlockIdChangesType::AccountChanges,
             account_ids: vec![sender_account_id],
             block_id: client::types::BlockId::CryptoHash(block_hash.clone()),
         }

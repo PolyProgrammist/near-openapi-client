@@ -11485,8 +11485,6 @@
             },
             "RpcStateChangesInBlockByTypeRequest": {
                 "description": "It is a [serializable view] of [`StateChangesRequest`].\n\n[serializable view]: ./index.html\n[`StateChangesRequest`]: ../types/struct.StateChangesRequest.html",
-                "title": "RpcStateChangesInBlockByTypeRequest",
-                "type": "object",
                 "oneOf": [
                     {
                         "allOf": [
@@ -11522,7 +11520,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "account_changes_by_block_id"
                     },
                     {
                         "allOf": [
@@ -11558,7 +11557,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "single_access_key_changes_by_block_id"
                     },
                     {
                         "allOf": [
@@ -11594,7 +11594,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "single_gas_key_changes_by_block_id"
                     },
                     {
                         "allOf": [
@@ -11630,7 +11631,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "all_access_key_changes_by_block_id"
                     },
                     {
                         "allOf": [
@@ -11666,7 +11668,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "all_gas_key_changes_by_block_id"
                     },
                     {
                         "allOf": [
@@ -11702,7 +11705,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "contract_code_changes_by_block_id"
                     },
                     {
                         "allOf": [
@@ -11742,7 +11746,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "data_changes_by_block_id"
                     },
                     {
                         "allOf": [
@@ -11778,7 +11783,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "account_changes_by_finality"
                     },
                     {
                         "allOf": [
@@ -11814,7 +11820,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "single_access_key_changes_by_finality"
                     },
                     {
                         "allOf": [
@@ -11850,7 +11857,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "single_gas_key_changes_by_finality"
                     },
                     {
                         "allOf": [
@@ -11886,7 +11894,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "all_access_key_changes_by_finality"
                     },
                     {
                         "allOf": [
@@ -11922,7 +11931,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "all_gas_key_changes_by_finality"
                     },
                     {
                         "allOf": [
@@ -11958,7 +11968,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "contract_code_changes_by_finality"
                     },
                     {
                         "allOf": [
@@ -11998,7 +12009,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "data_changes_by_finality"
                     },
                     {
                         "allOf": [
@@ -12034,7 +12046,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "account_changes_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -12070,7 +12083,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "single_access_key_changes_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -12106,7 +12120,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "single_gas_key_changes_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -12142,7 +12157,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "all_access_key_changes_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -12178,7 +12194,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "all_gas_key_changes_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -12214,7 +12231,8 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "contract_code_changes_by_sync_checkpoint"
                     },
                     {
                         "allOf": [
@@ -12254,9 +12272,12 @@
                                 ],
                                 "type": "object"
                             }
-                        ]
+                        ],
+                        "title": "data_changes_by_sync_checkpoint"
                     }
-                ]
+                ],
+                "title": "RpcStateChangesInBlockByTypeRequest",
+                "type": "object"
             },
             "RpcStateChangesInBlockByTypeResponse": {
                 "properties": {

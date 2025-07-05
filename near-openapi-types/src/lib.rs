@@ -336,6 +336,222 @@ impl ::std::convert::From<&AccessKeyView> for AccessKeyView {
         value.clone()
     }
 }
+#[doc = "`AccountChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"account_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AccountChangesByBlockIdChangesType {
+    #[serde(rename = "account_changes")]
+    AccountChanges,
+}
+impl ::std::convert::From<&Self> for AccountChangesByBlockIdChangesType {
+    fn from(value: &AccountChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AccountChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AccountChanges => write!(f, "account_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AccountChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "account_changes" => Ok(Self::AccountChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AccountChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AccountChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AccountChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AccountChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"account_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AccountChangesByFinalityChangesType {
+    #[serde(rename = "account_changes")]
+    AccountChanges,
+}
+impl ::std::convert::From<&Self> for AccountChangesByFinalityChangesType {
+    fn from(value: &AccountChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AccountChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AccountChanges => write!(f, "account_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AccountChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "account_changes" => Ok(Self::AccountChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AccountChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AccountChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AccountChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AccountChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"account_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AccountChangesBySyncCheckpointChangesType {
+    #[serde(rename = "account_changes")]
+    AccountChanges,
+}
+impl ::std::convert::From<&Self> for AccountChangesBySyncCheckpointChangesType {
+    fn from(value: &AccountChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AccountChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AccountChanges => write!(f, "account_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AccountChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "account_changes" => Ok(Self::AccountChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AccountChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AccountChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AccountChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 #[doc = "The structure describes configuration for creation of new accounts."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -2408,6 +2624,446 @@ impl ::std::convert::From<&AddKeyAction> for AddKeyAction {
         value.clone()
     }
 }
+#[doc = "`AllAccessKeyChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllAccessKeyChangesByBlockIdChangesType {
+    #[serde(rename = "all_access_key_changes")]
+    AllAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllAccessKeyChangesByBlockIdChangesType {
+    fn from(value: &AllAccessKeyChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllAccessKeyChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllAccessKeyChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AllAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AllAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllAccessKeyChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllAccessKeyChangesByFinalityChangesType {
+    #[serde(rename = "all_access_key_changes")]
+    AllAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllAccessKeyChangesByFinalityChangesType {
+    fn from(value: &AllAccessKeyChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllAccessKeyChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllAccessKeyChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllAccessKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AllAccessKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AllAccessKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllAccessKeyChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllAccessKeyChangesBySyncCheckpointChangesType {
+    #[serde(rename = "all_access_key_changes")]
+    AllAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllAccessKeyChangesBySyncCheckpointChangesType {
+    fn from(value: &AllAccessKeyChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllAccessKeyChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllAccessKeyChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllAccessKeyChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for AllAccessKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for AllAccessKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllGasKeyChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllGasKeyChangesByBlockIdChangesType {
+    #[serde(rename = "all_gas_key_changes")]
+    AllGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllGasKeyChangesByBlockIdChangesType {
+    fn from(value: &AllGasKeyChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllGasKeyChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllGasKeyChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_gas_key_changes" => Ok(Self::AllGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AllGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AllGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllGasKeyChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllGasKeyChangesByFinalityChangesType {
+    #[serde(rename = "all_gas_key_changes")]
+    AllGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllGasKeyChangesByFinalityChangesType {
+    fn from(value: &AllGasKeyChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllGasKeyChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllGasKeyChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_gas_key_changes" => Ok(Self::AllGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AllGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AllGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllGasKeyChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllGasKeyChangesBySyncCheckpointChangesType {
+    #[serde(rename = "all_gas_key_changes")]
+    AllGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllGasKeyChangesBySyncCheckpointChangesType {
+    fn from(value: &AllGasKeyChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllGasKeyChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllGasKeyChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_gas_key_changes" => Ok(Self::AllGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllGasKeyChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for AllGasKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for AllGasKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 #[doc = "`BandwidthRequest` describes the size of receipts that a shard would like to send to another shard.\nWhen a shard wants to send a lot of receipts to another shard, it needs to create a request and wait\nfor a bandwidth grant from the bandwidth scheduler."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -3819,6 +4475,226 @@ impl ::std::convert::From<&CongestionInfoView> for CongestionInfoView {
         value.clone()
     }
 }
+#[doc = "`ContractCodeChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"contract_code_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ContractCodeChangesByBlockIdChangesType {
+    #[serde(rename = "contract_code_changes")]
+    ContractCodeChanges,
+}
+impl ::std::convert::From<&Self> for ContractCodeChangesByBlockIdChangesType {
+    fn from(value: &ContractCodeChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ContractCodeChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for ContractCodeChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "contract_code_changes" => Ok(Self::ContractCodeChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ContractCodeChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ContractCodeChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ContractCodeChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ContractCodeChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"contract_code_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ContractCodeChangesByFinalityChangesType {
+    #[serde(rename = "contract_code_changes")]
+    ContractCodeChanges,
+}
+impl ::std::convert::From<&Self> for ContractCodeChangesByFinalityChangesType {
+    fn from(value: &ContractCodeChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ContractCodeChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for ContractCodeChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "contract_code_changes" => Ok(Self::ContractCodeChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ContractCodeChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ContractCodeChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ContractCodeChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ContractCodeChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"contract_code_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ContractCodeChangesBySyncCheckpointChangesType {
+    #[serde(rename = "contract_code_changes")]
+    ContractCodeChanges,
+}
+impl ::std::convert::From<&Self> for ContractCodeChangesBySyncCheckpointChangesType {
+    fn from(value: &ContractCodeChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ContractCodeChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for ContractCodeChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "contract_code_changes" => Ok(Self::ContractCodeChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ContractCodeChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ContractCodeChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for ContractCodeChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 #[doc = "A view of the contract code."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -4138,6 +5014,222 @@ pub struct CurrentEpochValidatorInfo {
 impl ::std::convert::From<&CurrentEpochValidatorInfo> for CurrentEpochValidatorInfo {
     fn from(value: &CurrentEpochValidatorInfo) -> Self {
         value.clone()
+    }
+}
+#[doc = "`DataChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"data_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum DataChangesByBlockIdChangesType {
+    #[serde(rename = "data_changes")]
+    DataChanges,
+}
+impl ::std::convert::From<&Self> for DataChangesByBlockIdChangesType {
+    fn from(value: &DataChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for DataChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::DataChanges => write!(f, "data_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for DataChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "data_changes" => Ok(Self::DataChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for DataChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for DataChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for DataChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`DataChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"data_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum DataChangesByFinalityChangesType {
+    #[serde(rename = "data_changes")]
+    DataChanges,
+}
+impl ::std::convert::From<&Self> for DataChangesByFinalityChangesType {
+    fn from(value: &DataChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for DataChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::DataChanges => write!(f, "data_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for DataChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "data_changes" => Ok(Self::DataChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for DataChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for DataChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for DataChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`DataChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"data_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum DataChangesBySyncCheckpointChangesType {
+    #[serde(rename = "data_changes")]
+    DataChanges,
+}
+impl ::std::convert::From<&Self> for DataChangesBySyncCheckpointChangesType {
+    fn from(value: &DataChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for DataChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::DataChanges => write!(f, "data_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for DataChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "data_changes" => Ok(Self::DataChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for DataChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for DataChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for DataChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 #[doc = "`DataReceiptCreationConfigView`"]
@@ -19385,6 +20477,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
+#[doc = "      \"title\": \"account_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19421,6 +20514,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_access_key_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19457,6 +20551,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_gas_key_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19493,6 +20588,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"all_access_key_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19529,6 +20625,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"all_gas_key_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19565,6 +20662,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"contract_code_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19601,6 +20699,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"data_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19641,6 +20740,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"account_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19677,6 +20777,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_access_key_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19713,6 +20814,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_gas_key_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19749,6 +20851,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"all_access_key_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19785,6 +20888,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"all_gas_key_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19821,6 +20925,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"contract_code_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19857,6 +20962,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"data_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19897,6 +21003,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"account_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19933,6 +21040,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_access_key_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -19969,6 +21077,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_gas_key_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20005,6 +21114,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"all_access_key_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20041,6 +21151,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"all_gas_key_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20077,6 +21188,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"contract_code_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20113,6 +21225,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"data_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20159,111 +21272,111 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum RpcStateChangesInBlockByTypeRequest {
-    Variant0 {
+    AccountChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant0ChangesType,
+        changes_type: AccountChangesByBlockIdChangesType,
     },
-    Variant1 {
+    SingleAccessKeyChangesByBlockId {
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant1ChangesType,
+        changes_type: SingleAccessKeyChangesByBlockIdChangesType,
         keys: ::std::vec::Vec<AccountWithPublicKey>,
     },
-    Variant2 {
+    SingleGasKeyChangesByBlockId {
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant2ChangesType,
+        changes_type: SingleGasKeyChangesByBlockIdChangesType,
         keys: ::std::vec::Vec<AccountWithPublicKey>,
     },
-    Variant3 {
+    AllAccessKeyChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant3ChangesType,
+        changes_type: AllAccessKeyChangesByBlockIdChangesType,
     },
-    Variant4 {
+    AllGasKeyChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant4ChangesType,
+        changes_type: AllGasKeyChangesByBlockIdChangesType,
     },
-    Variant5 {
+    ContractCodeChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant5ChangesType,
+        changes_type: ContractCodeChangesByBlockIdChangesType,
     },
-    Variant6 {
+    DataChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant6ChangesType,
+        changes_type: DataChangesByBlockIdChangesType,
         key_prefix_base64: StoreKey,
     },
-    Variant7 {
+    AccountChangesByFinality {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant7ChangesType,
+        changes_type: AccountChangesByFinalityChangesType,
         finality: Finality,
     },
-    Variant8 {
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant8ChangesType,
+    SingleAccessKeyChangesByFinality {
+        changes_type: SingleAccessKeyChangesByFinalityChangesType,
         finality: Finality,
         keys: ::std::vec::Vec<AccountWithPublicKey>,
     },
-    Variant9 {
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant9ChangesType,
+    SingleGasKeyChangesByFinality {
+        changes_type: SingleGasKeyChangesByFinalityChangesType,
         finality: Finality,
         keys: ::std::vec::Vec<AccountWithPublicKey>,
     },
-    Variant10 {
+    AllAccessKeyChangesByFinality {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant10ChangesType,
+        changes_type: AllAccessKeyChangesByFinalityChangesType,
         finality: Finality,
     },
-    Variant11 {
+    AllGasKeyChangesByFinality {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant11ChangesType,
+        changes_type: AllGasKeyChangesByFinalityChangesType,
         finality: Finality,
     },
-    Variant12 {
+    ContractCodeChangesByFinality {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant12ChangesType,
+        changes_type: ContractCodeChangesByFinalityChangesType,
         finality: Finality,
     },
-    Variant13 {
+    DataChangesByFinality {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant13ChangesType,
+        changes_type: DataChangesByFinalityChangesType,
         finality: Finality,
         key_prefix_base64: StoreKey,
     },
-    Variant14 {
+    AccountChangesBySyncCheckpoint {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant14ChangesType,
+        changes_type: AccountChangesBySyncCheckpointChangesType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant15 {
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant15ChangesType,
+    SingleAccessKeyChangesBySyncCheckpoint {
+        changes_type: SingleAccessKeyChangesBySyncCheckpointChangesType,
         keys: ::std::vec::Vec<AccountWithPublicKey>,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant16 {
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant16ChangesType,
+    SingleGasKeyChangesBySyncCheckpoint {
+        changes_type: SingleGasKeyChangesBySyncCheckpointChangesType,
         keys: ::std::vec::Vec<AccountWithPublicKey>,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant17 {
+    AllAccessKeyChangesBySyncCheckpoint {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant17ChangesType,
+        changes_type: AllAccessKeyChangesBySyncCheckpointChangesType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant18 {
+    AllGasKeyChangesBySyncCheckpoint {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant18ChangesType,
+        changes_type: AllGasKeyChangesBySyncCheckpointChangesType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant19 {
+    ContractCodeChangesBySyncCheckpoint {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant19ChangesType,
+        changes_type: ContractCodeChangesBySyncCheckpointChangesType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant20 {
+    DataChangesBySyncCheckpoint {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant20ChangesType,
+        changes_type: DataChangesBySyncCheckpointChangesType,
         key_prefix_base64: StoreKey,
         sync_checkpoint: SyncCheckpoint,
     },
@@ -20271,1602 +21384,6 @@ pub enum RpcStateChangesInBlockByTypeRequest {
 impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequest {
     fn from(value: &RpcStateChangesInBlockByTypeRequest) -> Self {
         value.clone()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant0ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"account_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    #[serde(rename = "account_changes")]
-    AccountChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant0ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "account_changes" => Ok(Self::AccountChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant0ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant0ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant10ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"all_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    #[serde(rename = "all_access_key_changes")]
-    AllAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant10ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant10ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant10ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant11ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"all_gas_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    #[serde(rename = "all_gas_key_changes")]
-    AllGasKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant11ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "all_gas_key_changes" => Ok(Self::AllGasKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant11ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant11ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant12ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"contract_code_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    #[serde(rename = "contract_code_changes")]
-    ContractCodeChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant12ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "contract_code_changes" => Ok(Self::ContractCodeChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant12ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant12ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant13ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"data_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    #[serde(rename = "data_changes")]
-    DataChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant13ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::DataChanges => write!(f, "data_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "data_changes" => Ok(Self::DataChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant13ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant13ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant14ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"account_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    #[serde(rename = "account_changes")]
-    AccountChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant14ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "account_changes" => Ok(Self::AccountChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant14ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant14ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant15ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"single_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant15ChangesType {
-    #[serde(rename = "single_access_key_changes")]
-    SingleAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant15ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant15ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant15ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant15ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant15ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant15ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant15ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant16ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"single_gas_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant16ChangesType {
-    #[serde(rename = "single_gas_key_changes")]
-    SingleGasKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant16ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant16ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant16ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant16ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "single_gas_key_changes" => Ok(Self::SingleGasKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant16ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant16ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant16ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant17ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"all_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant17ChangesType {
-    #[serde(rename = "all_access_key_changes")]
-    AllAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant17ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant17ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant17ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant17ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant17ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant17ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant17ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant18ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"all_gas_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant18ChangesType {
-    #[serde(rename = "all_gas_key_changes")]
-    AllGasKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant18ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant18ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant18ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant18ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "all_gas_key_changes" => Ok(Self::AllGasKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant18ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant18ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant18ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant19ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"contract_code_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant19ChangesType {
-    #[serde(rename = "contract_code_changes")]
-    ContractCodeChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant19ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant19ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant19ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant19ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "contract_code_changes" => Ok(Self::ContractCodeChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant19ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant19ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant19ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant1ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"single_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    #[serde(rename = "single_access_key_changes")]
-    SingleAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant1ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant1ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant1ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant20ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"data_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant20ChangesType {
-    #[serde(rename = "data_changes")]
-    DataChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant20ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant20ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant20ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::DataChanges => write!(f, "data_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant20ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "data_changes" => Ok(Self::DataChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant20ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant20ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant20ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant2ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"single_gas_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    #[serde(rename = "single_gas_key_changes")]
-    SingleGasKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant2ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "single_gas_key_changes" => Ok(Self::SingleGasKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant2ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant2ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant3ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"all_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    #[serde(rename = "all_access_key_changes")]
-    AllAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant3ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant3ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant3ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant4ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"all_gas_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    #[serde(rename = "all_gas_key_changes")]
-    AllGasKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant4ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "all_gas_key_changes" => Ok(Self::AllGasKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant4ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant4ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant5ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"contract_code_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    #[serde(rename = "contract_code_changes")]
-    ContractCodeChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant5ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "contract_code_changes" => Ok(Self::ContractCodeChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant5ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant5ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant6ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"data_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    #[serde(rename = "data_changes")]
-    DataChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant6ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::DataChanges => write!(f, "data_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "data_changes" => Ok(Self::DataChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant6ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant6ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant7ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"account_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    #[serde(rename = "account_changes")]
-    AccountChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant7ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "account_changes" => Ok(Self::AccountChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant7ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant7ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant8ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"single_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    #[serde(rename = "single_access_key_changes")]
-    SingleAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant8ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant8ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant8ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant9ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"single_gas_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    #[serde(rename = "single_gas_key_changes")]
-    SingleGasKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant9ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "single_gas_key_changes" => Ok(Self::SingleGasKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant9ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant9ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 #[doc = "`RpcStateChangesInBlockByTypeResponse`"]
@@ -23328,6 +22845,452 @@ pub struct SignedTransactionView {
 impl ::std::convert::From<&SignedTransactionView> for SignedTransactionView {
     fn from(value: &SignedTransactionView) -> Self {
         value.clone()
+    }
+}
+#[doc = "`SingleAccessKeyChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleAccessKeyChangesByBlockIdChangesType {
+    #[serde(rename = "single_access_key_changes")]
+    SingleAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleAccessKeyChangesByBlockIdChangesType {
+    fn from(value: &SingleAccessKeyChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleAccessKeyChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleAccessKeyChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for SingleAccessKeyChangesByBlockIdChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for SingleAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleAccessKeyChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleAccessKeyChangesByFinalityChangesType {
+    #[serde(rename = "single_access_key_changes")]
+    SingleAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleAccessKeyChangesByFinalityChangesType {
+    fn from(value: &SingleAccessKeyChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleAccessKeyChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleAccessKeyChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleAccessKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for SingleAccessKeyChangesByFinalityChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for SingleAccessKeyChangesByFinalityChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleAccessKeyChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleAccessKeyChangesBySyncCheckpointChangesType {
+    #[serde(rename = "single_access_key_changes")]
+    SingleAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleAccessKeyChangesBySyncCheckpointChangesType {
+    fn from(value: &SingleAccessKeyChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleAccessKeyChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleAccessKeyChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleAccessKeyChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for SingleAccessKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for SingleAccessKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleGasKeyChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleGasKeyChangesByBlockIdChangesType {
+    #[serde(rename = "single_gas_key_changes")]
+    SingleGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleGasKeyChangesByBlockIdChangesType {
+    fn from(value: &SingleGasKeyChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleGasKeyChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleGasKeyChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_gas_key_changes" => Ok(Self::SingleGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for SingleGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for SingleGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleGasKeyChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleGasKeyChangesByFinalityChangesType {
+    #[serde(rename = "single_gas_key_changes")]
+    SingleGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleGasKeyChangesByFinalityChangesType {
+    fn from(value: &SingleGasKeyChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleGasKeyChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleGasKeyChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_gas_key_changes" => Ok(Self::SingleGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for SingleGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for SingleGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleGasKeyChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleGasKeyChangesBySyncCheckpointChangesType {
+    #[serde(rename = "single_gas_key_changes")]
+    SingleGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleGasKeyChangesBySyncCheckpointChangesType {
+    fn from(value: &SingleGasKeyChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleGasKeyChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleGasKeyChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_gas_key_changes" => Ok(Self::SingleGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleGasKeyChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for SingleGasKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for SingleGasKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 #[doc = "`SlashedValidator`"]
