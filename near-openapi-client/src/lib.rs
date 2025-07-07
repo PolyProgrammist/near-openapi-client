@@ -403,7 +403,7 @@ use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderE
 #[allow(unused_imports)]
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 #[derive(Clone, Debug)]
-#[doc = "Client for NEAR Protocol JSON RPC API\n\nVersion: 1.0.0"]
+#[doc = "Client for NEAR Protocol JSON RPC API\n\nVersion: 1.1.0"]
 pub struct Client {
     pub(crate) baseurl: String,
     pub(crate) client: reqwest::Client,
@@ -441,7 +441,7 @@ impl Client {
 }
 impl ClientInfo<()> for Client {
     fn api_version() -> &'static str {
-        "1.0.0"
+        "1.1.0"
     }
     fn baseurl(&self) -> &str {
         self.baseurl.as_str()

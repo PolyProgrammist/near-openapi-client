@@ -1,3 +1,6 @@
+//! This crate provides types for the Near OpenAPI specification.
+//!
+//! Used in [near-openapi-client](https://docs.rs/near-openapi-client/latest/near_openapi_client/)
 pub use near_account_id::AccountId;
 #[allow(unused_imports)]
 use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
@@ -128,12 +131,13 @@ impl ::std::convert::From<&AccessKeyCreationConfigView> for AccessKeyCreationCon
         value.clone()
     }
 }
-#[doc = "`AccessKeyInfoView`"]
+#[doc = "Describes information about an access key including the public key."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes information about an access key including the public key.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"access_key\","]
@@ -160,12 +164,13 @@ impl ::std::convert::From<&AccessKeyInfoView> for AccessKeyInfoView {
         value.clone()
     }
 }
-#[doc = "`AccessKeyList`"]
+#[doc = "Lists access keys"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Lists access keys\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"keys\""]
@@ -237,12 +242,13 @@ impl ::std::convert::From<FunctionCallPermission> for AccessKeyPermission {
         Self::FunctionCall(value)
     }
 }
-#[doc = "`AccessKeyPermissionView`"]
+#[doc = "Describes the permission scope for an access key. Whether it is a function call or a full access key."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes the permission scope for an access key. Whether it is a function call or a full access key.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"string\","]
@@ -302,12 +308,13 @@ impl ::std::convert::From<&Self> for AccessKeyPermissionView {
         value.clone()
     }
 }
-#[doc = "`AccessKeyView`"]
+#[doc = "Describes access key permission scope and nonce."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes access key permission scope and nonce.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"nonce\","]
@@ -596,12 +603,13 @@ impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigV
         value.clone()
     }
 }
-#[doc = "`AccountDataView`"]
+#[doc = "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network. It is essentially\nthe data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"AccountData is a piece of global state that a validator\\nsigns and broadcasts to the network. It is essentially\\nthe data that a validator wants to share with the network.\\nAll the nodes in the network are collecting the account data\\nbroadcasted by the validators.\\nSince the number of the validators is bounded and their\\nidentity is known (and the maximal size of allowed AccountData is bounded)\\nthe global state that is distributed in the form of AccountData is bounded\\nas well.\\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_key\","]
@@ -611,18 +619,30 @@ impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigV
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_key\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "      \"description\": \"Account key of the validator signing this AccountData.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"peer_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "      \"description\": \"ID of the node that handles the account key (aka validator key).\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"proxies\": {"]
+#[doc = "      \"description\": \"Proxy nodes that are directly connected to the validator node\\n(this list may include the validator node itself).\\nTIER1 nodes should connect to one of the proxies to sent TIER1\\nmessages to the validator.\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"$ref\": \"#/components/schemas/Tier1ProxyView\""]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"timestamp\": {"]
+#[doc = "      \"description\": \"UTC timestamp of when the AccountData has been signed.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -631,9 +651,13 @@ impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigV
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct AccountDataView {
+    #[doc = "Account key of the validator signing this AccountData."]
     pub account_key: PublicKey,
+    #[doc = "ID of the node that handles the account key (aka validator key)."]
     pub peer_id: PublicKey,
+    #[doc = "Proxy nodes that are directly connected to the validator node\n(this list may include the validator node itself).\nTIER1 nodes should connect to one of the proxies to sent TIER1\nmessages to the validator."]
     pub proxies: ::std::vec::Vec<Tier1ProxyView>,
+    #[doc = "UTC timestamp of when the AccountData has been signed."]
     pub timestamp: ::std::string::String,
 }
 impl ::std::convert::From<&AccountDataView> for AccountDataView {
@@ -824,12 +848,13 @@ impl ::std::convert::From<&AccountView> for AccountView {
         value.clone()
     }
 }
-#[doc = "`AccountWithPublicKey`"]
+#[doc = "Account ID with its public key."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Account ID with its public key.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_id\","]
@@ -2580,12 +2605,13 @@ impl ::std::convert::From<&Self> for ActionsValidationError {
         value.clone()
     }
 }
-#[doc = "`AddKeyAction`"]
+#[doc = "An action that adds key with public key associated"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"An action that adds key with public key associated\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"access_key\","]
@@ -3182,12 +3208,13 @@ impl ::std::convert::From<BandwidthRequestsV1> for BandwidthRequests {
         Self::V1(value)
     }
 }
-#[doc = "`BandwidthRequestsV1`"]
+#[doc = "Version 1 for list of [`BandwidthRequest`]s."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Version 1 for list of [`BandwidthRequest`]s.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"requests\""]
@@ -3212,12 +3239,13 @@ impl ::std::convert::From<&BandwidthRequestsV1> for BandwidthRequestsV1 {
         value.clone()
     }
 }
-#[doc = "`BlockHeaderInnerLiteView`"]
+#[doc = "A part of a state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient)."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"A part of a state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient).\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"block_merkle_root\","]
@@ -3232,10 +3260,20 @@ impl ::std::convert::From<&BandwidthRequestsV1> for BandwidthRequestsV1 {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"block_merkle_root\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The merkle root of all the block hashes\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"epoch_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The epoch to which the block that is the current known head belongs\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"height\": {"]
 #[doc = "      \"type\": \"integer\","]
@@ -3243,10 +3281,20 @@ impl ::std::convert::From<&BandwidthRequestsV1> for BandwidthRequestsV1 {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"next_bp_hash\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The hash of the block producers set for the next epoch\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"next_epoch_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The epoch that will follow the current epoch\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"outcome_root\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -3269,10 +3317,14 @@ impl ::std::convert::From<&BandwidthRequestsV1> for BandwidthRequestsV1 {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct BlockHeaderInnerLiteView {
+    #[doc = "The merkle root of all the block hashes"]
     pub block_merkle_root: CryptoHash,
+    #[doc = "The epoch to which the block that is the current known head belongs"]
     pub epoch_id: CryptoHash,
     pub height: u64,
+    #[doc = "The hash of the block producers set for the next epoch"]
     pub next_bp_hash: CryptoHash,
+    #[doc = "The epoch that will follow the current epoch"]
     pub next_epoch_id: CryptoHash,
     pub outcome_root: CryptoHash,
     pub prev_state_root: CryptoHash,
@@ -3285,12 +3337,13 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
         value.clone()
     }
 }
-#[doc = "`BlockHeaderView`"]
+#[doc = "Contains main info about the block."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Contains main info about the block.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"approvals\","]
@@ -3447,7 +3500,12 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
 #[doc = "    \"prev_hash\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The hash of the previous Block\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"prev_height\": {"]
 #[doc = "      \"type\": ["]
@@ -3468,7 +3526,12 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"signature\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/Signature\""]
+#[doc = "      \"description\": \"Signature of the block producer.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Signature\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"timestamp\": {"]
 #[doc = "      \"description\": \"Legacy json number. Should not be used.\","]
@@ -3525,6 +3588,7 @@ pub struct BlockHeaderView {
     pub next_bp_hash: CryptoHash,
     pub next_epoch_id: CryptoHash,
     pub outcome_root: CryptoHash,
+    #[doc = "The hash of the previous Block"]
     pub prev_hash: CryptoHash,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub prev_height: ::std::option::Option<u64>,
@@ -3532,6 +3596,7 @@ pub struct BlockHeaderView {
     pub random_value: CryptoHash,
     #[doc = "TODO(2271): deprecated."]
     pub rent_paid: ::std::string::String,
+    #[doc = "Signature of the block producer."]
     pub signature: Signature,
     #[doc = "Legacy json number. Should not be used."]
     pub timestamp: u64,
@@ -3629,12 +3694,13 @@ impl ::std::convert::From<CryptoHash> for BlockId {
         Self::CryptoHash(value)
     }
 }
-#[doc = "`BlockStatusView`"]
+#[doc = "Height and hash of a block"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Height and hash of a block\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"hash\","]
@@ -16549,7 +16615,12 @@ impl ::std::convert::From<SyncCheckpoint> for RpcBlockRequest {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"author\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "      \"description\": \"The AccountId of the author of the Block\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"chunks\": {"]
 #[doc = "      \"type\": \"array\","]
@@ -16566,6 +16637,7 @@ impl ::std::convert::From<SyncCheckpoint> for RpcBlockRequest {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct RpcBlockResponse {
+    #[doc = "The AccountId of the author of the Block"]
     pub author: AccountId,
     pub chunks: ::std::vec::Vec<ChunkHeaderView>,
     pub header: BlockHeaderView,
@@ -18350,12 +18422,13 @@ impl ::std::convert::From<&RpcLightClientNextBlockRequest> for RpcLightClientNex
         value.clone()
     }
 }
-#[doc = "`RpcLightClientNextBlockResponse`"]
+#[doc = "A state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient)."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"A state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient).\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"approvals_after_next\": {"]
@@ -18372,7 +18445,12 @@ impl ::std::convert::From<&RpcLightClientNextBlockRequest> for RpcLightClientNex
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"inner_lite\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/BlockHeaderInnerLiteView\""]
+#[doc = "      \"description\": \"Inner part of the block header that gets hashed, split into two parts, one that is sent\\n   to light clients, and the rest\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockHeaderInnerLiteView\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"inner_rest_hash\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -18400,6 +18478,7 @@ impl ::std::convert::From<&RpcLightClientNextBlockRequest> for RpcLightClientNex
 pub struct RpcLightClientNextBlockResponse {
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub approvals_after_next: ::std::vec::Vec<::std::option::Option<Signature>>,
+    #[doc = "Inner part of the block header that gets hashed, split into two parts, one that is sent\n   to light clients, and the rest"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub inner_lite: ::std::option::Option<BlockHeaderInnerLiteView>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -22162,12 +22241,13 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
         value.clone()
     }
 }
-#[doc = "`RuntimeFeesConfigView`"]
+#[doc = "Describes different costs for the runtime"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes different costs for the runtime\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"action_creation_config\","]

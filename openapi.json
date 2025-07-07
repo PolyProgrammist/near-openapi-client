@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "NEAR Protocol JSON RPC API",
-        "version": "1.0.0"
+        "version": "1.1.0"
     },
     "paths": {
         "/EXPERIMENTAL_changes": {
@@ -824,6 +824,7 @@
                 "type": "object"
             },
             "AccessKeyInfoView": {
+                "description": "Describes information about an access key including the public key.",
                 "properties": {
                     "access_key": {
                         "$ref": "#/components/schemas/AccessKeyView"
@@ -839,6 +840,7 @@
                 "type": "object"
             },
             "AccessKeyList": {
+                "description": "Lists access keys",
                 "properties": {
                     "keys": {
                         "items": {
@@ -877,6 +879,7 @@
                 ]
             },
             "AccessKeyPermissionView": {
+                "description": "Describes the permission scope for an access key. Whether it is a function call or a full access key.",
                 "oneOf": [
                     {
                         "enum": [
@@ -918,6 +921,7 @@
                 ]
             },
             "AccessKeyView": {
+                "description": "Describes access key permission scope and nonce.",
                 "properties": {
                     "nonce": {
                         "format": "uint64",
@@ -960,20 +964,33 @@
                 "type": "object"
             },
             "AccountDataView": {
+                "description": "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network. It is essentially\nthe data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)",
                 "properties": {
                     "account_key": {
-                        "$ref": "#/components/schemas/PublicKey"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PublicKey"
+                            }
+                        ],
+                        "description": "Account key of the validator signing this AccountData."
                     },
                     "peer_id": {
-                        "$ref": "#/components/schemas/PublicKey"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PublicKey"
+                            }
+                        ],
+                        "description": "ID of the node that handles the account key (aka validator key)."
                     },
                     "proxies": {
+                        "description": "Proxy nodes that are directly connected to the validator node\n(this list may include the validator node itself).\nTIER1 nodes should connect to one of the proxies to sent TIER1\nmessages to the validator.",
                         "items": {
                             "$ref": "#/components/schemas/Tier1ProxyView"
                         },
                         "type": "array"
                     },
                     "timestamp": {
+                        "description": "UTC timestamp of when the AccountData has been signed.",
                         "type": "string"
                     }
                 },
@@ -1075,6 +1092,7 @@
                 "type": "object"
             },
             "AccountWithPublicKey": {
+                "description": "Account ID with its public key.",
                 "properties": {
                     "account_id": {
                         "$ref": "#/components/schemas/AccountId"
@@ -2450,6 +2468,7 @@
                 ]
             },
             "AddKeyAction": {
+                "description": "An action that adds key with public key associated",
                 "properties": {
                     "access_key": {
                         "allOf": [
@@ -2537,6 +2556,7 @@
                 ]
             },
             "BandwidthRequestsV1": {
+                "description": "Version 1 for list of [`BandwidthRequest`]s.",
                 "properties": {
                     "requests": {
                         "items": {
@@ -2551,12 +2571,23 @@
                 "type": "object"
             },
             "BlockHeaderInnerLiteView": {
+                "description": "A part of a state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient).",
                 "properties": {
                     "block_merkle_root": {
-                        "$ref": "#/components/schemas/CryptoHash"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CryptoHash"
+                            }
+                        ],
+                        "description": "The merkle root of all the block hashes"
                     },
                     "epoch_id": {
-                        "$ref": "#/components/schemas/CryptoHash"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CryptoHash"
+                            }
+                        ],
+                        "description": "The epoch to which the block that is the current known head belongs"
                     },
                     "height": {
                         "format": "uint64",
@@ -2564,10 +2595,20 @@
                         "type": "integer"
                     },
                     "next_bp_hash": {
-                        "$ref": "#/components/schemas/CryptoHash"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CryptoHash"
+                            }
+                        ],
+                        "description": "The hash of the block producers set for the next epoch"
                     },
                     "next_epoch_id": {
-                        "$ref": "#/components/schemas/CryptoHash"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CryptoHash"
+                            }
+                        ],
+                        "description": "The epoch that will follow the current epoch"
                     },
                     "outcome_root": {
                         "$ref": "#/components/schemas/CryptoHash"
@@ -2599,6 +2640,7 @@
                 "type": "object"
             },
             "BlockHeaderView": {
+                "description": "Contains main info about the block.",
                 "properties": {
                     "approvals": {
                         "items": {
@@ -2728,7 +2770,12 @@
                         "$ref": "#/components/schemas/CryptoHash"
                     },
                     "prev_hash": {
-                        "$ref": "#/components/schemas/CryptoHash"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CryptoHash"
+                            }
+                        ],
+                        "description": "The hash of the previous Block"
                     },
                     "prev_height": {
                         "format": "uint64",
@@ -2747,7 +2794,12 @@
                         "type": "string"
                     },
                     "signature": {
-                        "$ref": "#/components/schemas/Signature"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Signature"
+                            }
+                        ],
+                        "description": "Signature of the block producer."
                     },
                     "timestamp": {
                         "description": "Legacy json number. Should not be used.",
@@ -2819,6 +2871,7 @@
                 ]
             },
             "BlockStatusView": {
+                "description": "Height and hash of a block",
                 "properties": {
                     "hash": {
                         "$ref": "#/components/schemas/CryptoHash"
@@ -9063,7 +9116,12 @@
             "RpcBlockResponse": {
                 "properties": {
                     "author": {
-                        "$ref": "#/components/schemas/AccountId"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AccountId"
+                            }
+                        ],
+                        "description": "The AccountId of the author of the Block"
                     },
                     "chunks": {
                         "items": {
@@ -9978,6 +10036,7 @@
                 "type": "object"
             },
             "RpcLightClientNextBlockResponse": {
+                "description": "A state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient).",
                 "properties": {
                     "approvals_after_next": {
                         "items": {
@@ -9996,7 +10055,12 @@
                         "type": "array"
                     },
                     "inner_lite": {
-                        "$ref": "#/components/schemas/BlockHeaderInnerLiteView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/BlockHeaderInnerLiteView"
+                            }
+                        ],
+                        "description": "Inner part of the block header that gets hashed, split into two parts, one that is sent\n   to light clients, and the rest"
                     },
                     "inner_rest_hash": {
                         "$ref": "#/components/schemas/CryptoHash"
@@ -12741,6 +12805,7 @@
                 "type": "object"
             },
             "RuntimeFeesConfigView": {
+                "description": "Describes different costs for the runtime",
                 "properties": {
                     "action_creation_config": {
                         "allOf": [
