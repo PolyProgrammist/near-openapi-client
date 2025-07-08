@@ -79,7 +79,7 @@ async fn test_block(client: &Client, block_hash: CryptoHash) -> Result<(), Box<d
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForBlockMethod::Block,
         params: client::types::RpcBlockRequest::BlockId({
-            client::types::BlockId::Variant1(block_hash.clone())
+            client::types::BlockId::CryptoHash(block_hash.clone())
         }),
     };
 
@@ -164,8 +164,8 @@ async fn test_chunk(client: &Client, block_hash: CryptoHash) -> Result<(), Box<d
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForChunkMethod::Chunk,
-        params: client::types::RpcChunkRequest::Variant0 {
-            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+        params: client::types::RpcChunkRequest::BlockShardId {
+            block_id: client::types::BlockId::CryptoHash(block_hash.clone()),
             shard_id: client::types::ShardId(0),
         },
     };
@@ -191,7 +191,7 @@ async fn test_gas_price_with_block(
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForGasPriceMethod::GasPrice,
         params: client::types::RpcGasPriceRequest {
-            block_id: Some(client::types::BlockId::Variant1(block_hash.clone())),
+            block_id: Some(client::types::BlockId::CryptoHash(block_hash.clone())),
         },
     };
 
@@ -232,7 +232,7 @@ async fn test_health(client: &Client) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForHealthMethod::Health,
-        params: client::types::RpcHealthRequest(serde_json::Map::new()),
+        params: client::types::RpcHealthRequest(()),
     };
 
     let health: client::types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError =
@@ -264,7 +264,7 @@ async fn test_light_client_proof(
             light_client_head: block_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: sent_tx_hash.clone(),
-            type_: client::types::TypeTransactionOrReceiptId::Transaction,
+            type_: client::types::RpcLightClientExecutionProofRequestVariant0Type::Transaction,
         },
     };
 
@@ -310,7 +310,7 @@ async fn test_network_info(client: &Client) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForNetworkInfoMethod::NetworkInfo,
-        params: client::types::RpcNetworkInfoRequest(serde_json::Map::new()),
+        params: client::types::RpcNetworkInfoRequest(()),
     };
 
     let network_info: client::types::JsonRpcResponseForRpcNetworkInfoResponseAndRpcError = client
@@ -363,7 +363,7 @@ async fn test_status(client: &Client) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForStatusMethod::Status,
-        params: client::types::RpcStatusRequest(serde_json::Map::new()),
+        params: client::types::RpcStatusRequest(()),
     };
 
     let status: client::types::JsonRpcResponseForRpcStatusResponseAndRpcError =
@@ -406,7 +406,7 @@ async fn test_client_config(client: &Client) -> Result<(), Box<dyn Error>> {
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForClientConfigMethod::ClientConfig,
-        params: client::types::RpcClientConfigRequest(serde_json::Map::new()),
+        params: client::types::RpcClientConfigRequest(()),
     };
 
     let client_config: client::types::JsonRpcResponseForRpcClientConfigResponseAndRpcError = client
@@ -435,10 +435,10 @@ async fn test_experimental_changes(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalChangesMethod::ExperimentalChanges,
-        params: client::types::RpcStateChangesInBlockByTypeRequest::Variant0 {
-            changes_type: client::types::RpcStateChangesInBlockByTypeRequestVariant0ChangesType::AccountChanges,
+        params: client::types::RpcStateChangesInBlockByTypeRequest::AccountChangesByBlockId {
+            changes_type: client::types::AccountChangesByBlockIdChangesType::AccountChanges,
             account_ids: vec![sender_account_id],
-            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+            block_id: client::types::BlockId::CryptoHash(block_hash.clone()),
         }
     };
 
@@ -475,7 +475,7 @@ async fn test_experimental_changes_in_block(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalChangesInBlockMethod::ExperimentalChangesInBlock,
-        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
+        params: client::types::RpcStateChangesInBlockRequest::BlockId(client::types::BlockId::CryptoHash(block_hash.clone()))
     };
 
     let experimental_changes_in_block: client::types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError = client.experimental_changes_in_block(&payload_experimental_changes_in_block).await?.into_inner();
@@ -500,8 +500,8 @@ async fn test_experimental_congestion_level(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalCongestionLevelMethod::ExperimentalCongestionLevel,
-        params: client::types::RpcCongestionLevelRequest::Variant0 {
-            block_id: client::types::BlockId::Variant1(block_hash.clone()),
+        params: client::types::RpcCongestionLevelRequest::BlockShardId {
+            block_id: client::types::BlockId::CryptoHash(block_hash.clone()),
             shard_id: client::types::ShardId(0)
         }
     };
@@ -529,7 +529,7 @@ async fn test_experimental_genesis_config(client: &Client) -> Result<(), Box<dyn
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalGenesisConfigMethod::ExperimentalGenesisConfig,
-        params: client::types::GenesisConfigRequest(serde_json::Map::new())
+        params: client::types::GenesisConfigRequest(())
     };
 
     let genesis_config: client::types::JsonRpcResponseForGenesisConfigAndRpcError = client
@@ -560,7 +560,7 @@ async fn test_experimental_light_client_proof(
             light_client_head: block_hash.clone(),
             sender_id: sender_account_id.clone(),
             transaction_hash: sent_tx_hash.clone(),
-            type_: client::types::TypeTransactionOrReceiptId::Transaction,
+            type_: client::types::RpcLightClientExecutionProofRequestVariant0Type::Transaction,
         }
     };
 
@@ -614,7 +614,7 @@ async fn test_experimental_protocol_config(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForExperimentalProtocolConfigMethod::ExperimentalProtocolConfig,
-        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::Variant1(block_hash.clone()))
+        params: client::types::RpcProtocolConfigRequest::BlockId(client::types::BlockId::CryptoHash(block_hash.clone()))
     };
 
     let protocol_config: client::types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError =
@@ -787,9 +787,9 @@ async fn test_query_account(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForQueryMethod::Query,
-        params: client::types::RpcQueryRequest::Variant8 {
+        params: client::types::RpcQueryRequest::ViewAccountByFinality {
             account_id: sender_account_id,
-            request_type: client::types::RpcQueryRequestVariant8RequestType::ViewAccount,
+            request_type: client::types::ViewAccountByFinalityRequestType::ViewAccount,
             finality: client::types::Finality::Final,
         },
     };
@@ -814,11 +814,11 @@ async fn test_function_call(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForQueryMethod::Query,
-        params: client::types::RpcQueryRequest::Variant13 {
+        params: client::types::RpcQueryRequest::CallFunctionByFinality {
             account_id: sender_account_id.clone(),
-            request_type: client::types::RpcQueryRequestVariant13RequestType::CallFunction,
+            request_type: client::types::CallFunctionByFinalityRequestType::CallFunction,
             method_name: "get_greeting".to_string(),
-            args_base64: "".to_string(),
+            args_base64: client::types::FunctionArgs("".to_string()),
             finality: client::types::Finality::Final,
         },
     };
@@ -869,10 +869,10 @@ async fn prepare_blockchain(
         id: String::from("dontcare"),
         jsonrpc: String::from("2.0"),
         method: client::types::JsonRpcRequestForQueryMethod::Query,
-        params: client::types::RpcQueryRequest::Variant11 {
+        params: client::types::RpcQueryRequest::ViewAccessKeyByFinality {
             account_id: sender_account_id.clone(),
             public_key: client::types::PublicKey(signer.public_key().to_string()),
-            request_type: client::types::RpcQueryRequestVariant11RequestType::ViewAccessKey,
+            request_type: client::types::ViewAccessKeyByFinalityRequestType::ViewAccessKey,
             finality: client::types::Finality::Final,
         },
     };
@@ -1020,12 +1020,12 @@ async fn prepare_blockchain(
 async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
 {
     let mut home_dir = std::env::temp_dir();
-    home_dir.push("test_node");
+    home_dir.push("test_node_a7d");
 
     let rpc_port: u16 = 3040;
     let net_port: u16 = 3031;
 
-    let version = "master/b57299a7a8558d4a6813f51c2512c057289e70e2";
+    let version = "master/a7dc91c14928974401da4cf3b8ba9341a547e6aa";
 
     near_sandbox_utils::init_with_version(&home_dir, version)?
         .wait_with_output()

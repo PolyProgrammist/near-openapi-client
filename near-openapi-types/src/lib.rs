@@ -1,3 +1,6 @@
+//! This crate provides types for the Near OpenAPI specification.
+//!
+//! Used in [near-openapi-client](https://docs.rs/near-openapi-client/latest/near_openapi_client/)
 pub use near_account_id::AccountId;
 #[allow(unused_imports)]
 use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
@@ -29,13 +32,13 @@ pub mod error {
         }
     }
 }
-#[doc = "Access key provides limited access to an account. Each access key belongs to some account and\n is identified by a unique (within the account) public key. One account may have large number of\n access keys. Access keys allow to act on behalf of the account by restricting transactions\n that can be issued.\n `account_id,public_key` is a key in the state"]
+#[doc = "Access key provides limited access to an account. Each access key belongs to some account and\nis identified by a unique (within the account) public key. One account may have large number of\naccess keys. Access keys allow to act on behalf of the account by restricting transactions\nthat can be issued.\n`account_id,public_key` is a key in the state"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Access key provides limited access to an account. Each access key belongs to some account and\\n is identified by a unique (within the account) public key. One account may have large number of\\n access keys. Access keys allow to act on behalf of the account by restricting transactions\\n that can be issued.\\n `account_id,public_key` is a key in the state\","]
+#[doc = "  \"description\": \"Access key provides limited access to an account. Each access key belongs to some account and\\nis identified by a unique (within the account) public key. One account may have large number of\\naccess keys. Access keys allow to act on behalf of the account by restricting transactions\\nthat can be issued.\\n`account_id,public_key` is a key in the state\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"nonce\","]
@@ -43,7 +46,7 @@ pub mod error {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"nonce\": {"]
-#[doc = "      \"description\": \"Nonce for this access key, used for tx nonce generation. When access key is created, nonce\\n is set to `(block_height - 1) * 1e6` to avoid tx hash collision on access key re-creation.\\n See <https://github.com/near/nearcore/issues/3779> for more details.\","]
+#[doc = "      \"description\": \"Nonce for this access key, used for tx nonce generation. When access key is created, nonce\\nis set to `(block_height - 1) * 1e6` to avoid tx hash collision on access key re-creation.\\nSee <https://github.com/near/nearcore/issues/3779> for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -62,7 +65,7 @@ pub mod error {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct AccessKey {
-    #[doc = "Nonce for this access key, used for tx nonce generation. When access key is created, nonce\n is set to `(block_height - 1) * 1e6` to avoid tx hash collision on access key re-creation.\n See <https://github.com/near/nearcore/issues/3779> for more details."]
+    #[doc = "Nonce for this access key, used for tx nonce generation. When access key is created, nonce\nis set to `(block_height - 1) * 1e6` to avoid tx hash collision on access key re-creation.\nSee <https://github.com/near/nearcore/issues/3779> for more details."]
     pub nonce: u64,
     #[doc = "Defines permissions for this access key."]
     pub permission: AccessKeyPermission,
@@ -128,12 +131,13 @@ impl ::std::convert::From<&AccessKeyCreationConfigView> for AccessKeyCreationCon
         value.clone()
     }
 }
-#[doc = "`AccessKeyInfoView`"]
+#[doc = "Describes information about an access key including the public key."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes information about an access key including the public key.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"access_key\","]
@@ -160,12 +164,13 @@ impl ::std::convert::From<&AccessKeyInfoView> for AccessKeyInfoView {
         value.clone()
     }
 }
-#[doc = "`AccessKeyList`"]
+#[doc = "Lists access keys"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Lists access keys\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"keys\""]
@@ -211,7 +216,7 @@ impl ::std::convert::From<&AccessKeyList> for AccessKeyList {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Grants full access to the account.\\n NOTE: It's used to replace account-level public keys.\","]
+#[doc = "      \"description\": \"Grants full access to the account.\\nNOTE: It's used to replace account-level public keys.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"FullAccess\""]
@@ -224,7 +229,7 @@ impl ::std::convert::From<&AccessKeyList> for AccessKeyList {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub enum AccessKeyPermission {
     FunctionCall(FunctionCallPermission),
-    #[doc = "Grants full access to the account.\n NOTE: It's used to replace account-level public keys."]
+    #[doc = "Grants full access to the account.\nNOTE: It's used to replace account-level public keys."]
     FullAccess,
 }
 impl ::std::convert::From<&Self> for AccessKeyPermission {
@@ -237,12 +242,13 @@ impl ::std::convert::From<FunctionCallPermission> for AccessKeyPermission {
         Self::FunctionCall(value)
     }
 }
-#[doc = "`AccessKeyPermissionView`"]
+#[doc = "Describes the permission scope for an access key. Whether it is a function call or a full access key."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes the permission scope for an access key. Whether it is a function call or a full access key.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"string\","]
@@ -302,12 +308,13 @@ impl ::std::convert::From<&Self> for AccessKeyPermissionView {
         value.clone()
     }
 }
-#[doc = "`AccessKeyView`"]
+#[doc = "Describes access key permission scope and nonce."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes access key permission scope and nonce.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"nonce\","]
@@ -336,6 +343,222 @@ impl ::std::convert::From<&AccessKeyView> for AccessKeyView {
         value.clone()
     }
 }
+#[doc = "`AccountChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"account_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AccountChangesByBlockIdChangesType {
+    #[serde(rename = "account_changes")]
+    AccountChanges,
+}
+impl ::std::convert::From<&Self> for AccountChangesByBlockIdChangesType {
+    fn from(value: &AccountChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AccountChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AccountChanges => write!(f, "account_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AccountChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "account_changes" => Ok(Self::AccountChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AccountChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AccountChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AccountChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AccountChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"account_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AccountChangesByFinalityChangesType {
+    #[serde(rename = "account_changes")]
+    AccountChanges,
+}
+impl ::std::convert::From<&Self> for AccountChangesByFinalityChangesType {
+    fn from(value: &AccountChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AccountChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AccountChanges => write!(f, "account_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AccountChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "account_changes" => Ok(Self::AccountChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AccountChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AccountChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AccountChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AccountChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"account_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AccountChangesBySyncCheckpointChangesType {
+    #[serde(rename = "account_changes")]
+    AccountChanges,
+}
+impl ::std::convert::From<&Self> for AccountChangesBySyncCheckpointChangesType {
+    fn from(value: &AccountChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AccountChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AccountChanges => write!(f, "account_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AccountChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "account_changes" => Ok(Self::AccountChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AccountChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AccountChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AccountChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 #[doc = "The structure describes configuration for creation of new accounts."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -353,10 +576,11 @@ impl ::std::convert::From<&AccessKeyView> for AccessKeyView {
 #[doc = "      \"description\": \"The minimum length of the top-level account ID that is allowed to be created by any account.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"registrar_account_id\": {"]
-#[doc = "      \"description\": \"The account ID of the account registrar. This account ID allowed to create top-level\\n accounts of any valid length.\","]
+#[doc = "      \"description\": \"The account ID of the account registrar. This account ID allowed to create top-level\\naccounts of any valid length.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
@@ -371,7 +595,7 @@ impl ::std::convert::From<&AccessKeyView> for AccessKeyView {
 pub struct AccountCreationConfigView {
     #[doc = "The minimum length of the top-level account ID that is allowed to be created by any account."]
     pub min_allowed_top_level_account_length: u8,
-    #[doc = "The account ID of the account registrar. This account ID allowed to create top-level\n accounts of any valid length."]
+    #[doc = "The account ID of the account registrar. This account ID allowed to create top-level\naccounts of any valid length."]
     pub registrar_account_id: AccountId,
 }
 impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigView {
@@ -379,12 +603,13 @@ impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigV
         value.clone()
     }
 }
-#[doc = "`AccountDataView`"]
+#[doc = "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network. It is essentially\nthe data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"AccountData is a piece of global state that a validator\\nsigns and broadcasts to the network. It is essentially\\nthe data that a validator wants to share with the network.\\nAll the nodes in the network are collecting the account data\\nbroadcasted by the validators.\\nSince the number of the validators is bounded and their\\nidentity is known (and the maximal size of allowed AccountData is bounded)\\nthe global state that is distributed in the form of AccountData is bounded\\nas well.\\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_key\","]
@@ -394,18 +619,30 @@ impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigV
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_key\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "      \"description\": \"Account key of the validator signing this AccountData.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"peer_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "      \"description\": \"ID of the node that handles the account key (aka validator key).\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"proxies\": {"]
+#[doc = "      \"description\": \"Proxy nodes that are directly connected to the validator node\\n(this list may include the validator node itself).\\nTIER1 nodes should connect to one of the proxies to sent TIER1\\nmessages to the validator.\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"$ref\": \"#/components/schemas/Tier1ProxyView\""]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"timestamp\": {"]
+#[doc = "      \"description\": \"UTC timestamp of when the AccountData has been signed.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -414,9 +651,13 @@ impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigV
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct AccountDataView {
+    #[doc = "Account key of the validator signing this AccountData."]
     pub account_key: PublicKey,
+    #[doc = "ID of the node that handles the account key (aka validator key)."]
     pub peer_id: PublicKey,
+    #[doc = "Proxy nodes that are directly connected to the validator node\n(this list may include the validator node itself).\nTIER1 nodes should connect to one of the proxies to sent TIER1\nmessages to the validator."]
     pub proxies: ::std::vec::Vec<Tier1ProxyView>,
+    #[doc = "UTC timestamp of when the AccountData has been signed."]
     pub timestamp: ::std::string::String,
 }
 impl ::std::convert::From<&AccountDataView> for AccountDataView {
@@ -432,6 +673,7 @@ impl ::std::convert::From<&AccountDataView> for AccountDataView {
 #[doc = "{"]
 #[doc = "  \"type\": \"integer\","]
 #[doc = "  \"format\": \"uint8\","]
+#[doc = "  \"maximum\": 255.0,"]
 #[doc = "  \"minimum\": 0.0"]
 #[doc = "}"]
 #[doc = r" ```"]
@@ -549,30 +791,22 @@ impl ::std::convert::From<&AccountInfo> for AccountInfo {
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
 #[doc = "    \"global_contract_account_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"global_contract_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -614,12 +848,13 @@ impl ::std::convert::From<&AccountView> for AccountView {
         value.clone()
     }
 }
-#[doc = "`AccountWithPublicKey`"]
+#[doc = "Account ID with its public key."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Account ID with its public key.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_id\","]
@@ -654,7 +889,7 @@ impl ::std::convert::From<&AccountWithPublicKey> for AccountWithPublicKey {
 #[doc = "{"]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\n a new account ID must pass validation rules described here\\n <http://nomicon.io/Primitives/Account.html>.\","]
+#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<http://nomicon.io/Primitives/Account.html>.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"CreateAccount\""]
@@ -793,7 +1028,7 @@ impl ::std::convert::From<&AccountWithPublicKey> for AccountWithPublicKey {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub enum Action {
-    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\n a new account ID must pass validation rules described here\n <http://nomicon.io/Primitives/Account.html>."]
+    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\na new account ID must pass validation rules described here\n<http://nomicon.io/Primitives/Account.html>."]
     CreateAccount(CreateAccountAction),
     #[doc = "Sets a Wasm code to a receiver_id"]
     DeployContract(DeployContractAction),
@@ -906,7 +1141,7 @@ impl ::std::convert::From<UseGlobalContractAction> for Action {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"delegate_cost\": {"]
-#[doc = "      \"description\": \"Base cost for processing a delegate action.\\n\\n This is on top of the costs for the actions inside the delegate action.\","]
+#[doc = "      \"description\": \"Base cost for processing a delegate action.\\n\\nThis is on top of the costs for the actions inside the delegate action.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/Fee\""]
@@ -987,7 +1222,7 @@ pub struct ActionCreationConfigView {
     pub add_key_cost: AccessKeyCreationConfigView,
     #[doc = "Base cost of creating an account."]
     pub create_account_cost: Fee,
-    #[doc = "Base cost for processing a delegate action.\n\n This is on top of the costs for the actions inside the delegate action."]
+    #[doc = "Base cost for processing a delegate action.\n\nThis is on top of the costs for the actions inside the delegate action."]
     pub delegate_cost: Fee,
     #[doc = "Base cost of deleting an account."]
     pub delete_account_cost: Fee,
@@ -1024,7 +1259,7 @@ impl ::std::convert::From<&ActionCreationConfigView> for ActionCreationConfigVie
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"index\": {"]
-#[doc = "      \"description\": \"Index of the failed action in the transaction.\\n Action index is not defined if ActionError.kind is `ActionErrorKind::LackBalanceForState`\","]
+#[doc = "      \"description\": \"Index of the failed action in the transaction.\\nAction index is not defined if ActionError.kind is `ActionErrorKind::LackBalanceForState`\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"integer\","]
 #[doc = "        \"null\""]
@@ -1046,7 +1281,7 @@ impl ::std::convert::From<&ActionCreationConfigView> for ActionCreationConfigVie
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ActionError {
-    #[doc = "Index of the failed action in the transaction.\n Action index is not defined if ActionError.kind is `ActionErrorKind::LackBalanceForState`"]
+    #[doc = "Index of the failed action in the transaction.\nAction index is not defined if ActionError.kind is `ActionErrorKind::LackBalanceForState`"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub index: ::std::option::Option<u64>,
     #[doc = "The kind of ActionError happened"]
@@ -1161,7 +1396,7 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Administrative actions like `DeployContract`, `Stake`, `AddKey`, `DeleteKey`. can be proceed only if sender=receiver\\n or the first TX action is a `CreateAccount` action\","]
+#[doc = "      \"description\": \"Administrative actions like `DeployContract`, `Stake`, `AddKey`, `DeleteKey`. can be proceed only if sender=receiver\\nor the first TX action is a `CreateAccount` action\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ActorNoPermission\""]
@@ -1383,7 +1618,7 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Error occurs when a new `ActionReceipt` created by the `FunctionCall` action fails\\n receipt validation.\","]
+#[doc = "      \"description\": \"Error occurs when a new `ActionReceipt` created by the `FunctionCall` action fails\\nreceipt validation.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"NewReceiptValidationError\""]
@@ -1396,7 +1631,7 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Error occurs when a `CreateAccount` action is called on a NEAR-implicit or ETH-implicit account.\\n See NEAR-implicit account creation NEP: <https://github.com/nearprotocol/NEPs/pull/71>.\\n Also, see ETH-implicit account creation NEP: <https://github.com/near/NEPs/issues/518>.\\n\\n TODO(#8598): This error is named very poorly. A better name would be\\n `OnlyNamedAccountCreationAllowed`.\","]
+#[doc = "      \"description\": \"Error occurs when a `CreateAccount` action is called on a NEAR-implicit or ETH-implicit account.\\nSee NEAR-implicit account creation NEP: <https://github.com/nearprotocol/NEPs/pull/71>.\\nAlso, see ETH-implicit account creation NEP: <https://github.com/near/NEPs/issues/518>.\\n\\nTODO(#8598): This error is named very poorly. A better name would be\\n`OnlyNamedAccountCreationAllowed`.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"OnlyImplicitAccountCreationAllowed\""]
@@ -1588,7 +1823,7 @@ pub enum ActionErrorKind {
         account_id: AccountId,
         predecessor_id: AccountId,
     },
-    #[doc = "Administrative actions like `DeployContract`, `Stake`, `AddKey`, `DeleteKey`. can be proceed only if sender=receiver\n or the first TX action is a `CreateAccount` action"]
+    #[doc = "Administrative actions like `DeployContract`, `Stake`, `AddKey`, `DeleteKey`. can be proceed only if sender=receiver\nor the first TX action is a `CreateAccount` action"]
     ActorNoPermission {
         account_id: AccountId,
         actor_id: AccountId,
@@ -1628,9 +1863,9 @@ pub enum ActionErrorKind {
     },
     #[doc = "An error occurred during a `FunctionCall` Action, parameter is debug message."]
     FunctionCallError(FunctionCallError),
-    #[doc = "Error occurs when a new `ActionReceipt` created by the `FunctionCall` action fails\n receipt validation."]
+    #[doc = "Error occurs when a new `ActionReceipt` created by the `FunctionCall` action fails\nreceipt validation."]
     NewReceiptValidationError(ReceiptValidationError),
-    #[doc = "Error occurs when a `CreateAccount` action is called on a NEAR-implicit or ETH-implicit account.\n See NEAR-implicit account creation NEP: <https://github.com/nearprotocol/NEPs/pull/71>.\n Also, see ETH-implicit account creation NEP: <https://github.com/near/NEPs/issues/518>.\n\n TODO(#8598): This error is named very poorly. A better name would be\n `OnlyNamedAccountCreationAllowed`."]
+    #[doc = "Error occurs when a `CreateAccount` action is called on a NEAR-implicit or ETH-implicit account.\nSee NEAR-implicit account creation NEP: <https://github.com/nearprotocol/NEPs/pull/71>.\nAlso, see ETH-implicit account creation NEP: <https://github.com/near/NEPs/issues/518>.\n\nTODO(#8598): This error is named very poorly. A better name would be\n`OnlyNamedAccountCreationAllowed`."]
     OnlyImplicitAccountCreationAllowed { account_id: AccountId },
     #[doc = "Delete account whose state is large is temporarily banned."]
     DeleteAccountWithLargeState { account_id: AccountId },
@@ -1726,8 +1961,7 @@ impl ::std::convert::From<InvalidAccessKeyError> for ActionErrorKind {
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
 #[doc = "            \"args\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/FunctionArgs\""]
 #[doc = "            },"]
 #[doc = "            \"deposit\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -1970,7 +2204,7 @@ pub enum ActionView {
         code: ::std::string::String,
     },
     FunctionCall {
-        args: ::std::string::String,
+        args: FunctionArgs,
         deposit: ::std::string::String,
         gas: u64,
         method_name: ::std::string::String,
@@ -2296,7 +2530,7 @@ impl ::std::convert::From<&Self> for ActionView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"The transaction includes a feature that the current protocol version\\n does not support.\\n\\n Note: we stringify the protocol feature name instead of using\\n `ProtocolFeature` here because we don't want to leak the internals of\\n that type into observable borsh serialization.\","]
+#[doc = "      \"description\": \"The transaction includes a feature that the current protocol version\\ndoes not support.\\n\\nNote: we stringify the protocol feature name instead of using\\n`ProtocolFeature` here because we don't want to leak the internals of\\nthat type into observable borsh serialization.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"UnsupportedProtocolFeature\""]
@@ -2360,7 +2594,7 @@ pub enum ActionsValidationError {
     FunctionCallZeroAttachedGas,
     #[doc = "There should be the only one DelegateAction"]
     DelegateActionMustBeOnlyOne,
-    #[doc = "The transaction includes a feature that the current protocol version\n does not support.\n\n Note: we stringify the protocol feature name instead of using\n `ProtocolFeature` here because we don't want to leak the internals of\n that type into observable borsh serialization."]
+    #[doc = "The transaction includes a feature that the current protocol version\ndoes not support.\n\nNote: we stringify the protocol feature name instead of using\n`ProtocolFeature` here because we don't want to leak the internals of\nthat type into observable borsh serialization."]
     UnsupportedProtocolFeature {
         protocol_feature: ::std::string::String,
         version: u32,
@@ -2371,12 +2605,13 @@ impl ::std::convert::From<&Self> for ActionsValidationError {
         value.clone()
     }
 }
-#[doc = "`AddKeyAction`"]
+#[doc = "An action that adds key with public key associated"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"An action that adds key with public key associated\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"access_key\","]
@@ -2415,13 +2650,453 @@ impl ::std::convert::From<&AddKeyAction> for AddKeyAction {
         value.clone()
     }
 }
-#[doc = "`BandwidthRequest` describes the size of receipts that a shard would like to send to another shard.\n When a shard wants to send a lot of receipts to another shard, it needs to create a request and wait\n for a bandwidth grant from the bandwidth scheduler."]
+#[doc = "`AllAccessKeyChangesByBlockIdChangesType`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"`BandwidthRequest` describes the size of receipts that a shard would like to send to another shard.\\n When a shard wants to send a lot of receipts to another shard, it needs to create a request and wait\\n for a bandwidth grant from the bandwidth scheduler.\","]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllAccessKeyChangesByBlockIdChangesType {
+    #[serde(rename = "all_access_key_changes")]
+    AllAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllAccessKeyChangesByBlockIdChangesType {
+    fn from(value: &AllAccessKeyChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllAccessKeyChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllAccessKeyChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AllAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AllAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllAccessKeyChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllAccessKeyChangesByFinalityChangesType {
+    #[serde(rename = "all_access_key_changes")]
+    AllAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllAccessKeyChangesByFinalityChangesType {
+    fn from(value: &AllAccessKeyChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllAccessKeyChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllAccessKeyChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllAccessKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AllAccessKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AllAccessKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllAccessKeyChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllAccessKeyChangesBySyncCheckpointChangesType {
+    #[serde(rename = "all_access_key_changes")]
+    AllAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllAccessKeyChangesBySyncCheckpointChangesType {
+    fn from(value: &AllAccessKeyChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllAccessKeyChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllAccessKeyChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllAccessKeyChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for AllAccessKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for AllAccessKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllGasKeyChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllGasKeyChangesByBlockIdChangesType {
+    #[serde(rename = "all_gas_key_changes")]
+    AllGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllGasKeyChangesByBlockIdChangesType {
+    fn from(value: &AllGasKeyChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllGasKeyChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllGasKeyChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_gas_key_changes" => Ok(Self::AllGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AllGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AllGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllGasKeyChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllGasKeyChangesByFinalityChangesType {
+    #[serde(rename = "all_gas_key_changes")]
+    AllGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllGasKeyChangesByFinalityChangesType {
+    fn from(value: &AllGasKeyChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllGasKeyChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllGasKeyChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_gas_key_changes" => Ok(Self::AllGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AllGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AllGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`AllGasKeyChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"all_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum AllGasKeyChangesBySyncCheckpointChangesType {
+    #[serde(rename = "all_gas_key_changes")]
+    AllGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for AllGasKeyChangesBySyncCheckpointChangesType {
+    fn from(value: &AllGasKeyChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for AllGasKeyChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for AllGasKeyChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "all_gas_key_changes" => Ok(Self::AllGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AllGasKeyChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for AllGasKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for AllGasKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`BandwidthRequest` describes the size of receipts that a shard would like to send to another shard.\nWhen a shard wants to send a lot of receipts to another shard, it needs to create a request and wait\nfor a bandwidth grant from the bandwidth scheduler."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"`BandwidthRequest` describes the size of receipts that a shard would like to send to another shard.\\nWhen a shard wants to send a lot of receipts to another shard, it needs to create a request and wait\\nfor a bandwidth grant from the bandwidth scheduler.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"requested_values_bitmap\","]
@@ -2440,6 +3115,7 @@ impl ::std::convert::From<&AddKeyAction> for AddKeyAction {
 #[doc = "      \"description\": \"Requesting bandwidth to this shard.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint16\","]
+#[doc = "      \"maximum\": 65535.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -2458,13 +3134,13 @@ impl ::std::convert::From<&BandwidthRequest> for BandwidthRequest {
         value.clone()
     }
 }
-#[doc = "Bitmap which describes which values from the predefined list are being requested.\n The nth bit is set to 1 when the nth value from the list is being requested."]
+#[doc = "Bitmap which describes which values from the predefined list are being requested.\nThe nth bit is set to 1 when the nth value from the list is being requested."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Bitmap which describes which values from the predefined list are being requested.\\n The nth bit is set to 1 when the nth value from the list is being requested.\","]
+#[doc = "  \"description\": \"Bitmap which describes which values from the predefined list are being requested.\\nThe nth bit is set to 1 when the nth value from the list is being requested.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"data\""]
@@ -2475,6 +3151,7 @@ impl ::std::convert::From<&BandwidthRequest> for BandwidthRequest {
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
 #[doc = "        \"format\": \"uint8\","]
+#[doc = "        \"maximum\": 255.0,"]
 #[doc = "        \"minimum\": 0.0"]
 #[doc = "      },"]
 #[doc = "      \"maxItems\": 5,"]
@@ -2493,13 +3170,13 @@ impl ::std::convert::From<&BandwidthRequestBitmap> for BandwidthRequestBitmap {
         value.clone()
     }
 }
-#[doc = "A list of shard's bandwidth requests.\n Describes how much the shard would like to send to other shards."]
+#[doc = "A list of shard's bandwidth requests.\nDescribes how much the shard would like to send to other shards."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"A list of shard's bandwidth requests.\\n Describes how much the shard would like to send to other shards.\","]
+#[doc = "  \"description\": \"A list of shard's bandwidth requests.\\nDescribes how much the shard would like to send to other shards.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
@@ -2531,12 +3208,13 @@ impl ::std::convert::From<BandwidthRequestsV1> for BandwidthRequests {
         Self::V1(value)
     }
 }
-#[doc = "`BandwidthRequestsV1`"]
+#[doc = "Version 1 for list of [`BandwidthRequest`]s."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Version 1 for list of [`BandwidthRequest`]s.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"requests\""]
@@ -2561,12 +3239,13 @@ impl ::std::convert::From<&BandwidthRequestsV1> for BandwidthRequestsV1 {
         value.clone()
     }
 }
-#[doc = "`BlockHeaderInnerLiteView`"]
+#[doc = "A part of a state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient)."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"A part of a state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient).\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"block_merkle_root\","]
@@ -2581,10 +3260,20 @@ impl ::std::convert::From<&BandwidthRequestsV1> for BandwidthRequestsV1 {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"block_merkle_root\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The merkle root of all the block hashes\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"epoch_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The epoch to which the block that is the current known head belongs\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"height\": {"]
 #[doc = "      \"type\": \"integer\","]
@@ -2592,10 +3281,20 @@ impl ::std::convert::From<&BandwidthRequestsV1> for BandwidthRequestsV1 {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"next_bp_hash\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The hash of the block producers set for the next epoch\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"next_epoch_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The epoch that will follow the current epoch\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"outcome_root\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -2618,10 +3317,14 @@ impl ::std::convert::From<&BandwidthRequestsV1> for BandwidthRequestsV1 {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct BlockHeaderInnerLiteView {
+    #[doc = "The merkle root of all the block hashes"]
     pub block_merkle_root: CryptoHash,
+    #[doc = "The epoch to which the block that is the current known head belongs"]
     pub epoch_id: CryptoHash,
     pub height: u64,
+    #[doc = "The hash of the block producers set for the next epoch"]
     pub next_bp_hash: CryptoHash,
+    #[doc = "The epoch that will follow the current epoch"]
     pub next_epoch_id: CryptoHash,
     pub outcome_root: CryptoHash,
     pub prev_state_root: CryptoHash,
@@ -2634,12 +3337,13 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
         value.clone()
     }
 }
-#[doc = "`BlockHeaderView`"]
+#[doc = "Contains main info about the block."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Contains main info about the block.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"approvals\","]
@@ -2676,31 +3380,23 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "    \"approvals\": {"]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
-#[doc = "        \"oneOf\": ["]
+#[doc = "        \"anyOf\": ["]
 #[doc = "          {"]
-#[doc = "            \"type\": \"null\""]
+#[doc = "            \"$ref\": \"#/components/schemas/Signature\""]
 #[doc = "          },"]
 #[doc = "          {"]
-#[doc = "            \"allOf\": ["]
-#[doc = "              {"]
-#[doc = "                \"$ref\": \"#/components/schemas/Signature\""]
-#[doc = "              }"]
-#[doc = "            ]"]
+#[doc = "            \"type\": \"null\""]
 #[doc = "          }"]
 #[doc = "        ]"]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"block_body_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -2734,6 +3430,7 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "        \"items\": {"]
 #[doc = "          \"type\": \"integer\","]
 #[doc = "          \"format\": \"uint8\","]
+#[doc = "          \"maximum\": 255.0,"]
 #[doc = "          \"minimum\": 0.0"]
 #[doc = "        }"]
 #[doc = "      }"]
@@ -2762,16 +3459,12 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
 #[doc = "    \"epoch_sync_data_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -2807,7 +3500,12 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
 #[doc = "    \"prev_hash\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "      \"description\": \"The hash of the previous Block\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"prev_height\": {"]
 #[doc = "      \"type\": ["]
@@ -2828,7 +3526,12 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"signature\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/Signature\""]
+#[doc = "      \"description\": \"Signature of the block producer.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Signature\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"timestamp\": {"]
 #[doc = "      \"description\": \"Legacy json number. Should not be used.\","]
@@ -2885,6 +3588,7 @@ pub struct BlockHeaderView {
     pub next_bp_hash: CryptoHash,
     pub next_epoch_id: CryptoHash,
     pub outcome_root: CryptoHash,
+    #[doc = "The hash of the previous Block"]
     pub prev_hash: CryptoHash,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub prev_height: ::std::option::Option<u64>,
@@ -2892,6 +3596,7 @@ pub struct BlockHeaderView {
     pub random_value: CryptoHash,
     #[doc = "TODO(2271): deprecated."]
     pub rent_paid: ::std::string::String,
+    #[doc = "Signature of the block producer."]
     pub signature: Signature,
     #[doc = "Legacy json number. Should not be used."]
     pub timestamp: u64,
@@ -2914,6 +3619,7 @@ impl ::std::convert::From<&BlockHeaderView> for BlockHeaderView {
 #[doc = "{"]
 #[doc = "  \"anyOf\": ["]
 #[doc = "    {"]
+#[doc = "      \"title\": \"block_height\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -2928,8 +3634,8 @@ impl ::std::convert::From<&BlockHeaderView> for BlockHeaderView {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum BlockId {
-    Variant0(u64),
-    Variant1(CryptoHash),
+    BlockHeight(u64),
+    CryptoHash(CryptoHash),
 }
 impl ::std::convert::From<&Self> for BlockId {
     fn from(value: &BlockId) -> Self {
@@ -2940,9 +3646,9 @@ impl ::std::str::FromStr for BlockId {
     type Err = self::error::ConversionError;
     fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
         if let Ok(v) = value.parse() {
-            Ok(Self::Variant0(v))
+            Ok(Self::BlockHeight(v))
         } else if let Ok(v) = value.parse() {
-            Ok(Self::Variant1(v))
+            Ok(Self::CryptoHash(v))
         } else {
             Err("string conversion failed for all variants".into())
         }
@@ -2973,27 +3679,28 @@ impl ::std::convert::TryFrom<::std::string::String> for BlockId {
 impl ::std::fmt::Display for BlockId {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match self {
-            Self::Variant0(x) => x.fmt(f),
-            Self::Variant1(x) => x.fmt(f),
+            Self::BlockHeight(x) => x.fmt(f),
+            Self::CryptoHash(x) => x.fmt(f),
         }
     }
 }
 impl ::std::convert::From<u64> for BlockId {
     fn from(value: u64) -> Self {
-        Self::Variant0(value)
+        Self::BlockHeight(value)
     }
 }
 impl ::std::convert::From<CryptoHash> for BlockId {
     fn from(value: CryptoHash) -> Self {
-        Self::Variant1(value)
+        Self::CryptoHash(value)
     }
 }
-#[doc = "`BlockStatusView`"]
+#[doc = "Height and hash of a block"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Height and hash of a block\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"hash\","]
@@ -3022,12 +3729,229 @@ impl ::std::convert::From<&BlockStatusView> for BlockStatusView {
         value.clone()
     }
 }
-#[doc = "`CallResult`"]
+#[doc = "`CallFunctionByBlockIdRequestType`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"call_function\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum CallFunctionByBlockIdRequestType {
+    #[serde(rename = "call_function")]
+    CallFunction,
+}
+impl ::std::convert::From<&Self> for CallFunctionByBlockIdRequestType {
+    fn from(value: &CallFunctionByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for CallFunctionByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::CallFunction => write!(f, "call_function"),
+        }
+    }
+}
+impl ::std::str::FromStr for CallFunctionByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "call_function" => Ok(Self::CallFunction),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for CallFunctionByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for CallFunctionByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for CallFunctionByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`CallFunctionByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"call_function\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum CallFunctionByFinalityRequestType {
+    #[serde(rename = "call_function")]
+    CallFunction,
+}
+impl ::std::convert::From<&Self> for CallFunctionByFinalityRequestType {
+    fn from(value: &CallFunctionByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for CallFunctionByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::CallFunction => write!(f, "call_function"),
+        }
+    }
+}
+impl ::std::str::FromStr for CallFunctionByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "call_function" => Ok(Self::CallFunction),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for CallFunctionByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for CallFunctionByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for CallFunctionByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`CallFunctionBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"call_function\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum CallFunctionBySyncCheckpointRequestType {
+    #[serde(rename = "call_function")]
+    CallFunction,
+}
+impl ::std::convert::From<&Self> for CallFunctionBySyncCheckpointRequestType {
+    fn from(value: &CallFunctionBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for CallFunctionBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::CallFunction => write!(f, "call_function"),
+        }
+    }
+}
+impl ::std::str::FromStr for CallFunctionBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "call_function" => Ok(Self::CallFunction),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for CallFunctionBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for CallFunctionBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for CallFunctionBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "A result returned by contract method"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"A result returned by contract method\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"logs\","]
@@ -3045,6 +3969,7 @@ impl ::std::convert::From<&BlockStatusView> for BlockStatusView {
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
 #[doc = "        \"format\": \"uint8\","]
+#[doc = "        \"maximum\": 255.0,"]
 #[doc = "        \"minimum\": 0.0"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -3062,12 +3987,13 @@ impl ::std::convert::From<&CallResult> for CallResult {
         value.clone()
     }
 }
-#[doc = "`CatchupStatusView`"]
+#[doc = "Status of the [catchup](https://near.github.io/nearcore/architecture/how/sync.html#catchup) process"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Status of the [catchup](https://near.github.io/nearcore/architecture/how/sync.html#catchup) process\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"blocks_to_catchup\","]
@@ -3084,9 +4010,7 @@ impl ::std::convert::From<&CallResult> for CallResult {
 #[doc = "    },"]
 #[doc = "    \"shard_sync_status\": {"]
 #[doc = "      \"type\": \"object\","]
-#[doc = "      \"additionalProperties\": {"]
-#[doc = "        \"type\": \"string\""]
-#[doc = "      }"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    \"sync_block_hash\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -3103,8 +4027,7 @@ impl ::std::convert::From<&CallResult> for CallResult {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct CatchupStatusView {
     pub blocks_to_catchup: ::std::vec::Vec<BlockStatusView>,
-    pub shard_sync_status:
-        ::std::collections::HashMap<::std::string::String, ::std::string::String>,
+    pub shard_sync_status: CatchupStatusViewShardSyncStatus,
     pub sync_block_hash: CryptoHash,
     pub sync_block_height: u64,
 }
@@ -3113,64 +4036,37 @@ impl ::std::convert::From<&CatchupStatusView> for CatchupStatusView {
         value.clone()
     }
 }
-#[doc = "`CauseRpcErrorKind`"]
+#[doc = "`CatchupStatusViewShardSyncStatus`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"anyOf\": ["]
-#[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
-#[doc = "    },"]
-#[doc = "    {},"]
-#[doc = "    {}"]
-#[doc = "  ]"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"additionalProperties\": false"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct CauseRpcErrorKind {
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_0: ::std::option::Option<RpcRequestValidationErrorKind>,
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_1: ::std::option::Option<::serde_json::Value>,
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_2: ::std::option::Option<::serde_json::Value>,
-}
-impl ::std::convert::From<&CauseRpcErrorKind> for CauseRpcErrorKind {
-    fn from(value: &CauseRpcErrorKind) -> Self {
+#[serde(deny_unknown_fields)]
+pub struct CatchupStatusViewShardSyncStatus {}
+impl ::std::convert::From<&CatchupStatusViewShardSyncStatus> for CatchupStatusViewShardSyncStatus {
+    fn from(value: &CatchupStatusViewShardSyncStatus) -> Self {
         value.clone()
     }
 }
-impl ::std::default::Default for CauseRpcErrorKind {
+impl ::std::default::Default for CatchupStatusViewShardSyncStatus {
     fn default() -> Self {
-        Self {
-            subtype_0: Default::default(),
-            subtype_1: Default::default(),
-            subtype_2: Default::default(),
-        }
+        Self {}
     }
 }
-#[doc = "Config for the Chunk Distribution Network feature.\n This allows nodes to push and pull chunks from a central stream.\n The two benefits of this approach are: (1) less request/response traffic\n on the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain."]
+#[doc = "Config for the Chunk Distribution Network feature.\nThis allows nodes to push and pull chunks from a central stream.\nThe two benefits of this approach are: (1) less request/response traffic\non the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Config for the Chunk Distribution Network feature.\\n This allows nodes to push and pull chunks from a central stream.\\n The two benefits of this approach are: (1) less request/response traffic\\n on the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain.\","]
+#[doc = "  \"description\": \"Config for the Chunk Distribution Network feature.\\nThis allows nodes to push and pull chunks from a central stream.\\nThe two benefits of this approach are: (1) less request/response traffic\\non the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"enabled\","]
@@ -3234,12 +4130,13 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
         value.clone()
     }
 }
-#[doc = "`ChunkHeaderView`"]
+#[doc = "Contains main info about the chunk."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Contains main info about the chunk.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"balance_burnt\","]
@@ -3266,16 +4163,12 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"bandwidth_requests\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/BandwidthRequests\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/BandwidthRequests\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -3283,16 +4176,12 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
 #[doc = "    \"congestion_info\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CongestionInfoView\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CongestionInfoView\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -3435,7 +4324,7 @@ impl ::std::convert::From<&ChunkHeaderView> for ChunkHeaderView {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"This is for defense in depth.\\n We expect our runtime-independent preparation code to fully catch all invalid wasms,\\n but, if it ever misses something we’ll emit this error\","]
+#[doc = "      \"description\": \"This is for defense in depth.\\nWe expect our runtime-independent preparation code to fully catch all invalid wasms,\\nbut, if it ever misses something we’ll emit this error\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"WasmerCompileError\""]
@@ -3465,7 +4354,7 @@ pub enum CompilationError {
         account_id: AccountId,
     },
     PrepareError(PrepareError),
-    #[doc = "This is for defense in depth.\n We expect our runtime-independent preparation code to fully catch all invalid wasms,\n but, if it ever misses something we’ll emit this error"]
+    #[doc = "This is for defense in depth.\nWe expect our runtime-independent preparation code to fully catch all invalid wasms,\nbut, if it ever misses something we’ll emit this error"]
     WasmerCompileError {
         msg: ::std::string::String,
     },
@@ -3480,12 +4369,13 @@ impl ::std::convert::From<PrepareError> for CompilationError {
         Self::PrepareError(value)
     }
 }
-#[doc = "`CongestionControlConfigView`"]
+#[doc = "The configuration for congestion control. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"The configuration for congestion control. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"allowed_shard_outgoing_gas\","]
@@ -3503,19 +4393,19 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"allowed_shard_outgoing_gas\": {"]
-#[doc = "      \"description\": \"How much gas the chosen allowed shard can send to a 100% congested shard.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"How much gas the chosen allowed shard can send to a 100% congested shard.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_congestion_incoming_gas\": {"]
-#[doc = "      \"description\": \"How much gas in delayed receipts of a shard is 100% incoming congestion.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"How much gas in delayed receipts of a shard is 100% incoming congestion.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_congestion_memory_consumption\": {"]
-#[doc = "      \"description\": \"How much memory space of all delayed and buffered receipts in a shard is\\n considered 100% congested.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"How much memory space of all delayed and buffered receipts in a shard is\\nconsidered 100% congested.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -3527,49 +4417,49 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_congestion_outgoing_gas\": {"]
-#[doc = "      \"description\": \"How much gas in outgoing buffered receipts of a shard is 100% congested.\\n\\n Outgoing congestion contributes to overall congestion, which reduces how\\n much other shards are allowed to forward to this shard.\","]
+#[doc = "      \"description\": \"How much gas in outgoing buffered receipts of a shard is 100% congested.\\n\\nOutgoing congestion contributes to overall congestion, which reduces how\\nmuch other shards are allowed to forward to this shard.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_outgoing_gas\": {"]
-#[doc = "      \"description\": \"The maximum amount of gas attached to receipts a shard can forward to\\n another shard per chunk.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"The maximum amount of gas attached to receipts a shard can forward to\\nanother shard per chunk.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_tx_gas\": {"]
-#[doc = "      \"description\": \"The maximum amount of gas in a chunk spent on converting new transactions to\\n receipts.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"The maximum amount of gas in a chunk spent on converting new transactions to\\nreceipts.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"min_outgoing_gas\": {"]
-#[doc = "      \"description\": \"The minimum gas each shard can send to a shard that is not fully congested.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"The minimum gas each shard can send to a shard that is not fully congested.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"min_tx_gas\": {"]
-#[doc = "      \"description\": \"The minimum amount of gas in a chunk spent on converting new transactions\\n to receipts, as long as the receiving shard is not congested.\\n\\n See [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"description\": \"The minimum amount of gas in a chunk spent on converting new transactions\\nto receipts, as long as the receiving shard is not congested.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"outgoing_receipts_big_size_limit\": {"]
-#[doc = "      \"description\": \"Large size limit for outgoing receipts to a shard, used when it's safe\\n to send a lot of receipts without making the state witness too large.\\n It limits the total sum of outgoing receipts, not individual receipts.\","]
+#[doc = "      \"description\": \"Large size limit for outgoing receipts to a shard, used when it's safe\\nto send a lot of receipts without making the state witness too large.\\nIt limits the total sum of outgoing receipts, not individual receipts.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"outgoing_receipts_usual_size_limit\": {"]
-#[doc = "      \"description\": \"The standard size limit for outgoing receipts aimed at a single shard.\\n This limit is pretty small to keep the size of source_receipt_proofs under control.\\n It limits the total sum of outgoing receipts, not individual receipts.\","]
+#[doc = "      \"description\": \"The standard size limit for outgoing receipts aimed at a single shard.\\nThis limit is pretty small to keep the size of source_receipt_proofs under control.\\nIt limits the total sum of outgoing receipts, not individual receipts.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"reject_tx_congestion_threshold\": {"]
-#[doc = "      \"description\": \"How much congestion a shard can tolerate before it stops all shards from\\n accepting new transactions with the receiver set to the congested shard.\","]
+#[doc = "      \"description\": \"How much congestion a shard can tolerate before it stops all shards from\\naccepting new transactions with the receiver set to the congested shard.\","]
 #[doc = "      \"type\": \"number\","]
 #[doc = "      \"format\": \"double\""]
 #[doc = "    }"]
@@ -3579,27 +4469,27 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct CongestionControlConfigView {
-    #[doc = "How much gas the chosen allowed shard can send to a 100% congested shard.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "How much gas the chosen allowed shard can send to a 100% congested shard.\n\nSee [`CongestionControlConfig`] for more details."]
     pub allowed_shard_outgoing_gas: u64,
-    #[doc = "How much gas in delayed receipts of a shard is 100% incoming congestion.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "How much gas in delayed receipts of a shard is 100% incoming congestion.\n\nSee [`CongestionControlConfig`] for more details."]
     pub max_congestion_incoming_gas: u64,
-    #[doc = "How much memory space of all delayed and buffered receipts in a shard is\n considered 100% congested.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "How much memory space of all delayed and buffered receipts in a shard is\nconsidered 100% congested.\n\nSee [`CongestionControlConfig`] for more details."]
     pub max_congestion_memory_consumption: u64,
     #[doc = "How many missed chunks in a row in a shard is considered 100% congested."]
     pub max_congestion_missed_chunks: u64,
-    #[doc = "How much gas in outgoing buffered receipts of a shard is 100% congested.\n\n Outgoing congestion contributes to overall congestion, which reduces how\n much other shards are allowed to forward to this shard."]
+    #[doc = "How much gas in outgoing buffered receipts of a shard is 100% congested.\n\nOutgoing congestion contributes to overall congestion, which reduces how\nmuch other shards are allowed to forward to this shard."]
     pub max_congestion_outgoing_gas: u64,
-    #[doc = "The maximum amount of gas attached to receipts a shard can forward to\n another shard per chunk.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "The maximum amount of gas attached to receipts a shard can forward to\nanother shard per chunk.\n\nSee [`CongestionControlConfig`] for more details."]
     pub max_outgoing_gas: u64,
-    #[doc = "The maximum amount of gas in a chunk spent on converting new transactions to\n receipts.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "The maximum amount of gas in a chunk spent on converting new transactions to\nreceipts.\n\nSee [`CongestionControlConfig`] for more details."]
     pub max_tx_gas: u64,
-    #[doc = "The minimum gas each shard can send to a shard that is not fully congested.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "The minimum gas each shard can send to a shard that is not fully congested.\n\nSee [`CongestionControlConfig`] for more details."]
     pub min_outgoing_gas: u64,
-    #[doc = "The minimum amount of gas in a chunk spent on converting new transactions\n to receipts, as long as the receiving shard is not congested.\n\n See [`CongestionControlConfig`] for more details."]
+    #[doc = "The minimum amount of gas in a chunk spent on converting new transactions\nto receipts, as long as the receiving shard is not congested.\n\nSee [`CongestionControlConfig`] for more details."]
     pub min_tx_gas: u64,
-    #[doc = "Large size limit for outgoing receipts to a shard, used when it's safe\n to send a lot of receipts without making the state witness too large.\n It limits the total sum of outgoing receipts, not individual receipts."]
+    #[doc = "Large size limit for outgoing receipts to a shard, used when it's safe\nto send a lot of receipts without making the state witness too large.\nIt limits the total sum of outgoing receipts, not individual receipts."]
     pub outgoing_receipts_big_size_limit: u64,
-    #[doc = "The standard size limit for outgoing receipts aimed at a single shard.\n This limit is pretty small to keep the size of source_receipt_proofs under control.\n It limits the total sum of outgoing receipts, not individual receipts."]
+    #[doc = "The standard size limit for outgoing receipts aimed at a single shard.\nThis limit is pretty small to keep the size of source_receipt_proofs under control.\nIt limits the total sum of outgoing receipts, not individual receipts."]
     pub outgoing_receipts_usual_size_limit: u64,
     pub reject_tx_congestion_threshold: f64,
 }
@@ -3608,12 +4498,13 @@ impl ::std::convert::From<&CongestionControlConfigView> for CongestionControlCon
         value.clone()
     }
 }
-#[doc = "`CongestionInfoView`"]
+#[doc = "Stores the congestion level of a shard. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Stores the congestion level of a shard. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"allowed_shard\","]
@@ -3625,6 +4516,7 @@ impl ::std::convert::From<&CongestionControlConfigView> for CongestionControlCon
 #[doc = "    \"allowed_shard\": {"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint16\","]
+#[doc = "      \"maximum\": 65535.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"buffered_receipts_gas\": {"]
@@ -3652,6 +4544,226 @@ pub struct CongestionInfoView {
 impl ::std::convert::From<&CongestionInfoView> for CongestionInfoView {
     fn from(value: &CongestionInfoView) -> Self {
         value.clone()
+    }
+}
+#[doc = "`ContractCodeChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"contract_code_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ContractCodeChangesByBlockIdChangesType {
+    #[serde(rename = "contract_code_changes")]
+    ContractCodeChanges,
+}
+impl ::std::convert::From<&Self> for ContractCodeChangesByBlockIdChangesType {
+    fn from(value: &ContractCodeChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ContractCodeChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for ContractCodeChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "contract_code_changes" => Ok(Self::ContractCodeChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ContractCodeChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ContractCodeChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ContractCodeChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ContractCodeChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"contract_code_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ContractCodeChangesByFinalityChangesType {
+    #[serde(rename = "contract_code_changes")]
+    ContractCodeChanges,
+}
+impl ::std::convert::From<&Self> for ContractCodeChangesByFinalityChangesType {
+    fn from(value: &ContractCodeChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ContractCodeChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for ContractCodeChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "contract_code_changes" => Ok(Self::ContractCodeChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ContractCodeChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ContractCodeChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ContractCodeChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ContractCodeChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"contract_code_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ContractCodeChangesBySyncCheckpointChangesType {
+    #[serde(rename = "contract_code_changes")]
+    ContractCodeChanges,
+}
+impl ::std::convert::From<&Self> for ContractCodeChangesBySyncCheckpointChangesType {
+    fn from(value: &ContractCodeChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ContractCodeChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for ContractCodeChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "contract_code_changes" => Ok(Self::ContractCodeChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ContractCodeChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ContractCodeChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for ContractCodeChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 #[doc = "A view of the contract code."]
@@ -3687,12 +4799,13 @@ impl ::std::convert::From<&ContractCodeView> for ContractCodeView {
         value.clone()
     }
 }
-#[doc = "`CostGasUsed`"]
+#[doc = "Shows gas profile. More info [here](https://near.github.io/nearcore/architecture/gas/gas_profile.html?highlight=WASM_HOST_COST#example-transaction-gas-profile)."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Shows gas profile. More info [here](https://near.github.io/nearcore/architecture/gas/gas_profile.html?highlight=WASM_HOST_COST#example-transaction-gas-profile).\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"cost\","]
@@ -3704,6 +4817,7 @@ impl ::std::convert::From<&ContractCodeView> for ContractCodeView {
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"cost_category\": {"]
+#[doc = "      \"description\": \"Either ACTION_COST or WASM_HOST_COST.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"gas_used\": {"]
@@ -3716,6 +4830,7 @@ impl ::std::convert::From<&ContractCodeView> for ContractCodeView {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct CostGasUsed {
     pub cost: ::std::string::String,
+    #[doc = "Either ACTION_COST or WASM_HOST_COST."]
     pub cost_category: ::std::string::String,
     pub gas_used: ::std::string::String,
 }
@@ -3818,12 +4933,13 @@ impl ::std::fmt::Display for CryptoHash {
         self.0.fmt(f)
     }
 }
-#[doc = "`CurrentEpochValidatorInfo`"]
+#[doc = "Describes information about the current epoch validator"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes information about the current epoch validator\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_id\","]
@@ -3832,7 +4948,6 @@ impl ::std::fmt::Display for CryptoHash {
 #[doc = "    \"num_produced_blocks\","]
 #[doc = "    \"public_key\","]
 #[doc = "    \"shards\","]
-#[doc = "    \"shards_endorsed\","]
 #[doc = "    \"stake\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
@@ -3854,7 +4969,7 @@ impl ::std::fmt::Display for CryptoHash {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_expected_chunks_per_shard\": {"]
-#[doc = "      \"description\": \"Number of chunks this validator was expected to produce in each shard.\\n Each entry in the array corresponds to the shard in the `shards_produced` array.\","]
+#[doc = "      \"description\": \"Number of chunks this validator was expected to produce in each shard.\\nEach entry in the array corresponds to the shard in the `shards_produced` array.\","]
 #[doc = "      \"default\": [],"]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
@@ -3870,7 +4985,7 @@ impl ::std::fmt::Display for CryptoHash {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_expected_endorsements_per_shard\": {"]
-#[doc = "      \"description\": \"Number of chunks this validator was expected to validate and endorse in each shard.\\n Each entry in the array corresponds to the shard in the `shards_endorsed` array.\","]
+#[doc = "      \"description\": \"Number of chunks this validator was expected to validate and endorse in each shard.\\nEach entry in the array corresponds to the shard in the `shards_endorsed` array.\","]
 #[doc = "      \"default\": [],"]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
@@ -3926,6 +5041,7 @@ impl ::std::fmt::Display for CryptoHash {
 #[doc = "    },"]
 #[doc = "    \"shards_endorsed\": {"]
 #[doc = "      \"description\": \"Shards this validator is assigned to as chunk validator in the current epoch.\","]
+#[doc = "      \"default\": [],"]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"$ref\": \"#/components/schemas/ShardId\""]
@@ -3945,12 +5061,12 @@ pub struct CurrentEpochValidatorInfo {
     pub num_expected_blocks: u64,
     #[serde(default)]
     pub num_expected_chunks: u64,
-    #[doc = "Number of chunks this validator was expected to produce in each shard.\n Each entry in the array corresponds to the shard in the `shards_produced` array."]
+    #[doc = "Number of chunks this validator was expected to produce in each shard.\nEach entry in the array corresponds to the shard in the `shards_produced` array."]
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub num_expected_chunks_per_shard: ::std::vec::Vec<u64>,
     #[serde(default)]
     pub num_expected_endorsements: u64,
-    #[doc = "Number of chunks this validator was expected to validate and endorse in each shard.\n Each entry in the array corresponds to the shard in the `shards_endorsed` array."]
+    #[doc = "Number of chunks this validator was expected to validate and endorse in each shard.\nEach entry in the array corresponds to the shard in the `shards_endorsed` array."]
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub num_expected_endorsements_per_shard: ::std::vec::Vec<u64>,
     pub num_produced_blocks: u64,
@@ -3966,6 +5082,7 @@ pub struct CurrentEpochValidatorInfo {
     #[doc = "Shards this validator is assigned to as chunk producer in the current epoch."]
     pub shards: ::std::vec::Vec<ShardId>,
     #[doc = "Shards this validator is assigned to as chunk validator in the current epoch."]
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub shards_endorsed: ::std::vec::Vec<ShardId>,
     pub stake: ::std::string::String,
 }
@@ -3974,12 +5091,229 @@ impl ::std::convert::From<&CurrentEpochValidatorInfo> for CurrentEpochValidatorI
         value.clone()
     }
 }
-#[doc = "`DataReceiptCreationConfigView`"]
+#[doc = "`DataChangesByBlockIdChangesType`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"data_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum DataChangesByBlockIdChangesType {
+    #[serde(rename = "data_changes")]
+    DataChanges,
+}
+impl ::std::convert::From<&Self> for DataChangesByBlockIdChangesType {
+    fn from(value: &DataChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for DataChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::DataChanges => write!(f, "data_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for DataChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "data_changes" => Ok(Self::DataChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for DataChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for DataChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for DataChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`DataChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"data_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum DataChangesByFinalityChangesType {
+    #[serde(rename = "data_changes")]
+    DataChanges,
+}
+impl ::std::convert::From<&Self> for DataChangesByFinalityChangesType {
+    fn from(value: &DataChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for DataChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::DataChanges => write!(f, "data_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for DataChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "data_changes" => Ok(Self::DataChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for DataChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for DataChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for DataChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`DataChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"data_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum DataChangesBySyncCheckpointChangesType {
+    #[serde(rename = "data_changes")]
+    DataChanges,
+}
+impl ::std::convert::From<&Self> for DataChangesBySyncCheckpointChangesType {
+    fn from(value: &DataChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for DataChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::DataChanges => write!(f, "data_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for DataChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "data_changes" => Ok(Self::DataChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for DataChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for DataChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for DataChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "The fees settings for a data receipt creation"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"The fees settings for a data receipt creation\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"base_cost\","]
@@ -3987,7 +5321,7 @@ impl ::std::convert::From<&CurrentEpochValidatorInfo> for CurrentEpochValidatorI
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"base_cost\": {"]
-#[doc = "      \"description\": \"Base cost of creating a data receipt.\\n Both `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\\n is charged for each input dependency. The dependencies are specified when a receipt is\\n created using `promise_then` and `promise_batch_then`.\\n NOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\\n Even if the last action is not a function call (in case of success it will return empty\\n value).\","]
+#[doc = "      \"description\": \"Base cost of creating a data receipt.\\nBoth `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\\nis charged for each input dependency. The dependencies are specified when a receipt is\\ncreated using `promise_then` and `promise_batch_then`.\\nNOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\\nEven if the last action is not a function call (in case of success it will return empty\\nvalue).\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/Fee\""]
@@ -3995,7 +5329,7 @@ impl ::std::convert::From<&CurrentEpochValidatorInfo> for CurrentEpochValidatorI
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"cost_per_byte\": {"]
-#[doc = "      \"description\": \"Additional cost per byte sent.\\n Both `send` and `exec` costs are burned when a function call finishes execution and returns\\n `N` bytes of data to every output dependency. For each output dependency the cost is\\n `(send(sir) + exec()) * N`.\","]
+#[doc = "      \"description\": \"Additional cost per byte sent.\\nBoth `send` and `exec` costs are burned when a function call finishes execution and returns\\n`N` bytes of data to every output dependency. For each output dependency the cost is\\n`(send(sir) + exec()) * N`.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/Fee\""]
@@ -4008,9 +5342,9 @@ impl ::std::convert::From<&CurrentEpochValidatorInfo> for CurrentEpochValidatorI
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct DataReceiptCreationConfigView {
-    #[doc = "Base cost of creating a data receipt.\n Both `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\n is charged for each input dependency. The dependencies are specified when a receipt is\n created using `promise_then` and `promise_batch_then`.\n NOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\n Even if the last action is not a function call (in case of success it will return empty\n value)."]
+    #[doc = "Base cost of creating a data receipt.\nBoth `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\nis charged for each input dependency. The dependencies are specified when a receipt is\ncreated using `promise_then` and `promise_batch_then`.\nNOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\nEven if the last action is not a function call (in case of success it will return empty\nvalue)."]
     pub base_cost: Fee,
-    #[doc = "Additional cost per byte sent.\n Both `send` and `exec` costs are burned when a function call finishes execution and returns\n `N` bytes of data to every output dependency. For each output dependency the cost is\n `(send(sir) + exec()) * N`."]
+    #[doc = "Additional cost per byte sent.\nBoth `send` and `exec` costs are burned when a function call finishes execution and returns\n`N` bytes of data to every output dependency. For each output dependency the cost is\n`(send(sir) + exec()) * N`."]
     pub cost_per_byte: Fee,
 }
 impl ::std::convert::From<&DataReceiptCreationConfigView> for DataReceiptCreationConfigView {
@@ -4068,7 +5402,7 @@ impl ::std::convert::From<&DataReceiverView> for DataReceiverView {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"actions\": {"]
-#[doc = "      \"description\": \"List of actions to be executed.\\n\\n With the meta transactions MVP defined in NEP-366, nested\\n DelegateActions are not allowed. A separate type is used to enforce it.\","]
+#[doc = "      \"description\": \"List of actions to be executed.\\n\\nWith the meta transactions MVP defined in NEP-366, nested\\nDelegateActions are not allowed. A separate type is used to enforce it.\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"$ref\": \"#/components/schemas/NonDelegateAction\""]
@@ -4081,7 +5415,7 @@ impl ::std::convert::From<&DataReceiverView> for DataReceiverView {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"nonce\": {"]
-#[doc = "      \"description\": \"Nonce to ensure that the same delegate action is not sent twice by a\\n relayer and should match for given account's `public_key`.\\n After this action is processed it will increment.\","]
+#[doc = "      \"description\": \"Nonce to ensure that the same delegate action is not sent twice by a\\nrelayer and should match for given account's `public_key`.\\nAfter this action is processed it will increment.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -4116,11 +5450,11 @@ impl ::std::convert::From<&DataReceiverView> for DataReceiverView {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct DelegateAction {
-    #[doc = "List of actions to be executed.\n\n With the meta transactions MVP defined in NEP-366, nested\n DelegateActions are not allowed. A separate type is used to enforce it."]
+    #[doc = "List of actions to be executed.\n\nWith the meta transactions MVP defined in NEP-366, nested\nDelegateActions are not allowed. A separate type is used to enforce it."]
     pub actions: ::std::vec::Vec<NonDelegateAction>,
     #[doc = "The maximal height of the block in the blockchain below which the given DelegateAction is valid."]
     pub max_block_height: u64,
-    #[doc = "Nonce to ensure that the same delegate action is not sent twice by a\n relayer and should match for given account's `public_key`.\n After this action is processed it will increment."]
+    #[doc = "Nonce to ensure that the same delegate action is not sent twice by a\nrelayer and should match for given account's `public_key`.\nAfter this action is processed it will increment."]
     pub nonce: u64,
     #[doc = "Public key used to sign this delegated action."]
     pub public_key: PublicKey,
@@ -4411,17 +5745,13 @@ impl ::std::convert::TryFrom<::std::string::String> for Direction {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"iteration_delay\": {"]
-#[doc = "      \"description\": \"How often to check if a new epoch has started.\\n Feel free to set to `None`, defaults are sensible.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"description\": \"How often to check if a new epoch has started.\\nFeel free to set to `None`, defaults are sensible.\","]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/DurationAsStdSchemaProvider\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/DurationAsStdSchemaProvider\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -4434,7 +5764,7 @@ impl ::std::convert::TryFrom<::std::string::String> for Direction {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"restart_dump_for_shards\": {"]
-#[doc = "      \"description\": \"Use in case a node that dumps state to the external storage\\n gets in trouble.\","]
+#[doc = "      \"description\": \"Use in case a node that dumps state to the external storage\\ngets in trouble.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"array\","]
 #[doc = "        \"null\""]
@@ -4452,12 +5782,12 @@ pub struct DumpConfig {
     #[doc = "Location of a json file with credentials allowing write access to the bucket."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub credentials_file: ::std::option::Option<::std::string::String>,
-    #[doc = "How often to check if a new epoch has started.\n Feel free to set to `None`, defaults are sensible."]
+    #[doc = "How often to check if a new epoch has started.\nFeel free to set to `None`, defaults are sensible."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub iteration_delay: ::std::option::Option<DurationAsStdSchemaProvider>,
     #[doc = "Specifies where to write the obtained state parts."]
     pub location: ExternalStorageLocation,
-    #[doc = "Use in case a node that dumps state to the external storage\n gets in trouble."]
+    #[doc = "Use in case a node that dumps state to the external storage\ngets in trouble."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub restart_dump_for_shards: ::std::option::Option<::std::vec::Vec<ShardId>>,
 }
@@ -4500,13 +5830,13 @@ impl ::std::convert::From<&DurationAsStdSchemaProvider> for DurationAsStdSchemaP
         value.clone()
     }
 }
-#[doc = "Epoch identifier -- wrapped hash, to make it easier to distinguish.\n EpochId of epoch T is the hash of last block in T-2\n EpochId of first two epochs is 0"]
+#[doc = "Epoch identifier -- wrapped hash, to make it easier to distinguish.\nEpochId of epoch T is the hash of last block in T-2\nEpochId of first two epochs is 0"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Epoch identifier -- wrapped hash, to make it easier to distinguish.\\n EpochId of epoch T is the hash of last block in T-2\\n EpochId of first two epochs is 0\","]
+#[doc = "  \"description\": \"Epoch identifier -- wrapped hash, to make it easier to distinguish.\\nEpochId of epoch T is the hash of last block in T-2\\nEpochId of first two epochs is 0\","]
 #[doc = "  \"allOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -4581,23 +5911,23 @@ impl ::std::fmt::Display for EpochId {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"disable_epoch_sync_for_bootstrapping\": {"]
-#[doc = "      \"description\": \"If true, even if the node started from genesis, it will not perform epoch sync.\\n There should be no reason to set this flag in production, because on both mainnet\\n and testnet it would be infeasible to catch up from genesis without epoch sync.\","]
+#[doc = "      \"description\": \"If true, even if the node started from genesis, it will not perform epoch sync.\\nThere should be no reason to set this flag in production, because on both mainnet\\nand testnet it would be infeasible to catch up from genesis without epoch sync.\","]
 #[doc = "      \"default\": false,"]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"epoch_sync_horizon\": {"]
-#[doc = "      \"description\": \"This serves as two purposes: (1) the node will not epoch sync and instead resort to\\n header sync, if the genesis block is within this many blocks from the current block;\\n (2) the node will reject an epoch sync proof if the provided proof is for an epoch\\n that is more than this many blocks behind the current block.\","]
+#[doc = "      \"description\": \"This serves as two purposes: (1) the node will not epoch sync and instead resort to\\nheader sync, if the genesis block is within this many blocks from the current block;\\n(2) the node will reject an epoch sync proof if the provided proof is for an epoch\\nthat is more than this many blocks behind the current block.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"ignore_epoch_sync_network_requests\": {"]
-#[doc = "      \"description\": \"If true, the node will ignore epoch sync requests from the network. It is strongly\\n recommended not to set this flag, because it will prevent other nodes from\\n bootstrapping. This flag is only included as a kill-switch and may be removed in a\\n future release. Please note that epoch sync requests are heavily rate limited and\\n cached, and therefore should not affect the performance of the node or introduce\\n any non-negligible increase in network traffic.\","]
+#[doc = "      \"description\": \"If true, the node will ignore epoch sync requests from the network. It is strongly\\nrecommended not to set this flag, because it will prevent other nodes from\\nbootstrapping. This flag is only included as a kill-switch and may be removed in a\\nfuture release. Please note that epoch sync requests are heavily rate limited and\\ncached, and therefore should not affect the performance of the node or introduce\\nany non-negligible increase in network traffic.\","]
 #[doc = "      \"default\": false,"]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"timeout_for_epoch_sync\": {"]
-#[doc = "      \"description\": \"Timeout for epoch sync requests. The node will continue retrying indefinitely even\\n if this timeout is exceeded.\","]
+#[doc = "      \"description\": \"Timeout for epoch sync requests. The node will continue retrying indefinitely even\\nif this timeout is exceeded.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/DurationAsStdSchemaProvider\""]
@@ -4610,15 +5940,15 @@ impl ::std::fmt::Display for EpochId {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct EpochSyncConfig {
-    #[doc = "If true, even if the node started from genesis, it will not perform epoch sync.\n There should be no reason to set this flag in production, because on both mainnet\n and testnet it would be infeasible to catch up from genesis without epoch sync."]
+    #[doc = "If true, even if the node started from genesis, it will not perform epoch sync.\nThere should be no reason to set this flag in production, because on both mainnet\nand testnet it would be infeasible to catch up from genesis without epoch sync."]
     #[serde(default)]
     pub disable_epoch_sync_for_bootstrapping: bool,
-    #[doc = "This serves as two purposes: (1) the node will not epoch sync and instead resort to\n header sync, if the genesis block is within this many blocks from the current block;\n (2) the node will reject an epoch sync proof if the provided proof is for an epoch\n that is more than this many blocks behind the current block."]
+    #[doc = "This serves as two purposes: (1) the node will not epoch sync and instead resort to\nheader sync, if the genesis block is within this many blocks from the current block;\n(2) the node will reject an epoch sync proof if the provided proof is for an epoch\nthat is more than this many blocks behind the current block."]
     pub epoch_sync_horizon: u64,
-    #[doc = "If true, the node will ignore epoch sync requests from the network. It is strongly\n recommended not to set this flag, because it will prevent other nodes from\n bootstrapping. This flag is only included as a kill-switch and may be removed in a\n future release. Please note that epoch sync requests are heavily rate limited and\n cached, and therefore should not affect the performance of the node or introduce\n any non-negligible increase in network traffic."]
+    #[doc = "If true, the node will ignore epoch sync requests from the network. It is strongly\nrecommended not to set this flag, because it will prevent other nodes from\nbootstrapping. This flag is only included as a kill-switch and may be removed in a\nfuture release. Please note that epoch sync requests are heavily rate limited and\ncached, and therefore should not affect the performance of the node or introduce\nany non-negligible increase in network traffic."]
     #[serde(default)]
     pub ignore_epoch_sync_network_requests: bool,
-    #[doc = "Timeout for epoch sync requests. The node will continue retrying indefinitely even\n if this timeout is exceeded."]
+    #[doc = "Timeout for epoch sync requests. The node will continue retrying indefinitely even\nif this timeout is exceeded."]
     pub timeout_for_epoch_sync: DurationAsStdSchemaProvider,
 }
 impl ::std::convert::From<&EpochSyncConfig> for EpochSyncConfig {
@@ -4683,7 +6013,7 @@ impl ::std::convert::From<&ExecutionMetadataView> for ExecutionMetadataView {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"executor_id\": {"]
-#[doc = "      \"description\": \"The id of the account on which the execution happens. For transaction this is signer_id,\\n for receipt this is receiver_id.\","]
+#[doc = "      \"description\": \"The id of the account on which the execution happens. For transaction this is signer_id,\\nfor receipt this is receiver_id.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
@@ -4730,7 +6060,7 @@ impl ::std::convert::From<&ExecutionMetadataView> for ExecutionMetadataView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"tokens_burnt\": {"]
-#[doc = "      \"description\": \"The amount of tokens burnt corresponding to the burnt gas amount.\\n This value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\\n the prepaid gas price might be lower than the actual gas price and it creates a deficit.\\n `tokens_burnt` also contains the penalty subtracted from refunds, while\\n `gas_burnt` only contains the gas that we actually burn for the execution.\","]
+#[doc = "      \"description\": \"The amount of tokens burnt corresponding to the burnt gas amount.\\nThis value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\\nthe prepaid gas price might be lower than the actual gas price and it creates a deficit.\\n`tokens_burnt` also contains the penalty subtracted from refunds, while\\n`gas_burnt` only contains the gas that we actually burn for the execution.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -4739,7 +6069,7 @@ impl ::std::convert::From<&ExecutionMetadataView> for ExecutionMetadataView {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ExecutionOutcomeView {
-    #[doc = "The id of the account on which the execution happens. For transaction this is signer_id,\n for receipt this is receiver_id."]
+    #[doc = "The id of the account on which the execution happens. For transaction this is signer_id,\nfor receipt this is receiver_id."]
     pub executor_id: AccountId,
     #[doc = "The amount of the gas burnt by the given transaction or receipt."]
     pub gas_burnt: u64,
@@ -4752,7 +6082,7 @@ pub struct ExecutionOutcomeView {
     pub receipt_ids: ::std::vec::Vec<CryptoHash>,
     #[doc = "Execution status. Contains the result in case of successful execution."]
     pub status: ExecutionStatusView,
-    #[doc = "The amount of tokens burnt corresponding to the burnt gas amount.\n This value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\n the prepaid gas price might be lower than the actual gas price and it creates a deficit.\n `tokens_burnt` also contains the penalty subtracted from refunds, while\n `gas_burnt` only contains the gas that we actually burn for the execution."]
+    #[doc = "The amount of tokens burnt corresponding to the burnt gas amount.\nThis value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\nthe prepaid gas price might be lower than the actual gas price and it creates a deficit.\n`tokens_burnt` also contains the penalty subtracted from refunds, while\n`gas_burnt` only contains the gas that we actually burn for the execution."]
     pub tokens_burnt: ::std::string::String,
 }
 impl ::std::convert::From<&ExecutionOutcomeView> for ExecutionOutcomeView {
@@ -4846,7 +6176,7 @@ impl ::std::convert::From<&ExecutionOutcomeWithIdView> for ExecutionOutcomeWithI
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"The final action of the receipt returned a promise or the signed transaction was converted\\n to a receipt. Contains the receipt_id of the generated receipt.\","]
+#[doc = "      \"description\": \"The final action of the receipt returned a promise or the signed transaction was converted\\nto a receipt. Contains the receipt_id of the generated receipt.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"SuccessReceiptId\""]
@@ -4870,7 +6200,7 @@ pub enum ExecutionStatusView {
     Failure(TxExecutionError),
     #[doc = "The final action succeeded and returned some value or an empty vec encoded in base64."]
     SuccessValue(::std::string::String),
-    #[doc = "The final action of the receipt returned a promise or the signed transaction was converted\n to a receipt. Contains the receipt_id of the generated receipt."]
+    #[doc = "The final action of the receipt returned a promise or the signed transaction was converted\nto a receipt. Contains the receipt_id of the generated receipt."]
     SuccessReceiptId(CryptoHash),
 }
 impl ::std::convert::From<&Self> for ExecutionStatusView {
@@ -4888,13 +6218,13 @@ impl ::std::convert::From<CryptoHash> for ExecutionStatusView {
         Self::SuccessReceiptId(value)
     }
 }
-#[doc = "Typed view of ExtCostsConfig to preserve JSON output field names in protocol\n config RPC output."]
+#[doc = "Typed view of ExtCostsConfig to preserve JSON output field names in protocol\nconfig RPC output."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Typed view of ExtCostsConfig to preserve JSON output field names in protocol\\n config RPC output.\","]
+#[doc = "  \"description\": \"Typed view of ExtCostsConfig to preserve JSON output field names in protocol\\nconfig RPC output.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"alt_bn128_g1_multiexp_base\","]
@@ -5666,7 +6996,7 @@ impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"external_storage_fallback_threshold\": {"]
-#[doc = "      \"description\": \"The number of attempts the node will make to obtain a part from peers in\\n the network before it fetches from external storage.\","]
+#[doc = "      \"description\": \"The number of attempts the node will make to obtain a part from peers in\\nthe network before it fetches from external storage.\","]
 #[doc = "      \"default\": 3,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
@@ -5681,14 +7011,14 @@ impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"num_concurrent_requests\": {"]
-#[doc = "      \"description\": \"When fetching state parts from external storage, throttle fetch requests\\n to this many concurrent requests.\","]
+#[doc = "      \"description\": \"When fetching state parts from external storage, throttle fetch requests\\nto this many concurrent requests.\","]
 #[doc = "      \"default\": 25,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint32\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_concurrent_requests_during_catchup\": {"]
-#[doc = "      \"description\": \"During catchup, the node will use a different number of concurrent requests\\n to reduce the performance impact of state sync.\","]
+#[doc = "      \"description\": \"During catchup, the node will use a different number of concurrent requests\\nto reduce the performance impact of state sync.\","]
 #[doc = "      \"default\": 5,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint32\","]
@@ -5700,15 +7030,15 @@ impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ExternalStorageConfig {
-    #[doc = "The number of attempts the node will make to obtain a part from peers in\n the network before it fetches from external storage."]
+    #[doc = "The number of attempts the node will make to obtain a part from peers in\nthe network before it fetches from external storage."]
     #[serde(default = "defaults::default_u64::<u64, 3>")]
     pub external_storage_fallback_threshold: u64,
     #[doc = "Location of state parts."]
     pub location: ExternalStorageLocation,
-    #[doc = "When fetching state parts from external storage, throttle fetch requests\n to this many concurrent requests."]
+    #[doc = "When fetching state parts from external storage, throttle fetch requests\nto this many concurrent requests."]
     #[serde(default = "defaults::default_u64::<u32, 25>")]
     pub num_concurrent_requests: u32,
-    #[doc = "During catchup, the node will use a different number of concurrent requests\n to reduce the performance impact of state sync."]
+    #[doc = "During catchup, the node will use a different number of concurrent requests\nto reduce the performance impact of state sync."]
     #[serde(default = "defaults::default_u64::<u32, 5>")]
     pub num_concurrent_requests_during_catchup: u32,
 }
@@ -5815,13 +7145,13 @@ impl ::std::convert::From<&Self> for ExternalStorageLocation {
         value.clone()
     }
 }
-#[doc = "Costs associated with an object that can only be sent over the network (and executed\n by the receiver).\n NOTE: `send_sir` or `send_not_sir` fees are usually burned when the item is being created.\n And `execution` fee is burned when the item is being executed."]
+#[doc = "Costs associated with an object that can only be sent over the network (and executed\nby the receiver).\nNOTE: `send_sir` or `send_not_sir` fees are usually burned when the item is being created.\nAnd `execution` fee is burned when the item is being executed."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Costs associated with an object that can only be sent over the network (and executed\\n by the receiver).\\n NOTE: `send_sir` or `send_not_sir` fees are usually burned when the item is being created.\\n And `execution` fee is burned when the item is being executed.\","]
+#[doc = "  \"description\": \"Costs associated with an object that can only be sent over the network (and executed\\nby the receiver).\\nNOTE: `send_sir` or `send_not_sir` fees are usually burned when the item is being created.\\nAnd `execution` fee is burned when the item is being executed.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"execution\","]
@@ -5842,7 +7172,7 @@ impl ::std::convert::From<&Self> for ExternalStorageLocation {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"send_sir\": {"]
-#[doc = "      \"description\": \"Fee for sending an object from the sender to itself, guaranteeing that it does not leave\\n the shard.\","]
+#[doc = "      \"description\": \"Fee for sending an object from the sender to itself, guaranteeing that it does not leave\\nthe shard.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -5857,7 +7187,7 @@ pub struct Fee {
     pub execution: u64,
     #[doc = "Fee for sending an object potentially across the shards."]
     pub send_not_sir: u64,
-    #[doc = "Fee for sending an object from the sender to itself, guaranteeing that it does not leave\n the shard."]
+    #[doc = "Fee for sending an object from the sender to itself, guaranteeing that it does not leave\nthe shard."]
     pub send_sir: u64,
 }
 impl ::std::convert::From<&Fee> for Fee {
@@ -5865,13 +7195,13 @@ impl ::std::convert::From<&Fee> for Fee {
         value.clone()
     }
 }
-#[doc = "Execution outcome of the transaction and all the subsequent receipts.\n Could be not finalized yet"]
+#[doc = "Execution outcome of the transaction and all the subsequent receipts.\nCould be not finalized yet"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Execution outcome of the transaction and all the subsequent receipts.\\n Could be not finalized yet\","]
+#[doc = "  \"description\": \"Execution outcome of the transaction and all the subsequent receipts.\\nCould be not finalized yet\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"receipts_outcome\","]
@@ -5888,7 +7218,7 @@ impl ::std::convert::From<&Fee> for Fee {
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"status\": {"]
-#[doc = "      \"description\": \"Execution status defined by chain.rs:get_final_transaction_result\\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id\","]
+#[doc = "      \"description\": \"Execution status defined by chain.rs:get_final_transaction_result\\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/FinalExecutionStatus\""]
@@ -5919,7 +7249,7 @@ impl ::std::convert::From<&Fee> for Fee {
 pub struct FinalExecutionOutcomeView {
     #[doc = "The execution outcome of receipts."]
     pub receipts_outcome: ::std::vec::Vec<ExecutionOutcomeWithIdView>,
-    #[doc = "Execution status defined by chain.rs:get_final_transaction_result\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
+    #[doc = "Execution status defined by chain.rs:get_final_transaction_result\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
     pub status: FinalExecutionStatus,
     #[doc = "Signed Transaction"]
     pub transaction: SignedTransactionView,
@@ -5931,13 +7261,13 @@ impl ::std::convert::From<&FinalExecutionOutcomeView> for FinalExecutionOutcomeV
         value.clone()
     }
 }
-#[doc = "Final execution outcome of the transaction and all of subsequent the receipts. Also includes\n the generated receipt."]
+#[doc = "Final execution outcome of the transaction and all of subsequent the receipts. Also includes\nthe generated receipt."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Final execution outcome of the transaction and all of subsequent the receipts. Also includes\\n the generated receipt.\","]
+#[doc = "  \"description\": \"Final execution outcome of the transaction and all of subsequent the receipts. Also includes\\nthe generated receipt.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"receipts\","]
@@ -5962,7 +7292,7 @@ impl ::std::convert::From<&FinalExecutionOutcomeView> for FinalExecutionOutcomeV
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"status\": {"]
-#[doc = "      \"description\": \"Execution status defined by chain.rs:get_final_transaction_result\\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id\","]
+#[doc = "      \"description\": \"Execution status defined by chain.rs:get_final_transaction_result\\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/FinalExecutionStatus\""]
@@ -5995,7 +7325,7 @@ pub struct FinalExecutionOutcomeWithReceiptView {
     pub receipts: ::std::vec::Vec<ReceiptView>,
     #[doc = "The execution outcome of receipts."]
     pub receipts_outcome: ::std::vec::Vec<ExecutionOutcomeWithIdView>,
-    #[doc = "Execution status defined by chain.rs:get_final_transaction_result\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
+    #[doc = "Execution status defined by chain.rs:get_final_transaction_result\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
     pub status: FinalExecutionStatus,
     #[doc = "Signed Transaction"]
     pub transaction: SignedTransactionView,
@@ -6164,6 +7494,63 @@ impl ::std::convert::TryFrom<::std::string::String> for Finality {
         value.parse()
     }
 }
+#[doc = "This type is used to mark function arguments.\n\nNOTE: The main reason for this to exist (except the type-safety) is that the value is\ntransparently serialized and deserialized as a base64-encoded string when serde is used\n(serde_json)."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"This type is used to mark function arguments.\\n\\nNOTE: The main reason for this to exist (except the type-safety) is that the value is\\ntransparently serialized and deserialized as a base64-encoded string when serde is used\\n(serde_json).\","]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"format\": \"bytes\""]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+#[serde(transparent)]
+pub struct FunctionArgs(pub ::std::string::String);
+impl ::std::ops::Deref for FunctionArgs {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<FunctionArgs> for ::std::string::String {
+    fn from(value: FunctionArgs) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<&FunctionArgs> for FunctionArgs {
+    fn from(value: &FunctionArgs) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::std::string::String> for FunctionArgs {
+    fn from(value: ::std::string::String) -> Self {
+        Self(value)
+    }
+}
+impl ::std::str::FromStr for FunctionArgs {
+    type Err = ::std::convert::Infallible;
+    fn from_str(value: &str) -> ::std::result::Result<Self, Self::Err> {
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::fmt::Display for FunctionArgs {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
 #[doc = "`FunctionCallAction`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -6208,13 +7595,13 @@ impl ::std::convert::From<&FunctionCallAction> for FunctionCallAction {
         value.clone()
     }
 }
-#[doc = "Serializable version of `near-vm-runner::FunctionCallError`.\n\n Must never reorder/remove elements, can only add new variants at the end (but do that very\n carefully). It describes stable serialization format, and only used by serialization logic."]
+#[doc = "Serializable version of `near-vm-runner::FunctionCallError`.\n\nMust never reorder/remove elements, can only add new variants at the end (but do that very\ncarefully). It describes stable serialization format, and only used by serialization logic."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Serializable version of `near-vm-runner::FunctionCallError`.\\n\\n Must never reorder/remove elements, can only add new variants at the end (but do that very\\n carefully). It describes stable serialization format, and only used by serialization logic.\","]
+#[doc = "  \"description\": \"Serializable version of `near-vm-runner::FunctionCallError`.\\n\\nMust never reorder/remove elements, can only add new variants at the end (but do that very\\ncarefully). It describes stable serialization format, and only used by serialization logic.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"string\","]
@@ -6237,7 +7624,7 @@ impl ::std::convert::From<&FunctionCallAction> for FunctionCallAction {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Wasm binary env link error\\n\\n Note: this is only to deserialize old data, use execution error for new data\","]
+#[doc = "      \"description\": \"Wasm binary env link error\\n\\nNote: this is only to deserialize old data, use execution error for new data\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"LinkError\""]
@@ -6271,7 +7658,7 @@ impl ::std::convert::From<&FunctionCallAction> for FunctionCallAction {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"A trap happened during execution of a binary\\n\\n Note: this is only to deserialize old data, use execution error for new data\","]
+#[doc = "      \"description\": \"A trap happened during execution of a binary\\n\\nNote: this is only to deserialize old data, use execution error for new data\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"WasmTrap\""]
@@ -6319,13 +7706,13 @@ pub enum FunctionCallError {
     EvmError,
     #[doc = "Wasm compilation error"]
     CompilationError(CompilationError),
-    #[doc = "Wasm binary env link error\n\n Note: this is only to deserialize old data, use execution error for new data"]
+    #[doc = "Wasm binary env link error\n\nNote: this is only to deserialize old data, use execution error for new data"]
     LinkError {
         msg: ::std::string::String,
     },
     #[doc = "Import/export resolve error"]
     MethodResolveError(MethodResolveError),
-    #[doc = "A trap happened during execution of a binary\n\n Note: this is only to deserialize old data, use execution error for new data"]
+    #[doc = "A trap happened during execution of a binary\n\nNote: this is only to deserialize old data, use execution error for new data"]
     WasmTrap(WasmTrap),
     #[doc = "Note: this is only to deserialize old data, use execution error for new data"]
     HostError(HostError),
@@ -6356,13 +7743,13 @@ impl ::std::convert::From<HostError> for FunctionCallError {
         Self::HostError(value)
     }
 }
-#[doc = "Grants limited permission to make transactions with FunctionCallActions\n The permission can limit the allowed balance to be spent on the prepaid gas.\n It also restrict the account ID of the receiver for this function call.\n It also can restrict the method name for the allowed function calls."]
+#[doc = "Grants limited permission to make transactions with FunctionCallActions\nThe permission can limit the allowed balance to be spent on the prepaid gas.\nIt also restrict the account ID of the receiver for this function call.\nIt also can restrict the method name for the allowed function calls."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Grants limited permission to make transactions with FunctionCallActions\\n The permission can limit the allowed balance to be spent on the prepaid gas.\\n It also restrict the account ID of the receiver for this function call.\\n It also can restrict the method name for the allowed function calls.\","]
+#[doc = "  \"description\": \"Grants limited permission to make transactions with FunctionCallActions\\nThe permission can limit the allowed balance to be spent on the prepaid gas.\\nIt also restrict the account ID of the receiver for this function call.\\nIt also can restrict the method name for the allowed function calls.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"method_names\","]
@@ -6370,14 +7757,14 @@ impl ::std::convert::From<HostError> for FunctionCallError {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"allowance\": {"]
-#[doc = "      \"description\": \"Allowance is a balance limit to use by this access key to pay for function call gas and\\n transaction fees. When this access key is used, both account balance and the allowance is\\n decreased by the same value.\\n `None` means unlimited allowance.\\n NOTE: To change or increase the allowance, the old access key needs to be deleted and a new\\n access key should be created.\","]
+#[doc = "      \"description\": \"Allowance is a balance limit to use by this access key to pay for function call gas and\\ntransaction fees. When this access key is used, both account balance and the allowance is\\ndecreased by the same value.\\n`None` means unlimited allowance.\\nNOTE: To change or increase the allowance, the old access key needs to be deleted and a new\\naccess key should be created.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"string\","]
 #[doc = "        \"null\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"method_names\": {"]
-#[doc = "      \"description\": \"A list of method names that can be used. The access key only allows transactions with the\\n function call of one of the given method names.\\n Empty list means any method name can be used.\","]
+#[doc = "      \"description\": \"A list of method names that can be used. The access key only allows transactions with the\\nfunction call of one of the given method names.\\nEmpty list means any method name can be used.\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"string\""]
@@ -6393,16 +7780,57 @@ impl ::std::convert::From<HostError> for FunctionCallError {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct FunctionCallPermission {
-    #[doc = "Allowance is a balance limit to use by this access key to pay for function call gas and\n transaction fees. When this access key is used, both account balance and the allowance is\n decreased by the same value.\n `None` means unlimited allowance.\n NOTE: To change or increase the allowance, the old access key needs to be deleted and a new\n access key should be created."]
+    #[doc = "Allowance is a balance limit to use by this access key to pay for function call gas and\ntransaction fees. When this access key is used, both account balance and the allowance is\ndecreased by the same value.\n`None` means unlimited allowance.\nNOTE: To change or increase the allowance, the old access key needs to be deleted and a new\naccess key should be created."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub allowance: ::std::option::Option<::std::string::String>,
-    #[doc = "A list of method names that can be used. The access key only allows transactions with the\n function call of one of the given method names.\n Empty list means any method name can be used."]
+    #[doc = "A list of method names that can be used. The access key only allows transactions with the\nfunction call of one of the given method names.\nEmpty list means any method name can be used."]
     pub method_names: ::std::vec::Vec<::std::string::String>,
     #[doc = "The access key only allows transactions with the given receiver's account id."]
     pub receiver_id: ::std::string::String,
 }
 impl ::std::convert::From<&FunctionCallPermission> for FunctionCallPermission {
     fn from(value: &FunctionCallPermission) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`GasKeyView`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"balance\","]
+#[doc = "    \"num_nonces\","]
+#[doc = "    \"permission\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"balance\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint128\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"num_nonces\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"permission\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccessKeyPermissionView\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct GasKeyView {
+    pub balance: u64,
+    pub num_nonces: u32,
+    pub permission: AccessKeyPermissionView,
+}
+impl ::std::convert::From<&GasKeyView> for GasKeyView {
+    fn from(value: &GasKeyView) -> Self {
         value.clone()
     }
 }
@@ -6416,14 +7844,14 @@ impl ::std::convert::From<&FunctionCallPermission> for FunctionCallPermission {
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"gc_blocks_limit\": {"]
-#[doc = "      \"description\": \"Maximum number of blocks to garbage collect at every garbage collection\\n call.\","]
+#[doc = "      \"description\": \"Maximum number of blocks to garbage collect at every garbage collection\\ncall.\","]
 #[doc = "      \"default\": 2,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"gc_fork_clean_step\": {"]
-#[doc = "      \"description\": \"Maximum number of height to go through at each garbage collection step\\n when cleaning forks during garbage collection.\","]
+#[doc = "      \"description\": \"Maximum number of height to go through at each garbage collection step\\nwhen cleaning forks during garbage collection.\","]
 #[doc = "      \"default\": 100,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
@@ -6439,8 +7867,8 @@ impl ::std::convert::From<&FunctionCallPermission> for FunctionCallPermission {
 #[doc = "    \"gc_step_period\": {"]
 #[doc = "      \"description\": \"How often gc should be run\","]
 #[doc = "      \"default\": {"]
-#[doc = "        \"nanos\": 0,"]
-#[doc = "        \"secs\": 1"]
+#[doc = "        \"nanos\": 500000000,"]
+#[doc = "        \"secs\": 0"]
 #[doc = "      },"]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
@@ -6454,10 +7882,10 @@ impl ::std::convert::From<&FunctionCallPermission> for FunctionCallPermission {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct GcConfig {
-    #[doc = "Maximum number of blocks to garbage collect at every garbage collection\n call."]
+    #[doc = "Maximum number of blocks to garbage collect at every garbage collection\ncall."]
     #[serde(default = "defaults::default_u64::<u64, 2>")]
     pub gc_blocks_limit: u64,
-    #[doc = "Maximum number of height to go through at each garbage collection step\n when cleaning forks during garbage collection."]
+    #[doc = "Maximum number of height to go through at each garbage collection step\nwhen cleaning forks during garbage collection."]
     #[serde(default = "defaults::default_u64::<u64, 100>")]
     pub gc_fork_clean_step: u64,
     #[doc = "Number of epochs for which we keep store data."]
@@ -6528,14 +7956,15 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"description\": \"Threshold for kicking out block producers, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"chain_id\": {"]
-#[doc = "      \"description\": \"ID of the blockchain. This must be unique for every blockchain.\\n If your testnet blockchains do not have unique chain IDs, you will have a bad time.\","]
+#[doc = "      \"description\": \"ID of the blockchain. This must be unique for every blockchain.\\nIf your testnet blockchains do not have unique chain IDs, you will have a bad time.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"chunk_producer_assignment_changes_limit\": {"]
-#[doc = "      \"description\": \"Limits the number of shard changes in chunk producer assignments,\\n if algorithm is able to choose assignment with better balance of\\n number of chunk producers for shards.\","]
+#[doc = "      \"description\": \"Limits the number of shard changes in chunk producer assignments,\\nif algorithm is able to choose assignment with better balance of\\nnumber of chunk producers for shards.\","]
 #[doc = "      \"default\": 5,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
@@ -6545,6 +7974,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"description\": \"Threshold for kicking out chunk producers, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"chunk_validator_only_kickout_threshold\": {"]
@@ -6552,6 +7982,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"default\": 80,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"dynamic_resharding\": {"]
@@ -6613,6 +8044,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"default\": 100,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"min_gas_price\": {"]
@@ -6627,7 +8059,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"minimum_stake_ratio\": {"]
-#[doc = "      \"description\": \"The lowest ratio s/s_total any block producer can have.\\n See <https://github.com/near/NEPs/pull/167> for details\","]
+#[doc = "      \"description\": \"The lowest ratio s/s_total any block producer can have.\\nSee <https://github.com/near/NEPs/pull/167> for details\","]
 #[doc = "      \"default\": ["]
 #[doc = "        1,"]
 #[doc = "        6250"]
@@ -6654,7 +8086,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_block_producer_seats_per_shard\": {"]
-#[doc = "      \"description\": \"Defines number of shards and number of block producer seats per each shard at genesis.\\n Note: not used with protocol_feature_chunk_only_producers -- replaced by minimum_validators_per_shard\\n Note: not used before as all block producers produce chunks for all shards\","]
+#[doc = "      \"description\": \"Defines number of shards and number of block producer seats per each shard at genesis.\\nNote: not used with protocol_feature_chunk_only_producers -- replaced by minimum_validators_per_shard\\nNote: not used before as all block producers produce chunks for all shards\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
@@ -6676,7 +8108,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_chunk_producer_seats\": {"]
-#[doc = "      \"description\": \"Number of chunk producers.\\n Don't mess it up with chunk-only producers feature which is deprecated.\","]
+#[doc = "      \"description\": \"Number of chunk producers.\\nDon't mess it up with chunk-only producers feature which is deprecated.\","]
 #[doc = "      \"default\": 100,"]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
@@ -6780,7 +8212,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"shuffle_shard_assignment_for_chunk_producers\": {"]
-#[doc = "      \"description\": \"If true, shuffle the chunk producers across shards. In other words, if\\n the shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\\n the set of chunk producers for shard `i`, if this flag were true, the\\n shard assignments might become, for example, `[S_2, S_0, S_3, S_1]`.\","]
+#[doc = "      \"description\": \"If true, shuffle the chunk producers across shards. In other words, if\\nthe shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\\nthe set of chunk producers for shard `i`, if this flag were true, the\\nshard assignments might become, for example, `[S_2, S_0, S_3, S_1]`.\","]
 #[doc = "      \"default\": false,"]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
@@ -6802,7 +8234,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"use_production_config\": {"]
-#[doc = "      \"description\": \"This is only for test purposes. We hard code some configs for mainnet and testnet\\n in AllEpochConfig, and we want to have a way to test that code path. This flag is for that.\\n If set to true, the node will use the same config override path as mainnet and testnet.\","]
+#[doc = "      \"description\": \"This is only for test purposes. We hard code some configs for mainnet and testnet\\nin AllEpochConfig, and we want to have a way to test that code path. This flag is for that.\\nIf set to true, the node will use the same config override path as mainnet and testnet.\","]
 #[doc = "      \"default\": false,"]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
@@ -6823,9 +8255,9 @@ pub struct GenesisConfig {
     pub avg_hidden_validator_seats_per_shard: ::std::vec::Vec<u64>,
     #[doc = "Threshold for kicking out block producers, between 0 and 100."]
     pub block_producer_kickout_threshold: u8,
-    #[doc = "ID of the blockchain. This must be unique for every blockchain.\n If your testnet blockchains do not have unique chain IDs, you will have a bad time."]
+    #[doc = "ID of the blockchain. This must be unique for every blockchain.\nIf your testnet blockchains do not have unique chain IDs, you will have a bad time."]
     pub chain_id: ::std::string::String,
-    #[doc = "Limits the number of shard changes in chunk producer assignments,\n if algorithm is able to choose assignment with better balance of\n number of chunk producers for shards."]
+    #[doc = "Limits the number of shard changes in chunk producer assignments,\nif algorithm is able to choose assignment with better balance of\nnumber of chunk producers for shards."]
     #[serde(default = "defaults::default_u64::<u64, 5>")]
     pub chunk_producer_assignment_changes_limit: u64,
     #[doc = "Threshold for kicking out chunk producers, between 0 and 100."]
@@ -6858,7 +8290,7 @@ pub struct GenesisConfig {
     #[doc = "The minimum stake required for staking is last seat price divided by this number."]
     #[serde(default = "defaults::default_u64::<u64, 10>")]
     pub minimum_stake_divisor: u64,
-    #[doc = "The lowest ratio s/s_total any block producer can have.\n See <https://github.com/near/NEPs/pull/167> for details"]
+    #[doc = "The lowest ratio s/s_total any block producer can have.\nSee <https://github.com/near/NEPs/pull/167> for details"]
     #[serde(default = "defaults::genesis_config_minimum_stake_ratio")]
     pub minimum_stake_ratio: [i32; 2usize],
     #[doc = "The minimum number of validators each shard must have"]
@@ -6866,14 +8298,14 @@ pub struct GenesisConfig {
     pub minimum_validators_per_shard: u64,
     #[doc = "Number of block producer seats at genesis."]
     pub num_block_producer_seats: u64,
-    #[doc = "Defines number of shards and number of block producer seats per each shard at genesis.\n Note: not used with protocol_feature_chunk_only_producers -- replaced by minimum_validators_per_shard\n Note: not used before as all block producers produce chunks for all shards"]
+    #[doc = "Defines number of shards and number of block producer seats per each shard at genesis.\nNote: not used with protocol_feature_chunk_only_producers -- replaced by minimum_validators_per_shard\nNote: not used before as all block producers produce chunks for all shards"]
     pub num_block_producer_seats_per_shard: ::std::vec::Vec<u64>,
     #[doc = "Expected number of blocks per year"]
     pub num_blocks_per_year: u64,
     #[doc = "Deprecated."]
     #[serde(default = "defaults::default_u64::<u64, 300>")]
     pub num_chunk_only_producer_seats: u64,
-    #[doc = "Number of chunk producers.\n Don't mess it up with chunk-only producers feature which is deprecated."]
+    #[doc = "Number of chunk producers.\nDon't mess it up with chunk-only producers feature which is deprecated."]
     #[serde(default = "defaults::default_u64::<u64, 100>")]
     pub num_chunk_producer_seats: u64,
     #[serde(default = "defaults::default_u64::<u64, 300>")]
@@ -6896,7 +8328,7 @@ pub struct GenesisConfig {
     #[doc = "Layout information regarding how to split accounts to shards"]
     #[serde(default = "defaults::genesis_config_shard_layout")]
     pub shard_layout: ShardLayout,
-    #[doc = "If true, shuffle the chunk producers across shards. In other words, if\n the shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\n the set of chunk producers for shard `i`, if this flag were true, the\n shard assignments might become, for example, `[S_2, S_0, S_3, S_1]`."]
+    #[doc = "If true, shuffle the chunk producers across shards. In other words, if\nthe shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\nthe set of chunk producers for shard `i`, if this flag were true, the\nshard assignments might become, for example, `[S_2, S_0, S_3, S_1]`."]
     #[serde(default)]
     pub shuffle_shard_assignment_for_chunk_producers: bool,
     #[doc = "Number of target chunk validator mandates for each shard."]
@@ -6906,7 +8338,7 @@ pub struct GenesisConfig {
     pub total_supply: ::std::string::String,
     #[doc = "Number of blocks for which a given transaction is valid"]
     pub transaction_validity_period: u64,
-    #[doc = "This is only for test purposes. We hard code some configs for mainnet and testnet\n in AllEpochConfig, and we want to have a way to test that code path. This flag is for that.\n If set to true, the node will use the same config override path as mainnet and testnet."]
+    #[doc = "This is only for test purposes. We hard code some configs for mainnet and testnet\nin AllEpochConfig, and we want to have a way to test that code path. This flag is for that.\nIf set to true, the node will use the same config override path as mainnet and testnet."]
     #[serde(default)]
     pub use_production_config: bool,
     #[doc = "List of initial validators."]
@@ -6924,22 +8356,20 @@ impl ::std::convert::From<&GenesisConfig> for GenesisConfig {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"GenesisConfigRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct GenesisConfigRequest(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct GenesisConfigRequest(pub ());
 impl ::std::ops::Deref for GenesisConfigRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<GenesisConfigRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<GenesisConfigRequest> for () {
     fn from(value: GenesisConfigRequest) -> Self {
         value.0
     }
@@ -6949,10 +8379,8 @@ impl ::std::convert::From<&GenesisConfigRequest> for GenesisConfigRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for GenesisConfigRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for GenesisConfigRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -6964,14 +8392,14 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "{"]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Contract is deployed under its code hash.\\n Users will be able reference it by that hash.\\n This effectively makes the contract immutable.\","]
+#[doc = "      \"description\": \"Contract is deployed under its code hash.\\nUsers will be able reference it by that hash.\\nThis effectively makes the contract immutable.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"CodeHash\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Contract is deployed under the owner account id.\\n Users will be able reference it by that account id.\\n This allows the owner to update the contract for all its users.\","]
+#[doc = "      \"description\": \"Contract is deployed under the owner account id.\\nUsers will be able reference it by that account id.\\nThis allows the owner to update the contract for all its users.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"AccountId\""]
@@ -6994,9 +8422,9 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
     PartialOrd,
 )]
 pub enum GlobalContractDeployMode {
-    #[doc = "Contract is deployed under its code hash.\n Users will be able reference it by that hash.\n This effectively makes the contract immutable."]
+    #[doc = "Contract is deployed under its code hash.\nUsers will be able reference it by that hash.\nThis effectively makes the contract immutable."]
     CodeHash,
-    #[doc = "Contract is deployed under the owner account id.\n Users will be able reference it by that account id.\n This allows the owner to update the contract for all its users."]
+    #[doc = "Contract is deployed under the owner account id.\nUsers will be able reference it by that account id.\nThis allows the owner to update the contract for all its users."]
     AccountId,
 }
 impl ::std::convert::From<&Self> for GlobalContractDeployMode {
@@ -7646,7 +9074,7 @@ impl ::std::convert::From<AccountId> for GlobalContractIdentifier {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Invalid input to alt_bn128 family of functions (e.g., point which isn't\\n on the curve).\","]
+#[doc = "      \"description\": \"Invalid input to alt_bn128 family of functions (e.g., point which isn't\\non the curve).\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"AltBn128InvalidInput\""]
@@ -7667,7 +9095,7 @@ impl ::std::convert::From<AccountId> for GlobalContractIdentifier {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Invalid input to ed25519 signature verification function (e.g. signature cannot be\\n derived from bytes).\","]
+#[doc = "      \"description\": \"Invalid input to ed25519 signature verification function (e.g. signature cannot be\\nderived from bytes).\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"Ed25519VerifyInvalidInput\""]
@@ -7761,9 +9189,9 @@ pub enum HostError {
     #[doc = "General errors for ECDSA recover."]
     #[serde(rename = "ECRecoverError")]
     EcRecoverError { msg: ::std::string::String },
-    #[doc = "Invalid input to alt_bn128 family of functions (e.g., point which isn't\n on the curve)."]
+    #[doc = "Invalid input to alt_bn128 family of functions (e.g., point which isn't\non the curve)."]
     AltBn128InvalidInput { msg: ::std::string::String },
-    #[doc = "Invalid input to ed25519 signature verification function (e.g. signature cannot be\n derived from bytes)."]
+    #[doc = "Invalid input to ed25519 signature verification function (e.g. signature cannot be\nderived from bytes)."]
     Ed25519VerifyInvalidInput { msg: ::std::string::String },
 }
 impl ::std::convert::From<&Self> for HostError {
@@ -8223,7 +9651,7 @@ impl ::std::convert::From<&Self> for InvalidAccessKeyError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"The receiver shard of the transaction is too congested to accept new\\n transactions at the moment.\","]
+#[doc = "      \"description\": \"The receiver shard of the transaction is too congested to accept new\\ntransactions at the moment.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ShardCongested\""]
@@ -8253,7 +9681,7 @@ impl ::std::convert::From<&Self> for InvalidAccessKeyError {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"The receiver shard of the transaction missed several chunks and rejects\\n new transaction until it can make progress again.\","]
+#[doc = "      \"description\": \"The receiver shard of the transaction missed several chunks and rejects\\nnew transaction until it can make progress again.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ShardStuck\""]
@@ -8344,13 +9772,13 @@ pub enum InvalidTxError {
     #[doc = "Transaction version is invalid."]
     InvalidTransactionVersion,
     StorageError(StorageError),
-    #[doc = "The receiver shard of the transaction is too congested to accept new\n transactions at the moment."]
+    #[doc = "The receiver shard of the transaction is too congested to accept new\ntransactions at the moment."]
     ShardCongested {
         congestion_level: f64,
         #[doc = "The congested shard."]
         shard_id: u32,
     },
-    #[doc = "The receiver shard of the transaction missed several chunks and rejects\n new transaction until it can make progress again."]
+    #[doc = "The receiver shard of the transaction missed several chunks and rejects\nnew transaction until it can make progress again."]
     ShardStuck {
         #[doc = "The number of blocks since the last included chunk of the shard."]
         missed_chunks: u64,
@@ -8729,6 +10157,124 @@ impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForBroadc
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForBroadcastTxCommitMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForChanges`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_changes\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"changes\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcStateChangesInBlockByTypeRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForChanges {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForChangesMethod,
+    pub params: RpcStateChangesInBlockByTypeRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForChanges> for JsonRpcRequestForChanges {
+    fn from(value: &JsonRpcRequestForChanges) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForChangesMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForChangesMethod {
+    #[serde(rename = "changes")]
+    Changes,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForChangesMethod {
+    fn from(value: &JsonRpcRequestForChangesMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForChangesMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Changes => write!(f, "changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForChangesMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "changes" => Ok(Self::Changes),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForChangesMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForChangesMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForChangesMethod {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -11934,16 +13480,12 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForGenesisConfigAndRpcError 
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"result\": {"]
-#[doc = "          \"oneOf\": ["]
+#[doc = "          \"anyOf\": ["]
 #[doc = "            {"]
-#[doc = "              \"type\": \"null\""]
+#[doc = "              \"$ref\": \"#/components/schemas/RpcHealthResponse\""]
 #[doc = "            },"]
 #[doc = "            {"]
-#[doc = "              \"allOf\": ["]
-#[doc = "                {"]
-#[doc = "                  \"$ref\": \"#/components/schemas/RpcHealthResponse\""]
-#[doc = "                }"]
-#[doc = "              ]"]
+#[doc = "              \"type\": \"null\""]
 #[doc = "            }"]
 #[doc = "          ]"]
 #[doc = "        }"]
@@ -13187,13 +14729,13 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcValidatorResponseAndRp
         value.clone()
     }
 }
-#[doc = "Information about a Producer: its account name, peer_id and a list of connected peers that\n the node can use to send message for this producer."]
+#[doc = "Information about a Producer: its account name, peer_id and a list of connected peers that\nthe node can use to send message for this producer."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Information about a Producer: its account name, peer_id and a list of connected peers that\\n the node can use to send message for this producer.\","]
+#[doc = "  \"description\": \"Information about a Producer: its account name, peer_id and a list of connected peers that\\nthe node can use to send message for this producer.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_id\","]
@@ -13268,13 +14810,13 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
         value.clone()
     }
 }
-#[doc = "Describes limits for VM and Runtime.\n TODO #4139: consider switching to strongly-typed wrappers instead of raw quantities"]
+#[doc = "Describes limits for VM and Runtime.\nTODO #4139: consider switching to strongly-typed wrappers instead of raw quantities"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Describes limits for VM and Runtime.\\n TODO #4139: consider switching to strongly-typed wrappers instead of raw quantities\","]
+#[doc = "  \"description\": \"Describes limits for VM and Runtime.\\nTODO #4139: consider switching to strongly-typed wrappers instead of raw quantities\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"initial_memory_pages\","]
@@ -13305,7 +14847,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_id_validity_rules_version\": {"]
-#[doc = "      \"description\": \"Whether to enforce account_id well-formed-ness where it wasn't enforced\\n historically.\","]
+#[doc = "      \"description\": \"Whether to enforce account_id well-formed-ness where it wasn't enforced\\nhistorically.\","]
 #[doc = "      \"default\": 0,"]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
@@ -13314,7 +14856,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"initial_memory_pages\": {"]
-#[doc = "      \"description\": \"The initial number of memory pages.\\n NOTE: It's not a limiter itself, but it's a value we use for initial_memory_pages.\","]
+#[doc = "      \"description\": \"The initial number of memory pages.\\nNOTE: It's not a limiter itself, but it's a value we use for initial_memory_pages.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint32\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -13392,7 +14934,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_number_bytes_method_names\": {"]
-#[doc = "      \"description\": \"Max total length of all method names (including terminating character) for a function call\\n permission access key.\","]
+#[doc = "      \"description\": \"Max total length of all method names (including terminating character) for a function call\\npermission access key.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -13410,7 +14952,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_number_registers\": {"]
-#[doc = "      \"description\": \"Maximum number of registers that can be used simultaneously.\\n\\n Note that due to an implementation quirk [read: a bug] in VMLogic, if we\\n have this number of registers, no subsequent writes to the registers\\n will succeed even if they replace an existing register.\","]
+#[doc = "      \"description\": \"Maximum number of registers that can be used simultaneously.\\n\\nNote that due to an implementation quirk [read: a bug] in VMLogic, if we\\nhave this number of registers, no subsequent writes to the registers\\nwill succeed even if they replace an existing register.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -13434,7 +14976,7 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"max_stack_height\": {"]
-#[doc = "      \"description\": \"How tall the stack is allowed to grow?\\n\\n See <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\\n is calculated.\","]
+#[doc = "      \"description\": \"How tall the stack is allowed to grow?\\n\\nSee <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\\nis calculated.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint32\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -13487,10 +15029,10 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct LimitConfig {
-    #[doc = "Whether to enforce account_id well-formed-ness where it wasn't enforced\n historically."]
+    #[doc = "Whether to enforce account_id well-formed-ness where it wasn't enforced\nhistorically."]
     #[serde(default = "defaults::limit_config_account_id_validity_rules_version")]
     pub account_id_validity_rules_version: AccountIdValidityRulesVersion,
-    #[doc = "The initial number of memory pages.\n NOTE: It's not a limiter itself, but it's a value we use for initial_memory_pages."]
+    #[doc = "The initial number of memory pages.\nNOTE: It's not a limiter itself, but it's a value we use for initial_memory_pages."]
     pub initial_memory_pages: u32,
     #[doc = "Max number of actions per receipt."]
     pub max_actions_per_receipt: u64,
@@ -13516,13 +15058,13 @@ pub struct LimitConfig {
     pub max_locals_per_contract: ::std::option::Option<u64>,
     #[doc = "What is the maximal memory pages amount is allowed to have for a contract."]
     pub max_memory_pages: u32,
-    #[doc = "Max total length of all method names (including terminating character) for a function call\n permission access key."]
+    #[doc = "Max total length of all method names (including terminating character) for a function call\npermission access key."]
     pub max_number_bytes_method_names: u64,
     #[doc = "Max number of input data dependencies"]
     pub max_number_input_data_dependencies: u64,
     #[doc = "Maximum number of log entries."]
     pub max_number_logs: u64,
-    #[doc = "Maximum number of registers that can be used simultaneously.\n\n Note that due to an implementation quirk [read: a bug] in VMLogic, if we\n have this number of registers, no subsequent writes to the registers\n will succeed even if they replace an existing register."]
+    #[doc = "Maximum number of registers that can be used simultaneously.\n\nNote that due to an implementation quirk [read: a bug] in VMLogic, if we\nhave this number of registers, no subsequent writes to the registers\nwill succeed even if they replace an existing register."]
     pub max_number_registers: u64,
     #[doc = "Max number of promises that a function call can create"]
     pub max_promises_per_function_call_action: u64,
@@ -13530,7 +15072,7 @@ pub struct LimitConfig {
     pub max_receipt_size: u64,
     #[doc = "Maximum number of bytes that can be stored in a single register."]
     pub max_register_size: u64,
-    #[doc = "How tall the stack is allowed to grow?\n\n See <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\n is calculated."]
+    #[doc = "How tall the stack is allowed to grow?\n\nSee <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\nis calculated."]
     pub max_stack_height: u32,
     #[doc = "Maximum total length in bytes of all log messages."]
     pub max_total_log_length: u64,
@@ -13938,88 +15480,6 @@ impl ::std::fmt::Display for MutableConfigValue {
         self.0.fmt(f)
     }
 }
-#[doc = "`NameRpcErrorKind`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"REQUEST_VALIDATION_ERROR\","]
-#[doc = "    \"HANDLER_ERROR\","]
-#[doc = "    \"INTERNAL_ERROR\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum NameRpcErrorKind {
-    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
-    RequestValidationError,
-    #[serde(rename = "HANDLER_ERROR")]
-    HandlerError,
-    #[serde(rename = "INTERNAL_ERROR")]
-    InternalError,
-}
-impl ::std::convert::From<&Self> for NameRpcErrorKind {
-    fn from(value: &NameRpcErrorKind) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for NameRpcErrorKind {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::RequestValidationError => write!(f, "REQUEST_VALIDATION_ERROR"),
-            Self::HandlerError => write!(f, "HANDLER_ERROR"),
-            Self::InternalError => write!(f, "INTERNAL_ERROR"),
-        }
-    }
-}
-impl ::std::str::FromStr for NameRpcErrorKind {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "REQUEST_VALIDATION_ERROR" => Ok(Self::RequestValidationError),
-            "HANDLER_ERROR" => Ok(Self::HandlerError),
-            "INTERNAL_ERROR" => Ok(Self::InternalError),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for NameRpcErrorKind {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for NameRpcErrorKind {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for NameRpcErrorKind {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 #[doc = "`NetworkInfoView`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -14141,13 +15601,13 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
         value.clone()
     }
 }
-#[doc = "This is Action which mustn't contain DelegateAction.\n\n This struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\n\n Important: Don't make the inner Action public, this must only be constructed\n through the correct interface that ensures the inner Action is actually not\n a delegate action. That would break an assumption of this type, which we use\n in several places. For example, borsh de-/serialization relies on it. If the\n invariant is broken, we may end up with a `Transaction` or `Receipt` that we\n can serialize but deserializing it back causes a parsing error."]
+#[doc = "This is Action which mustn't contain DelegateAction.\n\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\n\nImportant: Don't make the inner Action public, this must only be constructed\nthrough the correct interface that ensures the inner Action is actually not\na delegate action. That would break an assumption of this type, which we use\nin several places. For example, borsh de-/serialization relies on it. If the\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\ncan serialize but deserializing it back causes a parsing error."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"This is Action which mustn't contain DelegateAction.\\n\\n This struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\\n\\n Important: Don't make the inner Action public, this must only be constructed\\n through the correct interface that ensures the inner Action is actually not\\n a delegate action. That would break an assumption of this type, which we use\\n in several places. For example, borsh de-/serialization relies on it. If the\\n invariant is broken, we may end up with a `Transaction` or `Receipt` that we\\n can serialize but deserializing it back causes a parsing error.\","]
+#[doc = "  \"description\": \"This is Action which mustn't contain DelegateAction.\\n\\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\\n\\nImportant: Don't make the inner Action public, this must only be constructed\\nthrough the correct interface that ensures the inner Action is actually not\\na delegate action. That would break an assumption of this type, which we use\\nin several places. For example, borsh de-/serialization relies on it. If the\\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\\ncan serialize but deserializing it back causes a parsing error.\","]
 #[doc = "  \"allOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"$ref\": \"#/components/schemas/Action\""]
@@ -14271,16 +15731,12 @@ impl ::std::fmt::Display for PeerId {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -14291,16 +15747,12 @@ impl ::std::fmt::Display for PeerId {
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"block_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -14419,21 +15871,21 @@ impl ::std::convert::From<&PeerInfoView> for PeerInfoView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Gas instrumentation failed.\\n\\n This most likely indicates the module isn't valid.\","]
+#[doc = "      \"description\": \"Gas instrumentation failed.\\n\\nThis most likely indicates the module isn't valid.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"GasInstrumentation\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Stack instrumentation failed.\\n\\n This  most likely indicates the module isn't valid.\","]
+#[doc = "      \"description\": \"Stack instrumentation failed.\\n\\nThis  most likely indicates the module isn't valid.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"StackHeightInstrumentation\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Error happened during instantiation.\\n\\n This might indicate that `start` function trapped, or module isn't\\n instantiable and/or un-linkable.\","]
+#[doc = "      \"description\": \"Error happened during instantiation.\\n\\nThis might indicate that `start` function trapped, or module isn't\\ninstantiable and/or un-linkable.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"Instantiate\""]
@@ -14483,11 +15935,11 @@ pub enum PrepareError {
     Deserialization,
     #[doc = "Internal memory declaration has been found in the module."]
     InternalMemoryDeclared,
-    #[doc = "Gas instrumentation failed.\n\n This most likely indicates the module isn't valid."]
+    #[doc = "Gas instrumentation failed.\n\nThis most likely indicates the module isn't valid."]
     GasInstrumentation,
-    #[doc = "Stack instrumentation failed.\n\n This  most likely indicates the module isn't valid."]
+    #[doc = "Stack instrumentation failed.\n\nThis  most likely indicates the module isn't valid."]
     StackHeightInstrumentation,
-    #[doc = "Error happened during instantiation.\n\n This might indicate that `start` function trapped, or module isn't\n instantiable and/or un-linkable."]
+    #[doc = "Error happened during instantiation.\n\nThis might indicate that `start` function trapped, or module isn't\ninstantiable and/or un-linkable."]
     Instantiate,
     #[doc = "Error creating memory."]
     Memory,
@@ -15173,7 +16625,12 @@ impl ::std::convert::From<SyncCheckpoint> for RpcBlockRequest {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"author\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "      \"description\": \"The AccountId of the author of the Block\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"chunks\": {"]
 #[doc = "      \"type\": \"array\","]
@@ -15190,6 +16647,7 @@ impl ::std::convert::From<SyncCheckpoint> for RpcBlockRequest {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct RpcBlockResponse {
+    #[doc = "The AccountId of the author of the Block"]
     pub author: AccountId,
     pub chunks: ::std::vec::Vec<ChunkHeaderView>,
     pub header: BlockHeaderView,
@@ -15209,6 +16667,7 @@ impl ::std::convert::From<&RpcBlockResponse> for RpcBlockResponse {
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"anyOf\": ["]
 #[doc = "    {"]
+#[doc = "      \"title\": \"block_shard_id\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"block_id\","]
@@ -15224,6 +16683,7 @@ impl ::std::convert::From<&RpcBlockResponse> for RpcBlockResponse {
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"chunk_hash\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"chunk_id\""]
@@ -15241,11 +16701,11 @@ impl ::std::convert::From<&RpcBlockResponse> for RpcBlockResponse {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum RpcChunkRequest {
-    Variant0 {
+    BlockShardId {
         block_id: BlockId,
         shard_id: ShardId,
     },
-    Variant1 {
+    ChunkHash {
         chunk_id: CryptoHash,
     },
 }
@@ -15309,24 +16769,20 @@ impl ::std::convert::From<&RpcChunkResponse> for RpcChunkResponse {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcClientConfigRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcClientConfigRequest(
-    pub ::serde_json::Map<::std::string::String, ::serde_json::Value>,
-);
+pub struct RpcClientConfigRequest(pub ());
 impl ::std::ops::Deref for RpcClientConfigRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcClientConfigRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcClientConfigRequest> for () {
     fn from(value: RpcClientConfigRequest) -> Self {
         value.0
     }
@@ -15336,10 +16792,8 @@ impl ::std::convert::From<&RpcClientConfigRequest> for RpcClientConfigRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcClientConfigRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcClientConfigRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -15384,8 +16838,10 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "    \"produce_chunk_add_transactions_time_limit\","]
 #[doc = "    \"produce_empty_blocks\","]
 #[doc = "    \"resharding_config\","]
+#[doc = "    \"save_invalid_witnesses\","]
 #[doc = "    \"save_latest_witnesses\","]
 #[doc = "    \"save_trie_changes\","]
+#[doc = "    \"save_tx_outcomes\","]
 #[doc = "    \"skip_sync_wait\","]
 #[doc = "    \"state_sync\","]
 #[doc = "    \"state_sync_enabled\","]
@@ -15449,17 +16905,13 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"chunk_distribution_network\": {"]
-#[doc = "      \"description\": \"Optional config for the Chunk Distribution Network feature.\\n If set to `None` then this node does not participate in the Chunk Distribution Network.\\n Nodes not participating will still function fine, but possibly with higher\\n latency due to the need of requesting chunks over the peer-to-peer network.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"description\": \"Optional config for the Chunk Distribution Network feature.\\nIf set to `None` then this node does not participate in the Chunk Distribution Network.\\nNodes not participating will still function fine, but possibly with higher\\nlatency due to the need of requesting chunks over the peer-to-peer network.\","]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ChunkDistributionNetworkConfig\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/ChunkDistributionNetworkConfig\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -15619,7 +17071,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"minItems\": 2"]
 #[doc = "    },"]
 #[doc = "    \"max_gas_burnt_view\": {"]
-#[doc = "      \"description\": \"Max burnt gas per view method.  If present, overrides value stored in\\n genesis file.  The value only affects the RPCs without influencing the\\n protocol thus changing it per-node doesn’t affect the blockchain.\","]
+#[doc = "      \"description\": \"Max burnt gas per view method.  If present, overrides value stored in\\ngenesis file.  The value only affects the RPCs without influencing the\\nprotocol thus changing it per-node doesn’t affect the blockchain.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"integer\","]
 #[doc = "        \"null\""]
@@ -15651,19 +17103,19 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"orphan_state_witness_max_size\": {"]
-#[doc = "      \"description\": \"Maximum size of state witnesses in the OrphanStateWitnessPool.\\n\\n We keep only orphan witnesses which are smaller than this size.\\n This limits the maximum memory usage of OrphanStateWitnessPool.\","]
+#[doc = "      \"description\": \"Maximum size of state witnesses in the OrphanStateWitnessPool.\\n\\nWe keep only orphan witnesses which are smaller than this size.\\nThis limits the maximum memory usage of OrphanStateWitnessPool.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"orphan_state_witness_pool_size\": {"]
-#[doc = "      \"description\": \"OrphanStateWitnessPool keeps instances of ChunkStateWitness which can't be processed\\n because the previous block isn't available. The witnesses wait in the pool until the\\n required block appears. This variable controls how many witnesses can be stored in the pool.\","]
+#[doc = "      \"description\": \"OrphanStateWitnessPool keeps instances of ChunkStateWitness which can't be processed\\nbecause the previous block isn't available. The witnesses wait in the pool until the\\nrequired block appears. This variable controls how many witnesses can be stored in the pool.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"produce_chunk_add_transactions_time_limit\": {"]
-#[doc = "      \"description\": \"Limit the time of adding transactions to a chunk.\\n A node produces a chunk by adding transactions from the transaction pool until\\n some limit is reached. This time limit ensures that adding transactions won't take\\n longer than the specified duration, which helps to produce the chunk quickly.\","]
+#[doc = "      \"description\": \"Limit the time of adding transactions to a chunk.\\nA node produces a chunk by adding transactions from the transaction pool until\\nsome limit is reached. This time limit ensures that adding transactions won't take\\nlonger than the specified duration, which helps to produce the chunk quickly.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"produce_empty_blocks\": {"]
@@ -15680,12 +17132,20 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "        \"null\""]
 #[doc = "      ]"]
 #[doc = "    },"]
+#[doc = "    \"save_invalid_witnesses\": {"]
+#[doc = "      \"description\": \"Save observed instances of invalid ChunkStateWitness to the database in DBCol::InvalidChunkStateWitnesses.\\nSaving invalid witnesses is useful for analysis and debugging.\\nThis option can cause extra load on the database and is not recommended for production use.\","]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
 #[doc = "    \"save_latest_witnesses\": {"]
-#[doc = "      \"description\": \"Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\\n Saving the latest witnesses is useful for analysis and debugging.\\n When this option is enabled, the node will save ALL witnesses it observes, even invalid ones,\\n which can cause extra load on the database. This option is not recommended for production use,\\n as a large number of incoming witnesses could cause denial of service.\","]
+#[doc = "      \"description\": \"Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\\nSaving the latest witnesses is useful for analysis and debugging.\\nThis option can cause extra load on the database and is not recommended for production use.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"save_trie_changes\": {"]
-#[doc = "      \"description\": \"save_trie_changes should be set to true iff\\n - archive if false - non-archival nodes need trie changes to perform garbage collection\\n - archive is true, cold_store is configured and migration to split_storage is finished - node\\n working in split storage mode needs trie changes in order to do garbage collection on hot.\","]
+#[doc = "      \"description\": \"save_trie_changes should be set to true iff\\n- archive if false - non-archival nodes need trie changes to perform garbage collection\\n- archive is true, cold_store is configured and migration to split_storage is finished - node\\nworking in split storage mode needs trie changes in order to do garbage collection on hot.\","]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
+#[doc = "    \"save_tx_outcomes\": {"]
+#[doc = "      \"description\": \"Whether to persist transaction outcomes to disk or not.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"skip_sync_wait\": {"]
@@ -15701,7 +17161,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"state_sync_enabled\": {"]
-#[doc = "      \"description\": \"Whether to use the State Sync mechanism.\\n If disabled, the node will do Block Sync instead of State Sync.\","]
+#[doc = "      \"description\": \"Whether to use the State Sync mechanism.\\nIf disabled, the node will do Block Sync instead of State Sync.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"state_sync_external_backoff\": {"]
@@ -15786,7 +17246,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"$ref\": \"#/components/schemas/TrackedShardsConfig\""]
 #[doc = "    },"]
 #[doc = "    \"transaction_pool_size_limit\": {"]
-#[doc = "      \"description\": \"Limit of the size of per-shard transaction pool measured in bytes. If not set, the size\\n will be unbounded.\","]
+#[doc = "      \"description\": \"Limit of the size of per-shard transaction pool measured in bytes. If not set, the size\\nwill be unbounded.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"integer\","]
 #[doc = "        \"null\""]
@@ -15820,7 +17280,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"minItems\": 2"]
 #[doc = "    },"]
 #[doc = "    \"tx_routing_height_horizon\": {"]
-#[doc = "      \"description\": \"If the node is not a chunk producer within that many blocks, then route\\n to upcoming chunk producers.\","]
+#[doc = "      \"description\": \"If the node is not a chunk producer within that many blocks, then route\\nto upcoming chunk producers.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
@@ -15868,7 +17328,7 @@ pub struct RpcClientConfigResponse {
     pub catchup_step_period: [u64; 2usize],
     #[doc = "Chain id for status."]
     pub chain_id: ::std::string::String,
-    #[doc = "Optional config for the Chunk Distribution Network feature.\n If set to `None` then this node does not participate in the Chunk Distribution Network.\n Nodes not participating will still function fine, but possibly with higher\n latency due to the need of requesting chunks over the peer-to-peer network."]
+    #[doc = "Optional config for the Chunk Distribution Network feature.\nIf set to `None` then this node does not participate in the Chunk Distribution Network.\nNodes not participating will still function fine, but possibly with higher\nlatency due to the need of requesting chunks over the peer-to-peer network."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub chunk_distribution_network: ::std::option::Option<ChunkDistributionNetworkConfig>,
     #[doc = "Time between checking to re-request chunks."]
@@ -15906,7 +17366,7 @@ pub struct RpcClientConfigResponse {
     pub max_block_production_delay: [u64; 2usize],
     #[doc = "Maximum duration before skipping given height."]
     pub max_block_wait_delay: [u64; 2usize],
-    #[doc = "Max burnt gas per view method.  If present, overrides value stored in\n genesis file.  The value only affects the RPCs without influencing the\n protocol thus changing it per-node doesn’t affect the blockchain."]
+    #[doc = "Max burnt gas per view method.  If present, overrides value stored in\ngenesis file.  The value only affects the RPCs without influencing the\nprotocol thus changing it per-node doesn’t affect the blockchain."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub max_gas_burnt_view: ::std::option::Option<u64>,
     #[doc = "Minimum duration before producing block."]
@@ -15915,11 +17375,11 @@ pub struct RpcClientConfigResponse {
     pub min_num_peers: u32,
     #[doc = "Number of block producer seats"]
     pub num_block_producer_seats: u64,
-    #[doc = "Maximum size of state witnesses in the OrphanStateWitnessPool.\n\n We keep only orphan witnesses which are smaller than this size.\n This limits the maximum memory usage of OrphanStateWitnessPool."]
+    #[doc = "Maximum size of state witnesses in the OrphanStateWitnessPool.\n\nWe keep only orphan witnesses which are smaller than this size.\nThis limits the maximum memory usage of OrphanStateWitnessPool."]
     pub orphan_state_witness_max_size: u64,
-    #[doc = "OrphanStateWitnessPool keeps instances of ChunkStateWitness which can't be processed\n because the previous block isn't available. The witnesses wait in the pool until the\n required block appears. This variable controls how many witnesses can be stored in the pool."]
+    #[doc = "OrphanStateWitnessPool keeps instances of ChunkStateWitness which can't be processed\nbecause the previous block isn't available. The witnesses wait in the pool until the\nrequired block appears. This variable controls how many witnesses can be stored in the pool."]
     pub orphan_state_witness_pool_size: u32,
-    #[doc = "Limit the time of adding transactions to a chunk.\n A node produces a chunk by adding transactions from the transaction pool until\n some limit is reached. This time limit ensures that adding transactions won't take\n longer than the specified duration, which helps to produce the chunk quickly."]
+    #[doc = "Limit the time of adding transactions to a chunk.\nA node produces a chunk by adding transactions from the transaction pool until\nsome limit is reached. This time limit ensures that adding transactions won't take\nlonger than the specified duration, which helps to produce the chunk quickly."]
     pub produce_chunk_add_transactions_time_limit: ::std::string::String,
     #[doc = "Produce empty blocks, use `false` for testing."]
     pub produce_empty_blocks: bool,
@@ -15927,15 +17387,19 @@ pub struct RpcClientConfigResponse {
     #[doc = "Listening rpc port for status."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub rpc_addr: ::std::option::Option<::std::string::String>,
-    #[doc = "Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\n Saving the latest witnesses is useful for analysis and debugging.\n When this option is enabled, the node will save ALL witnesses it observes, even invalid ones,\n which can cause extra load on the database. This option is not recommended for production use,\n as a large number of incoming witnesses could cause denial of service."]
+    #[doc = "Save observed instances of invalid ChunkStateWitness to the database in DBCol::InvalidChunkStateWitnesses.\nSaving invalid witnesses is useful for analysis and debugging.\nThis option can cause extra load on the database and is not recommended for production use."]
+    pub save_invalid_witnesses: bool,
+    #[doc = "Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\nSaving the latest witnesses is useful for analysis and debugging.\nThis option can cause extra load on the database and is not recommended for production use."]
     pub save_latest_witnesses: bool,
-    #[doc = "save_trie_changes should be set to true iff\n - archive if false - non-archival nodes need trie changes to perform garbage collection\n - archive is true, cold_store is configured and migration to split_storage is finished - node\n working in split storage mode needs trie changes in order to do garbage collection on hot."]
+    #[doc = "save_trie_changes should be set to true iff\n- archive if false - non-archival nodes need trie changes to perform garbage collection\n- archive is true, cold_store is configured and migration to split_storage is finished - node\nworking in split storage mode needs trie changes in order to do garbage collection on hot."]
     pub save_trie_changes: bool,
+    #[doc = "Whether to persist transaction outcomes to disk or not."]
+    pub save_tx_outcomes: bool,
     #[doc = "Skip waiting for sync (for testing or single node testnet)."]
     pub skip_sync_wait: bool,
     #[doc = "Options for syncing state."]
     pub state_sync: StateSyncConfig,
-    #[doc = "Whether to use the State Sync mechanism.\n If disabled, the node will do Block Sync instead of State Sync."]
+    #[doc = "Whether to use the State Sync mechanism.\nIf disabled, the node will do Block Sync instead of State Sync."]
     pub state_sync_enabled: bool,
     #[doc = "Additional waiting period after a failed request to external storage"]
     pub state_sync_external_backoff: [u64; 2usize],
@@ -15954,7 +17418,7 @@ pub struct RpcClientConfigResponse {
     #[doc = "While syncing, how long to check for each step."]
     pub sync_step_period: [u64; 2usize],
     pub tracked_shards_config: TrackedShardsConfig,
-    #[doc = "Limit of the size of per-shard transaction pool measured in bytes. If not set, the size\n will be unbounded."]
+    #[doc = "Limit of the size of per-shard transaction pool measured in bytes. If not set, the size\nwill be unbounded."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub transaction_pool_size_limit: ::std::option::Option<u64>,
     pub transaction_request_handler_threads: u32,
@@ -15963,7 +17427,7 @@ pub struct RpcClientConfigResponse {
     pub trie_viewer_state_size_limit: ::std::option::Option<u64>,
     #[doc = "Time to persist Accounts Id in the router without removing them."]
     pub ttl_account_id_router: [u64; 2usize],
-    #[doc = "If the node is not a chunk producer within that many blocks, then route\n to upcoming chunk producers."]
+    #[doc = "If the node is not a chunk producer within that many blocks, then route\nto upcoming chunk producers."]
     pub tx_routing_height_horizon: u64,
     #[doc = "Version of the binary."]
     pub version: Version,
@@ -15987,6 +17451,7 @@ impl ::std::convert::From<&RpcClientConfigResponse> for RpcClientConfigResponse 
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"anyOf\": ["]
 #[doc = "    {"]
+#[doc = "      \"title\": \"block_shard_id\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"block_id\","]
@@ -16002,6 +17467,7 @@ impl ::std::convert::From<&RpcClientConfigResponse> for RpcClientConfigResponse 
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"chunk_hash\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"chunk_id\""]
@@ -16019,11 +17485,11 @@ impl ::std::convert::From<&RpcClientConfigResponse> for RpcClientConfigResponse 
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum RpcCongestionLevelRequest {
-    Variant0 {
+    BlockShardId {
         block_id: BlockId,
         shard_id: ShardId,
     },
-    Variant1 {
+    ChunkHash {
         chunk_id: CryptoHash,
     },
 }
@@ -16060,72 +17526,346 @@ impl ::std::convert::From<&RpcCongestionLevelResponse> for RpcCongestionLevelRes
         value.clone()
     }
 }
-#[doc = "`RpcError`"]
+#[doc = "This struct may be returned from JSON RPC server in case of error\nIt is expected that this struct has impl From<_> all other RPC errors\nlike [RpcBlockError](crate::types::blocks::RpcBlockError)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"This struct may be returned from JSON RPC server in case of error\\nIt is expected that this struct has impl From<_> all other RPC errors\\nlike [RpcBlockError](crate::types::blocks::RpcBlockError)\","]
 #[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {},"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {},"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
 #[doc = "  \"required\": ["]
 #[doc = "    \"code\","]
 #[doc = "    \"message\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
-#[doc = "    \"cause\": {"]
-#[doc = "      \"oneOf\": ["]
-#[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
-#[doc = "        },"]
-#[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CauseRpcErrorKind\""]
-#[doc = "            }"]
-#[doc = "          ]"]
-#[doc = "        }"]
-#[doc = "      ]"]
-#[doc = "    },"]
+#[doc = "    \"cause\": {},"]
 #[doc = "    \"code\": {"]
+#[doc = "      \"description\": \"Deprecated please use the `error_struct` instead\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"int64\""]
 #[doc = "    },"]
-#[doc = "    \"data\": {},"]
+#[doc = "    \"data\": {"]
+#[doc = "      \"description\": \"Deprecated please use the `error_struct` instead\""]
+#[doc = "    },"]
 #[doc = "    \"message\": {"]
+#[doc = "      \"description\": \"Deprecated please use the `error_struct` instead\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
-#[doc = "    \"name\": {"]
-#[doc = "      \"oneOf\": ["]
-#[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
-#[doc = "        },"]
-#[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/NameRpcErrorKind\""]
-#[doc = "            }"]
-#[doc = "          ]"]
-#[doc = "        }"]
-#[doc = "      ]"]
-#[doc = "    }"]
-#[doc = "  }"]
+#[doc = "    \"name\": {}"]
+#[doc = "  },"]
+#[doc = "  \"additionalProperties\": false"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct RpcError {
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub cause: ::std::option::Option<CauseRpcErrorKind>,
-    pub code: i64,
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub data: ::std::option::Option<::serde_json::Value>,
-    pub message: ::std::string::String,
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub name: ::std::option::Option<NameRpcErrorKind>,
+#[serde(untagged, deny_unknown_fields)]
+pub enum RpcError {
+    Variant0 {
+        cause: RpcRequestValidationErrorKind,
+        #[doc = "Deprecated please use the `error_struct` instead"]
+        code: i64,
+        #[doc = "Deprecated please use the `error_struct` instead"]
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        data: ::std::option::Option<::serde_json::Value>,
+        #[doc = "Deprecated please use the `error_struct` instead"]
+        message: ::std::string::String,
+        name: RpcErrorVariant0Name,
+    },
+    Variant1 {
+        cause: ::serde_json::Value,
+        #[doc = "Deprecated please use the `error_struct` instead"]
+        code: i64,
+        #[doc = "Deprecated please use the `error_struct` instead"]
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        data: ::std::option::Option<::serde_json::Value>,
+        #[doc = "Deprecated please use the `error_struct` instead"]
+        message: ::std::string::String,
+        name: RpcErrorVariant1Name,
+    },
+    Variant2 {
+        cause: ::serde_json::Value,
+        #[doc = "Deprecated please use the `error_struct` instead"]
+        code: i64,
+        #[doc = "Deprecated please use the `error_struct` instead"]
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        data: ::std::option::Option<::serde_json::Value>,
+        #[doc = "Deprecated please use the `error_struct` instead"]
+        message: ::std::string::String,
+        name: RpcErrorVariant2Name,
+    },
 }
-impl ::std::convert::From<&RpcError> for RpcError {
+impl ::std::convert::From<&Self> for RpcError {
     fn from(value: &RpcError) -> Self {
         value.clone()
+    }
+}
+#[doc = "`RpcErrorVariant0Name`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum RpcErrorVariant0Name {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError,
+}
+impl ::std::convert::From<&Self> for RpcErrorVariant0Name {
+    fn from(value: &RpcErrorVariant0Name) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for RpcErrorVariant0Name {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::RequestValidationError => write!(f, "REQUEST_VALIDATION_ERROR"),
+        }
+    }
+}
+impl ::std::str::FromStr for RpcErrorVariant0Name {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "REQUEST_VALIDATION_ERROR" => Ok(Self::RequestValidationError),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for RpcErrorVariant0Name {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for RpcErrorVariant0Name {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for RpcErrorVariant0Name {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`RpcErrorVariant1Name`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"HANDLER_ERROR\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum RpcErrorVariant1Name {
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError,
+}
+impl ::std::convert::From<&Self> for RpcErrorVariant1Name {
+    fn from(value: &RpcErrorVariant1Name) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for RpcErrorVariant1Name {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::HandlerError => write!(f, "HANDLER_ERROR"),
+        }
+    }
+}
+impl ::std::str::FromStr for RpcErrorVariant1Name {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "HANDLER_ERROR" => Ok(Self::HandlerError),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for RpcErrorVariant1Name {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for RpcErrorVariant1Name {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for RpcErrorVariant1Name {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`RpcErrorVariant2Name`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"INTERNAL_ERROR\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum RpcErrorVariant2Name {
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError,
+}
+impl ::std::convert::From<&Self> for RpcErrorVariant2Name {
+    fn from(value: &RpcErrorVariant2Name) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for RpcErrorVariant2Name {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::InternalError => write!(f, "INTERNAL_ERROR"),
+        }
+    }
+}
+impl ::std::str::FromStr for RpcErrorVariant2Name {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "INTERNAL_ERROR" => Ok(Self::InternalError),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for RpcErrorVariant2Name {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for RpcErrorVariant2Name {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for RpcErrorVariant2Name {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 #[doc = "`RpcGasPriceRequest`"]
@@ -16138,16 +17878,12 @@ impl ::std::convert::From<&RpcError> for RpcError {
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"block_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/BlockId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    }"]
@@ -16206,22 +17942,20 @@ impl ::std::convert::From<&RpcGasPriceResponse> for RpcGasPriceResponse {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcHealthRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcHealthRequest(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct RpcHealthRequest(pub ());
 impl ::std::ops::Deref for RpcHealthRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcHealthRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcHealthRequest> for () {
     fn from(value: RpcHealthRequest) -> Self {
         value.0
     }
@@ -16231,10 +17965,8 @@ impl ::std::convert::From<&RpcHealthRequest> for RpcHealthRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcHealthRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcHealthRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -16244,22 +17976,20 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcHealthResponse(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct RpcHealthResponse(pub ());
 impl ::std::ops::Deref for RpcHealthResponse {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcHealthResponse>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcHealthResponse> for () {
     fn from(value: RpcHealthResponse) -> Self {
         value.0
     }
@@ -16269,10 +17999,8 @@ impl ::std::convert::From<&RpcHealthResponse> for RpcHealthResponse {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcHealthResponse
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcHealthResponse {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -16392,12 +18120,14 @@ impl ::std::convert::From<&RpcLightClientBlockProofResponse> for RpcLightClientB
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcLightClientExecutionProofRequest\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"anyOf\": ["]
+#[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
+#[doc = "      \"title\": \"transaction\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"sender_id\","]
-#[doc = "        \"transaction_hash\""]
+#[doc = "        \"transaction_hash\","]
+#[doc = "        \"type\""]
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"sender_id\": {"]
@@ -16405,14 +18135,22 @@ impl ::std::convert::From<&RpcLightClientBlockProofResponse> for RpcLightClientB
 #[doc = "        },"]
 #[doc = "        \"transaction_hash\": {"]
 #[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        },"]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"transaction\""]
+#[doc = "          ]"]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"receipt\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"receipt_id\","]
-#[doc = "        \"receiver_id\""]
+#[doc = "        \"receiver_id\","]
+#[doc = "        \"type\""]
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"receipt_id\": {"]
@@ -16420,20 +18158,22 @@ impl ::std::convert::From<&RpcLightClientBlockProofResponse> for RpcLightClientB
 #[doc = "        },"]
 #[doc = "        \"receiver_id\": {"]
 #[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "        },"]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"receipt\""]
+#[doc = "          ]"]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
 #[doc = "  ],"]
 #[doc = "  \"required\": ["]
-#[doc = "    \"light_client_head\","]
-#[doc = "    \"type\""]
+#[doc = "    \"light_client_head\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"light_client_head\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "    },"]
-#[doc = "    \"type\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/TypeTransactionOrReceiptId\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -16447,19 +18187,171 @@ pub enum RpcLightClientExecutionProofRequest {
         sender_id: AccountId,
         transaction_hash: CryptoHash,
         #[serde(rename = "type")]
-        type_: TypeTransactionOrReceiptId,
+        type_: RpcLightClientExecutionProofRequestVariant0Type,
     },
     Variant1 {
         light_client_head: CryptoHash,
         receipt_id: CryptoHash,
         receiver_id: AccountId,
         #[serde(rename = "type")]
-        type_: TypeTransactionOrReceiptId,
+        type_: RpcLightClientExecutionProofRequestVariant1Type,
     },
 }
 impl ::std::convert::From<&Self> for RpcLightClientExecutionProofRequest {
     fn from(value: &RpcLightClientExecutionProofRequest) -> Self {
         value.clone()
+    }
+}
+#[doc = "`RpcLightClientExecutionProofRequestVariant0Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"transaction\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum RpcLightClientExecutionProofRequestVariant0Type {
+    #[serde(rename = "transaction")]
+    Transaction,
+}
+impl ::std::convert::From<&Self> for RpcLightClientExecutionProofRequestVariant0Type {
+    fn from(value: &RpcLightClientExecutionProofRequestVariant0Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for RpcLightClientExecutionProofRequestVariant0Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Transaction => write!(f, "transaction"),
+        }
+    }
+}
+impl ::std::str::FromStr for RpcLightClientExecutionProofRequestVariant0Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "transaction" => Ok(Self::Transaction),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for RpcLightClientExecutionProofRequestVariant0Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for RpcLightClientExecutionProofRequestVariant0Type
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for RpcLightClientExecutionProofRequestVariant0Type
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`RpcLightClientExecutionProofRequestVariant1Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"receipt\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum RpcLightClientExecutionProofRequestVariant1Type {
+    #[serde(rename = "receipt")]
+    Receipt,
+}
+impl ::std::convert::From<&Self> for RpcLightClientExecutionProofRequestVariant1Type {
+    fn from(value: &RpcLightClientExecutionProofRequestVariant1Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for RpcLightClientExecutionProofRequestVariant1Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Receipt => write!(f, "receipt"),
+        }
+    }
+}
+impl ::std::str::FromStr for RpcLightClientExecutionProofRequestVariant1Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "receipt" => Ok(Self::Receipt),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for RpcLightClientExecutionProofRequestVariant1Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for RpcLightClientExecutionProofRequestVariant1Type
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for RpcLightClientExecutionProofRequestVariant1Type
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 #[doc = "`RpcLightClientExecutionProofResponse`"]
@@ -16540,33 +18432,35 @@ impl ::std::convert::From<&RpcLightClientNextBlockRequest> for RpcLightClientNex
         value.clone()
     }
 }
-#[doc = "`RpcLightClientNextBlockResponse`"]
+#[doc = "A state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient)."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"A state for the current head of a light client. More info [here](https://nomicon.io/ChainSpec/LightClient).\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"approvals_after_next\": {"]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
-#[doc = "        \"oneOf\": ["]
+#[doc = "        \"anyOf\": ["]
 #[doc = "          {"]
-#[doc = "            \"type\": \"null\""]
+#[doc = "            \"$ref\": \"#/components/schemas/Signature\""]
 #[doc = "          },"]
 #[doc = "          {"]
-#[doc = "            \"allOf\": ["]
-#[doc = "              {"]
-#[doc = "                \"$ref\": \"#/components/schemas/Signature\""]
-#[doc = "              }"]
-#[doc = "            ]"]
+#[doc = "            \"type\": \"null\""]
 #[doc = "          }"]
 #[doc = "        ]"]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"inner_lite\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/BlockHeaderInnerLiteView\""]
+#[doc = "      \"description\": \"Inner part of the block header that gets hashed, split into two parts, one that is sent\\n   to light clients, and the rest\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockHeaderInnerLiteView\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"inner_rest_hash\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -16594,6 +18488,7 @@ impl ::std::convert::From<&RpcLightClientNextBlockRequest> for RpcLightClientNex
 pub struct RpcLightClientNextBlockResponse {
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub approvals_after_next: ::std::vec::Vec<::std::option::Option<Signature>>,
+    #[doc = "Inner part of the block header that gets hashed, split into two parts, one that is sent\n   to light clients, and the rest"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub inner_lite: ::std::option::Option<BlockHeaderInnerLiteView>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -16657,22 +18552,20 @@ impl ::std::convert::From<&RpcMaintenanceWindowsRequest> for RpcMaintenanceWindo
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcNetworkInfoRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcNetworkInfoRequest(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct RpcNetworkInfoRequest(pub ());
 impl ::std::ops::Deref for RpcNetworkInfoRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcNetworkInfoRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcNetworkInfoRequest> for () {
     fn from(value: RpcNetworkInfoRequest) -> Self {
         value.0
     }
@@ -16682,10 +18575,8 @@ impl ::std::convert::From<&RpcNetworkInfoRequest> for RpcNetworkInfoRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcNetworkInfoRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcNetworkInfoRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -16769,16 +18660,12 @@ impl ::std::convert::From<&RpcNetworkInfoResponse> for RpcNetworkInfoResponse {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -16939,22 +18826,25 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "      \"description\": \"Threshold for kicking out block producers, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"chain_id\": {"]
-#[doc = "      \"description\": \"ID of the blockchain. This must be unique for every blockchain.\\n If your testnet blockchains do not have unique chain IDs, you will have a bad time.\","]
+#[doc = "      \"description\": \"ID of the blockchain. This must be unique for every blockchain.\\nIf your testnet blockchains do not have unique chain IDs, you will have a bad time.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"chunk_producer_kickout_threshold\": {"]
 #[doc = "      \"description\": \"Threshold for kicking out chunk producers, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"chunk_validator_only_kickout_threshold\": {"]
 #[doc = "      \"description\": \"Threshold for kicking out nodes which are only chunk validators, between 0 and 100.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"dynamic_resharding\": {"]
@@ -17016,6 +18906,7 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "      \"description\": \"Max stake percentage of the validators we will kick out.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"min_gas_price\": {"]
@@ -17029,7 +18920,7 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"minimum_stake_ratio\": {"]
-#[doc = "      \"description\": \"The lowest ratio s/s_total any block producer can have.\\n See <https://github.com/near/NEPs/pull/167> for details\","]
+#[doc = "      \"description\": \"The lowest ratio s/s_total any block producer can have.\\nSee <https://github.com/near/NEPs/pull/167> for details\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
@@ -17136,7 +19027,7 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"shuffle_shard_assignment_for_chunk_producers\": {"]
-#[doc = "      \"description\": \"If true, shuffle the chunk producers across shards. In other words, if\\n the shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\\n the set of chunk producers for shard `i`, if this flag were true, the\\n shard assignments might become, for example, `[S_2, S_0, S_3, S_1]`.\","]
+#[doc = "      \"description\": \"If true, shuffle the chunk producers across shards. In other words, if\\nthe shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\\nthe set of chunk producers for shard `i`, if this flag were true, the\\nshard assignments might become, for example, `[S_2, S_0, S_3, S_1]`.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"target_validator_mandates_per_shard\": {"]
@@ -17161,7 +19052,7 @@ pub struct RpcProtocolConfigResponse {
     pub avg_hidden_validator_seats_per_shard: ::std::vec::Vec<u64>,
     #[doc = "Threshold for kicking out block producers, between 0 and 100."]
     pub block_producer_kickout_threshold: u8,
-    #[doc = "ID of the blockchain. This must be unique for every blockchain.\n If your testnet blockchains do not have unique chain IDs, you will have a bad time."]
+    #[doc = "ID of the blockchain. This must be unique for every blockchain.\nIf your testnet blockchains do not have unique chain IDs, you will have a bad time."]
     pub chain_id: ::std::string::String,
     #[doc = "Threshold for kicking out chunk producers, between 0 and 100."]
     pub chunk_producer_kickout_threshold: u8,
@@ -17191,7 +19082,7 @@ pub struct RpcProtocolConfigResponse {
     pub min_gas_price: ::std::string::String,
     #[doc = "The minimum stake required for staking is last seat price divided by this number."]
     pub minimum_stake_divisor: u64,
-    #[doc = "The lowest ratio s/s_total any block producer can have.\n See <https://github.com/near/NEPs/pull/167> for details"]
+    #[doc = "The lowest ratio s/s_total any block producer can have.\nSee <https://github.com/near/NEPs/pull/167> for details"]
     pub minimum_stake_ratio: [i32; 2usize],
     #[doc = "The minimum number of validators each shard must have"]
     pub minimum_validators_per_shard: u64,
@@ -17217,7 +19108,7 @@ pub struct RpcProtocolConfigResponse {
     pub runtime_config: RuntimeConfigView,
     #[doc = "Layout information regarding how to split accounts to shards"]
     pub shard_layout: ShardLayout,
-    #[doc = "If true, shuffle the chunk producers across shards. In other words, if\n the shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\n the set of chunk producers for shard `i`, if this flag were true, the\n shard assignments might become, for example, `[S_2, S_0, S_3, S_1]`."]
+    #[doc = "If true, shuffle the chunk producers across shards. In other words, if\nthe shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\nthe set of chunk producers for shard `i`, if this flag were true, the\nshard assignments might become, for example, `[S_2, S_0, S_3, S_1]`."]
     pub shuffle_shard_assignment_for_chunk_producers: bool,
     #[doc = "Number of target chunk validator mandates for each shard."]
     pub target_validator_mandates_per_shard: u64,
@@ -17239,6 +19130,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_account_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17272,6 +19164,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_code_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17305,6 +19198,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_state_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17332,8 +19226,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"type\": \"boolean\""]
 #[doc = "            },"]
 #[doc = "            \"prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            },"]
 #[doc = "            \"request_type\": {"]
 #[doc = "              \"type\": \"string\","]
@@ -17346,6 +19239,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_access_key_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17383,6 +19277,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_access_key_list_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17416,6 +19311,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"call_function_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17441,8 +19337,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"args_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/FunctionArgs\""]
 #[doc = "            },"]
 #[doc = "            \"method_name\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -17458,6 +19353,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_global_contract_code_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17491,6 +19387,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_global_contract_code_by_account_id_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17524,6 +19421,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_account_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17557,6 +19455,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_code_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17590,6 +19489,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_state_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17617,8 +19517,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"type\": \"boolean\""]
 #[doc = "            },"]
 #[doc = "            \"prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            },"]
 #[doc = "            \"request_type\": {"]
 #[doc = "              \"type\": \"string\","]
@@ -17631,6 +19530,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_access_key_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17668,6 +19568,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_access_key_list_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17701,6 +19602,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"call_function_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17726,8 +19628,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"args_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/FunctionArgs\""]
 #[doc = "            },"]
 #[doc = "            \"method_name\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -17743,6 +19644,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_global_contract_code_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17776,6 +19678,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_global_contract_code_by_account_id_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17809,6 +19712,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_account_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17842,6 +19746,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_code_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17875,6 +19780,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_state_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17902,8 +19808,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"type\": \"boolean\""]
 #[doc = "            },"]
 #[doc = "            \"prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            },"]
 #[doc = "            \"request_type\": {"]
 #[doc = "              \"type\": \"string\","]
@@ -17916,6 +19821,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_access_key_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17953,6 +19859,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_access_key_list_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -17986,6 +19893,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"call_function_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -18011,8 +19919,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"args_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/FunctionArgs\""]
 #[doc = "            },"]
 #[doc = "            \"method_name\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -18028,6 +19935,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_global_contract_code_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -18061,6 +19969,7 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_global_contract_code_by_account_id_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -18100,1888 +20009,148 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum RpcQueryRequest {
-    Variant0 {
+    ViewAccountByBlockId {
         account_id: AccountId,
         block_id: BlockId,
-        request_type: RpcQueryRequestVariant0RequestType,
+        request_type: ViewAccountByBlockIdRequestType,
     },
-    Variant1 {
+    ViewCodeByBlockId {
         account_id: AccountId,
         block_id: BlockId,
-        request_type: RpcQueryRequestVariant1RequestType,
+        request_type: ViewCodeByBlockIdRequestType,
     },
-    Variant2 {
+    ViewStateByBlockId {
         account_id: AccountId,
         block_id: BlockId,
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
         include_proof: ::std::option::Option<bool>,
-        prefix_base64: ::std::string::String,
-        request_type: RpcQueryRequestVariant2RequestType,
+        prefix_base64: StoreKey,
+        request_type: ViewStateByBlockIdRequestType,
     },
-    Variant3 {
+    ViewAccessKeyByBlockId {
         account_id: AccountId,
         block_id: BlockId,
         public_key: PublicKey,
-        request_type: RpcQueryRequestVariant3RequestType,
+        request_type: ViewAccessKeyByBlockIdRequestType,
     },
-    Variant4 {
+    ViewAccessKeyListByBlockId {
         account_id: AccountId,
         block_id: BlockId,
-        request_type: RpcQueryRequestVariant4RequestType,
+        request_type: ViewAccessKeyListByBlockIdRequestType,
     },
-    Variant5 {
+    CallFunctionByBlockId {
         account_id: AccountId,
-        args_base64: ::std::string::String,
+        args_base64: FunctionArgs,
         block_id: BlockId,
         method_name: ::std::string::String,
-        request_type: RpcQueryRequestVariant5RequestType,
+        request_type: CallFunctionByBlockIdRequestType,
     },
-    Variant6 {
+    ViewGlobalContractCodeByBlockId {
         block_id: BlockId,
         code_hash: CryptoHash,
-        request_type: RpcQueryRequestVariant6RequestType,
+        request_type: ViewGlobalContractCodeByBlockIdRequestType,
     },
-    Variant7 {
+    ViewGlobalContractCodeByAccountIdByBlockId {
         account_id: AccountId,
         block_id: BlockId,
-        request_type: RpcQueryRequestVariant7RequestType,
+        request_type: ViewGlobalContractCodeByAccountIdByBlockIdRequestType,
     },
-    Variant8 {
+    ViewAccountByFinality {
         account_id: AccountId,
         finality: Finality,
-        request_type: RpcQueryRequestVariant8RequestType,
+        request_type: ViewAccountByFinalityRequestType,
     },
-    Variant9 {
+    ViewCodeByFinality {
         account_id: AccountId,
         finality: Finality,
-        request_type: RpcQueryRequestVariant9RequestType,
+        request_type: ViewCodeByFinalityRequestType,
     },
-    Variant10 {
+    ViewStateByFinality {
         account_id: AccountId,
         finality: Finality,
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
         include_proof: ::std::option::Option<bool>,
-        prefix_base64: ::std::string::String,
-        request_type: RpcQueryRequestVariant10RequestType,
+        prefix_base64: StoreKey,
+        request_type: ViewStateByFinalityRequestType,
     },
-    Variant11 {
+    ViewAccessKeyByFinality {
         account_id: AccountId,
         finality: Finality,
         public_key: PublicKey,
-        request_type: RpcQueryRequestVariant11RequestType,
+        request_type: ViewAccessKeyByFinalityRequestType,
     },
-    Variant12 {
+    ViewAccessKeyListByFinality {
         account_id: AccountId,
         finality: Finality,
-        request_type: RpcQueryRequestVariant12RequestType,
+        request_type: ViewAccessKeyListByFinalityRequestType,
     },
-    Variant13 {
+    CallFunctionByFinality {
         account_id: AccountId,
-        args_base64: ::std::string::String,
+        args_base64: FunctionArgs,
         finality: Finality,
         method_name: ::std::string::String,
-        request_type: RpcQueryRequestVariant13RequestType,
+        request_type: CallFunctionByFinalityRequestType,
     },
-    Variant14 {
+    ViewGlobalContractCodeByFinality {
         code_hash: CryptoHash,
         finality: Finality,
-        request_type: RpcQueryRequestVariant14RequestType,
+        request_type: ViewGlobalContractCodeByFinalityRequestType,
     },
-    Variant15 {
+    ViewGlobalContractCodeByAccountIdByFinality {
         account_id: AccountId,
         finality: Finality,
-        request_type: RpcQueryRequestVariant15RequestType,
+        request_type: ViewGlobalContractCodeByAccountIdByFinalityRequestType,
     },
-    Variant16 {
+    ViewAccountBySyncCheckpoint {
         account_id: AccountId,
-        request_type: RpcQueryRequestVariant16RequestType,
+        request_type: ViewAccountBySyncCheckpointRequestType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant17 {
+    ViewCodeBySyncCheckpoint {
         account_id: AccountId,
-        request_type: RpcQueryRequestVariant17RequestType,
+        request_type: ViewCodeBySyncCheckpointRequestType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant18 {
+    ViewStateBySyncCheckpoint {
         account_id: AccountId,
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
         include_proof: ::std::option::Option<bool>,
-        prefix_base64: ::std::string::String,
-        request_type: RpcQueryRequestVariant18RequestType,
+        prefix_base64: StoreKey,
+        request_type: ViewStateBySyncCheckpointRequestType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant19 {
+    ViewAccessKeyBySyncCheckpoint {
         account_id: AccountId,
         public_key: PublicKey,
-        request_type: RpcQueryRequestVariant19RequestType,
+        request_type: ViewAccessKeyBySyncCheckpointRequestType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant20 {
+    ViewAccessKeyListBySyncCheckpoint {
         account_id: AccountId,
-        request_type: RpcQueryRequestVariant20RequestType,
+        request_type: ViewAccessKeyListBySyncCheckpointRequestType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant21 {
+    CallFunctionBySyncCheckpoint {
         account_id: AccountId,
-        args_base64: ::std::string::String,
+        args_base64: FunctionArgs,
         method_name: ::std::string::String,
-        request_type: RpcQueryRequestVariant21RequestType,
+        request_type: CallFunctionBySyncCheckpointRequestType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant22 {
+    ViewGlobalContractCodeBySyncCheckpoint {
         code_hash: CryptoHash,
-        request_type: RpcQueryRequestVariant22RequestType,
+        request_type: ViewGlobalContractCodeBySyncCheckpointRequestType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant23 {
+    ViewGlobalContractCodeByAccountIdBySyncCheckpoint {
         account_id: AccountId,
-        request_type: RpcQueryRequestVariant23RequestType,
+        request_type: ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType,
         sync_checkpoint: SyncCheckpoint,
     },
 }
 impl ::std::convert::From<&Self> for RpcQueryRequest {
     fn from(value: &RpcQueryRequest) -> Self {
         value.clone()
-    }
-}
-#[doc = "`RpcQueryRequestVariant0RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_account\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant0RequestType {
-    #[serde(rename = "view_account")]
-    ViewAccount,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant0RequestType {
-    fn from(value: &RpcQueryRequestVariant0RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant0RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccount => write!(f, "view_account"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant0RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_account" => Ok(Self::ViewAccount),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant0RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant0RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant0RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant10RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_state\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant10RequestType {
-    #[serde(rename = "view_state")]
-    ViewState,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant10RequestType {
-    fn from(value: &RpcQueryRequestVariant10RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant10RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewState => write!(f, "view_state"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant10RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_state" => Ok(Self::ViewState),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant10RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant10RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant10RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant11RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_access_key\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant11RequestType {
-    #[serde(rename = "view_access_key")]
-    ViewAccessKey,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant11RequestType {
-    fn from(value: &RpcQueryRequestVariant11RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant11RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant11RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_access_key" => Ok(Self::ViewAccessKey),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant11RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant11RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant11RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant12RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_access_key_list\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant12RequestType {
-    #[serde(rename = "view_access_key_list")]
-    ViewAccessKeyList,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant12RequestType {
-    fn from(value: &RpcQueryRequestVariant12RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant12RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant12RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_access_key_list" => Ok(Self::ViewAccessKeyList),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant12RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant12RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant12RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant13RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"call_function\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant13RequestType {
-    #[serde(rename = "call_function")]
-    CallFunction,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant13RequestType {
-    fn from(value: &RpcQueryRequestVariant13RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant13RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::CallFunction => write!(f, "call_function"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant13RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "call_function" => Ok(Self::CallFunction),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant13RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant13RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant13RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant14RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_global_contract_code\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant14RequestType {
-    #[serde(rename = "view_global_contract_code")]
-    ViewGlobalContractCode,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant14RequestType {
-    fn from(value: &RpcQueryRequestVariant14RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant14RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant14RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_global_contract_code" => Ok(Self::ViewGlobalContractCode),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant14RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant14RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant14RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant15RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_global_contract_code_by_account_id\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant15RequestType {
-    #[serde(rename = "view_global_contract_code_by_account_id")]
-    ViewGlobalContractCodeByAccountId,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant15RequestType {
-    fn from(value: &RpcQueryRequestVariant15RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant15RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
-            }
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant15RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_global_contract_code_by_account_id" => {
-                Ok(Self::ViewGlobalContractCodeByAccountId)
-            }
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant15RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant15RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant15RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant16RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_account\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant16RequestType {
-    #[serde(rename = "view_account")]
-    ViewAccount,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant16RequestType {
-    fn from(value: &RpcQueryRequestVariant16RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant16RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccount => write!(f, "view_account"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant16RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_account" => Ok(Self::ViewAccount),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant16RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant16RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant16RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant17RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_code\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant17RequestType {
-    #[serde(rename = "view_code")]
-    ViewCode,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant17RequestType {
-    fn from(value: &RpcQueryRequestVariant17RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant17RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewCode => write!(f, "view_code"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant17RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_code" => Ok(Self::ViewCode),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant17RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant17RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant17RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant18RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_state\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant18RequestType {
-    #[serde(rename = "view_state")]
-    ViewState,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant18RequestType {
-    fn from(value: &RpcQueryRequestVariant18RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant18RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewState => write!(f, "view_state"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant18RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_state" => Ok(Self::ViewState),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant18RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant18RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant18RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant19RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_access_key\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant19RequestType {
-    #[serde(rename = "view_access_key")]
-    ViewAccessKey,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant19RequestType {
-    fn from(value: &RpcQueryRequestVariant19RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant19RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant19RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_access_key" => Ok(Self::ViewAccessKey),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant19RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant19RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant19RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant1RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_code\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant1RequestType {
-    #[serde(rename = "view_code")]
-    ViewCode,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant1RequestType {
-    fn from(value: &RpcQueryRequestVariant1RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant1RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewCode => write!(f, "view_code"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant1RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_code" => Ok(Self::ViewCode),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant1RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant1RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant1RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant20RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_access_key_list\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant20RequestType {
-    #[serde(rename = "view_access_key_list")]
-    ViewAccessKeyList,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant20RequestType {
-    fn from(value: &RpcQueryRequestVariant20RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant20RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant20RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_access_key_list" => Ok(Self::ViewAccessKeyList),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant20RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant20RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant20RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant21RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"call_function\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant21RequestType {
-    #[serde(rename = "call_function")]
-    CallFunction,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant21RequestType {
-    fn from(value: &RpcQueryRequestVariant21RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant21RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::CallFunction => write!(f, "call_function"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant21RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "call_function" => Ok(Self::CallFunction),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant21RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant21RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant21RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant22RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_global_contract_code\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant22RequestType {
-    #[serde(rename = "view_global_contract_code")]
-    ViewGlobalContractCode,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant22RequestType {
-    fn from(value: &RpcQueryRequestVariant22RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant22RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant22RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_global_contract_code" => Ok(Self::ViewGlobalContractCode),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant22RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant22RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant22RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant23RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_global_contract_code_by_account_id\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant23RequestType {
-    #[serde(rename = "view_global_contract_code_by_account_id")]
-    ViewGlobalContractCodeByAccountId,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant23RequestType {
-    fn from(value: &RpcQueryRequestVariant23RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant23RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
-            }
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant23RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_global_contract_code_by_account_id" => {
-                Ok(Self::ViewGlobalContractCodeByAccountId)
-            }
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant23RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant23RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant23RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant2RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_state\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant2RequestType {
-    #[serde(rename = "view_state")]
-    ViewState,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant2RequestType {
-    fn from(value: &RpcQueryRequestVariant2RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant2RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewState => write!(f, "view_state"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant2RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_state" => Ok(Self::ViewState),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant2RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant2RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant2RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant3RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_access_key\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant3RequestType {
-    #[serde(rename = "view_access_key")]
-    ViewAccessKey,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant3RequestType {
-    fn from(value: &RpcQueryRequestVariant3RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant3RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant3RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_access_key" => Ok(Self::ViewAccessKey),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant3RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant3RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant3RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant4RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_access_key_list\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant4RequestType {
-    #[serde(rename = "view_access_key_list")]
-    ViewAccessKeyList,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant4RequestType {
-    fn from(value: &RpcQueryRequestVariant4RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant4RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant4RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_access_key_list" => Ok(Self::ViewAccessKeyList),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant4RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant4RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant4RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant5RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"call_function\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant5RequestType {
-    #[serde(rename = "call_function")]
-    CallFunction,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant5RequestType {
-    fn from(value: &RpcQueryRequestVariant5RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant5RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::CallFunction => write!(f, "call_function"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant5RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "call_function" => Ok(Self::CallFunction),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant5RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant5RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant5RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant6RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_global_contract_code\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant6RequestType {
-    #[serde(rename = "view_global_contract_code")]
-    ViewGlobalContractCode,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant6RequestType {
-    fn from(value: &RpcQueryRequestVariant6RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant6RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant6RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_global_contract_code" => Ok(Self::ViewGlobalContractCode),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant6RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant6RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant6RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant7RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_global_contract_code_by_account_id\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant7RequestType {
-    #[serde(rename = "view_global_contract_code_by_account_id")]
-    ViewGlobalContractCodeByAccountId,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant7RequestType {
-    fn from(value: &RpcQueryRequestVariant7RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant7RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
-            }
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant7RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_global_contract_code_by_account_id" => {
-                Ok(Self::ViewGlobalContractCodeByAccountId)
-            }
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant7RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant7RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant7RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant8RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_account\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant8RequestType {
-    #[serde(rename = "view_account")]
-    ViewAccount,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant8RequestType {
-    fn from(value: &RpcQueryRequestVariant8RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant8RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewAccount => write!(f, "view_account"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant8RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_account" => Ok(Self::ViewAccount),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant8RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant8RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant8RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcQueryRequestVariant9RequestType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"view_code\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcQueryRequestVariant9RequestType {
-    #[serde(rename = "view_code")]
-    ViewCode,
-}
-impl ::std::convert::From<&Self> for RpcQueryRequestVariant9RequestType {
-    fn from(value: &RpcQueryRequestVariant9RequestType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcQueryRequestVariant9RequestType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ViewCode => write!(f, "view_code"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcQueryRequestVariant9RequestType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "view_code" => Ok(Self::ViewCode),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcQueryRequestVariant9RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcQueryRequestVariant9RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcQueryRequestVariant9RequestType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 #[doc = "`RpcQueryResponse`"]
@@ -20386,17 +20555,18 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
         }
     }
 }
-#[doc = "It is a [serializable view] of [`StateChangesRequest`].\n\n [serializable view]: ./index.html\n [`StateChangesRequest`]: ../types/struct.StateChangesRequest.html"]
+#[doc = "It is a [serializable view] of [`StateChangesRequest`].\n\n[serializable view]: ./index.html\n[`StateChangesRequest`]: ../types/struct.StateChangesRequest.html"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcStateChangesInBlockByTypeRequest\","]
-#[doc = "  \"description\": \"It is a [serializable view] of [`StateChangesRequest`].\\n\\n [serializable view]: ./index.html\\n [`StateChangesRequest`]: ../types/struct.StateChangesRequest.html\","]
+#[doc = "  \"description\": \"It is a [serializable view] of [`StateChangesRequest`].\\n\\n[serializable view]: ./index.html\\n[`StateChangesRequest`]: ../types/struct.StateChangesRequest.html\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
+#[doc = "      \"title\": \"account_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20433,6 +20603,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_access_key_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20469,6 +20640,44 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_gas_key_changes_by_block_id\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"changes_type\","]
+#[doc = "            \"keys\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"changes_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"single_gas_key_changes\""]
+#[doc = "              ]"]
+#[doc = "            },"]
+#[doc = "            \"keys\": {"]
+#[doc = "              \"type\": \"array\","]
+#[doc = "              \"items\": {"]
+#[doc = "                \"$ref\": \"#/components/schemas/AccountWithPublicKey\""]
+#[doc = "              }"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"all_access_key_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20505,6 +20714,44 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"all_gas_key_changes_by_block_id\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_ids\","]
+#[doc = "            \"changes_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_ids\": {"]
+#[doc = "              \"type\": \"array\","]
+#[doc = "              \"items\": {"]
+#[doc = "                \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "              }"]
+#[doc = "            },"]
+#[doc = "            \"changes_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"all_gas_key_changes\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"contract_code_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20541,6 +20788,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"data_changes_by_block_id\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20574,14 +20822,14 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"key_prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"account_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20618,6 +20866,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_access_key_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20654,6 +20903,44 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_gas_key_changes_by_finality\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"finality\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"finality\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"changes_type\","]
+#[doc = "            \"keys\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"changes_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"single_gas_key_changes\""]
+#[doc = "              ]"]
+#[doc = "            },"]
+#[doc = "            \"keys\": {"]
+#[doc = "              \"type\": \"array\","]
+#[doc = "              \"items\": {"]
+#[doc = "                \"$ref\": \"#/components/schemas/AccountWithPublicKey\""]
+#[doc = "              }"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"all_access_key_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20690,6 +20977,44 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"all_gas_key_changes_by_finality\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"finality\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"finality\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_ids\","]
+#[doc = "            \"changes_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_ids\": {"]
+#[doc = "              \"type\": \"array\","]
+#[doc = "              \"items\": {"]
+#[doc = "                \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "              }"]
+#[doc = "            },"]
+#[doc = "            \"changes_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"all_gas_key_changes\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"contract_code_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20726,6 +21051,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"data_changes_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20759,14 +21085,14 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"key_prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"account_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20803,6 +21129,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_access_key_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20839,6 +21166,44 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"single_gas_key_changes_by_sync_checkpoint\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"sync_checkpoint\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"sync_checkpoint\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"changes_type\","]
+#[doc = "            \"keys\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"changes_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"single_gas_key_changes\""]
+#[doc = "              ]"]
+#[doc = "            },"]
+#[doc = "            \"keys\": {"]
+#[doc = "              \"type\": \"array\","]
+#[doc = "              \"items\": {"]
+#[doc = "                \"$ref\": \"#/components/schemas/AccountWithPublicKey\""]
+#[doc = "              }"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"all_access_key_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20875,6 +21240,44 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"all_gas_key_changes_by_sync_checkpoint\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"sync_checkpoint\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"sync_checkpoint\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_ids\","]
+#[doc = "            \"changes_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_ids\": {"]
+#[doc = "              \"type\": \"array\","]
+#[doc = "              \"items\": {"]
+#[doc = "                \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "              }"]
+#[doc = "            },"]
+#[doc = "            \"changes_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"all_gas_key_changes\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"contract_code_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20911,6 +21314,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"data_changes_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"type\": \"object\","]
@@ -20944,8 +21348,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"key_prefix_base64\": {"]
-#[doc = "              \"type\": \"string\","]
-#[doc = "              \"format\": \"bytes\""]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -20958,1228 +21361,118 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum RpcStateChangesInBlockByTypeRequest {
-    Variant0 {
+    AccountChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant0ChangesType,
+        changes_type: AccountChangesByBlockIdChangesType,
     },
-    Variant1 {
+    SingleAccessKeyChangesByBlockId {
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant1ChangesType,
+        changes_type: SingleAccessKeyChangesByBlockIdChangesType,
         keys: ::std::vec::Vec<AccountWithPublicKey>,
     },
-    Variant2 {
+    SingleGasKeyChangesByBlockId {
+        block_id: BlockId,
+        changes_type: SingleGasKeyChangesByBlockIdChangesType,
+        keys: ::std::vec::Vec<AccountWithPublicKey>,
+    },
+    AllAccessKeyChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant2ChangesType,
+        changes_type: AllAccessKeyChangesByBlockIdChangesType,
     },
-    Variant3 {
+    AllGasKeyChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant3ChangesType,
+        changes_type: AllGasKeyChangesByBlockIdChangesType,
     },
-    Variant4 {
+    ContractCodeChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
         block_id: BlockId,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant4ChangesType,
-        key_prefix_base64: ::std::string::String,
+        changes_type: ContractCodeChangesByBlockIdChangesType,
     },
-    Variant5 {
+    DataChangesByBlockId {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant5ChangesType,
+        block_id: BlockId,
+        changes_type: DataChangesByBlockIdChangesType,
+        key_prefix_base64: StoreKey,
+    },
+    AccountChangesByFinality {
+        account_ids: ::std::vec::Vec<AccountId>,
+        changes_type: AccountChangesByFinalityChangesType,
         finality: Finality,
     },
-    Variant6 {
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant6ChangesType,
+    SingleAccessKeyChangesByFinality {
+        changes_type: SingleAccessKeyChangesByFinalityChangesType,
         finality: Finality,
         keys: ::std::vec::Vec<AccountWithPublicKey>,
     },
-    Variant7 {
+    SingleGasKeyChangesByFinality {
+        changes_type: SingleGasKeyChangesByFinalityChangesType,
+        finality: Finality,
+        keys: ::std::vec::Vec<AccountWithPublicKey>,
+    },
+    AllAccessKeyChangesByFinality {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant7ChangesType,
+        changes_type: AllAccessKeyChangesByFinalityChangesType,
         finality: Finality,
     },
-    Variant8 {
+    AllGasKeyChangesByFinality {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant8ChangesType,
+        changes_type: AllGasKeyChangesByFinalityChangesType,
         finality: Finality,
     },
-    Variant9 {
+    ContractCodeChangesByFinality {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant9ChangesType,
+        changes_type: ContractCodeChangesByFinalityChangesType,
         finality: Finality,
-        key_prefix_base64: ::std::string::String,
     },
-    Variant10 {
+    DataChangesByFinality {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant10ChangesType,
+        changes_type: DataChangesByFinalityChangesType,
+        finality: Finality,
+        key_prefix_base64: StoreKey,
+    },
+    AccountChangesBySyncCheckpoint {
+        account_ids: ::std::vec::Vec<AccountId>,
+        changes_type: AccountChangesBySyncCheckpointChangesType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant11 {
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant11ChangesType,
+    SingleAccessKeyChangesBySyncCheckpoint {
+        changes_type: SingleAccessKeyChangesBySyncCheckpointChangesType,
         keys: ::std::vec::Vec<AccountWithPublicKey>,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant12 {
-        account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant12ChangesType,
+    SingleGasKeyChangesBySyncCheckpoint {
+        changes_type: SingleGasKeyChangesBySyncCheckpointChangesType,
+        keys: ::std::vec::Vec<AccountWithPublicKey>,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant13 {
+    AllAccessKeyChangesBySyncCheckpoint {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant13ChangesType,
+        changes_type: AllAccessKeyChangesBySyncCheckpointChangesType,
         sync_checkpoint: SyncCheckpoint,
     },
-    Variant14 {
+    AllGasKeyChangesBySyncCheckpoint {
         account_ids: ::std::vec::Vec<AccountId>,
-        changes_type: RpcStateChangesInBlockByTypeRequestVariant14ChangesType,
-        key_prefix_base64: ::std::string::String,
+        changes_type: AllGasKeyChangesBySyncCheckpointChangesType,
+        sync_checkpoint: SyncCheckpoint,
+    },
+    ContractCodeChangesBySyncCheckpoint {
+        account_ids: ::std::vec::Vec<AccountId>,
+        changes_type: ContractCodeChangesBySyncCheckpointChangesType,
+        sync_checkpoint: SyncCheckpoint,
+    },
+    DataChangesBySyncCheckpoint {
+        account_ids: ::std::vec::Vec<AccountId>,
+        changes_type: DataChangesBySyncCheckpointChangesType,
+        key_prefix_base64: StoreKey,
         sync_checkpoint: SyncCheckpoint,
     },
 }
 impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequest {
     fn from(value: &RpcStateChangesInBlockByTypeRequest) -> Self {
         value.clone()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant0ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"account_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    #[serde(rename = "account_changes")]
-    AccountChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant0ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "account_changes" => Ok(Self::AccountChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant0ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant0ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant0ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant10ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"account_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    #[serde(rename = "account_changes")]
-    AccountChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant10ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "account_changes" => Ok(Self::AccountChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant10ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant10ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant10ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant11ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"single_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    #[serde(rename = "single_access_key_changes")]
-    SingleAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant11ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant11ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant11ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant11ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant12ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"all_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    #[serde(rename = "all_access_key_changes")]
-    AllAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant12ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant12ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant12ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant12ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant13ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"contract_code_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    #[serde(rename = "contract_code_changes")]
-    ContractCodeChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant13ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "contract_code_changes" => Ok(Self::ContractCodeChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant13ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant13ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant13ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant14ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"data_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    #[serde(rename = "data_changes")]
-    DataChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant14ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::DataChanges => write!(f, "data_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "data_changes" => Ok(Self::DataChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant14ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant14ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant14ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant1ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"single_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    #[serde(rename = "single_access_key_changes")]
-    SingleAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant1ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant1ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant1ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant1ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant2ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"all_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    #[serde(rename = "all_access_key_changes")]
-    AllAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant2ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant2ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant2ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant2ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant3ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"contract_code_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    #[serde(rename = "contract_code_changes")]
-    ContractCodeChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant3ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "contract_code_changes" => Ok(Self::ContractCodeChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant3ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant3ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant3ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant4ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"data_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    #[serde(rename = "data_changes")]
-    DataChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant4ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::DataChanges => write!(f, "data_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "data_changes" => Ok(Self::DataChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant4ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant4ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant4ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant5ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"account_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    #[serde(rename = "account_changes")]
-    AccountChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant5ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "account_changes" => Ok(Self::AccountChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant5ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant5ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant5ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant6ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"single_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    #[serde(rename = "single_access_key_changes")]
-    SingleAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant6ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant6ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant6ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant6ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant7ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"all_access_key_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    #[serde(rename = "all_access_key_changes")]
-    AllAccessKeyChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant7ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "all_access_key_changes" => Ok(Self::AllAccessKeyChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant7ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant7ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant7ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant8ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"contract_code_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    #[serde(rename = "contract_code_changes")]
-    ContractCodeChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant8ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "contract_code_changes" => Ok(Self::ContractCodeChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant8ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant8ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant8ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcStateChangesInBlockByTypeRequestVariant9ChangesType`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"data_changes\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    #[serde(rename = "data_changes")]
-    DataChanges,
-}
-impl ::std::convert::From<&Self> for RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    fn from(value: &RpcStateChangesInBlockByTypeRequestVariant9ChangesType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::DataChanges => write!(f, "data_changes"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "data_changes" => Ok(Self::DataChanges),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcStateChangesInBlockByTypeRequestVariant9ChangesType {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant9ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-    for RpcStateChangesInBlockByTypeRequestVariant9ChangesType
-{
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 #[doc = "`RpcStateChangesInBlockByTypeResponse`"]
@@ -22336,22 +21629,20 @@ impl ::std::convert::From<&RpcStateChangesInBlockResponse> for RpcStateChangesIn
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"title\": \"RpcStatusRequest\","]
-#[doc = "  \"type\": \"object\""]
+#[doc = "  \"type\": \"null\""]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(transparent)]
-pub struct RpcStatusRequest(pub ::serde_json::Map<::std::string::String, ::serde_json::Value>);
+pub struct RpcStatusRequest(pub ());
 impl ::std::ops::Deref for RpcStatusRequest {
-    type Target = ::serde_json::Map<::std::string::String, ::serde_json::Value>;
-    fn deref(&self) -> &::serde_json::Map<::std::string::String, ::serde_json::Value> {
+    type Target = ();
+    fn deref(&self) -> &() {
         &self.0
     }
 }
-impl ::std::convert::From<RpcStatusRequest>
-    for ::serde_json::Map<::std::string::String, ::serde_json::Value>
-{
+impl ::std::convert::From<RpcStatusRequest> for () {
     fn from(value: RpcStatusRequest) -> Self {
         value.0
     }
@@ -22361,10 +21652,8 @@ impl ::std::convert::From<&RpcStatusRequest> for RpcStatusRequest {
         value.clone()
     }
 }
-impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
-    for RpcStatusRequest
-{
-    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+impl ::std::convert::From<()> for RpcStatusRequest {
+    fn from(value: ()) -> Self {
         Self(value)
     }
 }
@@ -22393,16 +21682,12 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "    },"]
 #[doc = "    \"detailed_debug_status\": {"]
 #[doc = "      \"description\": \"Information about last blocks, network, epoch and chain & chunk info.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/DetailedDebugStatus\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/DetailedDebugStatus\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -22422,16 +21707,12 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "    },"]
 #[doc = "    \"node_key\": {"]
 #[doc = "      \"description\": \"Deprecated; same as `validator_public_key` which you should use instead.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -22450,7 +21731,7 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"rpc_addr\": {"]
-#[doc = "      \"description\": \"Address for RPC server.  None if node doesn’t have RPC endpoint enabled.\","]
+#[doc = "      \"description\": \"Address for RPC server.  None if node doesn't have RPC endpoint enabled.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"string\","]
 #[doc = "        \"null\""]
@@ -22471,31 +21752,23 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "    },"]
 #[doc = "    \"validator_account_id\": {"]
 #[doc = "      \"description\": \"Validator id of the node\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"validator_public_key\": {"]
 #[doc = "      \"description\": \"Public key of the validator.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -22536,7 +21809,7 @@ pub struct RpcStatusResponse {
     pub node_public_key: PublicKey,
     #[doc = "Currently active protocol version."]
     pub protocol_version: u32,
-    #[doc = "Address for RPC server.  None if node doesn’t have RPC endpoint enabled."]
+    #[doc = "Address for RPC server.  None if node doesn't have RPC endpoint enabled."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub rpc_addr: ::std::option::Option<::std::string::String>,
     #[doc = "Sync status of the node."]
@@ -22594,7 +21867,7 @@ pub enum RpcTransactionResponse {
         receipts: ::std::vec::Vec<ReceiptView>,
         #[doc = "The execution outcome of receipts."]
         receipts_outcome: ::std::vec::Vec<ExecutionOutcomeWithIdView>,
-        #[doc = "Execution status defined by chain.rs:get_final_transaction_result\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
+        #[doc = "Execution status defined by chain.rs:get_final_transaction_result\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
         status: FinalExecutionStatus,
         #[doc = "Signed Transaction"]
         transaction: SignedTransactionView,
@@ -22605,7 +21878,7 @@ pub enum RpcTransactionResponse {
         final_execution_status: TxExecutionStatus,
         #[doc = "The execution outcome of receipts."]
         receipts_outcome: ::std::vec::Vec<ExecutionOutcomeWithIdView>,
-        #[doc = "Execution status defined by chain.rs:get_final_transaction_result\n FinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\n FinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\n FinalExecutionStatus::Failure - the result of the first leaf receipt_id\n FinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
+        #[doc = "Execution status defined by chain.rs:get_final_transaction_result\nFinalExecutionStatus::NotStarted - the tx is not converted to the receipt yet\nFinalExecutionStatus::Started - we have at least 1 receipt, but the first leaf receipt_id (using dfs) hasn't finished the execution\nFinalExecutionStatus::Failure - the result of the first leaf receipt_id\nFinalExecutionStatus::SuccessValue - the result of the first leaf receipt_id"]
         status: FinalExecutionStatus,
         #[doc = "Signed Transaction"]
         transaction: SignedTransactionView,
@@ -22863,16 +22136,12 @@ impl ::std::convert::From<&RpcValidatorResponse> for RpcValidatorResponse {
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"block_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/BlockId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    }"]
@@ -22931,11 +22200,11 @@ impl ::std::default::Default for RpcValidatorsOrderedRequest {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_amount_per_byte\": {"]
-#[doc = "      \"description\": \"Amount of yN per byte required to have on the account.  See\\n <https://nomicon.io/Economics/Economic#state-stake> for details.\","]
+#[doc = "      \"description\": \"Amount of yN per byte required to have on the account.  See\\n<https://nomicon.io/Economics/Economic#state-stake> for details.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"transaction_costs\": {"]
-#[doc = "      \"description\": \"Costs of different actions that need to be performed when sending and\\n processing transaction and receipts.\","]
+#[doc = "      \"description\": \"Costs of different actions that need to be performed when sending and\\nprocessing transaction and receipts.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/RuntimeFeesConfigView\""]
@@ -22968,9 +22237,9 @@ pub struct RuntimeConfigView {
     pub account_creation_config: AccountCreationConfigView,
     #[doc = "The configuration for congestion control."]
     pub congestion_control_config: CongestionControlConfigView,
-    #[doc = "Amount of yN per byte required to have on the account.  See\n <https://nomicon.io/Economics/Economic#state-stake> for details."]
+    #[doc = "Amount of yN per byte required to have on the account.  See\n<https://nomicon.io/Economics/Economic#state-stake> for details."]
     pub storage_amount_per_byte: ::std::string::String,
-    #[doc = "Costs of different actions that need to be performed when sending and\n processing transaction and receipts."]
+    #[doc = "Costs of different actions that need to be performed when sending and\nprocessing transaction and receipts."]
     pub transaction_costs: RuntimeFeesConfigView,
     #[doc = "Config of wasm operations."]
     pub wasm_config: VmConfigView,
@@ -22982,12 +22251,13 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
         value.clone()
     }
 }
-#[doc = "`RuntimeFeesConfigView`"]
+#[doc = "Describes different costs for the runtime"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes different costs for the runtime\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"action_creation_config\","]
@@ -23007,7 +22277,7 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"action_receipt_creation_config\": {"]
-#[doc = "      \"description\": \"Describes the cost of creating an action receipt, `ActionReceipt`, excluding the actual cost\\n of actions.\\n - `send` cost is burned when a receipt is created using `promise_create` or\\n     `promise_batch_create`\\n - `exec` cost is burned when the receipt is being executed.\","]
+#[doc = "      \"description\": \"Describes the cost of creating an action receipt, `ActionReceipt`, excluding the actual cost\\nof actions.\\n- `send` cost is burned when a receipt is created using `promise_create` or\\n    `promise_batch_create`\\n- `exec` cost is burned when the receipt is being executed.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/Fee\""]
@@ -23058,7 +22328,7 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
 pub struct RuntimeFeesConfigView {
     #[doc = "Describes the cost of creating a certain action, `Action`. Includes all variants."]
     pub action_creation_config: ActionCreationConfigView,
-    #[doc = "Describes the cost of creating an action receipt, `ActionReceipt`, excluding the actual cost\n of actions.\n - `send` cost is burned when a receipt is created using `promise_create` or\n     `promise_batch_create`\n - `exec` cost is burned when the receipt is being executed."]
+    #[doc = "Describes the cost of creating an action receipt, `ActionReceipt`, excluding the actual cost\nof actions.\n- `send` cost is burned when a receipt is created using `promise_create` or\n    `promise_batch_create`\n- `exec` cost is burned when the receipt is being executed."]
     pub action_receipt_creation_config: Fee,
     #[doc = "Fraction of the burnt gas to reward to the contract account for execution."]
     pub burnt_gas_reward: [i32; 2usize],
@@ -23074,13 +22344,13 @@ impl ::std::convert::From<&RuntimeFeesConfigView> for RuntimeFeesConfigView {
         value.clone()
     }
 }
-#[doc = "The shard identifier. It may be an arbitrary number - it does not need to be\n a number in the range 0..NUM_SHARDS. The shard ids do not need to be\n sequential or contiguous.\n\n The shard id is wrapped in a new type to prevent the old pattern of using\n indices in range 0..NUM_SHARDS and casting to ShardId. Once the transition\n if fully complete it potentially may be simplified to a regular type alias."]
+#[doc = "The shard identifier. It may be an arbitrary number - it does not need to be\na number in the range 0..NUM_SHARDS. The shard ids do not need to be\nsequential or contiguous.\n\nThe shard id is wrapped in a new type to prevent the old pattern of using\nindices in range 0..NUM_SHARDS and casting to ShardId. Once the transition\nif fully complete it potentially may be simplified to a regular type alias."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"The shard identifier. It may be an arbitrary number - it does not need to be\\n a number in the range 0..NUM_SHARDS. The shard ids do not need to be\\n sequential or contiguous.\\n\\n The shard id is wrapped in a new type to prevent the old pattern of using\\n indices in range 0..NUM_SHARDS and casting to ShardId. Once the transition\\n if fully complete it potentially may be simplified to a regular type alias.\","]
+#[doc = "  \"description\": \"The shard identifier. It may be an arbitrary number - it does not need to be\\na number in the range 0..NUM_SHARDS. The shard ids do not need to be\\nsequential or contiguous.\\n\\nThe shard id is wrapped in a new type to prevent the old pattern of using\\nindices in range 0..NUM_SHARDS and casting to ShardId. Once the transition\\nif fully complete it potentially may be simplified to a regular type alias.\","]
 #[doc = "  \"type\": \"integer\","]
 #[doc = "  \"format\": \"uint64\","]
 #[doc = "  \"minimum\": 0.0"]
@@ -23140,13 +22410,13 @@ impl ::std::fmt::Display for ShardId {
         self.0.fmt(f)
     }
 }
-#[doc = "A versioned struct that contains all information needed to assign accounts to shards.\n\n Because of re-sharding, the chain may use different shard layout to split shards at different\n times. Currently, `ShardLayout` is stored as part of `EpochConfig`, which is generated each\n epoch given the epoch protocol version. In mainnet/testnet, we use two shard layouts since\n re-sharding has only happened once. It is stored as part of genesis config, see\n default_simple_nightshade_shard_layout() Below is an overview for some important\n functionalities of ShardLayout interface."]
+#[doc = "A versioned struct that contains all information needed to assign accounts to shards.\n\nBecause of re-sharding, the chain may use different shard layout to split shards at different\ntimes. Currently, `ShardLayout` is stored as part of `EpochConfig`, which is generated each\nepoch given the epoch protocol version. In mainnet/testnet, we use two shard layouts since\nre-sharding has only happened once. It is stored as part of genesis config, see\ndefault_simple_nightshade_shard_layout() Below is an overview for some important\nfunctionalities of ShardLayout interface."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"A versioned struct that contains all information needed to assign accounts to shards.\\n\\n Because of re-sharding, the chain may use different shard layout to split shards at different\\n times. Currently, `ShardLayout` is stored as part of `EpochConfig`, which is generated each\\n epoch given the epoch protocol version. In mainnet/testnet, we use two shard layouts since\\n re-sharding has only happened once. It is stored as part of genesis config, see\\n default_simple_nightshade_shard_layout() Below is an overview for some important\\n functionalities of ShardLayout interface.\","]
+#[doc = "  \"description\": \"A versioned struct that contains all information needed to assign accounts to shards.\\n\\nBecause of re-sharding, the chain may use different shard layout to split shards at different\\ntimes. Currently, `ShardLayout` is stored as part of `EpochConfig`, which is generated each\\nepoch given the epoch protocol version. In mainnet/testnet, we use two shard layouts since\\nre-sharding has only happened once. It is stored as part of genesis config, see\\ndefault_simple_nightshade_shard_layout() Below is an overview for some important\\nfunctionalities of ShardLayout interface.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
@@ -23214,13 +22484,13 @@ impl ::std::convert::From<ShardLayoutV2> for ShardLayout {
         Self::V2(value)
     }
 }
-#[doc = "A shard layout that maps accounts evenly across all shards -- by calculate the hash of account\n id and mod number of shards. This is added to capture the old `account_id_to_shard_id` algorithm,\n to keep backward compatibility for some existing tests.\n `parent_shards` for `ShardLayoutV1` is always `None`, meaning it can only be the first shard layout\n a chain uses."]
+#[doc = "A shard layout that maps accounts evenly across all shards -- by calculate the hash of account\nid and mod number of shards. This is added to capture the old `account_id_to_shard_id` algorithm,\nto keep backward compatibility for some existing tests.\n`parent_shards` for `ShardLayoutV1` is always `None`, meaning it can only be the first shard layout\na chain uses."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"A shard layout that maps accounts evenly across all shards -- by calculate the hash of account\\n id and mod number of shards. This is added to capture the old `account_id_to_shard_id` algorithm,\\n to keep backward compatibility for some existing tests.\\n `parent_shards` for `ShardLayoutV1` is always `None`, meaning it can only be the first shard layout\\n a chain uses.\","]
+#[doc = "  \"description\": \"A shard layout that maps accounts evenly across all shards -- by calculate the hash of account\\nid and mod number of shards. This is added to capture the old `account_id_to_shard_id` algorithm,\\nto keep backward compatibility for some existing tests.\\n`parent_shards` for `ShardLayoutV1` is always `None`, meaning it can only be the first shard layout\\na chain uses.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"num_shards\","]
@@ -23268,14 +22538,14 @@ impl ::std::convert::From<&ShardLayoutV0> for ShardLayoutV0 {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"boundary_accounts\": {"]
-#[doc = "      \"description\": \"The boundary accounts are the accounts on boundaries between shards.\\n Each shard contains a range of accounts from one boundary account to\\n another - or the smallest or largest account possible. The total\\n number of shards is equal to the number of boundary accounts plus 1.\","]
+#[doc = "      \"description\": \"The boundary accounts are the accounts on boundaries between shards.\\nEach shard contains a range of accounts from one boundary account to\\nanother - or the smallest or largest account possible. The total\\nnumber of shards is equal to the number of boundary accounts plus 1.\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"shards_split_map\": {"]
-#[doc = "      \"description\": \"Maps shards from the last shard layout to shards that it splits to in this shard layout,\\n Useful for constructing states for the shards.\\n None for the genesis shard layout\","]
+#[doc = "      \"description\": \"Maps shards from the last shard layout to shards that it splits to in this shard layout,\\nUseful for constructing states for the shards.\\nNone for the genesis shard layout\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"array\","]
 #[doc = "        \"null\""]
@@ -23288,7 +22558,7 @@ impl ::std::convert::From<&ShardLayoutV0> for ShardLayoutV0 {
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"to_parent_shard_map\": {"]
-#[doc = "      \"description\": \"Maps shard in this shard layout to their parent shard\\n Since shard_ids always range from 0 to num_shards - 1, we use vec instead of a hashmap\","]
+#[doc = "      \"description\": \"Maps shard in this shard layout to their parent shard\\nSince shard_ids always range from 0 to num_shards - 1, we use vec instead of a hashmap\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"array\","]
 #[doc = "        \"null\""]
@@ -23309,12 +22579,12 @@ impl ::std::convert::From<&ShardLayoutV0> for ShardLayoutV0 {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ShardLayoutV1 {
-    #[doc = "The boundary accounts are the accounts on boundaries between shards.\n Each shard contains a range of accounts from one boundary account to\n another - or the smallest or largest account possible. The total\n number of shards is equal to the number of boundary accounts plus 1."]
+    #[doc = "The boundary accounts are the accounts on boundaries between shards.\nEach shard contains a range of accounts from one boundary account to\nanother - or the smallest or largest account possible. The total\nnumber of shards is equal to the number of boundary accounts plus 1."]
     pub boundary_accounts: ::std::vec::Vec<AccountId>,
-    #[doc = "Maps shards from the last shard layout to shards that it splits to in this shard layout,\n Useful for constructing states for the shards.\n None for the genesis shard layout"]
+    #[doc = "Maps shards from the last shard layout to shards that it splits to in this shard layout,\nUseful for constructing states for the shards.\nNone for the genesis shard layout"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub shards_split_map: ::std::option::Option<::std::vec::Vec<::std::vec::Vec<ShardId>>>,
-    #[doc = "Maps shard in this shard layout to their parent shard\n Since shard_ids always range from 0 to num_shards - 1, we use vec instead of a hashmap"]
+    #[doc = "Maps shard in this shard layout to their parent shard\nSince shard_ids always range from 0 to num_shards - 1, we use vec instead of a hashmap"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub to_parent_shard_map: ::std::option::Option<::std::vec::Vec<ShardId>>,
     #[doc = "Version of the shard layout, this is useful for uniquely identify the shard layout"]
@@ -23325,13 +22595,13 @@ impl ::std::convert::From<&ShardLayoutV1> for ShardLayoutV1 {
         value.clone()
     }
 }
-#[doc = "Counterpart to `ShardLayoutV2` composed of maps with string keys to aid\n serde serialization."]
+#[doc = "Counterpart to `ShardLayoutV2` composed of maps with string keys to aid\nserde serialization."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Counterpart to `ShardLayoutV2` composed of maps with string keys to aid\\n serde serialization.\","]
+#[doc = "  \"description\": \"Counterpart to `ShardLayoutV2` composed of maps with string keys to aid\\nserde serialization.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"boundary_accounts\","]
@@ -23417,13 +22687,13 @@ impl ::std::convert::From<&ShardLayoutV2> for ShardLayoutV2 {
         value.clone()
     }
 }
-#[doc = "`ShardUId` is a unique representation for shards from different shard layouts.\n\n Comparing to `ShardId`, which is just an ordinal number ranging from 0 to NUM_SHARDS-1,\n `ShardUId` provides a way to unique identify shards when shard layouts may change across epochs.\n This is important because we store states indexed by shards in our database, so we need a\n way to unique identify shard even when shards change across epochs.\n Another difference between `ShardUId` and `ShardId` is that `ShardUId` should only exist in\n a node's internal state while `ShardId` can be exposed to outside APIs and used in protocol\n level information (for example, `ShardChunkHeader` contains `ShardId` instead of `ShardUId`)"]
+#[doc = "`ShardUId` is a unique representation for shards from different shard layouts.\n\nComparing to `ShardId`, which is just an ordinal number ranging from 0 to NUM_SHARDS-1,\n`ShardUId` provides a way to unique identify shards when shard layouts may change across epochs.\nThis is important because we store states indexed by shards in our database, so we need a\nway to unique identify shard even when shards change across epochs.\nAnother difference between `ShardUId` and `ShardId` is that `ShardUId` should only exist in\na node's internal state while `ShardId` can be exposed to outside APIs and used in protocol\nlevel information (for example, `ShardChunkHeader` contains `ShardId` instead of `ShardUId`)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"`ShardUId` is a unique representation for shards from different shard layouts.\\n\\n Comparing to `ShardId`, which is just an ordinal number ranging from 0 to NUM_SHARDS-1,\\n `ShardUId` provides a way to unique identify shards when shard layouts may change across epochs.\\n This is important because we store states indexed by shards in our database, so we need a\\n way to unique identify shard even when shards change across epochs.\\n Another difference between `ShardUId` and `ShardId` is that `ShardUId` should only exist in\\n a node's internal state while `ShardId` can be exposed to outside APIs and used in protocol\\n level information (for example, `ShardChunkHeader` contains `ShardId` instead of `ShardUId`)\","]
+#[doc = "  \"description\": \"`ShardUId` is a unique representation for shards from different shard layouts.\\n\\nComparing to `ShardId`, which is just an ordinal number ranging from 0 to NUM_SHARDS-1,\\n`ShardUId` provides a way to unique identify shards when shard layouts may change across epochs.\\nThis is important because we store states indexed by shards in our database, so we need a\\nway to unique identify shard even when shards change across epochs.\\nAnother difference between `ShardUId` and `ShardId` is that `ShardUId` should only exist in\\na node's internal state while `ShardId` can be exposed to outside APIs and used in protocol\\nlevel information (for example, `ShardChunkHeader` contains `ShardId` instead of `ShardUId`)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"shard_id\","]
@@ -23665,6 +22935,452 @@ pub struct SignedTransactionView {
 impl ::std::convert::From<&SignedTransactionView> for SignedTransactionView {
     fn from(value: &SignedTransactionView) -> Self {
         value.clone()
+    }
+}
+#[doc = "`SingleAccessKeyChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleAccessKeyChangesByBlockIdChangesType {
+    #[serde(rename = "single_access_key_changes")]
+    SingleAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleAccessKeyChangesByBlockIdChangesType {
+    fn from(value: &SingleAccessKeyChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleAccessKeyChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleAccessKeyChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for SingleAccessKeyChangesByBlockIdChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for SingleAccessKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleAccessKeyChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleAccessKeyChangesByFinalityChangesType {
+    #[serde(rename = "single_access_key_changes")]
+    SingleAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleAccessKeyChangesByFinalityChangesType {
+    fn from(value: &SingleAccessKeyChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleAccessKeyChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleAccessKeyChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleAccessKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for SingleAccessKeyChangesByFinalityChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for SingleAccessKeyChangesByFinalityChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleAccessKeyChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_access_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleAccessKeyChangesBySyncCheckpointChangesType {
+    #[serde(rename = "single_access_key_changes")]
+    SingleAccessKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleAccessKeyChangesBySyncCheckpointChangesType {
+    fn from(value: &SingleAccessKeyChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleAccessKeyChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleAccessKeyChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_access_key_changes" => Ok(Self::SingleAccessKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleAccessKeyChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for SingleAccessKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for SingleAccessKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleGasKeyChangesByBlockIdChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleGasKeyChangesByBlockIdChangesType {
+    #[serde(rename = "single_gas_key_changes")]
+    SingleGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleGasKeyChangesByBlockIdChangesType {
+    fn from(value: &SingleGasKeyChangesByBlockIdChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleGasKeyChangesByBlockIdChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleGasKeyChangesByBlockIdChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_gas_key_changes" => Ok(Self::SingleGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for SingleGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for SingleGasKeyChangesByBlockIdChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleGasKeyChangesByFinalityChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleGasKeyChangesByFinalityChangesType {
+    #[serde(rename = "single_gas_key_changes")]
+    SingleGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleGasKeyChangesByFinalityChangesType {
+    fn from(value: &SingleGasKeyChangesByFinalityChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleGasKeyChangesByFinalityChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleGasKeyChangesByFinalityChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_gas_key_changes" => Ok(Self::SingleGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for SingleGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for SingleGasKeyChangesByFinalityChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`SingleGasKeyChangesBySyncCheckpointChangesType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"single_gas_key_changes\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum SingleGasKeyChangesBySyncCheckpointChangesType {
+    #[serde(rename = "single_gas_key_changes")]
+    SingleGasKeyChanges,
+}
+impl ::std::convert::From<&Self> for SingleGasKeyChangesBySyncCheckpointChangesType {
+    fn from(value: &SingleGasKeyChangesBySyncCheckpointChangesType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for SingleGasKeyChangesBySyncCheckpointChangesType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+        }
+    }
+}
+impl ::std::str::FromStr for SingleGasKeyChangesBySyncCheckpointChangesType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "single_gas_key_changes" => Ok(Self::SingleGasKeyChanges),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SingleGasKeyChangesBySyncCheckpointChangesType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for SingleGasKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for SingleGasKeyChangesBySyncCheckpointChangesType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 #[doc = "`SlashedValidator`"]
@@ -23957,13 +23673,13 @@ impl ::std::convert::From<&Self> for StateChangeCauseView {
         value.clone()
     }
 }
-#[doc = "It is a [serializable view] of [`StateChangeKind`].\n\n [serializable view]: ./index.html\n [`StateChangeKind`]: ../types/struct.StateChangeKind.html"]
+#[doc = "It is a [serializable view] of [`StateChangeKind`].\n\n[serializable view]: ./index.html\n[`StateChangeKind`]: ../types/struct.StateChangeKind.html"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"It is a [serializable view] of [`StateChangeKind`].\\n\\n [serializable view]: ./index.html\\n [`StateChangeKind`]: ../types/struct.StateChangeKind.html\","]
+#[doc = "  \"description\": \"It is a [serializable view] of [`StateChangeKind`].\\n\\n[serializable view]: ./index.html\\n[`StateChangeKind`]: ../types/struct.StateChangeKind.html\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
@@ -24058,258 +23774,487 @@ impl ::std::convert::From<&Self> for StateChangeKindView {
         value.clone()
     }
 }
-#[doc = "`StateChangeValueViewContent`"]
+#[doc = "`StateChangeWithCauseView`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"anyOf\": ["]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"description\": \"A view of the account\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
-#[doc = "        \"account_id\","]
-#[doc = "        \"amount\","]
-#[doc = "        \"code_hash\","]
-#[doc = "        \"locked\","]
-#[doc = "        \"storage_usage\""]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
-#[doc = "        \"account_id\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "        },"]
-#[doc = "        \"amount\": {"]
-#[doc = "          \"type\": \"string\""]
-#[doc = "        },"]
-#[doc = "        \"code_hash\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "        },"]
-#[doc = "        \"global_contract_account_id\": {"]
-#[doc = "          \"oneOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"type\": \"null\""]
+#[doc = "        \"change\": {"]
+#[doc = "          \"description\": \"A view of the account\","]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"amount\","]
+#[doc = "            \"code_hash\","]
+#[doc = "            \"locked\","]
+#[doc = "            \"storage_usage\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
-#[doc = "            {"]
-#[doc = "              \"allOf\": ["]
+#[doc = "            \"amount\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            },"]
+#[doc = "            \"code_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"global_contract_account_id\": {"]
+#[doc = "              \"anyOf\": ["]
 #[doc = "                {"]
 #[doc = "                  \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "                },"]
+#[doc = "                {"]
+#[doc = "                  \"type\": \"null\""]
 #[doc = "                }"]
 #[doc = "              ]"]
-#[doc = "            }"]
-#[doc = "          ]"]
-#[doc = "        },"]
-#[doc = "        \"global_contract_hash\": {"]
-#[doc = "          \"oneOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"type\": \"null\""]
 #[doc = "            },"]
-#[doc = "            {"]
-#[doc = "              \"allOf\": ["]
+#[doc = "            \"global_contract_hash\": {"]
+#[doc = "              \"anyOf\": ["]
 #[doc = "                {"]
 #[doc = "                  \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "                },"]
+#[doc = "                {"]
+#[doc = "                  \"type\": \"null\""]
 #[doc = "                }"]
 #[doc = "              ]"]
+#[doc = "            },"]
+#[doc = "            \"locked\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            },"]
+#[doc = "            \"storage_paid_at\": {"]
+#[doc = "              \"description\": \"TODO(2271): deprecated.\","]
+#[doc = "              \"default\": 0,"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"storage_usage\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
 #[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"account_update\""]
 #[doc = "          ]"]
-#[doc = "        },"]
-#[doc = "        \"locked\": {"]
-#[doc = "          \"type\": \"string\""]
-#[doc = "        },"]
-#[doc = "        \"storage_paid_at\": {"]
-#[doc = "          \"description\": \"TODO(2271): deprecated.\","]
-#[doc = "          \"default\": 0,"]
-#[doc = "          \"type\": \"integer\","]
-#[doc = "          \"format\": \"uint64\","]
-#[doc = "          \"minimum\": 0.0"]
-#[doc = "        },"]
-#[doc = "        \"storage_usage\": {"]
-#[doc = "          \"type\": \"integer\","]
-#[doc = "          \"format\": \"uint64\","]
-#[doc = "          \"minimum\": 0.0"]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
-#[doc = "        \"account_id\""]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
-#[doc = "        \"account_id\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "        }"]
-#[doc = "      }"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"access_key\","]
-#[doc = "        \"account_id\","]
-#[doc = "        \"public_key\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"access_key\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AccessKeyView\""]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            }"]
+#[doc = "          }"]
 #[doc = "        },"]
-#[doc = "        \"account_id\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "        },"]
-#[doc = "        \"public_key\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
-#[doc = "        }"]
-#[doc = "      }"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"account_id\","]
-#[doc = "        \"public_key\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"account_id\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "        },"]
-#[doc = "        \"public_key\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/PublicKey\""]
-#[doc = "        }"]
-#[doc = "      }"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"account_id\","]
-#[doc = "        \"key_base64\","]
-#[doc = "        \"value_base64\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"account_id\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "        },"]
-#[doc = "        \"key_base64\": {"]
+#[doc = "        \"type\": {"]
 #[doc = "          \"type\": \"string\","]
-#[doc = "          \"format\": \"bytes\""]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"account_deletion\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"access_key\","]
+#[doc = "            \"account_id\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"access_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccessKeyView\""]
+#[doc = "            },"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
 #[doc = "        },"]
-#[doc = "        \"value_base64\": {"]
+#[doc = "        \"type\": {"]
 #[doc = "          \"type\": \"string\","]
-#[doc = "          \"format\": \"bytes\""]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"access_key_update\""]
+#[doc = "          ]"]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
-#[doc = "        \"account_id\","]
-#[doc = "        \"key_base64\""]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
-#[doc = "        \"account_id\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
 #[doc = "        },"]
-#[doc = "        \"key_base64\": {"]
+#[doc = "        \"type\": {"]
 #[doc = "          \"type\": \"string\","]
-#[doc = "          \"format\": \"bytes\""]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"access_key_deletion\""]
+#[doc = "          ]"]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
-#[doc = "        \"account_id\","]
-#[doc = "        \"code_base64\""]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
-#[doc = "        \"account_id\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"gas_key\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"gas_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/GasKeyView\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
 #[doc = "        },"]
-#[doc = "        \"code_base64\": {"]
-#[doc = "          \"type\": \"string\""]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"gas_key_update\""]
+#[doc = "          ]"]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
-#[doc = "        \"account_id\""]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
-#[doc = "        \"account_id\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"index\","]
+#[doc = "            \"nonce\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"index\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint32\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"nonce\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"gas_key_nonce_update\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"gas_key_deletion\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"key_base64\","]
+#[doc = "            \"value_base64\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"key_base64\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
+#[doc = "            },"]
+#[doc = "            \"value_base64\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreValue\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"data_update\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"key_base64\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"key_base64\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/StoreKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"data_deletion\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"code_base64\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"code_base64\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"contract_code_update\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"change\","]
+#[doc = "        \"type\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"change\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"type\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"contract_code_deletion\""]
+#[doc = "          ]"]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
-#[doc = "  ]"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"cause\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"cause\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/StateChangeCauseView\""]
+#[doc = "    }"]
+#[doc = "  }"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeValueViewContent {
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_0: ::std::option::Option<StateChangeValueViewContentSubtype0>,
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_1: ::std::option::Option<StateChangeValueViewContentSubtype1>,
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_2: ::std::option::Option<StateChangeValueViewContentSubtype2>,
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_3: ::std::option::Option<StateChangeValueViewContentSubtype3>,
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_4: ::std::option::Option<StateChangeValueViewContentSubtype4>,
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_5: ::std::option::Option<StateChangeValueViewContentSubtype5>,
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_6: ::std::option::Option<StateChangeValueViewContentSubtype6>,
-    #[serde(
-        flatten,
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub subtype_7: ::std::option::Option<StateChangeValueViewContentSubtype7>,
+#[serde(untagged)]
+pub enum StateChangeWithCauseView {
+    Variant0 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant0Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant0Type,
+    },
+    Variant1 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant1Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant1Type,
+    },
+    Variant2 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant2Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant2Type,
+    },
+    Variant3 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant3Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant3Type,
+    },
+    Variant4 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant4Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant4Type,
+    },
+    Variant5 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant5Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant5Type,
+    },
+    Variant6 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant6Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant6Type,
+    },
+    Variant7 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant7Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant7Type,
+    },
+    Variant8 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant8Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant8Type,
+    },
+    Variant9 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant9Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant9Type,
+    },
+    Variant10 {
+        cause: StateChangeCauseView,
+        change: StateChangeWithCauseViewVariant10Change,
+        #[serde(rename = "type")]
+        type_: StateChangeWithCauseViewVariant10Type,
+    },
 }
-impl ::std::convert::From<&StateChangeValueViewContent> for StateChangeValueViewContent {
-    fn from(value: &StateChangeValueViewContent) -> Self {
+impl ::std::convert::From<&Self> for StateChangeWithCauseView {
+    fn from(value: &StateChangeWithCauseView) -> Self {
         value.clone()
-    }
-}
-impl ::std::default::Default for StateChangeValueViewContent {
-    fn default() -> Self {
-        Self {
-            subtype_0: Default::default(),
-            subtype_1: Default::default(),
-            subtype_2: Default::default(),
-            subtype_3: Default::default(),
-            subtype_4: Default::default(),
-            subtype_5: Default::default(),
-            subtype_6: Default::default(),
-            subtype_7: Default::default(),
-        }
     }
 }
 #[doc = "A view of the account"]
@@ -24328,46 +24273,45 @@ impl ::std::default::Default for StateChangeValueViewContent {
 #[doc = "    \"storage_usage\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
+#[doc = "    \"access_key\": false,"]
 #[doc = "    \"account_id\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "    },"]
 #[doc = "    \"amount\": {"]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
+#[doc = "    \"code_base64\": false,"]
 #[doc = "    \"code_hash\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
+#[doc = "    \"gas_key\": false,"]
 #[doc = "    \"global_contract_account_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"global_contract_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": false,"]
 #[doc = "    \"locked\": {"]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
+#[doc = "    \"nonce\": false,"]
+#[doc = "    \"public_key\": false,"]
 #[doc = "    \"storage_paid_at\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
 #[doc = "      \"default\": 0,"]
@@ -24379,13 +24323,14 @@ impl ::std::default::Default for StateChangeValueViewContent {
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
-#[doc = "    }"]
+#[doc = "    },"]
+#[doc = "    \"value_base64\": false"]
 #[doc = "  }"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeValueViewContentSubtype0 {
+pub struct StateChangeWithCauseViewVariant0Change {
     pub account_id: AccountId,
     pub amount: ::std::string::String,
     pub code_hash: CryptoHash,
@@ -24399,14 +24344,86 @@ pub struct StateChangeValueViewContentSubtype0 {
     pub storage_paid_at: u64,
     pub storage_usage: u64,
 }
-impl ::std::convert::From<&StateChangeValueViewContentSubtype0>
-    for StateChangeValueViewContentSubtype0
+impl ::std::convert::From<&StateChangeWithCauseViewVariant0Change>
+    for StateChangeWithCauseViewVariant0Change
 {
-    fn from(value: &StateChangeValueViewContentSubtype0) -> Self {
+    fn from(value: &StateChangeWithCauseViewVariant0Change) -> Self {
         value.clone()
     }
 }
-#[doc = "`StateChangeValueViewContentSubtype1`"]
+#[doc = "`StateChangeWithCauseViewVariant0Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"account_update\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant0Type {
+    #[serde(rename = "account_update")]
+    AccountUpdate,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant0Type {
+    fn from(value: &StateChangeWithCauseViewVariant0Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant0Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AccountUpdate => write!(f, "account_update"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant0Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "account_update" => Ok(Self::AccountUpdate),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant0Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant0Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant0Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant10Change`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
@@ -24417,25 +24434,228 @@ impl ::std::convert::From<&StateChangeValueViewContentSubtype0>
 #[doc = "    \"account_id\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
+#[doc = "    \"access_key\": false,"]
 #[doc = "    \"account_id\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "    }"]
+#[doc = "    },"]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": false,"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": false,"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": false,"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": false,"]
+#[doc = "    \"public_key\": false,"]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": false"]
 #[doc = "  }"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeValueViewContentSubtype1 {
+pub struct StateChangeWithCauseViewVariant10Change {
     pub account_id: AccountId,
 }
-impl ::std::convert::From<&StateChangeValueViewContentSubtype1>
-    for StateChangeValueViewContentSubtype1
+impl ::std::convert::From<&StateChangeWithCauseViewVariant10Change>
+    for StateChangeWithCauseViewVariant10Change
 {
-    fn from(value: &StateChangeValueViewContentSubtype1) -> Self {
+    fn from(value: &StateChangeWithCauseViewVariant10Change) -> Self {
         value.clone()
     }
 }
-#[doc = "`StateChangeValueViewContentSubtype2`"]
+#[doc = "`StateChangeWithCauseViewVariant10Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"contract_code_deletion\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant10Type {
+    #[serde(rename = "contract_code_deletion")]
+    ContractCodeDeletion,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant10Type {
+    fn from(value: &StateChangeWithCauseViewVariant10Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant10Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ContractCodeDeletion => write!(f, "contract_code_deletion"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant10Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "contract_code_deletion" => Ok(Self::ContractCodeDeletion),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant10Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant10Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant10Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant1Change`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"access_key\": false,"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": false,"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": false,"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": false,"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": false,"]
+#[doc = "    \"public_key\": false,"]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": false"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct StateChangeWithCauseViewVariant1Change {
+    pub account_id: AccountId,
+}
+impl ::std::convert::From<&StateChangeWithCauseViewVariant1Change>
+    for StateChangeWithCauseViewVariant1Change
+{
+    fn from(value: &StateChangeWithCauseViewVariant1Change) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant1Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"account_deletion\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant1Type {
+    #[serde(rename = "account_deletion")]
+    AccountDeletion,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant1Type {
+    fn from(value: &StateChangeWithCauseViewVariant1Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant1Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AccountDeletion => write!(f, "account_deletion"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant1Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "account_deletion" => Ok(Self::AccountDeletion),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant1Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant1Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant1Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant2Change`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
@@ -24454,200 +24674,40 @@ impl ::std::convert::From<&StateChangeValueViewContentSubtype1>
 #[doc = "    \"account_id\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "    },"]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": false,"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": false,"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": false,"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": false,"]
 #[doc = "    \"public_key\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
-#[doc = "    }"]
+#[doc = "    },"]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": false"]
 #[doc = "  }"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeValueViewContentSubtype2 {
+pub struct StateChangeWithCauseViewVariant2Change {
     pub access_key: AccessKeyView,
     pub account_id: AccountId,
     pub public_key: PublicKey,
 }
-impl ::std::convert::From<&StateChangeValueViewContentSubtype2>
-    for StateChangeValueViewContentSubtype2
+impl ::std::convert::From<&StateChangeWithCauseViewVariant2Change>
+    for StateChangeWithCauseViewVariant2Change
 {
-    fn from(value: &StateChangeValueViewContentSubtype2) -> Self {
+    fn from(value: &StateChangeWithCauseViewVariant2Change) -> Self {
         value.clone()
     }
 }
-#[doc = "`StateChangeValueViewContentSubtype3`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"account_id\","]
-#[doc = "    \"public_key\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"account_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "    },"]
-#[doc = "    \"public_key\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeValueViewContentSubtype3 {
-    pub account_id: AccountId,
-    pub public_key: PublicKey,
-}
-impl ::std::convert::From<&StateChangeValueViewContentSubtype3>
-    for StateChangeValueViewContentSubtype3
-{
-    fn from(value: &StateChangeValueViewContentSubtype3) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`StateChangeValueViewContentSubtype4`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"account_id\","]
-#[doc = "    \"key_base64\","]
-#[doc = "    \"value_base64\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"account_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "    },"]
-#[doc = "    \"key_base64\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
-#[doc = "    },"]
-#[doc = "    \"value_base64\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeValueViewContentSubtype4 {
-    pub account_id: AccountId,
-    pub key_base64: ::std::string::String,
-    pub value_base64: ::std::string::String,
-}
-impl ::std::convert::From<&StateChangeValueViewContentSubtype4>
-    for StateChangeValueViewContentSubtype4
-{
-    fn from(value: &StateChangeValueViewContentSubtype4) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`StateChangeValueViewContentSubtype5`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"account_id\","]
-#[doc = "    \"key_base64\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"account_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "    },"]
-#[doc = "    \"key_base64\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeValueViewContentSubtype5 {
-    pub account_id: AccountId,
-    pub key_base64: ::std::string::String,
-}
-impl ::std::convert::From<&StateChangeValueViewContentSubtype5>
-    for StateChangeValueViewContentSubtype5
-{
-    fn from(value: &StateChangeValueViewContentSubtype5) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`StateChangeValueViewContentSubtype6`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"account_id\","]
-#[doc = "    \"code_base64\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"account_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "    },"]
-#[doc = "    \"code_base64\": {"]
-#[doc = "      \"type\": \"string\""]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeValueViewContentSubtype6 {
-    pub account_id: AccountId,
-    pub code_base64: ::std::string::String,
-}
-impl ::std::convert::From<&StateChangeValueViewContentSubtype6>
-    for StateChangeValueViewContentSubtype6
-{
-    fn from(value: &StateChangeValueViewContentSubtype6) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`StateChangeValueViewContentSubtype7`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"account_id\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"account_id\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeValueViewContentSubtype7 {
-    pub account_id: AccountId,
-}
-impl ::std::convert::From<&StateChangeValueViewContentSubtype7>
-    for StateChangeValueViewContentSubtype7
-{
-    fn from(value: &StateChangeValueViewContentSubtype7) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`StateChangeValueViewType`"]
+#[doc = "`StateChangeWithCauseViewVariant2Type`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
@@ -24655,13 +24715,7 @@ impl ::std::convert::From<&StateChangeValueViewContentSubtype7>
 #[doc = "{"]
 #[doc = "  \"type\": \"string\","]
 #[doc = "  \"enum\": ["]
-#[doc = "    \"account_update\","]
-#[doc = "    \"account_deletion\","]
-#[doc = "    \"access_key_update\","]
-#[doc = "    \"data_update\","]
-#[doc = "    \"data_deletion\","]
-#[doc = "    \"contract_code_update\","]
-#[doc = "    \"contract_code_deletion\""]
+#[doc = "    \"access_key_update\""]
 #[doc = "  ]"]
 #[doc = "}"]
 #[doc = r" ```"]
@@ -24678,62 +24732,38 @@ impl ::std::convert::From<&StateChangeValueViewContentSubtype7>
     PartialEq,
     PartialOrd,
 )]
-pub enum StateChangeValueViewType {
-    #[serde(rename = "account_update")]
-    AccountUpdate,
-    #[serde(rename = "account_deletion")]
-    AccountDeletion,
+pub enum StateChangeWithCauseViewVariant2Type {
     #[serde(rename = "access_key_update")]
     AccessKeyUpdate,
-    #[serde(rename = "data_update")]
-    DataUpdate,
-    #[serde(rename = "data_deletion")]
-    DataDeletion,
-    #[serde(rename = "contract_code_update")]
-    ContractCodeUpdate,
-    #[serde(rename = "contract_code_deletion")]
-    ContractCodeDeletion,
 }
-impl ::std::convert::From<&Self> for StateChangeValueViewType {
-    fn from(value: &StateChangeValueViewType) -> Self {
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant2Type {
+    fn from(value: &StateChangeWithCauseViewVariant2Type) -> Self {
         value.clone()
     }
 }
-impl ::std::fmt::Display for StateChangeValueViewType {
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant2Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountUpdate => write!(f, "account_update"),
-            Self::AccountDeletion => write!(f, "account_deletion"),
             Self::AccessKeyUpdate => write!(f, "access_key_update"),
-            Self::DataUpdate => write!(f, "data_update"),
-            Self::DataDeletion => write!(f, "data_deletion"),
-            Self::ContractCodeUpdate => write!(f, "contract_code_update"),
-            Self::ContractCodeDeletion => write!(f, "contract_code_deletion"),
         }
     }
 }
-impl ::std::str::FromStr for StateChangeValueViewType {
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant2Type {
     type Err = self::error::ConversionError;
     fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
         match value {
-            "account_update" => Ok(Self::AccountUpdate),
-            "account_deletion" => Ok(Self::AccountDeletion),
             "access_key_update" => Ok(Self::AccessKeyUpdate),
-            "data_update" => Ok(Self::DataUpdate),
-            "data_deletion" => Ok(Self::DataDeletion),
-            "contract_code_update" => Ok(Self::ContractCodeUpdate),
-            "contract_code_deletion" => Ok(Self::ContractCodeDeletion),
             _ => Err("invalid value".into()),
         }
     }
 }
-impl ::std::convert::TryFrom<&str> for StateChangeValueViewType {
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant2Type {
     type Error = self::error::ConversionError;
     fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
         value.parse()
     }
 }
-impl ::std::convert::TryFrom<&::std::string::String> for StateChangeValueViewType {
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant2Type {
     type Error = self::error::ConversionError;
     fn try_from(
         value: &::std::string::String,
@@ -24741,7 +24771,7 @@ impl ::std::convert::TryFrom<&::std::string::String> for StateChangeValueViewTyp
         value.parse()
     }
 }
-impl ::std::convert::TryFrom<::std::string::String> for StateChangeValueViewType {
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant2Type {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -24749,7 +24779,7 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeValueViewType
         value.parse()
     }
 }
-#[doc = "`StateChangeWithCauseView`"]
+#[doc = "`StateChangeWithCauseViewVariant3Change`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
@@ -24757,34 +24787,856 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeValueViewType
 #[doc = "{"]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
-#[doc = "    \"cause\","]
-#[doc = "    \"change\","]
-#[doc = "    \"type\""]
+#[doc = "    \"account_id\","]
+#[doc = "    \"public_key\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
-#[doc = "    \"cause\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/StateChangeCauseView\""]
+#[doc = "    \"access_key\": false,"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "    },"]
-#[doc = "    \"change\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/StateChangeValueViewContent\""]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": false,"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": false,"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": false,"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": false,"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
 #[doc = "    },"]
-#[doc = "    \"type\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/StateChangeValueViewType\""]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": false"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct StateChangeWithCauseViewVariant3Change {
+    pub account_id: AccountId,
+    pub public_key: PublicKey,
+}
+impl ::std::convert::From<&StateChangeWithCauseViewVariant3Change>
+    for StateChangeWithCauseViewVariant3Change
+{
+    fn from(value: &StateChangeWithCauseViewVariant3Change) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant3Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"access_key_deletion\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant3Type {
+    #[serde(rename = "access_key_deletion")]
+    AccessKeyDeletion,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant3Type {
+    fn from(value: &StateChangeWithCauseViewVariant3Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant3Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AccessKeyDeletion => write!(f, "access_key_deletion"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant3Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "access_key_deletion" => Ok(Self::AccessKeyDeletion),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant3Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant3Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant3Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant4Change`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"gas_key\","]
+#[doc = "    \"public_key\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"access_key\": false,"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": false,"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/GasKeyView\""]
+#[doc = "    },"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": false,"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": false,"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "    },"]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": false"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct StateChangeWithCauseViewVariant4Change {
+    pub account_id: AccountId,
+    pub gas_key: GasKeyView,
+    pub public_key: PublicKey,
+}
+impl ::std::convert::From<&StateChangeWithCauseViewVariant4Change>
+    for StateChangeWithCauseViewVariant4Change
+{
+    fn from(value: &StateChangeWithCauseViewVariant4Change) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant4Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"gas_key_update\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant4Type {
+    #[serde(rename = "gas_key_update")]
+    GasKeyUpdate,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant4Type {
+    fn from(value: &StateChangeWithCauseViewVariant4Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant4Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::GasKeyUpdate => write!(f, "gas_key_update"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant4Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "gas_key_update" => Ok(Self::GasKeyUpdate),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant4Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant4Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant4Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant5Change`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"index\","]
+#[doc = "    \"nonce\","]
+#[doc = "    \"public_key\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"access_key\": false,"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": false,"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": false,"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"key_base64\": false,"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "    },"]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": false"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct StateChangeWithCauseViewVariant5Change {
+    pub account_id: AccountId,
+    pub index: u32,
+    pub nonce: u64,
+    pub public_key: PublicKey,
+}
+impl ::std::convert::From<&StateChangeWithCauseViewVariant5Change>
+    for StateChangeWithCauseViewVariant5Change
+{
+    fn from(value: &StateChangeWithCauseViewVariant5Change) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant5Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"gas_key_nonce_update\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant5Type {
+    #[serde(rename = "gas_key_nonce_update")]
+    GasKeyNonceUpdate,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant5Type {
+    fn from(value: &StateChangeWithCauseViewVariant5Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant5Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::GasKeyNonceUpdate => write!(f, "gas_key_nonce_update"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant5Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "gas_key_nonce_update" => Ok(Self::GasKeyNonceUpdate),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant5Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant5Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant5Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant6Change`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"public_key\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"access_key\": false,"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": false,"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": false,"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": false,"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": false,"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "    },"]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": false"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct StateChangeWithCauseViewVariant6Change {
+    pub account_id: AccountId,
+    pub public_key: PublicKey,
+}
+impl ::std::convert::From<&StateChangeWithCauseViewVariant6Change>
+    for StateChangeWithCauseViewVariant6Change
+{
+    fn from(value: &StateChangeWithCauseViewVariant6Change) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant6Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"gas_key_deletion\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant6Type {
+    #[serde(rename = "gas_key_deletion")]
+    GasKeyDeletion,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant6Type {
+    fn from(value: &StateChangeWithCauseViewVariant6Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant6Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::GasKeyDeletion => write!(f, "gas_key_deletion"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant6Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "gas_key_deletion" => Ok(Self::GasKeyDeletion),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant6Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant6Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant6Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant7Change`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"key_base64\","]
+#[doc = "    \"value_base64\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"access_key\": false,"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": false,"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": false,"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreKey\""]
+#[doc = "    },"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": false,"]
+#[doc = "    \"public_key\": false,"]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreValue\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct StateChangeWithCauseView {
-    pub cause: StateChangeCauseView,
-    pub change: StateChangeValueViewContent,
-    #[serde(rename = "type")]
-    pub type_: StateChangeValueViewType,
+pub struct StateChangeWithCauseViewVariant7Change {
+    pub account_id: AccountId,
+    pub key_base64: StoreKey,
+    pub value_base64: StoreValue,
 }
-impl ::std::convert::From<&StateChangeWithCauseView> for StateChangeWithCauseView {
-    fn from(value: &StateChangeWithCauseView) -> Self {
+impl ::std::convert::From<&StateChangeWithCauseViewVariant7Change>
+    for StateChangeWithCauseViewVariant7Change
+{
+    fn from(value: &StateChangeWithCauseViewVariant7Change) -> Self {
         value.clone()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant7Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"data_update\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant7Type {
+    #[serde(rename = "data_update")]
+    DataUpdate,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant7Type {
+    fn from(value: &StateChangeWithCauseViewVariant7Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant7Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::DataUpdate => write!(f, "data_update"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant7Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "data_update" => Ok(Self::DataUpdate),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant7Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant7Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant7Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant8Change`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"key_base64\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"access_key\": false,"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": false,"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": false,"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreKey\""]
+#[doc = "    },"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": false,"]
+#[doc = "    \"public_key\": false,"]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": false"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct StateChangeWithCauseViewVariant8Change {
+    pub account_id: AccountId,
+    pub key_base64: StoreKey,
+}
+impl ::std::convert::From<&StateChangeWithCauseViewVariant8Change>
+    for StateChangeWithCauseViewVariant8Change
+{
+    fn from(value: &StateChangeWithCauseViewVariant8Change) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant8Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"data_deletion\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant8Type {
+    #[serde(rename = "data_deletion")]
+    DataDeletion,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant8Type {
+    fn from(value: &StateChangeWithCauseViewVariant8Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant8Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::DataDeletion => write!(f, "data_deletion"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant8Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "data_deletion" => Ok(Self::DataDeletion),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant8Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant8Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant8Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant9Change`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"code_base64\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"access_key\": false,"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"amount\": false,"]
+#[doc = "    \"code_base64\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"code_hash\": false,"]
+#[doc = "    \"gas_key\": false,"]
+#[doc = "    \"global_contract_account_id\": false,"]
+#[doc = "    \"global_contract_hash\": false,"]
+#[doc = "    \"index\": false,"]
+#[doc = "    \"key_base64\": false,"]
+#[doc = "    \"locked\": false,"]
+#[doc = "    \"nonce\": false,"]
+#[doc = "    \"public_key\": false,"]
+#[doc = "    \"storage_paid_at\": false,"]
+#[doc = "    \"storage_usage\": false,"]
+#[doc = "    \"value_base64\": false"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct StateChangeWithCauseViewVariant9Change {
+    pub account_id: AccountId,
+    pub code_base64: ::std::string::String,
+}
+impl ::std::convert::From<&StateChangeWithCauseViewVariant9Change>
+    for StateChangeWithCauseViewVariant9Change
+{
+    fn from(value: &StateChangeWithCauseViewVariant9Change) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`StateChangeWithCauseViewVariant9Type`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"contract_code_update\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum StateChangeWithCauseViewVariant9Type {
+    #[serde(rename = "contract_code_update")]
+    ContractCodeUpdate,
+}
+impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant9Type {
+    fn from(value: &StateChangeWithCauseViewVariant9Type) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for StateChangeWithCauseViewVariant9Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ContractCodeUpdate => write!(f, "contract_code_update"),
+        }
+    }
+}
+impl ::std::str::FromStr for StateChangeWithCauseViewVariant9Type {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "contract_code_update" => Ok(Self::ContractCodeUpdate),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for StateChangeWithCauseViewVariant9Type {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for StateChangeWithCauseViewVariant9Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseViewVariant9Type {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 #[doc = "Item of the state, key and value are serialized in base64 and proof for inclusion of given state item."]
@@ -24801,12 +25653,10 @@ impl ::std::convert::From<&StateChangeWithCauseView> for StateChangeWithCauseVie
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"key\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreKey\""]
 #[doc = "    },"]
 #[doc = "    \"value\": {"]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"format\": \"bytes\""]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreValue\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -24814,8 +25664,8 @@ impl ::std::convert::From<&StateChangeWithCauseView> for StateChangeWithCauseVie
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct StateItem {
-    pub key: ::std::string::String,
-    pub value: ::std::string::String,
+    pub key: StoreKey,
+    pub value: StoreValue,
 }
 impl ::std::convert::From<&StateItem> for StateItem {
     fn from(value: &StateItem) -> Self {
@@ -24833,16 +25683,12 @@ impl ::std::convert::From<&StateItem> for StateItem {
 #[doc = "  \"properties\": {"]
 #[doc = "    \"dump\": {"]
 #[doc = "      \"description\": \"`none` value disables state dump to external storage.\","]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/DumpConfig\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/DumpConfig\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -24890,16 +25736,12 @@ impl ::std::default::Default for StateSyncConfig {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"earliest_block_hash\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -24918,16 +25760,12 @@ impl ::std::default::Default for StateSyncConfig {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"epoch_id\": {"]
-#[doc = "      \"oneOf\": ["]
+#[doc = "      \"anyOf\": ["]
 #[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
+#[doc = "          \"$ref\": \"#/components/schemas/EpochId\""]
 #[doc = "        },"]
 #[doc = "        {"]
-#[doc = "          \"allOf\": ["]
-#[doc = "            {"]
-#[doc = "              \"$ref\": \"#/components/schemas/EpochId\""]
-#[doc = "            }"]
-#[doc = "          ]"]
+#[doc = "          \"type\": \"null\""]
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
@@ -24983,13 +25821,13 @@ impl ::std::convert::From<&StatusSyncInfo> for StatusSyncInfo {
         value.clone()
     }
 }
-#[doc = "Errors which may occur during working with trie storages, storing\n trie values (trie nodes and state values) by their hashes."]
+#[doc = "Errors which may occur during working with trie storages, storing\ntrie values (trie nodes and state values) by their hashes."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Errors which may occur during working with trie storages, storing\\n trie values (trie nodes and state values) by their hashes.\","]
+#[doc = "  \"description\": \"Errors which may occur during working with trie storages, storing\\ntrie values (trie nodes and state values) by their hashes.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"description\": \"Key-value db internal failure\","]
@@ -25012,14 +25850,14 @@ impl ::std::convert::From<&StatusSyncInfo> for StatusSyncInfo {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Found trie node which shouldn't be part of state. Raised during\\n validation of state sync parts where incorrect node was passed.\\n TODO (#8997): consider including hash of trie node.\","]
+#[doc = "      \"description\": \"Found trie node which shouldn't be part of state. Raised during\\nvalidation of state sync parts where incorrect node was passed.\\nTODO (#8997): consider including hash of trie node.\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"UnexpectedTrieValue\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Either invalid state or key-value db is corrupted.\\n For PartialStorage it cannot be corrupted.\\n Error message is unreliable and for debugging purposes only. It's also probably ok to\\n panic in every place that produces this error.\\n We can check if db is corrupted by verifying everything in the state trie.\","]
+#[doc = "      \"description\": \"Either invalid state or key-value db is corrupted.\\nFor PartialStorage it cannot be corrupted.\\nError message is unreliable and for debugging purposes only. It's also probably ok to\\npanic in every place that produces this error.\\nWe can check if db is corrupted by verifying everything in the state trie.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"StorageInconsistentState\""]
@@ -25032,7 +25870,7 @@ impl ::std::convert::From<&StatusSyncInfo> for StatusSyncInfo {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Flat storage error, meaning that it doesn't support some block anymore.\\n We guarantee that such block cannot become final, thus block processing\\n must resume normally.\","]
+#[doc = "      \"description\": \"Flat storage error, meaning that it doesn't support some block anymore.\\nWe guarantee that such block cannot become final, thus block processing\\nmust resume normally.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"FlatStorageBlockNotSupported\""]
@@ -25067,11 +25905,11 @@ pub enum StorageError {
     StorageInternalError,
     #[doc = "Requested trie value by its hash which is missing in storage."]
     MissingTrieValue(MissingTrieValue),
-    #[doc = "Found trie node which shouldn't be part of state. Raised during\n validation of state sync parts where incorrect node was passed.\n TODO (#8997): consider including hash of trie node."]
+    #[doc = "Found trie node which shouldn't be part of state. Raised during\nvalidation of state sync parts where incorrect node was passed.\nTODO (#8997): consider including hash of trie node."]
     UnexpectedTrieValue,
-    #[doc = "Either invalid state or key-value db is corrupted.\n For PartialStorage it cannot be corrupted.\n Error message is unreliable and for debugging purposes only. It's also probably ok to\n panic in every place that produces this error.\n We can check if db is corrupted by verifying everything in the state trie."]
+    #[doc = "Either invalid state or key-value db is corrupted.\nFor PartialStorage it cannot be corrupted.\nError message is unreliable and for debugging purposes only. It's also probably ok to\npanic in every place that produces this error.\nWe can check if db is corrupted by verifying everything in the state trie."]
     StorageInconsistentState(::std::string::String),
-    #[doc = "Flat storage error, meaning that it doesn't support some block anymore.\n We guarantee that such block cannot become final, thus block processing\n must resume normally."]
+    #[doc = "Flat storage error, meaning that it doesn't support some block anymore.\nWe guarantee that such block cannot become final, thus block processing\nmust resume normally."]
     FlatStorageBlockNotSupported(::std::string::String),
     #[doc = "In-memory trie could not be loaded for some reason."]
     MemTrieLoadingError(::std::string::String),
@@ -25201,6 +26039,120 @@ pub struct StorageUsageConfigView {
 impl ::std::convert::From<&StorageUsageConfigView> for StorageUsageConfigView {
     fn from(value: &StorageUsageConfigView) -> Self {
         value.clone()
+    }
+}
+#[doc = "This type is used to mark keys (arrays of bytes) that are queried from store.\n\nNOTE: Currently, this type is only used in the view_client and RPC to be able to transparently\npretty-serialize the bytes arrays as base64-encoded strings (see `serialize.rs`)."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"This type is used to mark keys (arrays of bytes) that are queried from store.\\n\\nNOTE: Currently, this type is only used in the view_client and RPC to be able to transparently\\npretty-serialize the bytes arrays as base64-encoded strings (see `serialize.rs`).\","]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"format\": \"bytes\""]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+#[serde(transparent)]
+pub struct StoreKey(pub ::std::string::String);
+impl ::std::ops::Deref for StoreKey {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<StoreKey> for ::std::string::String {
+    fn from(value: StoreKey) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<&StoreKey> for StoreKey {
+    fn from(value: &StoreKey) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::std::string::String> for StoreKey {
+    fn from(value: ::std::string::String) -> Self {
+        Self(value)
+    }
+}
+impl ::std::str::FromStr for StoreKey {
+    type Err = ::std::convert::Infallible;
+    fn from_str(value: &str) -> ::std::result::Result<Self, Self::Err> {
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::fmt::Display for StoreKey {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+#[doc = "This type is used to mark values returned from store (arrays of bytes).\n\nNOTE: Currently, this type is only used in the view_client and RPC to be able to transparently\npretty-serialize the bytes arrays as base64-encoded strings (see `serialize.rs`)."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"This type is used to mark values returned from store (arrays of bytes).\\n\\nNOTE: Currently, this type is only used in the view_client and RPC to be able to transparently\\npretty-serialize the bytes arrays as base64-encoded strings (see `serialize.rs`).\","]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"format\": \"bytes\""]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+#[serde(transparent)]
+pub struct StoreValue(pub ::std::string::String);
+impl ::std::ops::Deref for StoreValue {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<StoreValue> for ::std::string::String {
+    fn from(value: StoreValue) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<&StoreValue> for StoreValue {
+    fn from(value: &StoreValue) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::std::string::String> for StoreValue {
+    fn from(value: ::std::string::String) -> Self {
+        Self(value)
+    }
+}
+impl ::std::str::FromStr for StoreValue {
+    type Err = ::std::convert::Infallible;
+    fn from_str(value: &str) -> ::std::result::Result<Self, Self::Err> {
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::fmt::Display for StoreValue {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        self.0.fmt(f)
     }
 }
 #[doc = "`SyncCheckpoint`"]
@@ -25361,13 +26313,13 @@ impl ::std::convert::From<&Tier1ProxyView> for Tier1ProxyView {
         value.clone()
     }
 }
-#[doc = "Describes the expected behavior of the node regarding shard tracking.\n If the node is an active validator, it will also track the shards it is responsible for as a validator."]
+#[doc = "Describes the expected behavior of the node regarding shard tracking.\nIf the node is an active validator, it will also track the shards it is responsible for as a validator."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Describes the expected behavior of the node regarding shard tracking.\\n If the node is an active validator, it will also track the shards it is responsible for as a validator.\","]
+#[doc = "  \"description\": \"Describes the expected behavior of the node regarding shard tracking.\\nIf the node is an active validator, it will also track the shards it is responsible for as a validator.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"description\": \"Tracks no shards (light client).\","]
@@ -25413,7 +26365,7 @@ impl ::std::convert::From<&Tier1ProxyView> for Tier1ProxyView {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Rotate between these sets of tracked shards.\\n Used to simulate the behavior of chunk only producers without staking tokens.\","]
+#[doc = "      \"description\": \"Rotate between these sets of tracked shards.\\nUsed to simulate the behavior of chunk only producers without staking tokens.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"Schedule\""]
@@ -25461,7 +26413,7 @@ pub enum TrackedShardsConfig {
     AllShards,
     #[doc = "Tracks shards that are assigned to given validator account."]
     ShadowValidator(AccountId),
-    #[doc = "Rotate between these sets of tracked shards.\n Used to simulate the behavior of chunk only producers without staking tokens."]
+    #[doc = "Rotate between these sets of tracked shards.\nUsed to simulate the behavior of chunk only producers without staking tokens."]
     Schedule(::std::vec::Vec<::std::vec::Vec<ShardId>>),
     #[doc = "Tracks shards that contain one of the given account."]
     Accounts(::std::vec::Vec<AccountId>),
@@ -25600,7 +26552,7 @@ impl ::std::convert::From<InvalidTxError> for TxExecutionError {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Transaction is included into the block +\\n All non-refund transaction receipts finished their execution.\\n The corresponding blocks for tx and each receipt may be not finalized yet\","]
+#[doc = "      \"description\": \"Transaction is included into the block +\\nAll non-refund transaction receipts finished their execution.\\nThe corresponding blocks for tx and each receipt may be not finalized yet\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"EXECUTED_OPTIMISTIC\""]
@@ -25614,14 +26566,14 @@ impl ::std::convert::From<InvalidTxError> for TxExecutionError {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Transaction is included into finalized block +\\n All non-refund transaction receipts finished their execution.\\n The corresponding blocks for each receipt may be not finalized yet\","]
+#[doc = "      \"description\": \"Transaction is included into finalized block +\\nAll non-refund transaction receipts finished their execution.\\nThe corresponding blocks for each receipt may be not finalized yet\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"EXECUTED\""]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Transaction is included into finalized block +\\n Execution of all transaction receipts is finalized, including refund receipts\","]
+#[doc = "      \"description\": \"Transaction is included into finalized block +\\nExecution of all transaction receipts is finalized, including refund receipts\","]
 #[doc = "      \"type\": \"string\","]
 #[doc = "      \"enum\": ["]
 #[doc = "        \"FINAL\""]
@@ -25650,16 +26602,16 @@ pub enum TxExecutionStatus {
     #[doc = "Transaction is included into the block. The block may be not finalized yet"]
     #[serde(rename = "INCLUDED")]
     Included,
-    #[doc = "Transaction is included into the block +\n All non-refund transaction receipts finished their execution.\n The corresponding blocks for tx and each receipt may be not finalized yet"]
+    #[doc = "Transaction is included into the block +\nAll non-refund transaction receipts finished their execution.\nThe corresponding blocks for tx and each receipt may be not finalized yet"]
     #[serde(rename = "EXECUTED_OPTIMISTIC")]
     ExecutedOptimistic,
     #[doc = "Transaction is included into finalized block"]
     #[serde(rename = "INCLUDED_FINAL")]
     IncludedFinal,
-    #[doc = "Transaction is included into finalized block +\n All non-refund transaction receipts finished their execution.\n The corresponding blocks for each receipt may be not finalized yet"]
+    #[doc = "Transaction is included into finalized block +\nAll non-refund transaction receipts finished their execution.\nThe corresponding blocks for each receipt may be not finalized yet"]
     #[serde(rename = "EXECUTED")]
     Executed,
-    #[doc = "Transaction is included into finalized block +\n Execution of all transaction receipts is finalized, including refund receipts"]
+    #[doc = "Transaction is included into finalized block +\nExecution of all transaction receipts is finalized, including refund receipts"]
     #[serde(rename = "FINAL")]
     Final,
 }
@@ -25709,83 +26661,6 @@ impl ::std::convert::TryFrom<&::std::string::String> for TxExecutionStatus {
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for TxExecutionStatus {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`TypeTransactionOrReceiptId`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"transaction\","]
-#[doc = "    \"receipt\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum TypeTransactionOrReceiptId {
-    #[serde(rename = "transaction")]
-    Transaction,
-    #[serde(rename = "receipt")]
-    Receipt,
-}
-impl ::std::convert::From<&Self> for TypeTransactionOrReceiptId {
-    fn from(value: &TypeTransactionOrReceiptId) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for TypeTransactionOrReceiptId {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::Transaction => write!(f, "transaction"),
-            Self::Receipt => write!(f, "receipt"),
-        }
-    }
-}
-impl ::std::str::FromStr for TypeTransactionOrReceiptId {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "transaction" => Ok(Self::Transaction),
-            "receipt" => Ok(Self::Receipt),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for TypeTransactionOrReceiptId {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for TypeTransactionOrReceiptId {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for TypeTransactionOrReceiptId {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -25990,7 +26865,7 @@ impl ::std::convert::From<&ValidatorInfo> for ValidatorInfo {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Validator's last block proposal was for a protocol version older than\\n the network's voted protocol version.\","]
+#[doc = "      \"description\": \"Validator's last block proposal was for a protocol version older than\\nthe network's voted protocol version.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ProtocolVersionTooOld\""]
@@ -26042,7 +26917,7 @@ pub enum ValidatorKickoutReason {
     DidNotGetASeat,
     #[doc = "Validator didn't produce enough chunk endorsements."]
     NotEnoughChunkEndorsements { expected: u64, produced: u64 },
-    #[doc = "Validator's last block proposal was for a protocol version older than\n the network's voted protocol version."]
+    #[doc = "Validator's last block proposal was for a protocol version older than\nthe network's voted protocol version."]
     ProtocolVersionTooOld { network_version: u32, version: u32 },
 }
 impl ::std::convert::From<&Self> for ValidatorKickoutReason {
@@ -26276,12 +27151,1565 @@ impl ::std::convert::From<&Version> for Version {
         value.clone()
     }
 }
-#[doc = "`ViewStateResult`"]
+#[doc = "`ViewAccessKeyByBlockIdRequestType`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_access_key\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewAccessKeyByBlockIdRequestType {
+    #[serde(rename = "view_access_key")]
+    ViewAccessKey,
+}
+impl ::std::convert::From<&Self> for ViewAccessKeyByBlockIdRequestType {
+    fn from(value: &ViewAccessKeyByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewAccessKeyByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccessKey => write!(f, "view_access_key"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewAccessKeyByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_access_key" => Ok(Self::ViewAccessKey),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewAccessKeyByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewAccessKeyByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewAccessKeyByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewAccessKeyByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_access_key\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewAccessKeyByFinalityRequestType {
+    #[serde(rename = "view_access_key")]
+    ViewAccessKey,
+}
+impl ::std::convert::From<&Self> for ViewAccessKeyByFinalityRequestType {
+    fn from(value: &ViewAccessKeyByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewAccessKeyByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccessKey => write!(f, "view_access_key"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewAccessKeyByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_access_key" => Ok(Self::ViewAccessKey),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewAccessKeyByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewAccessKeyByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewAccessKeyByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewAccessKeyBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_access_key\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewAccessKeyBySyncCheckpointRequestType {
+    #[serde(rename = "view_access_key")]
+    ViewAccessKey,
+}
+impl ::std::convert::From<&Self> for ViewAccessKeyBySyncCheckpointRequestType {
+    fn from(value: &ViewAccessKeyBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewAccessKeyBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccessKey => write!(f, "view_access_key"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewAccessKeyBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_access_key" => Ok(Self::ViewAccessKey),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewAccessKeyBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewAccessKeyBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewAccessKeyBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewAccessKeyListByBlockIdRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_access_key_list\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewAccessKeyListByBlockIdRequestType {
+    #[serde(rename = "view_access_key_list")]
+    ViewAccessKeyList,
+}
+impl ::std::convert::From<&Self> for ViewAccessKeyListByBlockIdRequestType {
+    fn from(value: &ViewAccessKeyListByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewAccessKeyListByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewAccessKeyListByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_access_key_list" => Ok(Self::ViewAccessKeyList),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewAccessKeyListByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewAccessKeyListByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewAccessKeyListByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewAccessKeyListByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_access_key_list\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewAccessKeyListByFinalityRequestType {
+    #[serde(rename = "view_access_key_list")]
+    ViewAccessKeyList,
+}
+impl ::std::convert::From<&Self> for ViewAccessKeyListByFinalityRequestType {
+    fn from(value: &ViewAccessKeyListByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewAccessKeyListByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewAccessKeyListByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_access_key_list" => Ok(Self::ViewAccessKeyList),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewAccessKeyListByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewAccessKeyListByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewAccessKeyListByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewAccessKeyListBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_access_key_list\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewAccessKeyListBySyncCheckpointRequestType {
+    #[serde(rename = "view_access_key_list")]
+    ViewAccessKeyList,
+}
+impl ::std::convert::From<&Self> for ViewAccessKeyListBySyncCheckpointRequestType {
+    fn from(value: &ViewAccessKeyListBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewAccessKeyListBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewAccessKeyListBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_access_key_list" => Ok(Self::ViewAccessKeyList),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewAccessKeyListBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ViewAccessKeyListBySyncCheckpointRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for ViewAccessKeyListBySyncCheckpointRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewAccountByBlockIdRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_account\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewAccountByBlockIdRequestType {
+    #[serde(rename = "view_account")]
+    ViewAccount,
+}
+impl ::std::convert::From<&Self> for ViewAccountByBlockIdRequestType {
+    fn from(value: &ViewAccountByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewAccountByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccount => write!(f, "view_account"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewAccountByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_account" => Ok(Self::ViewAccount),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewAccountByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewAccountByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewAccountByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewAccountByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_account\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewAccountByFinalityRequestType {
+    #[serde(rename = "view_account")]
+    ViewAccount,
+}
+impl ::std::convert::From<&Self> for ViewAccountByFinalityRequestType {
+    fn from(value: &ViewAccountByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewAccountByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccount => write!(f, "view_account"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewAccountByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_account" => Ok(Self::ViewAccount),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewAccountByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewAccountByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewAccountByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewAccountBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_account\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewAccountBySyncCheckpointRequestType {
+    #[serde(rename = "view_account")]
+    ViewAccount,
+}
+impl ::std::convert::From<&Self> for ViewAccountBySyncCheckpointRequestType {
+    fn from(value: &ViewAccountBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewAccountBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewAccount => write!(f, "view_account"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewAccountBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_account" => Ok(Self::ViewAccount),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewAccountBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewAccountBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewAccountBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewCodeByBlockIdRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_code\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewCodeByBlockIdRequestType {
+    #[serde(rename = "view_code")]
+    ViewCode,
+}
+impl ::std::convert::From<&Self> for ViewCodeByBlockIdRequestType {
+    fn from(value: &ViewCodeByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewCodeByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewCode => write!(f, "view_code"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewCodeByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_code" => Ok(Self::ViewCode),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewCodeByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewCodeByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewCodeByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewCodeByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_code\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewCodeByFinalityRequestType {
+    #[serde(rename = "view_code")]
+    ViewCode,
+}
+impl ::std::convert::From<&Self> for ViewCodeByFinalityRequestType {
+    fn from(value: &ViewCodeByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewCodeByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewCode => write!(f, "view_code"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewCodeByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_code" => Ok(Self::ViewCode),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewCodeByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewCodeByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewCodeByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewCodeBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_code\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewCodeBySyncCheckpointRequestType {
+    #[serde(rename = "view_code")]
+    ViewCode,
+}
+impl ::std::convert::From<&Self> for ViewCodeBySyncCheckpointRequestType {
+    fn from(value: &ViewCodeBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewCodeBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewCode => write!(f, "view_code"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewCodeBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_code" => Ok(Self::ViewCode),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewCodeBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewCodeBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewCodeBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGlobalContractCodeByAccountIdByBlockIdRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_global_contract_code_by_account_id\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGlobalContractCodeByAccountIdByBlockIdRequestType {
+    #[serde(rename = "view_global_contract_code_by_account_id")]
+    ViewGlobalContractCodeByAccountId,
+}
+impl ::std::convert::From<&Self> for ViewGlobalContractCodeByAccountIdByBlockIdRequestType {
+    fn from(value: &ViewGlobalContractCodeByAccountIdByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGlobalContractCodeByAccountId => {
+                write!(f, "view_global_contract_code_by_account_id")
+            }
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGlobalContractCodeByAccountIdByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_global_contract_code_by_account_id" => {
+                Ok(Self::ViewGlobalContractCodeByAccountId)
+            }
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGlobalContractCodeByAccountIdByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ViewGlobalContractCodeByAccountIdByBlockIdRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for ViewGlobalContractCodeByAccountIdByBlockIdRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGlobalContractCodeByAccountIdByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_global_contract_code_by_account_id\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGlobalContractCodeByAccountIdByFinalityRequestType {
+    #[serde(rename = "view_global_contract_code_by_account_id")]
+    ViewGlobalContractCodeByAccountId,
+}
+impl ::std::convert::From<&Self> for ViewGlobalContractCodeByAccountIdByFinalityRequestType {
+    fn from(value: &ViewGlobalContractCodeByAccountIdByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGlobalContractCodeByAccountId => {
+                write!(f, "view_global_contract_code_by_account_id")
+            }
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGlobalContractCodeByAccountIdByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_global_contract_code_by_account_id" => {
+                Ok(Self::ViewGlobalContractCodeByAccountId)
+            }
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGlobalContractCodeByAccountIdByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ViewGlobalContractCodeByAccountIdByFinalityRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for ViewGlobalContractCodeByAccountIdByFinalityRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_global_contract_code_by_account_id\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType {
+    #[serde(rename = "view_global_contract_code_by_account_id")]
+    ViewGlobalContractCodeByAccountId,
+}
+impl ::std::convert::From<&Self> for ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType {
+    fn from(value: &ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGlobalContractCodeByAccountId => {
+                write!(f, "view_global_contract_code_by_account_id")
+            }
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_global_contract_code_by_account_id" => {
+                Ok(Self::ViewGlobalContractCodeByAccountId)
+            }
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str>
+    for ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for ViewGlobalContractCodeByAccountIdBySyncCheckpointRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGlobalContractCodeByBlockIdRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_global_contract_code\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGlobalContractCodeByBlockIdRequestType {
+    #[serde(rename = "view_global_contract_code")]
+    ViewGlobalContractCode,
+}
+impl ::std::convert::From<&Self> for ViewGlobalContractCodeByBlockIdRequestType {
+    fn from(value: &ViewGlobalContractCodeByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGlobalContractCodeByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGlobalContractCodeByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_global_contract_code" => Ok(Self::ViewGlobalContractCode),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGlobalContractCodeByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ViewGlobalContractCodeByBlockIdRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewGlobalContractCodeByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGlobalContractCodeByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_global_contract_code\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGlobalContractCodeByFinalityRequestType {
+    #[serde(rename = "view_global_contract_code")]
+    ViewGlobalContractCode,
+}
+impl ::std::convert::From<&Self> for ViewGlobalContractCodeByFinalityRequestType {
+    fn from(value: &ViewGlobalContractCodeByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGlobalContractCodeByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGlobalContractCodeByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_global_contract_code" => Ok(Self::ViewGlobalContractCode),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGlobalContractCodeByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ViewGlobalContractCodeByFinalityRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for ViewGlobalContractCodeByFinalityRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGlobalContractCodeBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_global_contract_code\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGlobalContractCodeBySyncCheckpointRequestType {
+    #[serde(rename = "view_global_contract_code")]
+    ViewGlobalContractCode,
+}
+impl ::std::convert::From<&Self> for ViewGlobalContractCodeBySyncCheckpointRequestType {
+    fn from(value: &ViewGlobalContractCodeBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGlobalContractCodeBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGlobalContractCodeBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_global_contract_code" => Ok(Self::ViewGlobalContractCode),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGlobalContractCodeBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ViewGlobalContractCodeBySyncCheckpointRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for ViewGlobalContractCodeBySyncCheckpointRequestType
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewStateByBlockIdRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_state\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewStateByBlockIdRequestType {
+    #[serde(rename = "view_state")]
+    ViewState,
+}
+impl ::std::convert::From<&Self> for ViewStateByBlockIdRequestType {
+    fn from(value: &ViewStateByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewStateByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewState => write!(f, "view_state"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewStateByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_state" => Ok(Self::ViewState),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewStateByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewStateByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewStateByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewStateByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_state\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewStateByFinalityRequestType {
+    #[serde(rename = "view_state")]
+    ViewState,
+}
+impl ::std::convert::From<&Self> for ViewStateByFinalityRequestType {
+    fn from(value: &ViewStateByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewStateByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewState => write!(f, "view_state"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewStateByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_state" => Ok(Self::ViewState),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewStateByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewStateByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewStateByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewStateBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_state\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewStateBySyncCheckpointRequestType {
+    #[serde(rename = "view_state")]
+    ViewState,
+}
+impl ::std::convert::From<&Self> for ViewStateBySyncCheckpointRequestType {
+    fn from(value: &ViewStateBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewStateBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewState => write!(f, "view_state"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewStateBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_state" => Ok(Self::ViewState),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewStateBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewStateBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewStateBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "Resulting state values for a view state query request"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Resulting state values for a view state query request\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"values\""]
@@ -26330,6 +28758,7 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "    \"grow_mem_cost\","]
 #[doc = "    \"implicit_account_creation\","]
 #[doc = "    \"limit_config\","]
+#[doc = "    \"reftypes_bulk_memory\","]
 #[doc = "    \"regular_op_cost\","]
 #[doc = "    \"saturating_float_to_int\","]
 #[doc = "    \"storage_get_mode\","]
@@ -26371,12 +28800,16 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"limit_config\": {"]
-#[doc = "      \"description\": \"Describes limits for VM and Runtime.\\n\\n TODO: Consider changing this to `VMLimitConfigView` to avoid dependency\\n on runtime.\","]
+#[doc = "      \"description\": \"Describes limits for VM and Runtime.\\n\\nTODO: Consider changing this to `VMLimitConfigView` to avoid dependency\\non runtime.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/LimitConfig\""]
 #[doc = "        }"]
 #[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"reftypes_bulk_memory\": {"]
+#[doc = "      \"description\": \"See [VMConfig::reftypes_bulk_memory](crate::vm::Config::reftypes_bulk_memory).\","]
+#[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"regular_op_cost\": {"]
 #[doc = "      \"description\": \"Gas cost of a regular operation.\","]
@@ -26424,8 +28857,10 @@ pub struct VmConfigView {
     pub grow_mem_cost: u32,
     #[doc = "See [VMConfig::implicit_account_creation](crate::vm::Config::implicit_account_creation)."]
     pub implicit_account_creation: bool,
-    #[doc = "Describes limits for VM and Runtime.\n\n TODO: Consider changing this to `VMLimitConfigView` to avoid dependency\n on runtime."]
+    #[doc = "Describes limits for VM and Runtime.\n\nTODO: Consider changing this to `VMLimitConfigView` to avoid dependency\non runtime."]
     pub limit_config: LimitConfig,
+    #[doc = "See [VMConfig::reftypes_bulk_memory](crate::vm::Config::reftypes_bulk_memory)."]
+    pub reftypes_bulk_memory: bool,
     #[doc = "Gas cost of a regular operation."]
     pub regular_op_cost: u32,
     #[doc = "See [VMConfig::saturating_float_to_int](crate::vm::Config::saturating_float_to_int)."]
@@ -26474,6 +28909,13 @@ impl ::std::convert::From<&VmConfigView> for VmConfigView {
 #[doc = "      \"enum\": ["]
 #[doc = "        \"NearVm\""]
 #[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"description\": \"NearVM. Exists temporarily while bulk memory and reftypes are getting enabled.\","]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"NearVm2\""]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -26500,6 +28942,8 @@ pub enum VmKind {
     Wasmer2,
     #[doc = "NearVM."]
     NearVm,
+    #[doc = "NearVM. Exists temporarily while bulk memory and reftypes are getting enabled."]
+    NearVm2,
 }
 impl ::std::convert::From<&Self> for VmKind {
     fn from(value: &VmKind) -> Self {
@@ -26513,6 +28957,7 @@ impl ::std::fmt::Display for VmKind {
             Self::Wasmtime => write!(f, "Wasmtime"),
             Self::Wasmer2 => write!(f, "Wasmer2"),
             Self::NearVm => write!(f, "NearVm"),
+            Self::NearVm2 => write!(f, "NearVm2"),
         }
     }
 }
@@ -26524,6 +28969,7 @@ impl ::std::str::FromStr for VmKind {
             "Wasmtime" => Ok(Self::Wasmtime),
             "Wasmer2" => Ok(Self::Wasmer2),
             "NearVm" => Ok(Self::NearVm),
+            "NearVm2" => Ok(Self::NearVm2),
             _ => Err("invalid value".into()),
         }
     }
@@ -26732,21 +29178,21 @@ impl ::std::convert::TryFrom<::std::string::String> for WasmTrap {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"combined_transactions_size_limit\": {"]
-#[doc = "      \"description\": \"A witness contains transactions from both the previous chunk and the current one.\\n This parameter limits the sum of sizes of transactions from both of those chunks.\","]
+#[doc = "      \"description\": \"Maximum size of transactions contained inside ChunkStateWitness.\\n\\nA witness contains transactions from both the previous chunk and the current one.\\nThis parameter limits the sum of sizes of transactions from both of those chunks.\","]
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"main_storage_proof_size_soft_limit\": {"]
-#[doc = "      \"description\": \"Size limit for storage proof generated while executing receipts in a chunk.\\n After this limit is reached we defer execution of any new receipts.\","]
+#[doc = "      \"description\": \"Size limit for storage proof generated while executing receipts in a chunk.\\nAfter this limit is reached we defer execution of any new receipts.\","]
 #[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"new_transactions_validation_state_size_soft_limit\": {"]
 #[doc = "      \"description\": \"Soft size limit of storage proof used to validate new transactions in ChunkStateWitness.\","]
 #[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -26755,12 +29201,12 @@ impl ::std::convert::TryFrom<::std::string::String> for WasmTrap {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct WitnessConfigView {
-    #[doc = "A witness contains transactions from both the previous chunk and the current one.\n This parameter limits the sum of sizes of transactions from both of those chunks."]
+    #[doc = "Maximum size of transactions contained inside ChunkStateWitness.\n\nA witness contains transactions from both the previous chunk and the current one.\nThis parameter limits the sum of sizes of transactions from both of those chunks."]
     pub combined_transactions_size_limit: u32,
-    #[doc = "Size limit for storage proof generated while executing receipts in a chunk.\n After this limit is reached we defer execution of any new receipts."]
-    pub main_storage_proof_size_soft_limit: u32,
+    #[doc = "Size limit for storage proof generated while executing receipts in a chunk.\nAfter this limit is reached we defer execution of any new receipts."]
+    pub main_storage_proof_size_soft_limit: u64,
     #[doc = "Soft size limit of storage proof used to validate new transactions in ChunkStateWitness."]
-    pub new_transactions_validation_state_size_soft_limit: u32,
+    pub new_transactions_validation_state_size_soft_limit: u64,
 }
 impl ::std::convert::From<&WitnessConfigView> for WitnessConfigView {
     fn from(value: &WitnessConfigView) -> Self {
@@ -26784,8 +29230,8 @@ pub mod defaults {
     }
     pub(super) fn gc_config_gc_step_period() -> super::DurationAsStdSchemaProvider {
         super::DurationAsStdSchemaProvider {
-            nanos: 0_i32,
-            secs: 1_i64,
+            nanos: 500000000_i32,
+            secs: 0_i64,
         }
     }
     pub(super) fn genesis_config_minimum_stake_ratio() -> [i32; 2usize] {
