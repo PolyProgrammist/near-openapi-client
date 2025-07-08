@@ -7,6 +7,7 @@
     "paths": {
         "/EXPERIMENTAL_changes": {
             "post": {
+                "description": "Returns changes in block for given block height or hash over all transactions for the current type. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched",
                 "operationId": "EXPERIMENTAL_changes",
                 "requestBody": {
                     "content": {
@@ -34,6 +35,7 @@
         },
         "/EXPERIMENTAL_changes_in_block": {
             "post": {
+                "description": "Returns changes in block for given block height or hash over all transactions for all the types. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched",
                 "operationId": "EXPERIMENTAL_changes_in_block",
                 "requestBody": {
                     "content": {
@@ -61,6 +63,7 @@
         },
         "/EXPERIMENTAL_congestion_level": {
             "post": {
+                "description": "Queries the congestion level of a shard. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)",
                 "operationId": "EXPERIMENTAL_congestion_level",
                 "requestBody": {
                     "content": {
@@ -88,6 +91,7 @@
         },
         "/EXPERIMENTAL_genesis_config": {
             "post": {
+                "description": "Get initial state and parameters for the genesis block",
                 "operationId": "EXPERIMENTAL_genesis_config",
                 "requestBody": {
                     "content": {
@@ -115,6 +119,7 @@
         },
         "/EXPERIMENTAL_light_client_block_proof": {
             "post": {
+                "description": "Returns the proofs for a transaction execution.",
                 "operationId": "EXPERIMENTAL_light_client_block_proof",
                 "requestBody": {
                     "content": {
@@ -142,6 +147,7 @@
         },
         "/EXPERIMENTAL_light_client_proof": {
             "post": {
+                "description": "Returns the proofs for a transaction execution.",
                 "operationId": "EXPERIMENTAL_light_client_proof",
                 "requestBody": {
                     "content": {
@@ -169,6 +175,7 @@
         },
         "/EXPERIMENTAL_maintenance_windows": {
             "post": {
+                "description": "Returns the future windows for maintenance in current epoch for the specified account. In the maintenance windows, the node will not be block producer or chunk producer",
                 "operationId": "EXPERIMENTAL_maintenance_windows",
                 "requestBody": {
                     "content": {
@@ -196,6 +203,7 @@
         },
         "/EXPERIMENTAL_protocol_config": {
             "post": {
+                "description": "A configuration that defines the protocol-level parameters such as gas/storage costs, limits, feature flags, other settings",
                 "operationId": "EXPERIMENTAL_protocol_config",
                 "requestBody": {
                     "content": {
@@ -223,6 +231,7 @@
         },
         "/EXPERIMENTAL_receipt": {
             "post": {
+                "description": "Fetches a receipt by its ID (as is, without a status or execution outcome)",
                 "operationId": "EXPERIMENTAL_receipt",
                 "requestBody": {
                     "content": {
@@ -250,6 +259,7 @@
         },
         "/EXPERIMENTAL_split_storage_info": {
             "post": {
+                "description": "Contains the split storage information. More info on split storage [here](https://near-nodes.io/archival/split-storage-archival)",
                 "operationId": "EXPERIMENTAL_split_storage_info",
                 "requestBody": {
                     "content": {
@@ -277,6 +287,7 @@
         },
         "/EXPERIMENTAL_tx_status": {
             "post": {
+                "description": "Queries status of a transaction by hash, returning the final transaction result and details of all receipts.",
                 "operationId": "EXPERIMENTAL_tx_status",
                 "requestBody": {
                     "content": {
@@ -304,6 +315,7 @@
         },
         "/EXPERIMENTAL_validators_ordered": {
             "post": {
+                "description": "Returns the current epoch validators ordered in the block producer order with repetition. This endpoint is solely used for bridge currently and is not intended for other external use cases.",
                 "operationId": "EXPERIMENTAL_validators_ordered",
                 "requestBody": {
                     "content": {
@@ -331,6 +343,7 @@
         },
         "/block": {
             "post": {
+                "description": "Returns block details for given height or hash",
                 "operationId": "block",
                 "requestBody": {
                     "content": {
@@ -358,6 +371,7 @@
         },
         "/broadcast_tx_async": {
             "post": {
+                "description": "[Deprecated] Sends a transaction and immediately returns transaction hash. Consider using send_tx instead",
                 "operationId": "broadcast_tx_async",
                 "requestBody": {
                     "content": {
@@ -385,6 +399,7 @@
         },
         "/broadcast_tx_commit": {
             "post": {
+                "description": "[Deprecated] Sends a transaction and waits until transaction is fully complete. (Has a 10 second timeout). Consider using send_tx instead",
                 "operationId": "broadcast_tx_commit",
                 "requestBody": {
                     "content": {
@@ -412,6 +427,7 @@
         },
         "/changes": {
             "post": {
+                "description": "Returns changes in block for given block height or hash over all transactions for the current type. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched",
                 "operationId": "changes",
                 "requestBody": {
                     "content": {
@@ -439,6 +455,7 @@
         },
         "/chunk": {
             "post": {
+                "description": "Returns details of a specific chunk. You can run a block details query to get a valid chunk hash.",
                 "operationId": "chunk",
                 "requestBody": {
                     "content": {
@@ -466,6 +483,7 @@
         },
         "/client_config": {
             "post": {
+                "description": "Queries client node configuration",
                 "operationId": "client_config",
                 "requestBody": {
                     "content": {
@@ -493,6 +511,7 @@
         },
         "/gas_price": {
             "post": {
+                "description": "Returns gas price for a specific block_height or block_hash. Using [null] will return the most recent block's gas price.",
                 "operationId": "gas_price",
                 "requestBody": {
                     "content": {
@@ -520,6 +539,7 @@
         },
         "/health": {
             "post": {
+                "description": "Returns the current health stauts of the RPC node the client connects to.",
                 "operationId": "health",
                 "requestBody": {
                     "content": {
@@ -547,6 +567,7 @@
         },
         "/light_client_proof": {
             "post": {
+                "description": "Returns the proofs for a transaction execution.",
                 "operationId": "light_client_proof",
                 "requestBody": {
                     "content": {
@@ -574,6 +595,7 @@
         },
         "/network_info": {
             "post": {
+                "description": "Queries the current state of node network connections. This includes information about active peers, transmitted data, known producers, etc.",
                 "operationId": "network_info",
                 "requestBody": {
                     "content": {
@@ -601,6 +623,7 @@
         },
         "/next_light_client_block": {
             "post": {
+                "description": "Returns the next light client block.",
                 "operationId": "next_light_client_block",
                 "requestBody": {
                     "content": {
@@ -628,6 +651,7 @@
         },
         "/query": {
             "post": {
+                "description": "This module allows you to make generic requests to the network.\n\nThe `RpcQueryRequest` struct takes in a [`BlockReference`](https://docs.rs/near-primitives/0.12.0/near_primitives/types/enum.BlockReference.html) and a [`QueryRequest`](https://docs.rs/near-primitives/0.12.0/near_primitives/views/enum.QueryRequest.html).\n\nThe `BlockReference` enum allows you to specify a block by `Finality`, `BlockId` or `SyncCheckpoint`.\n\nThe `QueryRequest` enum provides multiple variaints for performing the following actions:\n - View an account's details\n - View a contract's code\n - View the state of an account\n - View the `AccessKey` of an account\n - View the `AccessKeyList` of an account\n - Call a function in a contract deployed on the network.",
                 "operationId": "query",
                 "requestBody": {
                     "content": {
@@ -655,6 +679,7 @@
         },
         "/send_tx": {
             "post": {
+                "description": "Sends transaction. Returns the guaranteed execution status and the results the blockchain can provide at the moment.",
                 "operationId": "send_tx",
                 "requestBody": {
                     "content": {
@@ -682,6 +707,7 @@
         },
         "/status": {
             "post": {
+                "description": "Requests the status of the connected RPC node. This includes information about sync status, nearcore node version, protocol version, the current set of validators, etc.",
                 "operationId": "status",
                 "requestBody": {
                     "content": {
@@ -709,6 +735,7 @@
         },
         "/tx": {
             "post": {
+                "description": "Queries status of a transaction by hash and returns the final transaction result.",
                 "operationId": "tx",
                 "requestBody": {
                     "content": {
@@ -736,6 +763,7 @@
         },
         "/validators": {
             "post": {
+                "description": "Queries active validators on the network. Returns details and the state of validation on the blockchain.",
                 "operationId": "validators",
                 "requestBody": {
                     "content": {

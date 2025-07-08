@@ -457,7 +457,7 @@ impl ClientHooks<()> for &Client {}
 #[allow(clippy::all)]
 #[allow(elided_named_lifetimes)]
 impl Client {
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_changes`\n\n"]
+    #[doc = "Returns changes in block for given block height or hash over all transactions for the current type. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched\n\nSends a `POST` request to `/EXPERIMENTAL_changes`\n\n"]
     pub async fn experimental_changes<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalChanges,
@@ -494,7 +494,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_changes_in_block`\n\n"]
+    #[doc = "Returns changes in block for given block height or hash over all transactions for all the types. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched\n\nSends a `POST` request to `/EXPERIMENTAL_changes_in_block`\n\n"]
     pub async fn experimental_changes_in_block<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalChangesInBlock,
@@ -531,7 +531,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_congestion_level`\n\n"]
+    #[doc = "Queries the congestion level of a shard. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)\n\nSends a `POST` request to `/EXPERIMENTAL_congestion_level`\n\n"]
     pub async fn experimental_congestion_level<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalCongestionLevel,
@@ -568,7 +568,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_genesis_config`\n\n"]
+    #[doc = "Get initial state and parameters for the genesis block\n\nSends a `POST` request to `/EXPERIMENTAL_genesis_config`\n\n"]
     pub async fn experimental_genesis_config<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalGenesisConfig,
@@ -602,7 +602,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_light_client_block_proof`\n\n"]
+    #[doc = "Returns the proofs for a transaction execution.\n\nSends a `POST` request to `/EXPERIMENTAL_light_client_block_proof`\n\n"]
     pub async fn experimental_light_client_block_proof<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalLightClientBlockProof,
@@ -639,7 +639,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_light_client_proof`\n\n"]
+    #[doc = "Returns the proofs for a transaction execution.\n\nSends a `POST` request to `/EXPERIMENTAL_light_client_proof`\n\n"]
     pub async fn experimental_light_client_proof<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalLightClientProof,
@@ -676,7 +676,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_maintenance_windows`\n\n"]
+    #[doc = "Returns the future windows for maintenance in current epoch for the specified account. In the maintenance windows, the node will not be block producer or chunk producer\n\nSends a `POST` request to `/EXPERIMENTAL_maintenance_windows`\n\n"]
     pub async fn experimental_maintenance_windows<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalMaintenanceWindows,
@@ -711,7 +711,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_protocol_config`\n\n"]
+    #[doc = "A configuration that defines the protocol-level parameters such as gas/storage costs, limits, feature flags, other settings\n\nSends a `POST` request to `/EXPERIMENTAL_protocol_config`\n\n"]
     pub async fn experimental_protocol_config<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalProtocolConfig,
@@ -748,7 +748,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_receipt`\n\n"]
+    #[doc = "Fetches a receipt by its ID (as is, without a status or execution outcome)\n\nSends a `POST` request to `/EXPERIMENTAL_receipt`\n\n"]
     pub async fn experimental_receipt<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalReceipt,
@@ -783,7 +783,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_split_storage_info`\n\n"]
+    #[doc = "Contains the split storage information. More info on split storage [here](https://near-nodes.io/archival/split-storage-archival)\n\nSends a `POST` request to `/EXPERIMENTAL_split_storage_info`\n\n"]
     pub async fn experimental_split_storage_info<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalSplitStorageInfo,
@@ -820,7 +820,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_tx_status`\n\n"]
+    #[doc = "Queries status of a transaction by hash, returning the final transaction result and details of all receipts.\n\nSends a `POST` request to `/EXPERIMENTAL_tx_status`\n\n"]
     pub async fn experimental_tx_status<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalTxStatus,
@@ -855,7 +855,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/EXPERIMENTAL_validators_ordered`\n\n"]
+    #[doc = "Returns the current epoch validators ordered in the block producer order with repetition. This endpoint is solely used for bridge currently and is not intended for other external use cases.\n\nSends a `POST` request to `/EXPERIMENTAL_validators_ordered`\n\n"]
     pub async fn experimental_validators_ordered<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalValidatorsOrdered,
@@ -892,7 +892,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/block`\n\n"]
+    #[doc = "Returns block details for given height or hash\n\nSends a `POST` request to `/block`\n\n"]
     pub async fn block<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForBlock,
@@ -927,7 +927,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/broadcast_tx_async`\n\n"]
+    #[doc = "[Deprecated] Sends a transaction and immediately returns transaction hash. Consider using send_tx instead\n\nSends a `POST` request to `/broadcast_tx_async`\n\n"]
     pub async fn broadcast_tx_async<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForBroadcastTxAsync,
@@ -961,7 +961,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/broadcast_tx_commit`\n\n"]
+    #[doc = "[Deprecated] Sends a transaction and waits until transaction is fully complete. (Has a 10 second timeout). Consider using send_tx instead\n\nSends a `POST` request to `/broadcast_tx_commit`\n\n"]
     pub async fn broadcast_tx_commit<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForBroadcastTxCommit,
@@ -996,7 +996,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/changes`\n\n"]
+    #[doc = "Returns changes in block for given block height or hash over all transactions for the current type. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched\n\nSends a `POST` request to `/changes`\n\n"]
     pub async fn changes<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForChanges,
@@ -1033,7 +1033,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/chunk`\n\n"]
+    #[doc = "Returns details of a specific chunk. You can run a block details query to get a valid chunk hash.\n\nSends a `POST` request to `/chunk`\n\n"]
     pub async fn chunk<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForChunk,
@@ -1068,7 +1068,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/client_config`\n\n"]
+    #[doc = "Queries client node configuration\n\nSends a `POST` request to `/client_config`\n\n"]
     pub async fn client_config<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForClientConfig,
@@ -1103,7 +1103,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/gas_price`\n\n"]
+    #[doc = "Returns gas price for a specific block_height or block_hash. Using [null] will return the most recent block's gas price.\n\nSends a `POST` request to `/gas_price`\n\n"]
     pub async fn gas_price<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForGasPrice,
@@ -1138,7 +1138,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/health`\n\n"]
+    #[doc = "Returns the current health stauts of the RPC node the client connects to.\n\nSends a `POST` request to `/health`\n\n"]
     pub async fn health<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForHealth,
@@ -1175,7 +1175,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/light_client_proof`\n\n"]
+    #[doc = "Returns the proofs for a transaction execution.\n\nSends a `POST` request to `/light_client_proof`\n\n"]
     pub async fn light_client_proof<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForLightClientProof,
@@ -1212,7 +1212,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/network_info`\n\n"]
+    #[doc = "Queries the current state of node network connections. This includes information about active peers, transmitted data, known producers, etc.\n\nSends a `POST` request to `/network_info`\n\n"]
     pub async fn network_info<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForNetworkInfo,
@@ -1247,7 +1247,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/next_light_client_block`\n\n"]
+    #[doc = "Returns the next light client block.\n\nSends a `POST` request to `/next_light_client_block`\n\n"]
     pub async fn next_light_client_block<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForNextLightClientBlock,
@@ -1284,7 +1284,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/query`\n\n"]
+    #[doc = "This module allows you to make generic requests to the network.\n\nThe `RpcQueryRequest` struct takes in a [`BlockReference`](https://docs.rs/near-primitives/0.12.0/near_primitives/types/enum.BlockReference.html) and a [`QueryRequest`](https://docs.rs/near-primitives/0.12.0/near_primitives/views/enum.QueryRequest.html).\n\nThe `BlockReference` enum allows you to specify a block by `Finality`, `BlockId` or `SyncCheckpoint`.\n\nThe `QueryRequest` enum provides multiple variaints for performing the following actions:\n - View an account's details\n - View a contract's code\n - View the state of an account\n - View the `AccessKey` of an account\n - View the `AccessKeyList` of an account\n - Call a function in a contract deployed on the network.\n\nSends a `POST` request to `/query`\n\n"]
     pub async fn query<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForQuery,
@@ -1319,7 +1319,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/send_tx`\n\n"]
+    #[doc = "Sends transaction. Returns the guaranteed execution status and the results the blockchain can provide at the moment.\n\nSends a `POST` request to `/send_tx`\n\n"]
     pub async fn send_tx<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForSendTx,
@@ -1354,7 +1354,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/status`\n\n"]
+    #[doc = "Requests the status of the connected RPC node. This includes information about sync status, nearcore node version, protocol version, the current set of validators, etc.\n\nSends a `POST` request to `/status`\n\n"]
     pub async fn status<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForStatus,
@@ -1389,7 +1389,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/tx`\n\n"]
+    #[doc = "Queries status of a transaction by hash and returns the final transaction result.\n\nSends a `POST` request to `/tx`\n\n"]
     pub async fn tx<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForTx,
@@ -1422,7 +1422,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Sends a `POST` request to `/validators`\n\n"]
+    #[doc = "Queries active validators on the network. Returns details and the state of validation on the blockchain.\n\nSends a `POST` request to `/validators`\n\n"]
     pub async fn validators<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForValidators,
