@@ -2889,6 +2889,7 @@
                 "type": "object"
             },
             "CallResult": {
+                "description": "A result returned by contract method",
                 "properties": {
                     "logs": {
                         "items": {
@@ -2913,6 +2914,7 @@
                 "type": "object"
             },
             "CatchupStatusView": {
+                "description": "Status of the [catchup](https://near.github.io/nearcore/architecture/how/sync.html#catchup) process",
                 "properties": {
                     "blocks_to_catchup": {
                         "items": {
@@ -2981,6 +2983,7 @@
                 "type": "object"
             },
             "ChunkHeaderView": {
+                "description": "Contains main info about the chunk.",
                 "properties": {
                     "balance_burnt": {
                         "type": "string"
@@ -3158,6 +3161,7 @@
                 ]
             },
             "CongestionControlConfigView": {
+                "description": "The configuration for congestion control. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)",
                 "properties": {
                     "allowed_shard_outgoing_gas": {
                         "description": "How much gas the chosen allowed shard can send to a 100% congested shard.\n\nSee [`CongestionControlConfig`] for more details.",
@@ -3248,6 +3252,7 @@
                 "type": "object"
             },
             "CongestionInfoView": {
+                "description": "Stores the congestion level of a shard. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)",
                 "properties": {
                     "allowed_shard": {
                         "format": "uint16",
@@ -3292,11 +3297,13 @@
                 "type": "object"
             },
             "CostGasUsed": {
+                "description": "Shows gas profile. More info [here](https://near.github.io/nearcore/architecture/gas/gas_profile.html?highlight=WASM_HOST_COST#example-transaction-gas-profile).",
                 "properties": {
                     "cost": {
                         "type": "string"
                     },
                     "cost_category": {
+                        "description": "Either ACTION_COST or WASM_HOST_COST.",
                         "type": "string"
                     },
                     "gas_used": {
@@ -3318,6 +3325,7 @@
                 "type": "string"
             },
             "CurrentEpochValidatorInfo": {
+                "description": "Describes information about the current epoch validator",
                 "properties": {
                     "account_id": {
                         "$ref": "#/components/schemas/AccountId"
@@ -3431,6 +3439,7 @@
                 "type": "object"
             },
             "DataReceiptCreationConfigView": {
+                "description": "The fees settings for a data receipt creation",
                 "properties": {
                     "base_cost": {
                         "allOf": [
@@ -14671,6 +14680,7 @@
                 "type": "object"
             },
             "ViewStateResult": {
+                "description": "Resulting state values for a view state query request",
                 "properties": {
                     "proof": {
                         "items": {

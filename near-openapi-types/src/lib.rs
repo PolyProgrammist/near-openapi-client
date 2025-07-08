@@ -3945,12 +3945,13 @@ impl ::std::convert::TryFrom<::std::string::String> for CallFunctionBySyncCheckp
         value.parse()
     }
 }
-#[doc = "`CallResult`"]
+#[doc = "A result returned by contract method"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"A result returned by contract method\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"logs\","]
@@ -3986,12 +3987,13 @@ impl ::std::convert::From<&CallResult> for CallResult {
         value.clone()
     }
 }
-#[doc = "`CatchupStatusView`"]
+#[doc = "Status of the [catchup](https://near.github.io/nearcore/architecture/how/sync.html#catchup) process"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Status of the [catchup](https://near.github.io/nearcore/architecture/how/sync.html#catchup) process\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"blocks_to_catchup\","]
@@ -4128,12 +4130,13 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
         value.clone()
     }
 }
-#[doc = "`ChunkHeaderView`"]
+#[doc = "Contains main info about the chunk."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Contains main info about the chunk.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"balance_burnt\","]
@@ -4366,12 +4369,13 @@ impl ::std::convert::From<PrepareError> for CompilationError {
         Self::PrepareError(value)
     }
 }
-#[doc = "`CongestionControlConfigView`"]
+#[doc = "The configuration for congestion control. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"The configuration for congestion control. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"allowed_shard_outgoing_gas\","]
@@ -4494,12 +4498,13 @@ impl ::std::convert::From<&CongestionControlConfigView> for CongestionControlCon
         value.clone()
     }
 }
-#[doc = "`CongestionInfoView`"]
+#[doc = "Stores the congestion level of a shard. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Stores the congestion level of a shard. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"allowed_shard\","]
@@ -4794,12 +4799,13 @@ impl ::std::convert::From<&ContractCodeView> for ContractCodeView {
         value.clone()
     }
 }
-#[doc = "`CostGasUsed`"]
+#[doc = "Shows gas profile. More info [here](https://near.github.io/nearcore/architecture/gas/gas_profile.html?highlight=WASM_HOST_COST#example-transaction-gas-profile)."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Shows gas profile. More info [here](https://near.github.io/nearcore/architecture/gas/gas_profile.html?highlight=WASM_HOST_COST#example-transaction-gas-profile).\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"cost\","]
@@ -4811,6 +4817,7 @@ impl ::std::convert::From<&ContractCodeView> for ContractCodeView {
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"cost_category\": {"]
+#[doc = "      \"description\": \"Either ACTION_COST or WASM_HOST_COST.\","]
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"gas_used\": {"]
@@ -4823,6 +4830,7 @@ impl ::std::convert::From<&ContractCodeView> for ContractCodeView {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct CostGasUsed {
     pub cost: ::std::string::String,
+    #[doc = "Either ACTION_COST or WASM_HOST_COST."]
     pub cost_category: ::std::string::String,
     pub gas_used: ::std::string::String,
 }
@@ -4925,12 +4933,13 @@ impl ::std::fmt::Display for CryptoHash {
         self.0.fmt(f)
     }
 }
-#[doc = "`CurrentEpochValidatorInfo`"]
+#[doc = "Describes information about the current epoch validator"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Describes information about the current epoch validator\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_id\","]
@@ -5298,12 +5307,13 @@ impl ::std::convert::TryFrom<::std::string::String> for DataChangesBySyncCheckpo
         value.parse()
     }
 }
-#[doc = "`DataReceiptCreationConfigView`"]
+#[doc = "The fees settings for a data receipt creation"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"The fees settings for a data receipt creation\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"base_cost\","]
@@ -28693,12 +28703,13 @@ impl ::std::convert::TryFrom<::std::string::String> for ViewStateBySyncCheckpoin
         value.parse()
     }
 }
-#[doc = "`ViewStateResult`"]
+#[doc = "Resulting state values for a view state query request"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Resulting state values for a view state query request\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"values\""]
