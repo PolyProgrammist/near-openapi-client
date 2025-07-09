@@ -88,10 +88,19 @@ pub mod types {"""
     types = types[:account_id_start] + types[account_id_validity_start:]
     
     types_lib_rs = dependencies + types
+    types_lib_rs = """//! This crate provides types for the Near OpenAPI specification.
+//!
+//! Used in [near-openapi-client](https://docs.rs/near-openapi-client/latest/near_openapi_client/)\n""" + types_lib_rs
+
     client_lib_rs = dependencies + client
-    
     client_lib_rs = 'pub use near_openapi_types as types;\n' + client_lib_rs
     client_lib_rs = re.sub('"{}/\w*', '"{}/', client_lib_rs)
+    
+    readme_md = open('./README.md', 'r')
+    client_docs = readme_md.readlines()
+    index_of_finish = client_docs.index('### Generate libraries and test:\n')
+    client_docs = ['//!' + line for line in client_docs[:index_of_finish]]
+    client_lib_rs = '\n'.join(client_docs) + client_lib_rs
 
     if not os.path.isdir('./near-openapi-client/src'):
         os.makedirs('./near-openapi-client/src')
