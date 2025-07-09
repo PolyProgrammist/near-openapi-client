@@ -6793,14 +6793,16 @@ impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
 #[doc = "      \"description\": \"When fetching state parts from external storage, throttle fetch requests\\nto this many concurrent requests.\","]
 #[doc = "      \"default\": 25,"]
 #[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_concurrent_requests_during_catchup\": {"]
 #[doc = "      \"description\": \"During catchup, the node will use a different number of concurrent requests\\nto reduce the performance impact of state sync.\","]
 #[doc = "      \"default\": 5,"]
 #[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -6815,11 +6817,11 @@ pub struct ExternalStorageConfig {
     #[doc = "Location of state parts."]
     pub location: ExternalStorageLocation,
     #[doc = "When fetching state parts from external storage, throttle fetch requests\nto this many concurrent requests."]
-    #[serde(default = "defaults::default_u64::<u32, 25>")]
-    pub num_concurrent_requests: u32,
+    #[serde(default = "defaults::default_u64::<u8, 25>")]
+    pub num_concurrent_requests: u8,
     #[doc = "During catchup, the node will use a different number of concurrent requests\nto reduce the performance impact of state sync."]
-    #[serde(default = "defaults::default_u64::<u32, 5>")]
-    pub num_concurrent_requests_during_catchup: u32,
+    #[serde(default = "defaults::default_u64::<u8, 5>")]
+    pub num_concurrent_requests_during_catchup: u8,
 }
 impl ::std::convert::From<&ExternalStorageConfig> for ExternalStorageConfig {
     fn from(value: &ExternalStorageConfig) -> Self {
@@ -18066,7 +18068,6 @@ impl ::std::convert::From<&RpcLightClientBlockProofResponse> for RpcLightClientB
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"title\": \"transaction\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"sender_id\","]
@@ -18089,7 +18090,6 @@ impl ::std::convert::From<&RpcLightClientBlockProofResponse> for RpcLightClientB
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"title\": \"receipt\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"receipt_id\","]
@@ -25616,15 +25616,17 @@ impl ::std::convert::From<&StateItem> for StateItem {
         value.clone()
     }
 }
-#[doc = "Options for dumping state to S3."]
+#[doc = "`StateSyncConfig`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Options for dumping state to S3.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
+#[doc = "    \"concurrency\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/SyncConcurrency\""]
+#[doc = "    },"]
 #[doc = "    \"dump\": {"]
 #[doc = "      \"description\": \"`none` value disables state dump to external storage.\","]
 #[doc = "      \"anyOf\": ["]
@@ -25645,6 +25647,8 @@ impl ::std::convert::From<&StateItem> for StateItem {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct StateSyncConfig {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub concurrency: ::std::option::Option<SyncConcurrency>,
     #[doc = "`none` value disables state dump to external storage."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub dump: ::std::option::Option<DumpConfig>,
@@ -25659,6 +25663,7 @@ impl ::std::convert::From<&StateSyncConfig> for StateSyncConfig {
 impl ::std::default::Default for StateSyncConfig {
     fn default() -> Self {
         Self {
+            concurrency: Default::default(),
             dump: Default::default(),
             sync: Default::default(),
         }
@@ -26176,6 +26181,68 @@ impl ::std::convert::TryFrom<::std::string::String> for SyncCheckpoint {
         value.parse()
     }
 }
+#[doc = "`SyncConcurrency`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"apply\","]
+#[doc = "    \"apply_during_catchup\","]
+#[doc = "    \"peer_downloads\","]
+#[doc = "    \"per_shard\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"apply\": {"]
+#[doc = "      \"description\": \"Maximum number of \\\"apply parts\\\" tasks that can be performed in parallel.\\nThis is a very disk-heavy task and therefore we set this to a low limit,\\nor else the rocksdb contention makes the whole server freeze up.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"apply_during_catchup\": {"]
+#[doc = "      \"description\": \"Maximum number of \\\"apply parts\\\" tasks that can be performed in parallel\\nduring catchup. We set this to a very low value to avoid overloading the\\nnode while it is still performing normal tasks.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"peer_downloads\": {"]
+#[doc = "      \"description\": \"Maximum number of outstanding requests for decentralized state sync.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"per_shard\": {"]
+#[doc = "      \"description\": \"The maximum parallelism to use per shard. This is mostly for fairness, because\\nthe actual rate limiting is done by the TaskTrackers, but this is useful for\\nbalancing the shards a little.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct SyncConcurrency {
+    #[doc = "Maximum number of \"apply parts\" tasks that can be performed in parallel.\nThis is a very disk-heavy task and therefore we set this to a low limit,\nor else the rocksdb contention makes the whole server freeze up."]
+    pub apply: u8,
+    #[doc = "Maximum number of \"apply parts\" tasks that can be performed in parallel\nduring catchup. We set this to a very low value to avoid overloading the\nnode while it is still performing normal tasks."]
+    pub apply_during_catchup: u8,
+    #[doc = "Maximum number of outstanding requests for decentralized state sync."]
+    pub peer_downloads: u8,
+    #[doc = "The maximum parallelism to use per shard. This is mostly for fairness, because\nthe actual rate limiting is done by the TaskTrackers, but this is useful for\nbalancing the shards a little."]
+    pub per_shard: u8,
+}
+impl ::std::convert::From<&SyncConcurrency> for SyncConcurrency {
+    fn from(value: &SyncConcurrency) -> Self {
+        value.clone()
+    }
+}
 #[doc = "Configures how to fetch state parts during state sync."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -26192,7 +26259,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SyncCheckpoint {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Expects parts to be available in external storage.\","]
+#[doc = "      \"description\": \"Expects parts to be available in external storage.\\n\\nUsually as a fallback after some number of attempts to use peers.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ExternalStorage\""]
@@ -26212,7 +26279,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SyncCheckpoint {
 pub enum SyncConfig {
     #[doc = "Syncs state from the peers without reading anything from external storage."]
     Peers,
-    #[doc = "Expects parts to be available in external storage."]
+    #[doc = "Expects parts to be available in external storage.\n\nUsually as a fallback after some number of attempts to use peers."]
     ExternalStorage(ExternalStorageConfig),
 }
 impl ::std::convert::From<&Self> for SyncConfig {

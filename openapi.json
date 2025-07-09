@@ -4405,14 +4405,16 @@
                     "num_concurrent_requests": {
                         "default": 25,
                         "description": "When fetching state parts from external storage, throttle fetch requests\nto this many concurrent requests.",
-                        "format": "uint32",
+                        "format": "uint8",
+                        "maximum": 255,
                         "minimum": 0,
                         "type": "integer"
                     },
                     "num_concurrent_requests_during_catchup": {
                         "default": 5,
                         "description": "During catchup, the node will use a different number of concurrent requests\nto reduce the performance impact of state sync.",
-                        "format": "uint32",
+                        "format": "uint8",
+                        "maximum": 255,
                         "minimum": 0,
                         "type": "integer"
                     }
@@ -9974,7 +9976,6 @@
                             "transaction_hash",
                             "sender_id"
                         ],
-                        "title": "transaction",
                         "type": "object"
                     },
                     {
@@ -9997,7 +9998,6 @@
                             "receipt_id",
                             "receiver_id"
                         ],
-                        "title": "receipt",
                         "type": "object"
                     }
                 ],
@@ -13864,8 +13864,10 @@
                 "type": "object"
             },
             "StateSyncConfig": {
-                "description": "Options for dumping state to S3.",
                 "properties": {
+                    "concurrency": {
+                        "$ref": "#/components/schemas/SyncConcurrency"
+                    },
                     "dump": {
                         "anyOf": [
                             {
@@ -14075,6 +14077,45 @@
                 ],
                 "type": "string"
             },
+            "SyncConcurrency": {
+                "properties": {
+                    "apply": {
+                        "description": "Maximum number of \"apply parts\" tasks that can be performed in parallel.\nThis is a very disk-heavy task and therefore we set this to a low limit,\nor else the rocksdb contention makes the whole server freeze up.",
+                        "format": "uint8",
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "apply_during_catchup": {
+                        "description": "Maximum number of \"apply parts\" tasks that can be performed in parallel\nduring catchup. We set this to a very low value to avoid overloading the\nnode while it is still performing normal tasks.",
+                        "format": "uint8",
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "peer_downloads": {
+                        "description": "Maximum number of outstanding requests for decentralized state sync.",
+                        "format": "uint8",
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "per_shard": {
+                        "description": "The maximum parallelism to use per shard. This is mostly for fairness, because\nthe actual rate limiting is done by the TaskTrackers, but this is useful for\nbalancing the shards a little.",
+                        "format": "uint8",
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "apply",
+                    "apply_during_catchup",
+                    "peer_downloads",
+                    "per_shard"
+                ],
+                "type": "object"
+            },
             "SyncConfig": {
                 "description": "Configures how to fetch state parts during state sync.",
                 "oneOf": [
@@ -14087,7 +14128,7 @@
                     },
                     {
                         "additionalProperties": false,
-                        "description": "Expects parts to be available in external storage.",
+                        "description": "Expects parts to be available in external storage.\n\nUsually as a fallback after some number of attempts to use peers.",
                         "properties": {
                             "ExternalStorage": {
                                 "$ref": "#/components/schemas/ExternalStorageConfig"
