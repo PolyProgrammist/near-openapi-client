@@ -1138,7 +1138,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Returns the current health stauts of the RPC node the client connects to.\n\nSends a `POST` request to `/health`\n\n"]
+    #[doc = "Returns the current health status of the RPC node the client connects to.\n\nSends a `POST` request to `/health`\n\n"]
     pub async fn health<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForHealth,
@@ -1284,7 +1284,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "This module allows you to make generic requests to the network.\n\nThe `RpcQueryRequest` struct takes in a [`BlockReference`](https://docs.rs/near-primitives/0.12.0/near_primitives/types/enum.BlockReference.html) and a [`QueryRequest`](https://docs.rs/near-primitives/0.12.0/near_primitives/views/enum.QueryRequest.html).\n\nThe `BlockReference` enum allows you to specify a block by `Finality`, `BlockId` or `SyncCheckpoint`.\n\nThe `QueryRequest` enum provides multiple variaints for performing the following actions:\n - View an account's details\n - View a contract's code\n - View the state of an account\n - View the `AccessKey` of an account\n - View the `AccessKeyList` of an account\n - Call a function in a contract deployed on the network.\n\nSends a `POST` request to `/query`\n\n"]
+    #[doc = "This module allows you to make generic requests to the network.\n\nThe `RpcQueryRequest` struct takes in a [`BlockReference`](https://docs.rs/near-primitives/0.12.0/near_primitives/types/enum.BlockReference.html) and a [`QueryRequest`](https://docs.rs/near-primitives/0.12.0/near_primitives/views/enum.QueryRequest.html).\n\nThe `BlockReference` enum allows you to specify a block by `Finality`, `BlockId` or `SyncCheckpoint`.\n\nThe `QueryRequest` enum provides multiple variants for performing the following actions:\n - View an account's details\n - View a contract's code\n - View the state of an account\n - View the `AccessKey` of an account\n - View the `AccessKeyList` of an account\n - Call a function in a contract deployed on the network.\n\nSends a `POST` request to `/query`\n\n"]
     pub async fn query<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForQuery,
