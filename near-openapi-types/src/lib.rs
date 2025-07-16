@@ -16804,6 +16804,7 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"ttl_account_id_router\","]
 #[doc = "    \"tx_routing_height_horizon\","]
 #[doc = "    \"version\","]
+#[doc = "    \"view_client_num_state_requests_per_throttle_period\","]
 #[doc = "    \"view_client_threads\","]
 #[doc = "    \"view_client_throttle_period\""]
 #[doc = "  ],"]
@@ -17239,6 +17240,12 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
+#[doc = "    \"view_client_num_state_requests_per_throttle_period\": {"]
+#[doc = "      \"description\": \"Maximum number of state requests served per `view_client_throttle_period`\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
 #[doc = "    \"view_client_threads\": {"]
 #[doc = "      \"description\": \"Number of threads for ViewClientActor pool.\","]
 #[doc = "      \"type\": \"integer\","]
@@ -17246,7 +17253,7 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"view_client_throttle_period\": {"]
-#[doc = "      \"description\": \"Number of seconds between state requests for view client.\","]
+#[doc = "      \"description\": \"Throttling window for state requests (headers and parts).\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
@@ -17377,9 +17384,11 @@ pub struct RpcClientConfigResponse {
     pub tx_routing_height_horizon: u64,
     #[doc = "Version of the binary."]
     pub version: Version,
+    #[doc = "Maximum number of state requests served per `view_client_throttle_period`"]
+    pub view_client_num_state_requests_per_throttle_period: u32,
     #[doc = "Number of threads for ViewClientActor pool."]
     pub view_client_threads: u32,
-    #[doc = "Number of seconds between state requests for view client."]
+    #[doc = "Throttling window for state requests (headers and parts)."]
     pub view_client_throttle_period: [u64; 2usize],
 }
 impl ::std::convert::From<&RpcClientConfigResponse> for RpcClientConfigResponse {
