@@ -1746,9 +1746,7 @@ impl ::std::convert::From<InvalidAccessKeyError> for ActionErrorKind {
 #[doc = "              \"type\": \"string\""]
 #[doc = "            },"]
 #[doc = "            \"gas\": {"]
-#[doc = "              \"type\": \"integer\","]
-#[doc = "              \"format\": \"uint64\","]
-#[doc = "              \"minimum\": 0.0"]
+#[doc = "              \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "            },"]
 #[doc = "            \"method_name\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -1985,7 +1983,7 @@ pub enum ActionView {
     FunctionCall {
         args: FunctionArgs,
         deposit: ::std::string::String,
-        gas: u64,
+        gas: NearGas,
         method_name: ::std::string::String,
     },
     Transfer {
@@ -15261,6 +15259,72 @@ impl ::std::fmt::Display for MutableConfigValue {
         self.0.fmt(f)
     }
 }
+#[doc = "`NearGas`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"integer\","]
+#[doc = "  \"format\": \"uint64\","]
+#[doc = "  \"maximum\": 9007199254740991.0,"]
+#[doc = "  \"minimum\": 0.0"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(transparent)]
+pub struct NearGas(pub u64);
+impl ::std::ops::Deref for NearGas {
+    type Target = u64;
+    fn deref(&self) -> &u64 {
+        &self.0
+    }
+}
+impl ::std::convert::From<NearGas> for u64 {
+    fn from(value: NearGas) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<&NearGas> for NearGas {
+    fn from(value: &NearGas) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<u64> for NearGas {
+    fn from(value: u64) -> Self {
+        Self(value)
+    }
+}
+impl ::std::str::FromStr for NearGas {
+    type Err = <u64 as ::std::str::FromStr>::Err;
+    fn from_str(value: &str) -> ::std::result::Result<Self, Self::Err> {
+        Ok(Self(value.parse()?))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NearGas {
+    type Error = <u64 as ::std::str::FromStr>::Err;
+    fn try_from(value: &str) -> ::std::result::Result<Self, Self::Error> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&String> for NearGas {
+    type Error = <u64 as ::std::str::FromStr>::Err;
+    fn try_from(value: &String) -> ::std::result::Result<Self, Self::Error> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<String> for NearGas {
+    type Error = <u64 as ::std::str::FromStr>::Err;
+    fn try_from(value: String) -> ::std::result::Result<Self, Self::Error> {
+        value.parse()
+    }
+}
+impl ::std::fmt::Display for NearGas {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
 #[doc = "`NetworkInfoView`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -16804,7 +16868,6 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"ttl_account_id_router\","]
 #[doc = "    \"tx_routing_height_horizon\","]
 #[doc = "    \"version\","]
-#[doc = "    \"view_client_num_state_requests_per_throttle_period\","]
 #[doc = "    \"view_client_threads\","]
 #[doc = "    \"view_client_throttle_period\""]
 #[doc = "  ],"]
@@ -17240,12 +17303,6 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
-#[doc = "    \"view_client_num_state_requests_per_throttle_period\": {"]
-#[doc = "      \"description\": \"Maximum number of state requests served per `view_client_throttle_period`\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint\","]
-#[doc = "      \"minimum\": 0.0"]
-#[doc = "    },"]
 #[doc = "    \"view_client_threads\": {"]
 #[doc = "      \"description\": \"Number of threads for ViewClientActor pool.\","]
 #[doc = "      \"type\": \"integer\","]
@@ -17253,7 +17310,7 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"view_client_throttle_period\": {"]
-#[doc = "      \"description\": \"Throttling window for state requests (headers and parts).\","]
+#[doc = "      \"description\": \"Number of seconds between state requests for view client.\","]
 #[doc = "      \"type\": \"array\","]
 #[doc = "      \"items\": {"]
 #[doc = "        \"type\": \"integer\","]
@@ -17384,11 +17441,9 @@ pub struct RpcClientConfigResponse {
     pub tx_routing_height_horizon: u64,
     #[doc = "Version of the binary."]
     pub version: Version,
-    #[doc = "Maximum number of state requests served per `view_client_throttle_period`"]
-    pub view_client_num_state_requests_per_throttle_period: u32,
     #[doc = "Number of threads for ViewClientActor pool."]
     pub view_client_threads: u32,
-    #[doc = "Throttling window for state requests (headers and parts)."]
+    #[doc = "Number of seconds between state requests for view client."]
     pub view_client_throttle_period: [u64; 2usize],
 }
 impl ::std::convert::From<&RpcClientConfigResponse> for RpcClientConfigResponse {
