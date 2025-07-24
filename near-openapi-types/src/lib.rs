@@ -2,10 +2,12 @@
 //!
 //! Used in [near-openapi-client](https://docs.rs/near-openapi-client/latest/near_openapi_client/)
 pub use near_account_id::AccountId;
+pub use near_gas::NearGas;
 #[allow(unused_imports)]
 use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
 #[allow(unused_imports)]
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
+
 #[doc = r" Error types."]
 pub mod error {
     #[doc = r" Error from a `TryFrom` or `FromStr` implementation."]
@@ -15255,72 +15257,6 @@ impl ::std::str::FromStr for MutableConfigValue {
     }
 }
 impl ::std::fmt::Display for MutableConfigValue {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        self.0.fmt(f)
-    }
-}
-#[doc = "`NearGas`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"integer\","]
-#[doc = "  \"format\": \"uint64\","]
-#[doc = "  \"maximum\": 9007199254740991.0,"]
-#[doc = "  \"minimum\": 0.0"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-#[serde(transparent)]
-pub struct NearGas(pub u64);
-impl ::std::ops::Deref for NearGas {
-    type Target = u64;
-    fn deref(&self) -> &u64 {
-        &self.0
-    }
-}
-impl ::std::convert::From<NearGas> for u64 {
-    fn from(value: NearGas) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&NearGas> for NearGas {
-    fn from(value: &NearGas) -> Self {
-        value.clone()
-    }
-}
-impl ::std::convert::From<u64> for NearGas {
-    fn from(value: u64) -> Self {
-        Self(value)
-    }
-}
-impl ::std::str::FromStr for NearGas {
-    type Err = <u64 as ::std::str::FromStr>::Err;
-    fn from_str(value: &str) -> ::std::result::Result<Self, Self::Err> {
-        Ok(Self(value.parse()?))
-    }
-}
-impl ::std::convert::TryFrom<&str> for NearGas {
-    type Error = <u64 as ::std::str::FromStr>::Err;
-    fn try_from(value: &str) -> ::std::result::Result<Self, Self::Error> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&String> for NearGas {
-    type Error = <u64 as ::std::str::FromStr>::Err;
-    fn try_from(value: &String) -> ::std::result::Result<Self, Self::Error> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<String> for NearGas {
-    type Error = <u64 as ::std::str::FromStr>::Err;
-    fn try_from(value: String) -> ::std::result::Result<Self, Self::Error> {
-        value.parse()
-    }
-}
-impl ::std::fmt::Display for NearGas {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         self.0.fmt(f)
     }

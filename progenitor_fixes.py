@@ -82,10 +82,13 @@ pub mod types {"""
     types = lib_rs[types_index:client_index]
     client = lib_rs[client_index:]
 
-    types = 'pub use near_account_id::AccountId;' + types[len(types_start):-2]
+    types = 'pub use near_account_id::AccountId;\npub use near_gas::NearGas;\n' + types[len(types_start):-2]
     account_id_start = types.find('#[doc = "NEAR Account Identifier')
     account_id_validity_start = types.find('#[doc = "`AccountIdValidityRulesVersion`"]')
     types = types[:account_id_start] + types[account_id_validity_start:]
+    near_gas_start = types.find('#[doc = "`NearGas`"]')
+    network_info_view_start = types.find('#[doc = "`NetworkInfoView`"]')
+    types = types[:near_gas_start] + types[network_info_view_start:]
     
     types_lib_rs = dependencies + types
     types_lib_rs = """//! This crate provides types for the Near OpenAPI specification.
@@ -135,7 +138,7 @@ license.workspace = true
 repository.workspace = true
 description = "Types for progenitor-generated client of NEAR JSON RPC API"
 """, types_cargo_toml)
-    types_cargo_toml += 'near-account-id = { version = "1.1.1", features = ["serde"] }\n'
+    types_cargo_toml += 'near-account-id = { version = "1.1.1", features = ["serde"] }\nnear-gas = { version = "0.3.1", features = ["serde"] }\n'
     
     client_cargo_toml_file = open('./near-openapi-client/Cargo.toml', 'w')
     client_cargo_toml_file.write(client_cargo_toml)
