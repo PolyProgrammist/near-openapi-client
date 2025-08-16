@@ -380,7 +380,7 @@ impl ::std::convert::From<&Self> for AccountChangesByBlockIdChangesType {
 impl ::std::fmt::Display for AccountChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
+            Self::AccountChanges => f.write_str("account_changes"),
         }
     }
 }
@@ -452,7 +452,7 @@ impl ::std::convert::From<&Self> for AccountChangesByFinalityChangesType {
 impl ::std::fmt::Display for AccountChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
+            Self::AccountChanges => f.write_str("account_changes"),
         }
     }
 }
@@ -524,7 +524,7 @@ impl ::std::convert::From<&Self> for AccountChangesBySyncCheckpointChangesType {
 impl ::std::fmt::Display for AccountChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
+            Self::AccountChanges => f.write_str("account_changes"),
         }
     }
 }
@@ -2687,7 +2687,7 @@ impl ::std::convert::From<&Self> for AllAccessKeyChangesByBlockIdChangesType {
 impl ::std::fmt::Display for AllAccessKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+            Self::AllAccessKeyChanges => f.write_str("all_access_key_changes"),
         }
     }
 }
@@ -2759,7 +2759,7 @@ impl ::std::convert::From<&Self> for AllAccessKeyChangesByFinalityChangesType {
 impl ::std::fmt::Display for AllAccessKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+            Self::AllAccessKeyChanges => f.write_str("all_access_key_changes"),
         }
     }
 }
@@ -2831,7 +2831,7 @@ impl ::std::convert::From<&Self> for AllAccessKeyChangesBySyncCheckpointChangesT
 impl ::std::fmt::Display for AllAccessKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+            Self::AllAccessKeyChanges => f.write_str("all_access_key_changes"),
         }
     }
 }
@@ -2907,7 +2907,7 @@ impl ::std::convert::From<&Self> for AllGasKeyChangesByBlockIdChangesType {
 impl ::std::fmt::Display for AllGasKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+            Self::AllGasKeyChanges => f.write_str("all_gas_key_changes"),
         }
     }
 }
@@ -2979,7 +2979,7 @@ impl ::std::convert::From<&Self> for AllGasKeyChangesByFinalityChangesType {
 impl ::std::fmt::Display for AllGasKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+            Self::AllGasKeyChanges => f.write_str("all_gas_key_changes"),
         }
     }
 }
@@ -3051,7 +3051,7 @@ impl ::std::convert::From<&Self> for AllGasKeyChangesBySyncCheckpointChangesType
 impl ::std::fmt::Display for AllGasKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+            Self::AllGasKeyChanges => f.write_str("all_gas_key_changes"),
         }
     }
 }
@@ -3642,40 +3642,6 @@ impl ::std::convert::From<&Self> for BlockId {
         value.clone()
     }
 }
-impl ::std::str::FromStr for BlockId {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if let Ok(v) = value.parse() {
-            Ok(Self::BlockHeight(v))
-        } else if let Ok(v) = value.parse() {
-            Ok(Self::CryptoHash(v))
-        } else {
-            Err("string conversion failed for all variants".into())
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for BlockId {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for BlockId {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for BlockId {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 impl ::std::fmt::Display for BlockId {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match self {
@@ -3766,7 +3732,7 @@ impl ::std::convert::From<&Self> for CallFunctionByBlockIdRequestType {
 impl ::std::fmt::Display for CallFunctionByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CallFunction => write!(f, "call_function"),
+            Self::CallFunction => f.write_str("call_function"),
         }
     }
 }
@@ -3838,7 +3804,7 @@ impl ::std::convert::From<&Self> for CallFunctionByFinalityRequestType {
 impl ::std::fmt::Display for CallFunctionByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CallFunction => write!(f, "call_function"),
+            Self::CallFunction => f.write_str("call_function"),
         }
     }
 }
@@ -3910,7 +3876,7 @@ impl ::std::convert::From<&Self> for CallFunctionBySyncCheckpointRequestType {
 impl ::std::fmt::Display for CallFunctionBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CallFunction => write!(f, "call_function"),
+            Self::CallFunction => f.write_str("call_function"),
         }
     }
 }
@@ -4583,7 +4549,7 @@ impl ::std::convert::From<&Self> for ContractCodeChangesByBlockIdChangesType {
 impl ::std::fmt::Display for ContractCodeChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+            Self::ContractCodeChanges => f.write_str("contract_code_changes"),
         }
     }
 }
@@ -4655,7 +4621,7 @@ impl ::std::convert::From<&Self> for ContractCodeChangesByFinalityChangesType {
 impl ::std::fmt::Display for ContractCodeChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+            Self::ContractCodeChanges => f.write_str("contract_code_changes"),
         }
     }
 }
@@ -4727,7 +4693,7 @@ impl ::std::convert::From<&Self> for ContractCodeChangesBySyncCheckpointChangesT
 impl ::std::fmt::Display for ContractCodeChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+            Self::ContractCodeChanges => f.write_str("contract_code_changes"),
         }
     }
 }
@@ -5128,7 +5094,7 @@ impl ::std::convert::From<&Self> for DataChangesByBlockIdChangesType {
 impl ::std::fmt::Display for DataChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataChanges => write!(f, "data_changes"),
+            Self::DataChanges => f.write_str("data_changes"),
         }
     }
 }
@@ -5200,7 +5166,7 @@ impl ::std::convert::From<&Self> for DataChangesByFinalityChangesType {
 impl ::std::fmt::Display for DataChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataChanges => write!(f, "data_changes"),
+            Self::DataChanges => f.write_str("data_changes"),
         }
     }
 }
@@ -5272,7 +5238,7 @@ impl ::std::convert::From<&Self> for DataChangesBySyncCheckpointChangesType {
 impl ::std::fmt::Display for DataChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataChanges => write!(f, "data_changes"),
+            Self::DataChanges => f.write_str("data_changes"),
         }
     }
 }
@@ -5688,8 +5654,8 @@ impl ::std::convert::From<&Self> for Direction {
 impl ::std::fmt::Display for Direction {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Left => write!(f, "Left"),
-            Self::Right => write!(f, "Right"),
+            Self::Left => f.write_str("Left"),
+            Self::Right => f.write_str("Right"),
         }
     }
 }
@@ -7455,9 +7421,9 @@ impl ::std::convert::From<&Self> for Finality {
 impl ::std::fmt::Display for Finality {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Optimistic => write!(f, "optimistic"),
-            Self::NearFinal => write!(f, "near-final"),
-            Self::Final => write!(f, "final"),
+            Self::Optimistic => f.write_str("optimistic"),
+            Self::NearFinal => f.write_str("near-final"),
+            Self::Final => f.write_str("final"),
         }
     }
 }
@@ -8435,8 +8401,8 @@ impl ::std::convert::From<&Self> for GlobalContractDeployMode {
 impl ::std::fmt::Display for GlobalContractDeployMode {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CodeHash => write!(f, "CodeHash"),
-            Self::AccountId => write!(f, "AccountId"),
+            Self::CodeHash => f.write_str("CodeHash"),
+            Self::AccountId => f.write_str("AccountId"),
         }
     }
 }
@@ -9889,7 +9855,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForBlockMethod {
 impl ::std::fmt::Display for JsonRpcRequestForBlockMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Block => write!(f, "block"),
+            Self::Block => f.write_str("block"),
         }
     }
 }
@@ -10009,7 +9975,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForBroadcastTxAsyncMethod {
 impl ::std::fmt::Display for JsonRpcRequestForBroadcastTxAsyncMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::BroadcastTxAsync => write!(f, "broadcast_tx_async"),
+            Self::BroadcastTxAsync => f.write_str("broadcast_tx_async"),
         }
     }
 }
@@ -10129,7 +10095,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForBroadcastTxCommitMethod {
 impl ::std::fmt::Display for JsonRpcRequestForBroadcastTxCommitMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::BroadcastTxCommit => write!(f, "broadcast_tx_commit"),
+            Self::BroadcastTxCommit => f.write_str("broadcast_tx_commit"),
         }
     }
 }
@@ -10247,7 +10213,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForChangesMethod {
 impl ::std::fmt::Display for JsonRpcRequestForChangesMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Changes => write!(f, "changes"),
+            Self::Changes => f.write_str("changes"),
         }
     }
 }
@@ -10365,7 +10331,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForChunkMethod {
 impl ::std::fmt::Display for JsonRpcRequestForChunkMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Chunk => write!(f, "chunk"),
+            Self::Chunk => f.write_str("chunk"),
         }
     }
 }
@@ -10483,7 +10449,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForClientConfigMethod {
 impl ::std::fmt::Display for JsonRpcRequestForClientConfigMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ClientConfig => write!(f, "client_config"),
+            Self::ClientConfig => f.write_str("client_config"),
         }
     }
 }
@@ -10651,7 +10617,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalChangesInBlock
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalChangesInBlockMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalChangesInBlock => write!(f, "EXPERIMENTAL_changes_in_block"),
+            Self::ExperimentalChangesInBlock => f.write_str("EXPERIMENTAL_changes_in_block"),
         }
     }
 }
@@ -10727,7 +10693,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalChangesMethod 
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalChangesMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalChanges => write!(f, "EXPERIMENTAL_changes"),
+            Self::ExperimentalChanges => f.write_str("EXPERIMENTAL_changes"),
         }
     }
 }
@@ -10849,7 +10815,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalCongestionLeve
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalCongestionLevelMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalCongestionLevel => write!(f, "EXPERIMENTAL_congestion_level"),
+            Self::ExperimentalCongestionLevel => f.write_str("EXPERIMENTAL_congestion_level"),
         }
     }
 }
@@ -10973,7 +10939,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalGenesisConfigM
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalGenesisConfigMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalGenesisConfig => write!(f, "EXPERIMENTAL_genesis_config"),
+            Self::ExperimentalGenesisConfig => f.write_str("EXPERIMENTAL_genesis_config"),
         }
     }
 }
@@ -11098,7 +11064,7 @@ impl ::std::fmt::Display for JsonRpcRequestForExperimentalLightClientBlockProofM
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ExperimentalLightClientBlockProof => {
-                write!(f, "EXPERIMENTAL_light_client_block_proof")
+                f.write_str("EXPERIMENTAL_light_client_block_proof")
             }
         }
     }
@@ -11223,7 +11189,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalLightClientPro
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalLightClientProofMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalLightClientProof => write!(f, "EXPERIMENTAL_light_client_proof"),
+            Self::ExperimentalLightClientProof => f.write_str("EXPERIMENTAL_light_client_proof"),
         }
     }
 }
@@ -11347,9 +11313,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalMaintenanceWin
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalMaintenanceWindowsMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalMaintenanceWindows => {
-                write!(f, "EXPERIMENTAL_maintenance_windows")
-            }
+            Self::ExperimentalMaintenanceWindows => f.write_str("EXPERIMENTAL_maintenance_windows"),
         }
     }
 }
@@ -11473,7 +11437,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalProtocolConfig
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalProtocolConfigMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalProtocolConfig => write!(f, "EXPERIMENTAL_protocol_config"),
+            Self::ExperimentalProtocolConfig => f.write_str("EXPERIMENTAL_protocol_config"),
         }
     }
 }
@@ -11597,7 +11561,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalReceiptMethod 
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalReceiptMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalReceipt => write!(f, "EXPERIMENTAL_receipt"),
+            Self::ExperimentalReceipt => f.write_str("EXPERIMENTAL_receipt"),
         }
     }
 }
@@ -11719,7 +11683,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalSplitStorageIn
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalSplitStorageInfoMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalSplitStorageInfo => write!(f, "EXPERIMENTAL_split_storage_info"),
+            Self::ExperimentalSplitStorageInfo => f.write_str("EXPERIMENTAL_split_storage_info"),
         }
     }
 }
@@ -11843,7 +11807,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalTxStatusMethod
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalTxStatusMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalTxStatus => write!(f, "EXPERIMENTAL_tx_status"),
+            Self::ExperimentalTxStatus => f.write_str("EXPERIMENTAL_tx_status"),
         }
     }
 }
@@ -11967,7 +11931,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalValidatorsOrde
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalValidatorsOrderedMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalValidatorsOrdered => write!(f, "EXPERIMENTAL_validators_ordered"),
+            Self::ExperimentalValidatorsOrdered => f.write_str("EXPERIMENTAL_validators_ordered"),
         }
     }
 }
@@ -12089,7 +12053,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForGasPriceMethod {
 impl ::std::fmt::Display for JsonRpcRequestForGasPriceMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasPrice => write!(f, "gas_price"),
+            Self::GasPrice => f.write_str("gas_price"),
         }
     }
 }
@@ -12207,7 +12171,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForHealthMethod {
 impl ::std::fmt::Display for JsonRpcRequestForHealthMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Health => write!(f, "health"),
+            Self::Health => f.write_str("health"),
         }
     }
 }
@@ -12327,7 +12291,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForLightClientProofMethod {
 impl ::std::fmt::Display for JsonRpcRequestForLightClientProofMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::LightClientProof => write!(f, "light_client_proof"),
+            Self::LightClientProof => f.write_str("light_client_proof"),
         }
     }
 }
@@ -12445,7 +12409,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForNetworkInfoMethod {
 impl ::std::fmt::Display for JsonRpcRequestForNetworkInfoMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::NetworkInfo => write!(f, "network_info"),
+            Self::NetworkInfo => f.write_str("network_info"),
         }
     }
 }
@@ -12565,7 +12529,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForNextLightClientBlockMethod
 impl ::std::fmt::Display for JsonRpcRequestForNextLightClientBlockMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::NextLightClientBlock => write!(f, "next_light_client_block"),
+            Self::NextLightClientBlock => f.write_str("next_light_client_block"),
         }
     }
 }
@@ -12687,7 +12651,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForQueryMethod {
 impl ::std::fmt::Display for JsonRpcRequestForQueryMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Query => write!(f, "query"),
+            Self::Query => f.write_str("query"),
         }
     }
 }
@@ -12805,7 +12769,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForSendTxMethod {
 impl ::std::fmt::Display for JsonRpcRequestForSendTxMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SendTx => write!(f, "send_tx"),
+            Self::SendTx => f.write_str("send_tx"),
         }
     }
 }
@@ -12923,7 +12887,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForStatusMethod {
 impl ::std::fmt::Display for JsonRpcRequestForStatusMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Status => write!(f, "status"),
+            Self::Status => f.write_str("status"),
         }
     }
 }
@@ -13041,7 +13005,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForTxMethod {
 impl ::std::fmt::Display for JsonRpcRequestForTxMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Tx => write!(f, "tx"),
+            Self::Tx => f.write_str("tx"),
         }
     }
 }
@@ -13159,7 +13123,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForValidatorsMethod {
 impl ::std::fmt::Display for JsonRpcRequestForValidatorsMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Validators => write!(f, "validators"),
+            Self::Validators => f.write_str("validators"),
         }
     }
 }
@@ -15134,8 +15098,8 @@ impl ::std::convert::From<&Self> for LogSummaryStyle {
 impl ::std::fmt::Display for LogSummaryStyle {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Plain => write!(f, "plain"),
-            Self::Colored => write!(f, "colored"),
+            Self::Plain => f.write_str("plain"),
+            Self::Colored => f.write_str("colored"),
         }
     }
 }
@@ -15243,9 +15207,9 @@ impl ::std::convert::From<&Self> for MethodResolveError {
 impl ::std::fmt::Display for MethodResolveError {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::MethodEmptyName => write!(f, "MethodEmptyName"),
-            Self::MethodNotFound => write!(f, "MethodNotFound"),
-            Self::MethodInvalidSignature => write!(f, "MethodInvalidSignature"),
+            Self::MethodEmptyName => f.write_str("MethodEmptyName"),
+            Self::MethodNotFound => f.write_str("MethodNotFound"),
+            Self::MethodInvalidSignature => f.write_str("MethodInvalidSignature"),
         }
     }
 }
@@ -15384,10 +15348,10 @@ impl ::std::convert::From<&Self> for MissingTrieValueContext {
 impl ::std::fmt::Display for MissingTrieValueContext {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::TrieIterator => write!(f, "TrieIterator"),
-            Self::TriePrefetchingStorage => write!(f, "TriePrefetchingStorage"),
-            Self::TrieMemoryPartialStorage => write!(f, "TrieMemoryPartialStorage"),
-            Self::TrieStorage => write!(f, "TrieStorage"),
+            Self::TrieIterator => f.write_str("TrieIterator"),
+            Self::TriePrefetchingStorage => f.write_str("TriePrefetchingStorage"),
+            Self::TrieMemoryPartialStorage => f.write_str("TrieMemoryPartialStorage"),
+            Self::TrieStorage => f.write_str("TrieStorage"),
         }
     }
 }
@@ -15956,15 +15920,15 @@ impl ::std::convert::From<&Self> for PrepareError {
 impl ::std::fmt::Display for PrepareError {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Serialization => write!(f, "Serialization"),
-            Self::Deserialization => write!(f, "Deserialization"),
-            Self::InternalMemoryDeclared => write!(f, "InternalMemoryDeclared"),
-            Self::GasInstrumentation => write!(f, "GasInstrumentation"),
-            Self::StackHeightInstrumentation => write!(f, "StackHeightInstrumentation"),
-            Self::Instantiate => write!(f, "Instantiate"),
-            Self::Memory => write!(f, "Memory"),
-            Self::TooManyFunctions => write!(f, "TooManyFunctions"),
-            Self::TooManyLocals => write!(f, "TooManyLocals"),
+            Self::Serialization => f.write_str("Serialization"),
+            Self::Deserialization => f.write_str("Deserialization"),
+            Self::InternalMemoryDeclared => f.write_str("InternalMemoryDeclared"),
+            Self::GasInstrumentation => f.write_str("GasInstrumentation"),
+            Self::StackHeightInstrumentation => f.write_str("StackHeightInstrumentation"),
+            Self::Instantiate => f.write_str("Instantiate"),
+            Self::Memory => f.write_str("Memory"),
+            Self::TooManyFunctions => f.write_str("TooManyFunctions"),
+            Self::TooManyLocals => f.write_str("TooManyLocals"),
         }
     }
 }
@@ -17689,7 +17653,7 @@ impl ::std::convert::From<&Self> for RpcErrorVariant0Name {
 impl ::std::fmt::Display for RpcErrorVariant0Name {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::RequestValidationError => write!(f, "REQUEST_VALIDATION_ERROR"),
+            Self::RequestValidationError => f.write_str("REQUEST_VALIDATION_ERROR"),
         }
     }
 }
@@ -17761,7 +17725,7 @@ impl ::std::convert::From<&Self> for RpcErrorVariant1Name {
 impl ::std::fmt::Display for RpcErrorVariant1Name {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::HandlerError => write!(f, "HANDLER_ERROR"),
+            Self::HandlerError => f.write_str("HANDLER_ERROR"),
         }
     }
 }
@@ -17833,7 +17797,7 @@ impl ::std::convert::From<&Self> for RpcErrorVariant2Name {
 impl ::std::fmt::Display for RpcErrorVariant2Name {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::InternalError => write!(f, "INTERNAL_ERROR"),
+            Self::InternalError => f.write_str("INTERNAL_ERROR"),
         }
     }
 }
@@ -18239,7 +18203,7 @@ impl ::std::convert::From<&Self> for RpcLightClientExecutionProofRequestVariant0
 impl ::std::fmt::Display for RpcLightClientExecutionProofRequestVariant0Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Transaction => write!(f, "transaction"),
+            Self::Transaction => f.write_str("transaction"),
         }
     }
 }
@@ -18315,7 +18279,7 @@ impl ::std::convert::From<&Self> for RpcLightClientExecutionProofRequestVariant1
 impl ::std::fmt::Display for RpcLightClientExecutionProofRequestVariant1Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Receipt => write!(f, "receipt"),
+            Self::Receipt => f.write_str("receipt"),
         }
     }
 }
@@ -22974,7 +22938,7 @@ impl ::std::convert::From<&Self> for SingleAccessKeyChangesByBlockIdChangesType 
 impl ::std::fmt::Display for SingleAccessKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+            Self::SingleAccessKeyChanges => f.write_str("single_access_key_changes"),
         }
     }
 }
@@ -23048,7 +23012,7 @@ impl ::std::convert::From<&Self> for SingleAccessKeyChangesByFinalityChangesType
 impl ::std::fmt::Display for SingleAccessKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+            Self::SingleAccessKeyChanges => f.write_str("single_access_key_changes"),
         }
     }
 }
@@ -23124,7 +23088,7 @@ impl ::std::convert::From<&Self> for SingleAccessKeyChangesBySyncCheckpointChang
 impl ::std::fmt::Display for SingleAccessKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+            Self::SingleAccessKeyChanges => f.write_str("single_access_key_changes"),
         }
     }
 }
@@ -23200,7 +23164,7 @@ impl ::std::convert::From<&Self> for SingleGasKeyChangesByBlockIdChangesType {
 impl ::std::fmt::Display for SingleGasKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+            Self::SingleGasKeyChanges => f.write_str("single_gas_key_changes"),
         }
     }
 }
@@ -23272,7 +23236,7 @@ impl ::std::convert::From<&Self> for SingleGasKeyChangesByFinalityChangesType {
 impl ::std::fmt::Display for SingleGasKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+            Self::SingleGasKeyChanges => f.write_str("single_gas_key_changes"),
         }
     }
 }
@@ -23344,7 +23308,7 @@ impl ::std::convert::From<&Self> for SingleGasKeyChangesBySyncCheckpointChangesT
 impl ::std::fmt::Display for SingleGasKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+            Self::SingleGasKeyChanges => f.write_str("single_gas_key_changes"),
         }
     }
 }
@@ -24388,7 +24352,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant0Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant0Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountUpdate => write!(f, "account_update"),
+            Self::AccountUpdate => f.write_str("account_update"),
         }
     }
 }
@@ -24504,7 +24468,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant10Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant10Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeDeletion => write!(f, "contract_code_deletion"),
+            Self::ContractCodeDeletion => f.write_str("contract_code_deletion"),
         }
     }
 }
@@ -24620,7 +24584,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant1Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant1Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountDeletion => write!(f, "account_deletion"),
+            Self::AccountDeletion => f.write_str("account_deletion"),
         }
     }
 }
@@ -24744,7 +24708,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant2Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant2Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccessKeyUpdate => write!(f, "access_key_update"),
+            Self::AccessKeyUpdate => f.write_str("access_key_update"),
         }
     }
 }
@@ -24864,7 +24828,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant3Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant3Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccessKeyDeletion => write!(f, "access_key_deletion"),
+            Self::AccessKeyDeletion => f.write_str("access_key_deletion"),
         }
     }
 }
@@ -24988,7 +24952,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant4Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant4Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasKeyUpdate => write!(f, "gas_key_update"),
+            Self::GasKeyUpdate => f.write_str("gas_key_update"),
         }
     }
 }
@@ -25120,7 +25084,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant5Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant5Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasKeyNonceUpdate => write!(f, "gas_key_nonce_update"),
+            Self::GasKeyNonceUpdate => f.write_str("gas_key_nonce_update"),
         }
     }
 }
@@ -25240,7 +25204,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant6Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant6Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasKeyDeletion => write!(f, "gas_key_deletion"),
+            Self::GasKeyDeletion => f.write_str("gas_key_deletion"),
         }
     }
 }
@@ -25364,7 +25328,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant7Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant7Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataUpdate => write!(f, "data_update"),
+            Self::DataUpdate => f.write_str("data_update"),
         }
     }
 }
@@ -25484,7 +25448,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant8Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant8Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataDeletion => write!(f, "data_deletion"),
+            Self::DataDeletion => f.write_str("data_deletion"),
         }
     }
 }
@@ -25604,7 +25568,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant9Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant9Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeUpdate => write!(f, "contract_code_update"),
+            Self::ContractCodeUpdate => f.write_str("contract_code_update"),
         }
     }
 }
@@ -25963,8 +25927,8 @@ impl ::std::convert::From<&Self> for StorageGetMode {
 impl ::std::fmt::Display for StorageGetMode {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::FlatStorage => write!(f, "FlatStorage"),
-            Self::Trie => write!(f, "Trie"),
+            Self::FlatStorage => f.write_str("FlatStorage"),
+            Self::Trie => f.write_str("Trie"),
         }
     }
 }
@@ -26195,8 +26159,8 @@ impl ::std::convert::From<&Self> for SyncCheckpoint {
 impl ::std::fmt::Display for SyncCheckpoint {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Genesis => write!(f, "genesis"),
-            Self::EarliestAvailable => write!(f, "earliest_available"),
+            Self::Genesis => f.write_str("genesis"),
+            Self::EarliestAvailable => f.write_str("earliest_available"),
         }
     }
 }
@@ -26623,12 +26587,12 @@ impl ::std::convert::From<&Self> for TxExecutionStatus {
 impl ::std::fmt::Display for TxExecutionStatus {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::None => write!(f, "NONE"),
-            Self::Included => write!(f, "INCLUDED"),
-            Self::ExecutedOptimistic => write!(f, "EXECUTED_OPTIMISTIC"),
-            Self::IncludedFinal => write!(f, "INCLUDED_FINAL"),
-            Self::Executed => write!(f, "EXECUTED"),
-            Self::Final => write!(f, "FINAL"),
+            Self::None => f.write_str("NONE"),
+            Self::Included => f.write_str("INCLUDED"),
+            Self::ExecutedOptimistic => f.write_str("EXECUTED_OPTIMISTIC"),
+            Self::IncludedFinal => f.write_str("INCLUDED_FINAL"),
+            Self::Executed => f.write_str("EXECUTED"),
+            Self::Final => f.write_str("FINAL"),
         }
     }
 }
@@ -27068,7 +27032,7 @@ impl ::std::convert::From<&Self> for ValidatorStakeViewValidatorStakeStructVersi
 impl ::std::fmt::Display for ValidatorStakeViewValidatorStakeStructVersion {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::V1 => write!(f, "V1"),
+            Self::V1 => f.write_str("V1"),
         }
     }
 }
@@ -27188,7 +27152,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyByBlockIdRequestType {
 impl ::std::fmt::Display for ViewAccessKeyByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
+            Self::ViewAccessKey => f.write_str("view_access_key"),
         }
     }
 }
@@ -27260,7 +27224,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyByFinalityRequestType {
 impl ::std::fmt::Display for ViewAccessKeyByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
+            Self::ViewAccessKey => f.write_str("view_access_key"),
         }
     }
 }
@@ -27332,7 +27296,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewAccessKeyBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
+            Self::ViewAccessKey => f.write_str("view_access_key"),
         }
     }
 }
@@ -27404,7 +27368,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyListByBlockIdRequestType {
 impl ::std::fmt::Display for ViewAccessKeyListByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+            Self::ViewAccessKeyList => f.write_str("view_access_key_list"),
         }
     }
 }
@@ -27476,7 +27440,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyListByFinalityRequestType {
 impl ::std::fmt::Display for ViewAccessKeyListByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+            Self::ViewAccessKeyList => f.write_str("view_access_key_list"),
         }
     }
 }
@@ -27548,7 +27512,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyListBySyncCheckpointRequestTyp
 impl ::std::fmt::Display for ViewAccessKeyListBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+            Self::ViewAccessKeyList => f.write_str("view_access_key_list"),
         }
     }
 }
@@ -27624,7 +27588,7 @@ impl ::std::convert::From<&Self> for ViewAccountByBlockIdRequestType {
 impl ::std::fmt::Display for ViewAccountByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccount => write!(f, "view_account"),
+            Self::ViewAccount => f.write_str("view_account"),
         }
     }
 }
@@ -27696,7 +27660,7 @@ impl ::std::convert::From<&Self> for ViewAccountByFinalityRequestType {
 impl ::std::fmt::Display for ViewAccountByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccount => write!(f, "view_account"),
+            Self::ViewAccount => f.write_str("view_account"),
         }
     }
 }
@@ -27768,7 +27732,7 @@ impl ::std::convert::From<&Self> for ViewAccountBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewAccountBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccount => write!(f, "view_account"),
+            Self::ViewAccount => f.write_str("view_account"),
         }
     }
 }
@@ -27840,7 +27804,7 @@ impl ::std::convert::From<&Self> for ViewCodeByBlockIdRequestType {
 impl ::std::fmt::Display for ViewCodeByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewCode => write!(f, "view_code"),
+            Self::ViewCode => f.write_str("view_code"),
         }
     }
 }
@@ -27912,7 +27876,7 @@ impl ::std::convert::From<&Self> for ViewCodeByFinalityRequestType {
 impl ::std::fmt::Display for ViewCodeByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewCode => write!(f, "view_code"),
+            Self::ViewCode => f.write_str("view_code"),
         }
     }
 }
@@ -27984,7 +27948,7 @@ impl ::std::convert::From<&Self> for ViewCodeBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewCodeBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewCode => write!(f, "view_code"),
+            Self::ViewCode => f.write_str("view_code"),
         }
     }
 }
@@ -28057,7 +28021,7 @@ impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdByBlockIdRequestTy
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
+                f.write_str("view_global_contract_code_by_account_id")
             }
         }
     }
@@ -28137,7 +28101,7 @@ impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdByFinalityRequestT
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
+                f.write_str("view_global_contract_code_by_account_id")
             }
         }
     }
@@ -28217,7 +28181,7 @@ impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdBySyncCheckpointRe
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
+                f.write_str("view_global_contract_code_by_account_id")
             }
         }
     }
@@ -28298,7 +28262,7 @@ impl ::std::convert::From<&Self> for ViewGlobalContractCodeByBlockIdRequestType 
 impl ::std::fmt::Display for ViewGlobalContractCodeByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+            Self::ViewGlobalContractCode => f.write_str("view_global_contract_code"),
         }
     }
 }
@@ -28372,7 +28336,7 @@ impl ::std::convert::From<&Self> for ViewGlobalContractCodeByFinalityRequestType
 impl ::std::fmt::Display for ViewGlobalContractCodeByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+            Self::ViewGlobalContractCode => f.write_str("view_global_contract_code"),
         }
     }
 }
@@ -28448,7 +28412,7 @@ impl ::std::convert::From<&Self> for ViewGlobalContractCodeBySyncCheckpointReque
 impl ::std::fmt::Display for ViewGlobalContractCodeBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+            Self::ViewGlobalContractCode => f.write_str("view_global_contract_code"),
         }
     }
 }
@@ -28524,7 +28488,7 @@ impl ::std::convert::From<&Self> for ViewStateByBlockIdRequestType {
 impl ::std::fmt::Display for ViewStateByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewState => write!(f, "view_state"),
+            Self::ViewState => f.write_str("view_state"),
         }
     }
 }
@@ -28596,7 +28560,7 @@ impl ::std::convert::From<&Self> for ViewStateByFinalityRequestType {
 impl ::std::fmt::Display for ViewStateByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewState => write!(f, "view_state"),
+            Self::ViewState => f.write_str("view_state"),
         }
     }
 }
@@ -28668,7 +28632,7 @@ impl ::std::convert::From<&Self> for ViewStateBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewStateBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewState => write!(f, "view_state"),
+            Self::ViewState => f.write_str("view_state"),
         }
     }
 }
@@ -28953,11 +28917,11 @@ impl ::std::convert::From<&Self> for VmKind {
 impl ::std::fmt::Display for VmKind {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Wasmer0 => write!(f, "Wasmer0"),
-            Self::Wasmtime => write!(f, "Wasmtime"),
-            Self::Wasmer2 => write!(f, "Wasmer2"),
-            Self::NearVm => write!(f, "NearVm"),
-            Self::NearVm2 => write!(f, "NearVm2"),
+            Self::Wasmer0 => f.write_str("Wasmer0"),
+            Self::Wasmtime => f.write_str("Wasmtime"),
+            Self::Wasmer2 => f.write_str("Wasmer2"),
+            Self::NearVm => f.write_str("NearVm"),
+            Self::NearVm2 => f.write_str("NearVm2"),
         }
     }
 }
@@ -29112,15 +29076,15 @@ impl ::std::convert::From<&Self> for WasmTrap {
 impl ::std::fmt::Display for WasmTrap {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Unreachable => write!(f, "Unreachable"),
-            Self::IncorrectCallIndirectSignature => write!(f, "IncorrectCallIndirectSignature"),
-            Self::MemoryOutOfBounds => write!(f, "MemoryOutOfBounds"),
-            Self::CallIndirectOob => write!(f, "CallIndirectOOB"),
-            Self::IllegalArithmetic => write!(f, "IllegalArithmetic"),
-            Self::MisalignedAtomicAccess => write!(f, "MisalignedAtomicAccess"),
-            Self::IndirectCallToNull => write!(f, "IndirectCallToNull"),
-            Self::StackOverflow => write!(f, "StackOverflow"),
-            Self::GenericTrap => write!(f, "GenericTrap"),
+            Self::Unreachable => f.write_str("Unreachable"),
+            Self::IncorrectCallIndirectSignature => f.write_str("IncorrectCallIndirectSignature"),
+            Self::MemoryOutOfBounds => f.write_str("MemoryOutOfBounds"),
+            Self::CallIndirectOob => f.write_str("CallIndirectOOB"),
+            Self::IllegalArithmetic => f.write_str("IllegalArithmetic"),
+            Self::MisalignedAtomicAccess => f.write_str("MisalignedAtomicAccess"),
+            Self::IndirectCallToNull => f.write_str("IndirectCallToNull"),
+            Self::StackOverflow => f.write_str("StackOverflow"),
+            Self::GenericTrap => f.write_str("GenericTrap"),
         }
     }
 }
