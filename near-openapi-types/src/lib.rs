@@ -382,7 +382,7 @@ impl ::std::convert::From<&Self> for AccountChangesByBlockIdChangesType {
 impl ::std::fmt::Display for AccountChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
+            Self::AccountChanges => f.write_str("account_changes"),
         }
     }
 }
@@ -454,7 +454,7 @@ impl ::std::convert::From<&Self> for AccountChangesByFinalityChangesType {
 impl ::std::fmt::Display for AccountChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
+            Self::AccountChanges => f.write_str("account_changes"),
         }
     }
 }
@@ -526,7 +526,7 @@ impl ::std::convert::From<&Self> for AccountChangesBySyncCheckpointChangesType {
 impl ::std::fmt::Display for AccountChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
+            Self::AccountChanges => f.write_str("account_changes"),
         }
     }
 }
@@ -605,13 +605,13 @@ impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigV
         value.clone()
     }
 }
-#[doc = "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network. It is essentially\nthe data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)"]
+#[doc = "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network.\n\nIt is essentially the data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"AccountData is a piece of global state that a validator\\nsigns and broadcasts to the network. It is essentially\\nthe data that a validator wants to share with the network.\\nAll the nodes in the network are collecting the account data\\nbroadcasted by the validators.\\nSince the number of the validators is bounded and their\\nidentity is known (and the maximal size of allowed AccountData is bounded)\\nthe global state that is distributed in the form of AccountData is bounded\\nas well.\\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)\","]
+#[doc = "  \"description\": \"AccountData is a piece of global state that a validator\\nsigns and broadcasts to the network.\\n\\nIt is essentially the data that a validator wants to share with the network.\\nAll the nodes in the network are collecting the account data\\nbroadcasted by the validators.\\nSince the number of the validators is bounded and their\\nidentity is known (and the maximal size of allowed AccountData is bounded)\\nthe global state that is distributed in the form of AccountData is bounded\\nas well.\\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_key\","]
@@ -2465,7 +2465,7 @@ impl ::std::convert::From<&Self> for AllAccessKeyChangesByBlockIdChangesType {
 impl ::std::fmt::Display for AllAccessKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+            Self::AllAccessKeyChanges => f.write_str("all_access_key_changes"),
         }
     }
 }
@@ -2537,7 +2537,7 @@ impl ::std::convert::From<&Self> for AllAccessKeyChangesByFinalityChangesType {
 impl ::std::fmt::Display for AllAccessKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+            Self::AllAccessKeyChanges => f.write_str("all_access_key_changes"),
         }
     }
 }
@@ -2609,7 +2609,7 @@ impl ::std::convert::From<&Self> for AllAccessKeyChangesBySyncCheckpointChangesT
 impl ::std::fmt::Display for AllAccessKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+            Self::AllAccessKeyChanges => f.write_str("all_access_key_changes"),
         }
     }
 }
@@ -2685,7 +2685,7 @@ impl ::std::convert::From<&Self> for AllGasKeyChangesByBlockIdChangesType {
 impl ::std::fmt::Display for AllGasKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+            Self::AllGasKeyChanges => f.write_str("all_gas_key_changes"),
         }
     }
 }
@@ -2757,7 +2757,7 @@ impl ::std::convert::From<&Self> for AllGasKeyChangesByFinalityChangesType {
 impl ::std::fmt::Display for AllGasKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+            Self::AllGasKeyChanges => f.write_str("all_gas_key_changes"),
         }
     }
 }
@@ -2829,7 +2829,7 @@ impl ::std::convert::From<&Self> for AllGasKeyChangesBySyncCheckpointChangesType
 impl ::std::fmt::Display for AllGasKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+            Self::AllGasKeyChanges => f.write_str("all_gas_key_changes"),
         }
     }
 }
@@ -2986,13 +2986,13 @@ impl ::std::convert::From<BandwidthRequestsV1> for BandwidthRequests {
         Self::V1(value)
     }
 }
-#[doc = "Version 1 for list of [`BandwidthRequest`]s."]
+#[doc = "Version 1 of [`BandwidthRequest`]."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Version 1 for list of [`BandwidthRequest`]s.\","]
+#[doc = "  \"description\": \"Version 1 of [`BandwidthRequest`].\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"requests\""]
@@ -3420,40 +3420,6 @@ impl ::std::convert::From<&Self> for BlockId {
         value.clone()
     }
 }
-impl ::std::str::FromStr for BlockId {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if let Ok(v) = value.parse() {
-            Ok(Self::BlockHeight(v))
-        } else if let Ok(v) = value.parse() {
-            Ok(Self::CryptoHash(v))
-        } else {
-            Err("string conversion failed for all variants".into())
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for BlockId {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for BlockId {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for BlockId {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 impl ::std::fmt::Display for BlockId {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match self {
@@ -3544,7 +3510,7 @@ impl ::std::convert::From<&Self> for CallFunctionByBlockIdRequestType {
 impl ::std::fmt::Display for CallFunctionByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CallFunction => write!(f, "call_function"),
+            Self::CallFunction => f.write_str("call_function"),
         }
     }
 }
@@ -3616,7 +3582,7 @@ impl ::std::convert::From<&Self> for CallFunctionByFinalityRequestType {
 impl ::std::fmt::Display for CallFunctionByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CallFunction => write!(f, "call_function"),
+            Self::CallFunction => f.write_str("call_function"),
         }
     }
 }
@@ -3688,7 +3654,7 @@ impl ::std::convert::From<&Self> for CallFunctionBySyncCheckpointRequestType {
 impl ::std::fmt::Display for CallFunctionBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CallFunction => write!(f, "call_function"),
+            Self::CallFunction => f.write_str("call_function"),
         }
     }
 }
@@ -4058,6 +4024,141 @@ impl ::std::convert::From<&ChunkHeaderView> for ChunkHeaderView {
         value.clone()
     }
 }
+#[doc = "Configuration for a cloud-based archival reader."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Configuration for a cloud-based archival reader.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"cloud_storage\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"cloud_storage\": {"]
+#[doc = "      \"description\": \"Configures the external storage used by the archival node.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CloudStorageConfig\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct CloudArchivalReaderConfig {
+    #[doc = "Configures the external storage used by the archival node."]
+    pub cloud_storage: CloudStorageConfig,
+}
+impl ::std::convert::From<&CloudArchivalReaderConfig> for CloudArchivalReaderConfig {
+    fn from(value: &CloudArchivalReaderConfig) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards. This config also controls additional archival\nbehavior such as block data and polling interval."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\\nwrites chunk-related data based on the tracked shards. This config also controls additional archival\\nbehavior such as block data and polling interval.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"cloud_storage\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"archive_block_data\": {"]
+#[doc = "      \"description\": \"Determines whether block-related data should be written to cloud storage.\","]
+#[doc = "      \"default\": false,"]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
+#[doc = "    \"cloud_storage\": {"]
+#[doc = "      \"description\": \"Configures the external storage used by the archival node.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CloudStorageConfig\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"polling_interval\": {"]
+#[doc = "      \"description\": \"Interval at which the system checks for new blocks or chunks to archive.\","]
+#[doc = "      \"default\": {"]
+#[doc = "        \"nanos\": 0,"]
+#[doc = "        \"secs\": 1"]
+#[doc = "      },"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DurationAsStdSchemaProvider\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct CloudArchivalWriterConfig {
+    #[doc = "Determines whether block-related data should be written to cloud storage."]
+    #[serde(default)]
+    pub archive_block_data: bool,
+    #[doc = "Configures the external storage used by the archival node."]
+    pub cloud_storage: CloudStorageConfig,
+    #[doc = "Interval at which the system checks for new blocks or chunks to archive."]
+    #[serde(default = "defaults::cloud_archival_writer_config_polling_interval")]
+    pub polling_interval: DurationAsStdSchemaProvider,
+}
+impl ::std::convert::From<&CloudArchivalWriterConfig> for CloudArchivalWriterConfig {
+    fn from(value: &CloudArchivalWriterConfig) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Configures the external storage used by the archival node."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Configures the external storage used by the archival node.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"storage\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"credentials_file\": {"]
+#[doc = "      \"description\": \"Location of a json file with credentials allowing access to the bucket.\","]
+#[doc = "      \"type\": ["]
+#[doc = "        \"string\","]
+#[doc = "        \"null\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"storage\": {"]
+#[doc = "      \"description\": \"The storage to persist the archival data.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ExternalStorageLocation\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct CloudStorageConfig {
+    #[doc = "Location of a json file with credentials allowing access to the bucket."]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub credentials_file: ::std::option::Option<::std::string::String>,
+    #[doc = "The storage to persist the archival data."]
+    pub storage: ExternalStorageLocation,
+}
+impl ::std::convert::From<&CloudStorageConfig> for CloudStorageConfig {
+    fn from(value: &CloudStorageConfig) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`CompilationError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -4371,7 +4472,7 @@ impl ::std::convert::From<&Self> for ContractCodeChangesByBlockIdChangesType {
 impl ::std::fmt::Display for ContractCodeChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+            Self::ContractCodeChanges => f.write_str("contract_code_changes"),
         }
     }
 }
@@ -4443,7 +4544,7 @@ impl ::std::convert::From<&Self> for ContractCodeChangesByFinalityChangesType {
 impl ::std::fmt::Display for ContractCodeChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+            Self::ContractCodeChanges => f.write_str("contract_code_changes"),
         }
     }
 }
@@ -4515,7 +4616,7 @@ impl ::std::convert::From<&Self> for ContractCodeChangesBySyncCheckpointChangesT
 impl ::std::fmt::Display for ContractCodeChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+            Self::ContractCodeChanges => f.write_str("contract_code_changes"),
         }
     }
 }
@@ -4916,7 +5017,7 @@ impl ::std::convert::From<&Self> for DataChangesByBlockIdChangesType {
 impl ::std::fmt::Display for DataChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataChanges => write!(f, "data_changes"),
+            Self::DataChanges => f.write_str("data_changes"),
         }
     }
 }
@@ -4988,7 +5089,7 @@ impl ::std::convert::From<&Self> for DataChangesByFinalityChangesType {
 impl ::std::fmt::Display for DataChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataChanges => write!(f, "data_changes"),
+            Self::DataChanges => f.write_str("data_changes"),
         }
     }
 }
@@ -5060,7 +5161,7 @@ impl ::std::convert::From<&Self> for DataChangesBySyncCheckpointChangesType {
 impl ::std::fmt::Display for DataChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataChanges => write!(f, "data_changes"),
+            Self::DataChanges => f.write_str("data_changes"),
         }
     }
 }
@@ -5476,8 +5577,8 @@ impl ::std::convert::From<&Self> for Direction {
 impl ::std::fmt::Display for Direction {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Left => write!(f, "Left"),
-            Self::Right => write!(f, "Right"),
+            Self::Left => f.write_str("Left"),
+            Self::Right => f.write_str("Right"),
         }
     }
 }
@@ -5526,7 +5627,7 @@ impl ::std::convert::TryFrom<::std::string::String> for Direction {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"credentials_file\": {"]
-#[doc = "      \"description\": \"Location of a json file with credentials allowing write access to the bucket.\","]
+#[doc = "      \"description\": \"Location of a json file with credentials allowing access to the bucket.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"string\","]
 #[doc = "        \"null\""]
@@ -5567,7 +5668,7 @@ impl ::std::convert::TryFrom<::std::string::String> for Direction {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct DumpConfig {
-    #[doc = "Location of a json file with credentials allowing write access to the bucket."]
+    #[doc = "Location of a json file with credentials allowing access to the bucket."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub credentials_file: ::std::option::Option<::std::string::String>,
     #[doc = "How often to check if a new epoch has started.\nFeel free to set to `None`, defaults are sensible."]
@@ -7347,9 +7448,9 @@ impl ::std::convert::From<&Self> for Finality {
 impl ::std::fmt::Display for Finality {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Optimistic => write!(f, "optimistic"),
-            Self::NearFinal => write!(f, "near-final"),
-            Self::Final => write!(f, "final"),
+            Self::Optimistic => f.write_str("optimistic"),
+            Self::NearFinal => f.write_str("near-final"),
+            Self::Final => f.write_str("final"),
         }
     }
 }
@@ -8092,8 +8193,6 @@ impl ::std::default::Default for GcConfig {
 #[doc = "          \"shard_ids\": ["]
 #[doc = "            0"]
 #[doc = "          ],"]
-#[doc = "          \"shards_parent_map\": null,"]
-#[doc = "          \"shards_split_map\": null,"]
 #[doc = "          \"version\": 0"]
 #[doc = "        }"]
 #[doc = "      },"]
@@ -8327,8 +8426,8 @@ impl ::std::convert::From<&Self> for GlobalContractDeployMode {
 impl ::std::fmt::Display for GlobalContractDeployMode {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CodeHash => write!(f, "CodeHash"),
-            Self::AccountId => write!(f, "AccountId"),
+            Self::CodeHash => f.write_str("CodeHash"),
+            Self::AccountId => f.write_str("AccountId"),
         }
     }
 }
@@ -9744,6 +9843,124 @@ impl ::std::convert::From<&JsonRpcRequestForBlock> for JsonRpcRequestForBlock {
         value.clone()
     }
 }
+#[doc = "`JsonRpcRequestForBlockEffects`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_block_effects\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"block_effects\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcStateChangesInBlockRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForBlockEffects {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForBlockEffectsMethod,
+    pub params: RpcStateChangesInBlockRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForBlockEffects> for JsonRpcRequestForBlockEffects {
+    fn from(value: &JsonRpcRequestForBlockEffects) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForBlockEffectsMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"block_effects\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForBlockEffectsMethod {
+    #[serde(rename = "block_effects")]
+    BlockEffects,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForBlockEffectsMethod {
+    fn from(value: &JsonRpcRequestForBlockEffectsMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForBlockEffectsMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::BlockEffects => f.write_str("block_effects"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForBlockEffectsMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "block_effects" => Ok(Self::BlockEffects),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForBlockEffectsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForBlockEffectsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForBlockEffectsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 #[doc = "`JsonRpcRequestForBlockMethod`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -9781,7 +9998,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForBlockMethod {
 impl ::std::fmt::Display for JsonRpcRequestForBlockMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Block => write!(f, "block"),
+            Self::Block => f.write_str("block"),
         }
     }
 }
@@ -9901,7 +10118,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForBroadcastTxAsyncMethod {
 impl ::std::fmt::Display for JsonRpcRequestForBroadcastTxAsyncMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::BroadcastTxAsync => write!(f, "broadcast_tx_async"),
+            Self::BroadcastTxAsync => f.write_str("broadcast_tx_async"),
         }
     }
 }
@@ -10021,7 +10238,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForBroadcastTxCommitMethod {
 impl ::std::fmt::Display for JsonRpcRequestForBroadcastTxCommitMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::BroadcastTxCommit => write!(f, "broadcast_tx_commit"),
+            Self::BroadcastTxCommit => f.write_str("broadcast_tx_commit"),
         }
     }
 }
@@ -10139,7 +10356,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForChangesMethod {
 impl ::std::fmt::Display for JsonRpcRequestForChangesMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Changes => write!(f, "changes"),
+            Self::Changes => f.write_str("changes"),
         }
     }
 }
@@ -10257,7 +10474,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForChunkMethod {
 impl ::std::fmt::Display for JsonRpcRequestForChunkMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Chunk => write!(f, "chunk"),
+            Self::Chunk => f.write_str("chunk"),
         }
     }
 }
@@ -10375,7 +10592,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForClientConfigMethod {
 impl ::std::fmt::Display for JsonRpcRequestForClientConfigMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ClientConfig => write!(f, "client_config"),
+            Self::ClientConfig => f.write_str("client_config"),
         }
     }
 }
@@ -10543,7 +10760,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalChangesInBlock
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalChangesInBlockMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalChangesInBlock => write!(f, "EXPERIMENTAL_changes_in_block"),
+            Self::ExperimentalChangesInBlock => f.write_str("EXPERIMENTAL_changes_in_block"),
         }
     }
 }
@@ -10619,7 +10836,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalChangesMethod 
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalChangesMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalChanges => write!(f, "EXPERIMENTAL_changes"),
+            Self::ExperimentalChanges => f.write_str("EXPERIMENTAL_changes"),
         }
     }
 }
@@ -10741,7 +10958,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalCongestionLeve
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalCongestionLevelMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalCongestionLevel => write!(f, "EXPERIMENTAL_congestion_level"),
+            Self::ExperimentalCongestionLevel => f.write_str("EXPERIMENTAL_congestion_level"),
         }
     }
 }
@@ -10865,7 +11082,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalGenesisConfigM
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalGenesisConfigMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalGenesisConfig => write!(f, "EXPERIMENTAL_genesis_config"),
+            Self::ExperimentalGenesisConfig => f.write_str("EXPERIMENTAL_genesis_config"),
         }
     }
 }
@@ -10990,7 +11207,7 @@ impl ::std::fmt::Display for JsonRpcRequestForExperimentalLightClientBlockProofM
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ExperimentalLightClientBlockProof => {
-                write!(f, "EXPERIMENTAL_light_client_block_proof")
+                f.write_str("EXPERIMENTAL_light_client_block_proof")
             }
         }
     }
@@ -11115,7 +11332,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalLightClientPro
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalLightClientProofMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalLightClientProof => write!(f, "EXPERIMENTAL_light_client_proof"),
+            Self::ExperimentalLightClientProof => f.write_str("EXPERIMENTAL_light_client_proof"),
         }
     }
 }
@@ -11239,9 +11456,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalMaintenanceWin
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalMaintenanceWindowsMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalMaintenanceWindows => {
-                write!(f, "EXPERIMENTAL_maintenance_windows")
-            }
+            Self::ExperimentalMaintenanceWindows => f.write_str("EXPERIMENTAL_maintenance_windows"),
         }
     }
 }
@@ -11365,7 +11580,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalProtocolConfig
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalProtocolConfigMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalProtocolConfig => write!(f, "EXPERIMENTAL_protocol_config"),
+            Self::ExperimentalProtocolConfig => f.write_str("EXPERIMENTAL_protocol_config"),
         }
     }
 }
@@ -11489,7 +11704,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalReceiptMethod 
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalReceiptMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalReceipt => write!(f, "EXPERIMENTAL_receipt"),
+            Self::ExperimentalReceipt => f.write_str("EXPERIMENTAL_receipt"),
         }
     }
 }
@@ -11611,7 +11826,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalSplitStorageIn
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalSplitStorageInfoMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalSplitStorageInfo => write!(f, "EXPERIMENTAL_split_storage_info"),
+            Self::ExperimentalSplitStorageInfo => f.write_str("EXPERIMENTAL_split_storage_info"),
         }
     }
 }
@@ -11735,7 +11950,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalTxStatusMethod
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalTxStatusMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalTxStatus => write!(f, "EXPERIMENTAL_tx_status"),
+            Self::ExperimentalTxStatus => f.write_str("EXPERIMENTAL_tx_status"),
         }
     }
 }
@@ -11859,7 +12074,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalValidatorsOrde
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalValidatorsOrderedMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalValidatorsOrdered => write!(f, "EXPERIMENTAL_validators_ordered"),
+            Self::ExperimentalValidatorsOrdered => f.write_str("EXPERIMENTAL_validators_ordered"),
         }
     }
 }
@@ -11981,7 +12196,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForGasPriceMethod {
 impl ::std::fmt::Display for JsonRpcRequestForGasPriceMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasPrice => write!(f, "gas_price"),
+            Self::GasPrice => f.write_str("gas_price"),
         }
     }
 }
@@ -12009,6 +12224,124 @@ impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForGasPri
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForGasPriceMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForGenesisConfig`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_genesis_config\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"genesis_config\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/GenesisConfigRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForGenesisConfig {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForGenesisConfigMethod,
+    pub params: GenesisConfigRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForGenesisConfig> for JsonRpcRequestForGenesisConfig {
+    fn from(value: &JsonRpcRequestForGenesisConfig) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForGenesisConfigMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"genesis_config\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForGenesisConfigMethod {
+    #[serde(rename = "genesis_config")]
+    GenesisConfig,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForGenesisConfigMethod {
+    fn from(value: &JsonRpcRequestForGenesisConfigMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForGenesisConfigMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::GenesisConfig => f.write_str("genesis_config"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForGenesisConfigMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "genesis_config" => Ok(Self::GenesisConfig),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForGenesisConfigMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForGenesisConfigMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForGenesisConfigMethod {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -12099,7 +12432,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForHealthMethod {
 impl ::std::fmt::Display for JsonRpcRequestForHealthMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Health => write!(f, "health"),
+            Self::Health => f.write_str("health"),
         }
     }
 }
@@ -12219,7 +12552,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForLightClientProofMethod {
 impl ::std::fmt::Display for JsonRpcRequestForLightClientProofMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::LightClientProof => write!(f, "light_client_proof"),
+            Self::LightClientProof => f.write_str("light_client_proof"),
         }
     }
 }
@@ -12247,6 +12580,126 @@ impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForLightC
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForLightClientProofMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForMaintenanceWindows`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_maintenance_windows\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"maintenance_windows\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcMaintenanceWindowsRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForMaintenanceWindows {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForMaintenanceWindowsMethod,
+    pub params: RpcMaintenanceWindowsRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForMaintenanceWindows>
+    for JsonRpcRequestForMaintenanceWindows
+{
+    fn from(value: &JsonRpcRequestForMaintenanceWindows) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForMaintenanceWindowsMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"maintenance_windows\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForMaintenanceWindowsMethod {
+    #[serde(rename = "maintenance_windows")]
+    MaintenanceWindows,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForMaintenanceWindowsMethod {
+    fn from(value: &JsonRpcRequestForMaintenanceWindowsMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForMaintenanceWindowsMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::MaintenanceWindows => f.write_str("maintenance_windows"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForMaintenanceWindowsMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "maintenance_windows" => Ok(Self::MaintenanceWindows),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForMaintenanceWindowsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForMaintenanceWindowsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForMaintenanceWindowsMethod {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -12337,7 +12790,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForNetworkInfoMethod {
 impl ::std::fmt::Display for JsonRpcRequestForNetworkInfoMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::NetworkInfo => write!(f, "network_info"),
+            Self::NetworkInfo => f.write_str("network_info"),
         }
     }
 }
@@ -12457,7 +12910,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForNextLightClientBlockMethod
 impl ::std::fmt::Display for JsonRpcRequestForNextLightClientBlockMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::NextLightClientBlock => write!(f, "next_light_client_block"),
+            Self::NextLightClientBlock => f.write_str("next_light_client_block"),
         }
     }
 }
@@ -12579,7 +13032,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForQueryMethod {
 impl ::std::fmt::Display for JsonRpcRequestForQueryMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Query => write!(f, "query"),
+            Self::Query => f.write_str("query"),
         }
     }
 }
@@ -12697,7 +13150,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForSendTxMethod {
 impl ::std::fmt::Display for JsonRpcRequestForSendTxMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SendTx => write!(f, "send_tx"),
+            Self::SendTx => f.write_str("send_tx"),
         }
     }
 }
@@ -12815,7 +13268,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForStatusMethod {
 impl ::std::fmt::Display for JsonRpcRequestForStatusMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Status => write!(f, "status"),
+            Self::Status => f.write_str("status"),
         }
     }
 }
@@ -12933,7 +13386,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForTxMethod {
 impl ::std::fmt::Display for JsonRpcRequestForTxMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Tx => write!(f, "tx"),
+            Self::Tx => f.write_str("tx"),
         }
     }
 }
@@ -13051,7 +13504,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForValidatorsMethod {
 impl ::std::fmt::Display for JsonRpcRequestForValidatorsMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Validators => write!(f, "validators"),
+            Self::Validators => f.write_str("validators"),
         }
     }
 }
@@ -14771,6 +15224,15 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
+#[doc = "    \"max_elements_per_contract_table\": {"]
+#[doc = "      \"description\": \"If present, stores max number of elements in a single contract's table\","]
+#[doc = "      \"type\": ["]
+#[doc = "        \"integer\","]
+#[doc = "        \"null\""]
+#[doc = "      ],"]
+#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
 #[doc = "    \"max_functions_number_per_contract\": {"]
 #[doc = "      \"description\": \"If present, stores max number of functions in one contract\","]
 #[doc = "      \"type\": ["]
@@ -14875,6 +15337,15 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"format\": \"uint32\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
+#[doc = "    \"max_tables_per_contract\": {"]
+#[doc = "      \"description\": \"If present, stores max number of tables declared globally in one contract\","]
+#[doc = "      \"type\": ["]
+#[doc = "        \"integer\","]
+#[doc = "        \"null\""]
+#[doc = "      ],"]
+#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
 #[doc = "    \"max_total_log_length\": {"]
 #[doc = "      \"description\": \"Maximum total length in bytes of all log messages.\","]
 #[doc = "      \"type\": \"integer\","]
@@ -14936,6 +15407,9 @@ pub struct LimitConfig {
     pub max_arguments_length: u64,
     #[doc = "Max contract size"]
     pub max_contract_size: u64,
+    #[doc = "If present, stores max number of elements in a single contract's table"]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_elements_per_contract_table: ::std::option::Option<u32>,
     #[doc = "If present, stores max number of functions in one contract"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub max_functions_number_per_contract: ::std::option::Option<u64>,
@@ -14970,6 +15444,9 @@ pub struct LimitConfig {
     pub max_register_size: u64,
     #[doc = "How tall the stack is allowed to grow?\n\nSee <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\nis calculated."]
     pub max_stack_height: u32,
+    #[doc = "If present, stores max number of tables declared globally in one contract"]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_tables_per_contract: ::std::option::Option<u32>,
     #[doc = "Maximum total length in bytes of all log messages."]
     pub max_total_log_length: u64,
     #[doc = "Max total prepaid gas for all function call actions per receipt."]
@@ -15030,8 +15507,8 @@ impl ::std::convert::From<&Self> for LogSummaryStyle {
 impl ::std::fmt::Display for LogSummaryStyle {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Plain => write!(f, "plain"),
-            Self::Colored => write!(f, "colored"),
+            Self::Plain => f.write_str("plain"),
+            Self::Colored => f.write_str("colored"),
         }
     }
 }
@@ -15139,9 +15616,9 @@ impl ::std::convert::From<&Self> for MethodResolveError {
 impl ::std::fmt::Display for MethodResolveError {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::MethodEmptyName => write!(f, "MethodEmptyName"),
-            Self::MethodNotFound => write!(f, "MethodNotFound"),
-            Self::MethodInvalidSignature => write!(f, "MethodInvalidSignature"),
+            Self::MethodEmptyName => f.write_str("MethodEmptyName"),
+            Self::MethodNotFound => f.write_str("MethodNotFound"),
+            Self::MethodInvalidSignature => f.write_str("MethodInvalidSignature"),
         }
     }
 }
@@ -15280,10 +15757,10 @@ impl ::std::convert::From<&Self> for MissingTrieValueContext {
 impl ::std::fmt::Display for MissingTrieValueContext {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::TrieIterator => write!(f, "TrieIterator"),
-            Self::TriePrefetchingStorage => write!(f, "TriePrefetchingStorage"),
-            Self::TrieMemoryPartialStorage => write!(f, "TrieMemoryPartialStorage"),
-            Self::TrieStorage => write!(f, "TrieStorage"),
+            Self::TrieIterator => f.write_str("TrieIterator"),
+            Self::TriePrefetchingStorage => f.write_str("TriePrefetchingStorage"),
+            Self::TrieMemoryPartialStorage => f.write_str("TrieMemoryPartialStorage"),
+            Self::TrieStorage => f.write_str("TrieStorage"),
         }
     }
 }
@@ -15497,13 +15974,13 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
         value.clone()
     }
 }
-#[doc = "This is Action which mustn't contain DelegateAction.\n\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\n\nImportant: Don't make the inner Action public, this must only be constructed\nthrough the correct interface that ensures the inner Action is actually not\na delegate action. That would break an assumption of this type, which we use\nin several places. For example, borsh de-/serialization relies on it. If the\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\ncan serialize but deserializing it back causes a parsing error."]
+#[doc = "An Action that can be included in a transaction or receipt, excluding delegate actions. This type represents all possible action types except DelegateAction to prevent infinite recursion in meta-transactions."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"This is Action which mustn't contain DelegateAction.\\n\\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\\n\\nImportant: Don't make the inner Action public, this must only be constructed\\nthrough the correct interface that ensures the inner Action is actually not\\na delegate action. That would break an assumption of this type, which we use\\nin several places. For example, borsh de-/serialization relies on it. If the\\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\\ncan serialize but deserializing it back causes a parsing error.\","]
+#[doc = "  \"description\": \"An Action that can be included in a transaction or receipt, excluding delegate actions. This type represents all possible action types except DelegateAction to prevent infinite recursion in meta-transactions.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<http://nomicon.io/Primitives/Account.html>.\","]
@@ -15972,6 +16449,20 @@ impl ::std::convert::From<&PeerInfoView> for PeerInfoView {
 #[doc = "      \"enum\": ["]
 #[doc = "        \"TooManyLocals\""]
 #[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"description\": \"Contract contains too many tables.\","]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"TooManyTables\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"description\": \"Contract contains too many table elements.\","]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"TooManyTableElements\""]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -16008,6 +16499,10 @@ pub enum PrepareError {
     TooManyFunctions,
     #[doc = "Contract contains too many locals."]
     TooManyLocals,
+    #[doc = "Contract contains too many tables."]
+    TooManyTables,
+    #[doc = "Contract contains too many table elements."]
+    TooManyTableElements,
 }
 impl ::std::convert::From<&Self> for PrepareError {
     fn from(value: &PrepareError) -> Self {
@@ -16017,15 +16512,17 @@ impl ::std::convert::From<&Self> for PrepareError {
 impl ::std::fmt::Display for PrepareError {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Serialization => write!(f, "Serialization"),
-            Self::Deserialization => write!(f, "Deserialization"),
-            Self::InternalMemoryDeclared => write!(f, "InternalMemoryDeclared"),
-            Self::GasInstrumentation => write!(f, "GasInstrumentation"),
-            Self::StackHeightInstrumentation => write!(f, "StackHeightInstrumentation"),
-            Self::Instantiate => write!(f, "Instantiate"),
-            Self::Memory => write!(f, "Memory"),
-            Self::TooManyFunctions => write!(f, "TooManyFunctions"),
-            Self::TooManyLocals => write!(f, "TooManyLocals"),
+            Self::Serialization => f.write_str("Serialization"),
+            Self::Deserialization => f.write_str("Deserialization"),
+            Self::InternalMemoryDeclared => f.write_str("InternalMemoryDeclared"),
+            Self::GasInstrumentation => f.write_str("GasInstrumentation"),
+            Self::StackHeightInstrumentation => f.write_str("StackHeightInstrumentation"),
+            Self::Instantiate => f.write_str("Instantiate"),
+            Self::Memory => f.write_str("Memory"),
+            Self::TooManyFunctions => f.write_str("TooManyFunctions"),
+            Self::TooManyLocals => f.write_str("TooManyLocals"),
+            Self::TooManyTables => f.write_str("TooManyTables"),
+            Self::TooManyTableElements => f.write_str("TooManyTableElements"),
         }
     }
 }
@@ -16042,6 +16539,8 @@ impl ::std::str::FromStr for PrepareError {
             "Memory" => Ok(Self::Memory),
             "TooManyFunctions" => Ok(Self::TooManyFunctions),
             "TooManyLocals" => Ok(Self::TooManyLocals),
+            "TooManyTables" => Ok(Self::TooManyTables),
+            "TooManyTableElements" => Ok(Self::TooManyTableElements),
             _ => Err("invalid value".into()),
         }
     }
@@ -16061,6 +16560,82 @@ impl ::std::convert::TryFrom<&::std::string::String> for PrepareError {
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for PrepareError {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "Configures whether the node checks the next or the next next epoch for network version compatibility."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Configures whether the node checks the next or the next next epoch for network version compatibility.\","]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"Next\","]
+#[doc = "    \"NextNext\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ProtocolVersionCheckConfig {
+    Next,
+    NextNext,
+}
+impl ::std::convert::From<&Self> for ProtocolVersionCheckConfig {
+    fn from(value: &ProtocolVersionCheckConfig) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ProtocolVersionCheckConfig {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Next => f.write_str("Next"),
+            Self::NextNext => f.write_str("NextNext"),
+        }
+    }
+}
+impl ::std::str::FromStr for ProtocolVersionCheckConfig {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "Next" => Ok(Self::Next),
+            "NextNext" => Ok(Self::NextNext),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ProtocolVersionCheckConfig {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ProtocolVersionCheckConfig {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ProtocolVersionCheckConfig {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -16874,6 +17449,7 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"catchup_step_period\","]
 #[doc = "    \"chain_id\","]
 #[doc = "    \"chunk_request_retry_period\","]
+#[doc = "    \"chunk_validation_threads\","]
 #[doc = "    \"chunk_wait_mult\","]
 #[doc = "    \"client_background_migration_threads\","]
 #[doc = "    \"doomslug_step_period\","]
@@ -16898,12 +17474,16 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"orphan_state_witness_pool_size\","]
 #[doc = "    \"produce_chunk_add_transactions_time_limit\","]
 #[doc = "    \"produce_empty_blocks\","]
+#[doc = "    \"protocol_version_check\","]
 #[doc = "    \"resharding_config\","]
 #[doc = "    \"save_invalid_witnesses\","]
 #[doc = "    \"save_latest_witnesses\","]
 #[doc = "    \"save_trie_changes\","]
 #[doc = "    \"save_tx_outcomes\","]
 #[doc = "    \"skip_sync_wait\","]
+#[doc = "    \"state_request_server_threads\","]
+#[doc = "    \"state_request_throttle_period\","]
+#[doc = "    \"state_requests_per_throttle_period\","]
 #[doc = "    \"state_sync\","]
 #[doc = "    \"state_sync_enabled\","]
 #[doc = "    \"state_sync_external_backoff\","]
@@ -16919,8 +17499,7 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"ttl_account_id_router\","]
 #[doc = "    \"tx_routing_height_horizon\","]
 #[doc = "    \"version\","]
-#[doc = "    \"view_client_threads\","]
-#[doc = "    \"view_client_throttle_period\""]
+#[doc = "    \"view_client_threads\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"archive\": {"]
@@ -16987,6 +17566,12 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"maxItems\": 2,"]
 #[doc = "      \"minItems\": 2"]
 #[doc = "    },"]
+#[doc = "    \"chunk_validation_threads\": {"]
+#[doc = "      \"description\": \"Number of threads for ChunkValidationActor pool.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
 #[doc = "    \"chunk_wait_mult\": {"]
 #[doc = "      \"description\": \"Multiplier for the wait time for all chunks to be received.\","]
 #[doc = "      \"type\": \"array\","]
@@ -17002,6 +17587,28 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint\","]
 #[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"cloud_archival_reader\": {"]
+#[doc = "      \"description\": \"Configuration for a cloud-based archival reader.\","]
+#[doc = "      \"anyOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CloudArchivalReaderConfig\""]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"null\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"cloud_archival_writer\": {"]
+#[doc = "      \"description\": \"Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\\nwrites chunk-related data based on the tracked shards.\","]
+#[doc = "      \"anyOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CloudArchivalWriterConfig\""]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"null\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"doomslug_step_period\": {"]
 #[doc = "      \"description\": \"Time between running doomslug timer.\","]
@@ -17185,6 +17792,14 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"description\": \"Produce empty blocks, use `false` for testing.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
+#[doc = "    \"protocol_version_check\": {"]
+#[doc = "      \"description\": \"Determines whether client should exit if the protocol version is not supported\\nfor the next or next next epoch.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ProtocolVersionCheckConfig\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
 #[doc = "    \"resharding_config\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/MutableConfigValue\""]
 #[doc = "    },"]
@@ -17214,6 +17829,29 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"skip_sync_wait\": {"]
 #[doc = "      \"description\": \"Skip waiting for sync (for testing or single node testnet).\","]
 #[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
+#[doc = "    \"state_request_server_threads\": {"]
+#[doc = "      \"description\": \"Number of threads for StateRequestActor pool.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"state_request_throttle_period\": {"]
+#[doc = "      \"description\": \"Number of seconds between state requests for view client.\\nThrottling window for state requests (headers and parts).\","]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"type\": \"integer\","]
+#[doc = "        \"format\": \"uint64\","]
+#[doc = "        \"minimum\": 0.0"]
+#[doc = "      },"]
+#[doc = "      \"maxItems\": 2,"]
+#[doc = "      \"minItems\": 2"]
+#[doc = "    },"]
+#[doc = "    \"state_requests_per_throttle_period\": {"]
+#[doc = "      \"description\": \"Maximum number of state requests served per throttle period\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"state_sync\": {"]
 #[doc = "      \"description\": \"Options for syncing state.\","]
@@ -17361,17 +17999,6 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint\","]
 #[doc = "      \"minimum\": 0.0"]
-#[doc = "    },"]
-#[doc = "    \"view_client_throttle_period\": {"]
-#[doc = "      \"description\": \"Number of seconds between state requests for view client.\","]
-#[doc = "      \"type\": \"array\","]
-#[doc = "      \"items\": {"]
-#[doc = "        \"type\": \"integer\","]
-#[doc = "        \"format\": \"uint64\","]
-#[doc = "        \"minimum\": 0.0"]
-#[doc = "      },"]
-#[doc = "      \"maxItems\": 2,"]
-#[doc = "      \"minItems\": 2"]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -17396,10 +18023,18 @@ pub struct RpcClientConfigResponse {
     pub chunk_distribution_network: ::std::option::Option<ChunkDistributionNetworkConfig>,
     #[doc = "Time between checking to re-request chunks."]
     pub chunk_request_retry_period: [u64; 2usize],
+    #[doc = "Number of threads for ChunkValidationActor pool."]
+    pub chunk_validation_threads: u32,
     #[doc = "Multiplier for the wait time for all chunks to be received."]
     pub chunk_wait_mult: [i32; 2usize],
     #[doc = "Number of threads to execute background migration work in client."]
     pub client_background_migration_threads: u32,
+    #[doc = "Configuration for a cloud-based archival reader."]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub cloud_archival_reader: ::std::option::Option<CloudArchivalReaderConfig>,
+    #[doc = "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards."]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub cloud_archival_writer: ::std::option::Option<CloudArchivalWriterConfig>,
     #[doc = "Time between running doomslug timer."]
     pub doomslug_step_period: [u64; 2usize],
     pub enable_multiline_logging: bool,
@@ -17446,6 +18081,8 @@ pub struct RpcClientConfigResponse {
     pub produce_chunk_add_transactions_time_limit: ::std::string::String,
     #[doc = "Produce empty blocks, use `false` for testing."]
     pub produce_empty_blocks: bool,
+    #[doc = "Determines whether client should exit if the protocol version is not supported\nfor the next or next next epoch."]
+    pub protocol_version_check: ProtocolVersionCheckConfig,
     pub resharding_config: MutableConfigValue,
     #[doc = "Listening rpc port for status."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -17460,6 +18097,12 @@ pub struct RpcClientConfigResponse {
     pub save_tx_outcomes: bool,
     #[doc = "Skip waiting for sync (for testing or single node testnet)."]
     pub skip_sync_wait: bool,
+    #[doc = "Number of threads for StateRequestActor pool."]
+    pub state_request_server_threads: u32,
+    #[doc = "Number of seconds between state requests for view client.\nThrottling window for state requests (headers and parts)."]
+    pub state_request_throttle_period: [u64; 2usize],
+    #[doc = "Maximum number of state requests served per throttle period"]
+    pub state_requests_per_throttle_period: u32,
     #[doc = "Options for syncing state."]
     pub state_sync: StateSyncConfig,
     #[doc = "Whether to use the State Sync mechanism.\nIf disabled, the node will do Block Sync instead of State Sync."]
@@ -17496,8 +18139,6 @@ pub struct RpcClientConfigResponse {
     pub version: Version,
     #[doc = "Number of threads for ViewClientActor pool."]
     pub view_client_threads: u32,
-    #[doc = "Number of seconds between state requests for view client."]
-    pub view_client_throttle_period: [u64; 2usize],
 }
 impl ::std::convert::From<&RpcClientConfigResponse> for RpcClientConfigResponse {
     fn from(value: &RpcClientConfigResponse) -> Self {
@@ -17752,7 +18393,7 @@ impl ::std::convert::From<&Self> for RpcErrorVariant0Name {
 impl ::std::fmt::Display for RpcErrorVariant0Name {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::RequestValidationError => write!(f, "REQUEST_VALIDATION_ERROR"),
+            Self::RequestValidationError => f.write_str("REQUEST_VALIDATION_ERROR"),
         }
     }
 }
@@ -17824,7 +18465,7 @@ impl ::std::convert::From<&Self> for RpcErrorVariant1Name {
 impl ::std::fmt::Display for RpcErrorVariant1Name {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::HandlerError => write!(f, "HANDLER_ERROR"),
+            Self::HandlerError => f.write_str("HANDLER_ERROR"),
         }
     }
 }
@@ -17896,7 +18537,7 @@ impl ::std::convert::From<&Self> for RpcErrorVariant2Name {
 impl ::std::fmt::Display for RpcErrorVariant2Name {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::InternalError => write!(f, "INTERNAL_ERROR"),
+            Self::InternalError => f.write_str("INTERNAL_ERROR"),
         }
     }
 }
@@ -18300,7 +18941,7 @@ impl ::std::convert::From<&Self> for RpcLightClientExecutionProofRequestVariant0
 impl ::std::fmt::Display for RpcLightClientExecutionProofRequestVariant0Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Transaction => write!(f, "transaction"),
+            Self::Transaction => f.write_str("transaction"),
         }
     }
 }
@@ -18376,7 +19017,7 @@ impl ::std::convert::From<&Self> for RpcLightClientExecutionProofRequestVariant1
 impl ::std::fmt::Display for RpcLightClientExecutionProofRequestVariant1Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Receipt => write!(f, "receipt"),
+            Self::Receipt => f.write_str("receipt"),
         }
     }
 }
@@ -22314,13 +22955,13 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
         value.clone()
     }
 }
-#[doc = "Describes different costs for the runtime"]
+#[doc = "Describes different fees for the runtime"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Describes different costs for the runtime\","]
+#[doc = "  \"description\": \"Describes different fees for the runtime\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"action_creation_config\","]
@@ -23037,7 +23678,7 @@ impl ::std::convert::From<&Self> for SingleAccessKeyChangesByBlockIdChangesType 
 impl ::std::fmt::Display for SingleAccessKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+            Self::SingleAccessKeyChanges => f.write_str("single_access_key_changes"),
         }
     }
 }
@@ -23111,7 +23752,7 @@ impl ::std::convert::From<&Self> for SingleAccessKeyChangesByFinalityChangesType
 impl ::std::fmt::Display for SingleAccessKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+            Self::SingleAccessKeyChanges => f.write_str("single_access_key_changes"),
         }
     }
 }
@@ -23187,7 +23828,7 @@ impl ::std::convert::From<&Self> for SingleAccessKeyChangesBySyncCheckpointChang
 impl ::std::fmt::Display for SingleAccessKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+            Self::SingleAccessKeyChanges => f.write_str("single_access_key_changes"),
         }
     }
 }
@@ -23263,7 +23904,7 @@ impl ::std::convert::From<&Self> for SingleGasKeyChangesByBlockIdChangesType {
 impl ::std::fmt::Display for SingleGasKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+            Self::SingleGasKeyChanges => f.write_str("single_gas_key_changes"),
         }
     }
 }
@@ -23335,7 +23976,7 @@ impl ::std::convert::From<&Self> for SingleGasKeyChangesByFinalityChangesType {
 impl ::std::fmt::Display for SingleGasKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+            Self::SingleGasKeyChanges => f.write_str("single_gas_key_changes"),
         }
     }
 }
@@ -23407,7 +24048,7 @@ impl ::std::convert::From<&Self> for SingleGasKeyChangesBySyncCheckpointChangesT
 impl ::std::fmt::Display for SingleGasKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+            Self::SingleGasKeyChanges => f.write_str("single_gas_key_changes"),
         }
     }
 }
@@ -24451,7 +25092,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant0Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant0Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountUpdate => write!(f, "account_update"),
+            Self::AccountUpdate => f.write_str("account_update"),
         }
     }
 }
@@ -24567,7 +25208,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant10Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant10Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeDeletion => write!(f, "contract_code_deletion"),
+            Self::ContractCodeDeletion => f.write_str("contract_code_deletion"),
         }
     }
 }
@@ -24683,7 +25324,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant1Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant1Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountDeletion => write!(f, "account_deletion"),
+            Self::AccountDeletion => f.write_str("account_deletion"),
         }
     }
 }
@@ -24807,7 +25448,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant2Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant2Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccessKeyUpdate => write!(f, "access_key_update"),
+            Self::AccessKeyUpdate => f.write_str("access_key_update"),
         }
     }
 }
@@ -24927,7 +25568,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant3Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant3Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccessKeyDeletion => write!(f, "access_key_deletion"),
+            Self::AccessKeyDeletion => f.write_str("access_key_deletion"),
         }
     }
 }
@@ -25051,7 +25692,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant4Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant4Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasKeyUpdate => write!(f, "gas_key_update"),
+            Self::GasKeyUpdate => f.write_str("gas_key_update"),
         }
     }
 }
@@ -25183,7 +25824,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant5Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant5Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasKeyNonceUpdate => write!(f, "gas_key_nonce_update"),
+            Self::GasKeyNonceUpdate => f.write_str("gas_key_nonce_update"),
         }
     }
 }
@@ -25303,7 +25944,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant6Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant6Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasKeyDeletion => write!(f, "gas_key_deletion"),
+            Self::GasKeyDeletion => f.write_str("gas_key_deletion"),
         }
     }
 }
@@ -25427,7 +26068,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant7Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant7Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataUpdate => write!(f, "data_update"),
+            Self::DataUpdate => f.write_str("data_update"),
         }
     }
 }
@@ -25547,7 +26188,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant8Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant8Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataDeletion => write!(f, "data_deletion"),
+            Self::DataDeletion => f.write_str("data_deletion"),
         }
     }
 }
@@ -25667,7 +26308,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant9Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant9Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeUpdate => write!(f, "contract_code_update"),
+            Self::ContractCodeUpdate => f.write_str("contract_code_update"),
         }
     }
 }
@@ -25757,6 +26398,12 @@ impl ::std::convert::From<&StateItem> for StateItem {
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
+#[doc = "    \"parts_compression_lvl\": {"]
+#[doc = "      \"description\": \"Zstd compression level for state parts.\","]
+#[doc = "      \"default\": 1,"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"int32\""]
+#[doc = "    },"]
 #[doc = "    \"sync\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/SyncConfig\""]
 #[doc = "    }"]
@@ -25771,6 +26418,9 @@ pub struct StateSyncConfig {
     #[doc = "`none` value disables state dump to external storage."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub dump: ::std::option::Option<DumpConfig>,
+    #[doc = "Zstd compression level for state parts."]
+    #[serde(default = "defaults::default_u64::<i32, 1>")]
+    pub parts_compression_lvl: i32,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub sync: ::std::option::Option<SyncConfig>,
 }
@@ -25784,6 +26434,7 @@ impl ::std::default::Default for StateSyncConfig {
         Self {
             concurrency: Default::default(),
             dump: Default::default(),
+            parts_compression_lvl: defaults::default_u64::<i32, 1>(),
             sync: Default::default(),
         }
     }
@@ -26031,8 +26682,8 @@ impl ::std::convert::From<&Self> for StorageGetMode {
 impl ::std::fmt::Display for StorageGetMode {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::FlatStorage => write!(f, "FlatStorage"),
-            Self::Trie => write!(f, "Trie"),
+            Self::FlatStorage => f.write_str("FlatStorage"),
+            Self::Trie => f.write_str("Trie"),
         }
     }
 }
@@ -26263,8 +26914,8 @@ impl ::std::convert::From<&Self> for SyncCheckpoint {
 impl ::std::fmt::Display for SyncCheckpoint {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Genesis => write!(f, "genesis"),
-            Self::EarliestAvailable => write!(f, "earliest_available"),
+            Self::Genesis => f.write_str("genesis"),
+            Self::EarliestAvailable => f.write_str("earliest_available"),
         }
     }
 }
@@ -26753,12 +27404,12 @@ impl ::std::convert::From<&Self> for TxExecutionStatus {
 impl ::std::fmt::Display for TxExecutionStatus {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::None => write!(f, "NONE"),
-            Self::Included => write!(f, "INCLUDED"),
-            Self::ExecutedOptimistic => write!(f, "EXECUTED_OPTIMISTIC"),
-            Self::IncludedFinal => write!(f, "INCLUDED_FINAL"),
-            Self::Executed => write!(f, "EXECUTED"),
-            Self::Final => write!(f, "FINAL"),
+            Self::None => f.write_str("NONE"),
+            Self::Included => f.write_str("INCLUDED"),
+            Self::ExecutedOptimistic => f.write_str("EXECUTED_OPTIMISTIC"),
+            Self::IncludedFinal => f.write_str("INCLUDED_FINAL"),
+            Self::Executed => f.write_str("EXECUTED"),
+            Self::Final => f.write_str("FINAL"),
         }
     }
 }
@@ -27198,7 +27849,7 @@ impl ::std::convert::From<&Self> for ValidatorStakeViewValidatorStakeStructVersi
 impl ::std::fmt::Display for ValidatorStakeViewValidatorStakeStructVersion {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::V1 => write!(f, "V1"),
+            Self::V1 => f.write_str("V1"),
         }
     }
 }
@@ -27318,7 +27969,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyByBlockIdRequestType {
 impl ::std::fmt::Display for ViewAccessKeyByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
+            Self::ViewAccessKey => f.write_str("view_access_key"),
         }
     }
 }
@@ -27390,7 +28041,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyByFinalityRequestType {
 impl ::std::fmt::Display for ViewAccessKeyByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
+            Self::ViewAccessKey => f.write_str("view_access_key"),
         }
     }
 }
@@ -27462,7 +28113,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewAccessKeyBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
+            Self::ViewAccessKey => f.write_str("view_access_key"),
         }
     }
 }
@@ -27534,7 +28185,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyListByBlockIdRequestType {
 impl ::std::fmt::Display for ViewAccessKeyListByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+            Self::ViewAccessKeyList => f.write_str("view_access_key_list"),
         }
     }
 }
@@ -27606,7 +28257,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyListByFinalityRequestType {
 impl ::std::fmt::Display for ViewAccessKeyListByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+            Self::ViewAccessKeyList => f.write_str("view_access_key_list"),
         }
     }
 }
@@ -27678,7 +28329,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyListBySyncCheckpointRequestTyp
 impl ::std::fmt::Display for ViewAccessKeyListBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+            Self::ViewAccessKeyList => f.write_str("view_access_key_list"),
         }
     }
 }
@@ -27754,7 +28405,7 @@ impl ::std::convert::From<&Self> for ViewAccountByBlockIdRequestType {
 impl ::std::fmt::Display for ViewAccountByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccount => write!(f, "view_account"),
+            Self::ViewAccount => f.write_str("view_account"),
         }
     }
 }
@@ -27826,7 +28477,7 @@ impl ::std::convert::From<&Self> for ViewAccountByFinalityRequestType {
 impl ::std::fmt::Display for ViewAccountByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccount => write!(f, "view_account"),
+            Self::ViewAccount => f.write_str("view_account"),
         }
     }
 }
@@ -27898,7 +28549,7 @@ impl ::std::convert::From<&Self> for ViewAccountBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewAccountBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccount => write!(f, "view_account"),
+            Self::ViewAccount => f.write_str("view_account"),
         }
     }
 }
@@ -27970,7 +28621,7 @@ impl ::std::convert::From<&Self> for ViewCodeByBlockIdRequestType {
 impl ::std::fmt::Display for ViewCodeByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewCode => write!(f, "view_code"),
+            Self::ViewCode => f.write_str("view_code"),
         }
     }
 }
@@ -28042,7 +28693,7 @@ impl ::std::convert::From<&Self> for ViewCodeByFinalityRequestType {
 impl ::std::fmt::Display for ViewCodeByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewCode => write!(f, "view_code"),
+            Self::ViewCode => f.write_str("view_code"),
         }
     }
 }
@@ -28114,7 +28765,7 @@ impl ::std::convert::From<&Self> for ViewCodeBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewCodeBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewCode => write!(f, "view_code"),
+            Self::ViewCode => f.write_str("view_code"),
         }
     }
 }
@@ -28187,7 +28838,7 @@ impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdByBlockIdRequestTy
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
+                f.write_str("view_global_contract_code_by_account_id")
             }
         }
     }
@@ -28267,7 +28918,7 @@ impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdByFinalityRequestT
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
+                f.write_str("view_global_contract_code_by_account_id")
             }
         }
     }
@@ -28347,7 +28998,7 @@ impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdBySyncCheckpointRe
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
+                f.write_str("view_global_contract_code_by_account_id")
             }
         }
     }
@@ -28428,7 +29079,7 @@ impl ::std::convert::From<&Self> for ViewGlobalContractCodeByBlockIdRequestType 
 impl ::std::fmt::Display for ViewGlobalContractCodeByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+            Self::ViewGlobalContractCode => f.write_str("view_global_contract_code"),
         }
     }
 }
@@ -28502,7 +29153,7 @@ impl ::std::convert::From<&Self> for ViewGlobalContractCodeByFinalityRequestType
 impl ::std::fmt::Display for ViewGlobalContractCodeByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+            Self::ViewGlobalContractCode => f.write_str("view_global_contract_code"),
         }
     }
 }
@@ -28578,7 +29229,7 @@ impl ::std::convert::From<&Self> for ViewGlobalContractCodeBySyncCheckpointReque
 impl ::std::fmt::Display for ViewGlobalContractCodeBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+            Self::ViewGlobalContractCode => f.write_str("view_global_contract_code"),
         }
     }
 }
@@ -28654,7 +29305,7 @@ impl ::std::convert::From<&Self> for ViewStateByBlockIdRequestType {
 impl ::std::fmt::Display for ViewStateByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewState => write!(f, "view_state"),
+            Self::ViewState => f.write_str("view_state"),
         }
     }
 }
@@ -28726,7 +29377,7 @@ impl ::std::convert::From<&Self> for ViewStateByFinalityRequestType {
 impl ::std::fmt::Display for ViewStateByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewState => write!(f, "view_state"),
+            Self::ViewState => f.write_str("view_state"),
         }
     }
 }
@@ -28798,7 +29449,7 @@ impl ::std::convert::From<&Self> for ViewStateBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewStateBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewState => write!(f, "view_state"),
+            Self::ViewState => f.write_str("view_state"),
         }
     }
 }
@@ -29083,11 +29734,11 @@ impl ::std::convert::From<&Self> for VmKind {
 impl ::std::fmt::Display for VmKind {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Wasmer0 => write!(f, "Wasmer0"),
-            Self::Wasmtime => write!(f, "Wasmtime"),
-            Self::Wasmer2 => write!(f, "Wasmer2"),
-            Self::NearVm => write!(f, "NearVm"),
-            Self::NearVm2 => write!(f, "NearVm2"),
+            Self::Wasmer0 => f.write_str("Wasmer0"),
+            Self::Wasmtime => f.write_str("Wasmtime"),
+            Self::Wasmer2 => f.write_str("Wasmer2"),
+            Self::NearVm => f.write_str("NearVm"),
+            Self::NearVm2 => f.write_str("NearVm2"),
         }
     }
 }
@@ -29242,15 +29893,15 @@ impl ::std::convert::From<&Self> for WasmTrap {
 impl ::std::fmt::Display for WasmTrap {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Unreachable => write!(f, "Unreachable"),
-            Self::IncorrectCallIndirectSignature => write!(f, "IncorrectCallIndirectSignature"),
-            Self::MemoryOutOfBounds => write!(f, "MemoryOutOfBounds"),
-            Self::CallIndirectOob => write!(f, "CallIndirectOOB"),
-            Self::IllegalArithmetic => write!(f, "IllegalArithmetic"),
-            Self::MisalignedAtomicAccess => write!(f, "MisalignedAtomicAccess"),
-            Self::IndirectCallToNull => write!(f, "IndirectCallToNull"),
-            Self::StackOverflow => write!(f, "StackOverflow"),
-            Self::GenericTrap => write!(f, "GenericTrap"),
+            Self::Unreachable => f.write_str("Unreachable"),
+            Self::IncorrectCallIndirectSignature => f.write_str("IncorrectCallIndirectSignature"),
+            Self::MemoryOutOfBounds => f.write_str("MemoryOutOfBounds"),
+            Self::CallIndirectOob => f.write_str("CallIndirectOOB"),
+            Self::IllegalArithmetic => f.write_str("IllegalArithmetic"),
+            Self::MisalignedAtomicAccess => f.write_str("MisalignedAtomicAccess"),
+            Self::IndirectCallToNull => f.write_str("IndirectCallToNull"),
+            Self::StackOverflow => f.write_str("StackOverflow"),
+            Self::GenericTrap => f.write_str("GenericTrap"),
         }
     }
 }
@@ -29352,6 +30003,13 @@ pub mod defaults {
     {
         T::try_from(V).unwrap()
     }
+    pub(super) fn cloud_archival_writer_config_polling_interval(
+    ) -> super::DurationAsStdSchemaProvider {
+        super::DurationAsStdSchemaProvider {
+            nanos: 0_i32,
+            secs: 1_i64,
+        }
+    }
     pub(super) fn execution_outcome_view_metadata() -> super::ExecutionMetadataView {
         super::ExecutionMetadataView {
             gas_profile: Default::default(),
@@ -29384,8 +30042,8 @@ pub mod defaults {
                 .into_iter()
                 .collect(),
             shard_ids: vec![super::ShardId(0_u64)],
-            shards_parent_map: ::std::option::Option::None,
-            shards_split_map: ::std::option::Option::None,
+            shards_parent_map: Default::default(),
+            shards_split_map: Default::default(),
             version: 0_u32,
         })
     }

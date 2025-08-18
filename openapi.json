@@ -2,12 +2,12 @@
     "openapi": "3.0.0",
     "info": {
         "title": "NEAR Protocol JSON RPC API",
-        "version": "1.1.0"
+        "version": "1.1.2"
     },
     "paths": {
         "/EXPERIMENTAL_changes": {
             "post": {
-                "description": "Returns changes in block for given block height or hash over all transactions for the current type. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched",
+                "description": "[Deprecated] Returns changes for a given account, contract or contract code for given block height or hash. Consider using changes instead.",
                 "operationId": "EXPERIMENTAL_changes",
                 "requestBody": {
                     "content": {
@@ -35,7 +35,7 @@
         },
         "/EXPERIMENTAL_changes_in_block": {
             "post": {
-                "description": "Returns changes in block for given block height or hash over all transactions for all the types. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched",
+                "description": "[Deprecated] Returns changes in block for given block height or hash over all transactions for all the types. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched. Consider using block_effects instead",
                 "operationId": "EXPERIMENTAL_changes_in_block",
                 "requestBody": {
                     "content": {
@@ -91,7 +91,7 @@
         },
         "/EXPERIMENTAL_genesis_config": {
             "post": {
-                "description": "Get initial state and parameters for the genesis block",
+                "description": "[Deprecated] Get initial state and parameters for the genesis block. Consider genesis_config instead.",
                 "operationId": "EXPERIMENTAL_genesis_config",
                 "requestBody": {
                     "content": {
@@ -175,7 +175,7 @@
         },
         "/EXPERIMENTAL_maintenance_windows": {
             "post": {
-                "description": "Returns the future windows for maintenance in current epoch for the specified account. In the maintenance windows, the node will not be block producer or chunk producer",
+                "description": "[Deprecated] Returns the future windows for maintenance in current epoch for the specified account. In the maintenance windows, the node will not be block producer or chunk producer. Consider using maintenance_windows instead.",
                 "operationId": "EXPERIMENTAL_maintenance_windows",
                 "requestBody": {
                     "content": {
@@ -369,9 +369,37 @@
                 }
             }
         },
+        "/block_effects": {
+            "post": {
+                "description": "Returns changes in block for given block height or hash over all transactions for all the types. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched.",
+                "operationId": "block_effects",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/JsonRpcRequest_for_block_effects"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JsonRpcResponse_for_RpcStateChangesInBlockByTypeResponse_and_RpcError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/broadcast_tx_async": {
             "post": {
-                "description": "[Deprecated] Sends a transaction and immediately returns transaction hash. Consider using send_tx instead",
+                "description": "[Deprecated] Sends a transaction and immediately returns transaction hash. Consider using send_tx instead.",
                 "operationId": "broadcast_tx_async",
                 "requestBody": {
                     "content": {
@@ -399,7 +427,7 @@
         },
         "/broadcast_tx_commit": {
             "post": {
-                "description": "[Deprecated] Sends a transaction and waits until transaction is fully complete. (Has a 10 second timeout). Consider using send_tx instead",
+                "description": "[Deprecated] Sends a transaction and waits until transaction is fully complete. (Has a 10 second timeout). Consider using send_tx instead.",
                 "operationId": "broadcast_tx_commit",
                 "requestBody": {
                     "content": {
@@ -427,7 +455,7 @@
         },
         "/changes": {
             "post": {
-                "description": "Returns changes in block for given block height or hash over all transactions for the current type. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched",
+                "description": "Returns changes for a given account, contract or contract code for given block height or hash.",
                 "operationId": "changes",
                 "requestBody": {
                     "content": {
@@ -537,6 +565,34 @@
                 }
             }
         },
+        "/genesis_config": {
+            "post": {
+                "description": "Get initial state and parameters for the genesis block",
+                "operationId": "genesis_config",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/JsonRpcRequest_for_genesis_config"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JsonRpcResponse_for_GenesisConfig_and_RpcError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/health": {
             "post": {
                 "description": "Returns the current health status of the RPC node the client connects to.",
@@ -586,6 +642,34 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/JsonRpcResponse_for_RpcLightClientExecutionProofResponse_and_RpcError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/maintenance_windows": {
+            "post": {
+                "description": "Returns the future windows for maintenance in current epoch for the specified account. In the maintenance windows, the node will not be block producer or chunk producer.",
+                "operationId": "maintenance_windows",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/JsonRpcRequest_for_maintenance_windows"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JsonRpcResponse_for_Array_of_Range_of_uint64_and_RpcError"
                                 }
                             }
                         }
@@ -992,7 +1076,7 @@
                 "type": "object"
             },
             "AccountDataView": {
-                "description": "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network. It is essentially\nthe data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)",
+                "description": "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network.\n\nIt is essentially the data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)",
                 "properties": {
                     "account_key": {
                         "allOf": [
@@ -2440,7 +2524,7 @@
                 ]
             },
             "BandwidthRequestsV1": {
-                "description": "Version 1 for list of [`BandwidthRequest`]s.",
+                "description": "Version 1 of [`BandwidthRequest`].",
                 "properties": {
                     "requests": {
                         "items": {
@@ -2980,6 +3064,79 @@
                     "tx_root",
                     "validator_proposals",
                     "signature"
+                ],
+                "type": "object"
+            },
+            "CloudArchivalReaderConfig": {
+                "description": "Configuration for a cloud-based archival reader.",
+                "properties": {
+                    "cloud_storage": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CloudStorageConfig"
+                            }
+                        ],
+                        "description": "Configures the external storage used by the archival node."
+                    }
+                },
+                "required": [
+                    "cloud_storage"
+                ],
+                "type": "object"
+            },
+            "CloudArchivalWriterConfig": {
+                "description": "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards. This config also controls additional archival\nbehavior such as block data and polling interval.",
+                "properties": {
+                    "archive_block_data": {
+                        "default": false,
+                        "description": "Determines whether block-related data should be written to cloud storage.",
+                        "type": "boolean"
+                    },
+                    "cloud_storage": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CloudStorageConfig"
+                            }
+                        ],
+                        "description": "Configures the external storage used by the archival node."
+                    },
+                    "polling_interval": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/DurationAsStdSchemaProvider"
+                            }
+                        ],
+                        "default": {
+                            "nanos": 0,
+                            "secs": 1
+                        },
+                        "description": "Interval at which the system checks for new blocks or chunks to archive."
+                    }
+                },
+                "required": [
+                    "cloud_storage"
+                ],
+                "type": "object"
+            },
+            "CloudStorageConfig": {
+                "description": "Configures the external storage used by the archival node.",
+                "properties": {
+                    "credentials_file": {
+                        "description": "Location of a json file with credentials allowing access to the bucket.",
+                        "nullable": true,
+                        "type": "string"
+                    },
+                    "storage": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ExternalStorageLocation"
+                            }
+                        ],
+                        "description": "The storage to persist the archival data."
+                    }
+                },
+                "required": [
+                    "storage"
                 ],
                 "type": "object"
             },
@@ -3534,7 +3691,7 @@
                 "description": "Configures how to dump state to external storage.",
                 "properties": {
                     "credentials_file": {
-                        "description": "Location of a json file with credentials allowing write access to the bucket.",
+                        "description": "Location of a json file with credentials allowing access to the bucket.",
                         "nullable": true,
                         "type": "string"
                     },
@@ -5254,8 +5411,6 @@
                                 "shard_ids": [
                                     0
                                 ],
-                                "shards_parent_map": null,
-                                "shards_split_map": null,
                                 "version": 0
                             }
                         },
@@ -6783,6 +6938,33 @@
                 "title": "JsonRpcRequest_for_block",
                 "type": "object"
             },
+            "JsonRpcRequest_for_block_effects": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "jsonrpc": {
+                        "type": "string"
+                    },
+                    "method": {
+                        "enum": [
+                            "block_effects"
+                        ],
+                        "type": "string"
+                    },
+                    "params": {
+                        "$ref": "#/components/schemas/RpcStateChangesInBlockRequest"
+                    }
+                },
+                "required": [
+                    "jsonrpc",
+                    "id",
+                    "params",
+                    "method"
+                ],
+                "title": "JsonRpcRequest_for_block_effects",
+                "type": "object"
+            },
             "JsonRpcRequest_for_broadcast_tx_async": {
                 "properties": {
                     "id": {
@@ -6945,6 +7127,33 @@
                 "title": "JsonRpcRequest_for_gas_price",
                 "type": "object"
             },
+            "JsonRpcRequest_for_genesis_config": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "jsonrpc": {
+                        "type": "string"
+                    },
+                    "method": {
+                        "enum": [
+                            "genesis_config"
+                        ],
+                        "type": "string"
+                    },
+                    "params": {
+                        "$ref": "#/components/schemas/GenesisConfigRequest"
+                    }
+                },
+                "required": [
+                    "jsonrpc",
+                    "id",
+                    "params",
+                    "method"
+                ],
+                "title": "JsonRpcRequest_for_genesis_config",
+                "type": "object"
+            },
             "JsonRpcRequest_for_health": {
                 "properties": {
                     "id": {
@@ -6997,6 +7206,33 @@
                     "method"
                 ],
                 "title": "JsonRpcRequest_for_light_client_proof",
+                "type": "object"
+            },
+            "JsonRpcRequest_for_maintenance_windows": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "jsonrpc": {
+                        "type": "string"
+                    },
+                    "method": {
+                        "enum": [
+                            "maintenance_windows"
+                        ],
+                        "type": "string"
+                    },
+                    "params": {
+                        "$ref": "#/components/schemas/RpcMaintenanceWindowsRequest"
+                    }
+                },
+                "required": [
+                    "jsonrpc",
+                    "id",
+                    "params",
+                    "method"
+                ],
+                "title": "JsonRpcRequest_for_maintenance_windows",
                 "type": "object"
             },
             "JsonRpcRequest_for_network_info": {
@@ -8202,6 +8438,13 @@
                         "minimum": 0,
                         "type": "integer"
                     },
+                    "max_elements_per_contract_table": {
+                        "description": "If present, stores max number of elements in a single contract's table",
+                        "format": "uint",
+                        "minimum": 0,
+                        "nullable": true,
+                        "type": "integer"
+                    },
                     "max_functions_number_per_contract": {
                         "description": "If present, stores max number of functions in one contract",
                         "format": "uint64",
@@ -8300,6 +8543,13 @@
                         "description": "How tall the stack is allowed to grow?\n\nSee <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\nis calculated.",
                         "format": "uint32",
                         "minimum": 0,
+                        "type": "integer"
+                    },
+                    "max_tables_per_contract": {
+                        "description": "If present, stores max number of tables declared globally in one contract",
+                        "format": "uint32",
+                        "minimum": 0,
+                        "nullable": true,
                         "type": "integer"
                     },
                     "max_total_log_length": {
@@ -8459,7 +8709,6 @@
             },
             "NearGas": {
                 "format": "uint64",
-                "maximum": 9007199254740991,
                 "minimum": 0,
                 "type": "integer"
             },
@@ -8544,7 +8793,7 @@
                 "type": "object"
             },
             "NonDelegateAction": {
-                "description": "This is Action which mustn't contain DelegateAction.\n\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\n\nImportant: Don't make the inner Action public, this must only be constructed\nthrough the correct interface that ensures the inner Action is actually not\na delegate action. That would break an assumption of this type, which we use\nin several places. For example, borsh de-/serialization relies on it. If the\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\ncan serialize but deserializing it back causes a parsing error.",
+                "description": "An Action that can be included in a transaction or receipt, excluding delegate actions. This type represents all possible action types except DelegateAction to prevent infinite recursion in meta-transactions.",
                 "oneOf": [
                     {
                         "additionalProperties": false,
@@ -8846,8 +9095,30 @@
                             "TooManyLocals"
                         ],
                         "type": "string"
+                    },
+                    {
+                        "description": "Contract contains too many tables.",
+                        "enum": [
+                            "TooManyTables"
+                        ],
+                        "type": "string"
+                    },
+                    {
+                        "description": "Contract contains too many table elements.",
+                        "enum": [
+                            "TooManyTableElements"
+                        ],
+                        "type": "string"
                     }
                 ]
+            },
+            "ProtocolVersionCheckConfig": {
+                "description": "Configures whether the node checks the next or the next next epoch for network version compatibility.",
+                "enum": [
+                    "Next",
+                    "NextNext"
+                ],
+                "type": "string"
             },
             "PublicKey": {
                 "type": "string"
@@ -9416,6 +9687,12 @@
                         "minItems": 2,
                         "type": "array"
                     },
+                    "chunk_validation_threads": {
+                        "description": "Number of threads for ChunkValidationActor pool.",
+                        "format": "uint",
+                        "minimum": 0,
+                        "type": "integer"
+                    },
                     "chunk_wait_mult": {
                         "description": "Multiplier for the wait time for all chunks to be received.",
                         "items": {
@@ -9431,6 +9708,34 @@
                         "format": "uint",
                         "minimum": 0,
                         "type": "integer"
+                    },
+                    "cloud_archival_reader": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/CloudArchivalReaderConfig"
+                            },
+                            {
+                                "enum": [
+                                    null
+                                ],
+                                "nullable": true
+                            }
+                        ],
+                        "description": "Configuration for a cloud-based archival reader."
+                    },
+                    "cloud_archival_writer": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/CloudArchivalWriterConfig"
+                            },
+                            {
+                                "enum": [
+                                    null
+                                ],
+                                "nullable": true
+                            }
+                        ],
+                        "description": "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards."
                     },
                     "doomslug_step_period": {
                         "description": "Time between running doomslug timer.",
@@ -9617,6 +9922,14 @@
                         "description": "Produce empty blocks, use `false` for testing.",
                         "type": "boolean"
                     },
+                    "protocol_version_check": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ProtocolVersionCheckConfig"
+                            }
+                        ],
+                        "description": "Determines whether client should exit if the protocol version is not supported\nfor the next or next next epoch."
+                    },
                     "resharding_config": {
                         "$ref": "#/components/schemas/MutableConfigValue"
                     },
@@ -9644,6 +9957,29 @@
                     "skip_sync_wait": {
                         "description": "Skip waiting for sync (for testing or single node testnet).",
                         "type": "boolean"
+                    },
+                    "state_request_server_threads": {
+                        "description": "Number of threads for StateRequestActor pool.",
+                        "format": "uint",
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "state_request_throttle_period": {
+                        "description": "Number of seconds between state requests for view client.\nThrottling window for state requests (headers and parts).",
+                        "items": {
+                            "format": "uint64",
+                            "minimum": 0,
+                            "type": "integer"
+                        },
+                        "maxItems": 2,
+                        "minItems": 2,
+                        "type": "array"
+                    },
+                    "state_requests_per_throttle_period": {
+                        "description": "Maximum number of state requests served per throttle period",
+                        "format": "uint",
+                        "minimum": 0,
+                        "type": "integer"
                     },
                     "state_sync": {
                         "allOf": [
@@ -9787,17 +10123,6 @@
                         "format": "uint",
                         "minimum": 0,
                         "type": "integer"
-                    },
-                    "view_client_throttle_period": {
-                        "description": "Number of seconds between state requests for view client.",
-                        "items": {
-                            "format": "uint64",
-                            "minimum": 0,
-                            "type": "integer"
-                        },
-                        "maxItems": 2,
-                        "minItems": 2,
-                        "type": "array"
                     }
                 },
                 "required": [
@@ -9840,7 +10165,10 @@
                     "save_trie_changes",
                     "save_tx_outcomes",
                     "view_client_threads",
-                    "view_client_throttle_period",
+                    "chunk_validation_threads",
+                    "state_request_throttle_period",
+                    "state_requests_per_throttle_period",
+                    "state_request_server_threads",
                     "enable_statistics_export",
                     "client_background_migration_threads",
                     "state_sync_enabled",
@@ -9854,7 +10182,8 @@
                     "orphan_state_witness_max_size",
                     "save_latest_witnesses",
                     "save_invalid_witnesses",
-                    "transaction_request_handler_threads"
+                    "transaction_request_handler_threads",
+                    "protocol_version_check"
                 ],
                 "type": "object"
             },
@@ -12948,7 +13277,7 @@
                 "type": "object"
             },
             "RuntimeFeesConfigView": {
-                "description": "Describes different costs for the runtime",
+                "description": "Describes different fees for the runtime",
                 "properties": {
                     "action_creation_config": {
                         "allOf": [
@@ -14006,6 +14335,12 @@
                             }
                         ],
                         "description": "`none` value disables state dump to external storage."
+                    },
+                    "parts_compression_lvl": {
+                        "default": 1,
+                        "description": "Zstd compression level for state parts.",
+                        "format": "int32",
+                        "type": "integer"
                     },
                     "sync": {
                         "$ref": "#/components/schemas/SyncConfig"
