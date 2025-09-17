@@ -1369,8 +1369,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "near-gas"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "41ca4044222f2f392ab61d27d0aefc5106b1ece4dcd22c5c987e3c75371d2a37"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "near-openapi-client"
-version = "0.2.1"
+version = "0.3.0"
 dependencies = [
  "bytes",
  "chrono",
@@ -1385,12 +1394,13 @@ dependencies = [
 
 [[package]]
 name = "near-openapi-types"
-version = "0.2.1"
+version = "0.3.0"
 dependencies = [
  "bytes",
  "chrono",
  "futures-core",
  "near-account-id",
+ "near-gas",
  "progenitor-client",
  "reqwest",
  "serde",

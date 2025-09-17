@@ -403,7 +403,7 @@ use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderE
 #[allow(unused_imports)]
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 #[derive(Clone, Debug)]
-#[doc = "Client for NEAR Protocol JSON RPC API\n\nVersion: 1.1.0"]
+#[doc = "Client for NEAR Protocol JSON RPC API\n\nVersion: 1.1.2"]
 pub struct Client {
     pub(crate) baseurl: String,
     pub(crate) client: reqwest::Client,
@@ -441,7 +441,7 @@ impl Client {
 }
 impl ClientInfo<()> for Client {
     fn api_version() -> &'static str {
-        "1.1.0"
+        "1.1.2"
     }
     fn baseurl(&self) -> &str {
         self.baseurl.as_str()
@@ -457,7 +457,7 @@ impl ClientHooks<()> for &Client {}
 #[allow(clippy::all)]
 #[allow(elided_named_lifetimes)]
 impl Client {
-    #[doc = "Returns changes in block for given block height or hash over all transactions for the current type. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched\n\nSends a `POST` request to `/EXPERIMENTAL_changes`\n\n"]
+    #[doc = "[Deprecated] Returns changes for a given account, contract or contract code for given block height or hash. Consider using changes instead.\n\nSends a `POST` request to `/EXPERIMENTAL_changes`\n\n"]
     pub async fn experimental_changes<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalChanges,
@@ -494,7 +494,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Returns changes in block for given block height or hash over all transactions for all the types. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched\n\nSends a `POST` request to `/EXPERIMENTAL_changes_in_block`\n\n"]
+    #[doc = "[Deprecated] Returns changes in block for given block height or hash over all transactions for all the types. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched. Consider using block_effects instead\n\nSends a `POST` request to `/EXPERIMENTAL_changes_in_block`\n\n"]
     pub async fn experimental_changes_in_block<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalChangesInBlock,
@@ -568,7 +568,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Get initial state and parameters for the genesis block\n\nSends a `POST` request to `/EXPERIMENTAL_genesis_config`\n\n"]
+    #[doc = "[Deprecated] Get initial state and parameters for the genesis block. Consider genesis_config instead.\n\nSends a `POST` request to `/EXPERIMENTAL_genesis_config`\n\n"]
     pub async fn experimental_genesis_config<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalGenesisConfig,
@@ -676,7 +676,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Returns the future windows for maintenance in current epoch for the specified account. In the maintenance windows, the node will not be block producer or chunk producer\n\nSends a `POST` request to `/EXPERIMENTAL_maintenance_windows`\n\n"]
+    #[doc = "[Deprecated] Returns the future windows for maintenance in current epoch for the specified account. In the maintenance windows, the node will not be block producer or chunk producer. Consider using maintenance_windows instead.\n\nSends a `POST` request to `/EXPERIMENTAL_maintenance_windows`\n\n"]
     pub async fn experimental_maintenance_windows<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalMaintenanceWindows,
@@ -927,7 +927,44 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "[Deprecated] Sends a transaction and immediately returns transaction hash. Consider using send_tx instead\n\nSends a `POST` request to `/broadcast_tx_async`\n\n"]
+    #[doc = "Returns changes in block for given block height or hash over all transactions for all the types. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched.\n\nSends a `POST` request to `/block_effects`\n\n"]
+    pub async fn block_effects<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForBlockEffects,
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError>,
+        Error<()>,
+    > {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "block_effects",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "[Deprecated] Sends a transaction and immediately returns transaction hash. Consider using send_tx instead.\n\nSends a `POST` request to `/broadcast_tx_async`\n\n"]
     pub async fn broadcast_tx_async<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForBroadcastTxAsync,
@@ -961,7 +998,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "[Deprecated] Sends a transaction and waits until transaction is fully complete. (Has a 10 second timeout). Consider using send_tx instead\n\nSends a `POST` request to `/broadcast_tx_commit`\n\n"]
+    #[doc = "[Deprecated] Sends a transaction and waits until transaction is fully complete. (Has a 10 second timeout). Consider using send_tx instead.\n\nSends a `POST` request to `/broadcast_tx_commit`\n\n"]
     pub async fn broadcast_tx_commit<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForBroadcastTxCommit,
@@ -996,7 +1033,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Returns changes in block for given block height or hash over all transactions for the current type. Includes changes like account_touched, access_key_touched, data_touched, contract_code_touched\n\nSends a `POST` request to `/changes`\n\n"]
+    #[doc = "Returns changes for a given account, contract or contract code for given block height or hash.\n\nSends a `POST` request to `/changes`\n\n"]
     pub async fn changes<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForChanges,
@@ -1138,7 +1175,41 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Returns the current health stauts of the RPC node the client connects to.\n\nSends a `POST` request to `/health`\n\n"]
+    #[doc = "Get initial state and parameters for the genesis block\n\nSends a `POST` request to `/genesis_config`\n\n"]
+    pub async fn genesis_config<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForGenesisConfig,
+    ) -> Result<ResponseValue<types::JsonRpcResponseForGenesisConfigAndRpcError>, Error<()>> {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "genesis_config",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "Returns the current health status of the RPC node the client connects to.\n\nSends a `POST` request to `/health`\n\n"]
     pub async fn health<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForHealth,
@@ -1202,6 +1273,41 @@ impl Client {
             .build()?;
         let info = OperationInfo {
             operation_id: "light_client_proof",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "Returns the future windows for maintenance in current epoch for the specified account. In the maintenance windows, the node will not be block producer or chunk producer.\n\nSends a `POST` request to `/maintenance_windows`\n\n"]
+    pub async fn maintenance_windows<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForMaintenanceWindows,
+    ) -> Result<ResponseValue<types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError>, Error<()>>
+    {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "maintenance_windows",
         };
         self.pre(&mut request, &info).await?;
         let result = self.exec(request, &info).await;
@@ -1284,7 +1390,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "This module allows you to make generic requests to the network.\n\nThe `RpcQueryRequest` struct takes in a [`BlockReference`](https://docs.rs/near-primitives/0.12.0/near_primitives/types/enum.BlockReference.html) and a [`QueryRequest`](https://docs.rs/near-primitives/0.12.0/near_primitives/views/enum.QueryRequest.html).\n\nThe `BlockReference` enum allows you to specify a block by `Finality`, `BlockId` or `SyncCheckpoint`.\n\nThe `QueryRequest` enum provides multiple variaints for performing the following actions:\n - View an account's details\n - View a contract's code\n - View the state of an account\n - View the `AccessKey` of an account\n - View the `AccessKeyList` of an account\n - Call a function in a contract deployed on the network.\n\nSends a `POST` request to `/query`\n\n"]
+    #[doc = "This module allows you to make generic requests to the network.\n\nThe `RpcQueryRequest` struct takes in a [`BlockReference`](https://docs.rs/near-primitives/0.12.0/near_primitives/types/enum.BlockReference.html) and a [`QueryRequest`](https://docs.rs/near-primitives/0.12.0/near_primitives/views/enum.QueryRequest.html).\n\nThe `BlockReference` enum allows you to specify a block by `Finality`, `BlockId` or `SyncCheckpoint`.\n\nThe `QueryRequest` enum provides multiple variants for performing the following actions:\n - View an account's details\n - View a contract's code\n - View the state of an account\n - View the `AccessKey` of an account\n - View the `AccessKeyList` of an account\n - Call a function in a contract deployed on the network.\n\nSends a `POST` request to `/query`\n\n"]
     pub async fn query<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForQuery,

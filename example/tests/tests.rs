@@ -1020,12 +1020,12 @@ async fn prepare_blockchain(
 async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
 {
     let mut home_dir = std::env::temp_dir();
-    home_dir.push("test_node_a7d");
+    home_dir.push("test_node_03c");
 
     let rpc_port: u16 = 3040;
     let net_port: u16 = 3031;
 
-    let version = "master/a7dc91c14928974401da4cf3b8ba9341a547e6aa";
+    let version = "master/4f6bdeeef4f763cb183d63c5eb6fd7d5d7ea1a91";
 
     near_sandbox_utils::init_with_version(&home_dir, version)?
         .wait_with_output()

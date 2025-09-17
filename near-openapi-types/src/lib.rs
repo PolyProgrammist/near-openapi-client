@@ -2,10 +2,12 @@
 //!
 //! Used in [near-openapi-client](https://docs.rs/near-openapi-client/latest/near_openapi_client/)
 pub use near_account_id::AccountId;
+pub use near_gas::NearGas;
 #[allow(unused_imports)]
 use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
 #[allow(unused_imports)]
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
+
 #[doc = r" Error types."]
 pub mod error {
     #[doc = r" Error from a `TryFrom` or `FromStr` implementation."]
@@ -380,7 +382,7 @@ impl ::std::convert::From<&Self> for AccountChangesByBlockIdChangesType {
 impl ::std::fmt::Display for AccountChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
+            Self::AccountChanges => f.write_str("account_changes"),
         }
     }
 }
@@ -452,7 +454,7 @@ impl ::std::convert::From<&Self> for AccountChangesByFinalityChangesType {
 impl ::std::fmt::Display for AccountChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
+            Self::AccountChanges => f.write_str("account_changes"),
         }
     }
 }
@@ -524,7 +526,7 @@ impl ::std::convert::From<&Self> for AccountChangesBySyncCheckpointChangesType {
 impl ::std::fmt::Display for AccountChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountChanges => write!(f, "account_changes"),
+            Self::AccountChanges => f.write_str("account_changes"),
         }
     }
 }
@@ -603,13 +605,13 @@ impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigV
         value.clone()
     }
 }
-#[doc = "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network. It is essentially\nthe data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)"]
+#[doc = "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network.\n\nIt is essentially the data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"AccountData is a piece of global state that a validator\\nsigns and broadcasts to the network. It is essentially\\nthe data that a validator wants to share with the network.\\nAll the nodes in the network are collecting the account data\\nbroadcasted by the validators.\\nSince the number of the validators is bounded and their\\nidentity is known (and the maximal size of allowed AccountData is bounded)\\nthe global state that is distributed in the form of AccountData is bounded\\nas well.\\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)\","]
+#[doc = "  \"description\": \"AccountData is a piece of global state that a validator\\nsigns and broadcasts to the network.\\n\\nIt is essentially the data that a validator wants to share with the network.\\nAll the nodes in the network are collecting the account data\\nbroadcasted by the validators.\\nSince the number of the validators is bounded and their\\nidentity is known (and the maximal size of allowed AccountData is bounded)\\nthe global state that is distributed in the form of AccountData is bounded\\nas well.\\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"account_key\","]
@@ -1746,9 +1748,7 @@ impl ::std::convert::From<InvalidAccessKeyError> for ActionErrorKind {
 #[doc = "              \"type\": \"string\""]
 #[doc = "            },"]
 #[doc = "            \"gas\": {"]
-#[doc = "              \"type\": \"integer\","]
-#[doc = "              \"format\": \"uint64\","]
-#[doc = "              \"minimum\": 0.0"]
+#[doc = "              \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "            },"]
 #[doc = "            \"method_name\": {"]
 #[doc = "              \"type\": \"string\""]
@@ -1985,7 +1985,7 @@ pub enum ActionView {
     FunctionCall {
         args: FunctionArgs,
         deposit: ::std::string::String,
-        gas: u64,
+        gas: NearGas,
         method_name: ::std::string::String,
     },
     Transfer {
@@ -2057,14 +2057,10 @@ impl ::std::convert::From<&Self> for ActionView {
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
 #[doc = "            \"limit\": {"]
-#[doc = "              \"type\": \"integer\","]
-#[doc = "              \"format\": \"uint64\","]
-#[doc = "              \"minimum\": 0.0"]
+#[doc = "              \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "            },"]
 #[doc = "            \"total_prepaid_gas\": {"]
-#[doc = "              \"type\": \"integer\","]
-#[doc = "              \"format\": \"uint64\","]
-#[doc = "              \"minimum\": 0.0"]
+#[doc = "              \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -2344,7 +2340,10 @@ pub enum ActionsValidationError {
     #[doc = "The delete action must be a final action in transaction"]
     DeleteActionMustBeFinal,
     #[doc = "The total prepaid gas (for all given actions) exceeded the limit."]
-    TotalPrepaidGasExceeded { limit: u64, total_prepaid_gas: u64 },
+    TotalPrepaidGasExceeded {
+        limit: NearGas,
+        total_prepaid_gas: NearGas,
+    },
     #[doc = "The number of actions exceeded the given limit."]
     TotalNumberOfActionsExceeded {
         limit: u64,
@@ -2466,7 +2465,7 @@ impl ::std::convert::From<&Self> for AllAccessKeyChangesByBlockIdChangesType {
 impl ::std::fmt::Display for AllAccessKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+            Self::AllAccessKeyChanges => f.write_str("all_access_key_changes"),
         }
     }
 }
@@ -2538,7 +2537,7 @@ impl ::std::convert::From<&Self> for AllAccessKeyChangesByFinalityChangesType {
 impl ::std::fmt::Display for AllAccessKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+            Self::AllAccessKeyChanges => f.write_str("all_access_key_changes"),
         }
     }
 }
@@ -2610,7 +2609,7 @@ impl ::std::convert::From<&Self> for AllAccessKeyChangesBySyncCheckpointChangesT
 impl ::std::fmt::Display for AllAccessKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllAccessKeyChanges => write!(f, "all_access_key_changes"),
+            Self::AllAccessKeyChanges => f.write_str("all_access_key_changes"),
         }
     }
 }
@@ -2686,7 +2685,7 @@ impl ::std::convert::From<&Self> for AllGasKeyChangesByBlockIdChangesType {
 impl ::std::fmt::Display for AllGasKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+            Self::AllGasKeyChanges => f.write_str("all_gas_key_changes"),
         }
     }
 }
@@ -2758,7 +2757,7 @@ impl ::std::convert::From<&Self> for AllGasKeyChangesByFinalityChangesType {
 impl ::std::fmt::Display for AllGasKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+            Self::AllGasKeyChanges => f.write_str("all_gas_key_changes"),
         }
     }
 }
@@ -2830,7 +2829,7 @@ impl ::std::convert::From<&Self> for AllGasKeyChangesBySyncCheckpointChangesType
 impl ::std::fmt::Display for AllGasKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AllGasKeyChanges => write!(f, "all_gas_key_changes"),
+            Self::AllGasKeyChanges => f.write_str("all_gas_key_changes"),
         }
     }
 }
@@ -2987,13 +2986,13 @@ impl ::std::convert::From<BandwidthRequestsV1> for BandwidthRequests {
         Self::V1(value)
     }
 }
-#[doc = "Version 1 for list of [`BandwidthRequest`]s."]
+#[doc = "Version 1 of [`BandwidthRequest`]."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Version 1 for list of [`BandwidthRequest`]s.\","]
+#[doc = "  \"description\": \"Version 1 of [`BandwidthRequest`].\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"requests\""]
@@ -3421,40 +3420,6 @@ impl ::std::convert::From<&Self> for BlockId {
         value.clone()
     }
 }
-impl ::std::str::FromStr for BlockId {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if let Ok(v) = value.parse() {
-            Ok(Self::BlockHeight(v))
-        } else if let Ok(v) = value.parse() {
-            Ok(Self::CryptoHash(v))
-        } else {
-            Err("string conversion failed for all variants".into())
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for BlockId {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for BlockId {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for BlockId {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 impl ::std::fmt::Display for BlockId {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match self {
@@ -3545,7 +3510,7 @@ impl ::std::convert::From<&Self> for CallFunctionByBlockIdRequestType {
 impl ::std::fmt::Display for CallFunctionByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CallFunction => write!(f, "call_function"),
+            Self::CallFunction => f.write_str("call_function"),
         }
     }
 }
@@ -3617,7 +3582,7 @@ impl ::std::convert::From<&Self> for CallFunctionByFinalityRequestType {
 impl ::std::fmt::Display for CallFunctionByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CallFunction => write!(f, "call_function"),
+            Self::CallFunction => f.write_str("call_function"),
         }
     }
 }
@@ -3689,7 +3654,7 @@ impl ::std::convert::From<&Self> for CallFunctionBySyncCheckpointRequestType {
 impl ::std::fmt::Display for CallFunctionBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CallFunction => write!(f, "call_function"),
+            Self::CallFunction => f.write_str("call_function"),
         }
     }
 }
@@ -3973,14 +3938,10 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
 #[doc = "    },"]
 #[doc = "    \"gas_limit\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"gas_used\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"height_created\": {"]
 #[doc = "      \"type\": \"integer\","]
@@ -4041,8 +4002,8 @@ pub struct ChunkHeaderView {
     pub congestion_info: ::std::option::Option<CongestionInfoView>,
     pub encoded_length: u64,
     pub encoded_merkle_root: CryptoHash,
-    pub gas_limit: u64,
-    pub gas_used: u64,
+    pub gas_limit: NearGas,
+    pub gas_used: NearGas,
     pub height_created: u64,
     pub height_included: u64,
     pub outcome_root: CryptoHash,
@@ -4060,6 +4021,141 @@ pub struct ChunkHeaderView {
 }
 impl ::std::convert::From<&ChunkHeaderView> for ChunkHeaderView {
     fn from(value: &ChunkHeaderView) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Configuration for a cloud-based archival reader."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Configuration for a cloud-based archival reader.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"cloud_storage\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"cloud_storage\": {"]
+#[doc = "      \"description\": \"Configures the external storage used by the archival node.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CloudStorageConfig\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct CloudArchivalReaderConfig {
+    #[doc = "Configures the external storage used by the archival node."]
+    pub cloud_storage: CloudStorageConfig,
+}
+impl ::std::convert::From<&CloudArchivalReaderConfig> for CloudArchivalReaderConfig {
+    fn from(value: &CloudArchivalReaderConfig) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards. This config also controls additional archival\nbehavior such as block data and polling interval."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\\nwrites chunk-related data based on the tracked shards. This config also controls additional archival\\nbehavior such as block data and polling interval.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"cloud_storage\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"archive_block_data\": {"]
+#[doc = "      \"description\": \"Determines whether block-related data should be written to cloud storage.\","]
+#[doc = "      \"default\": false,"]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
+#[doc = "    \"cloud_storage\": {"]
+#[doc = "      \"description\": \"Configures the external storage used by the archival node.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CloudStorageConfig\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"polling_interval\": {"]
+#[doc = "      \"description\": \"Interval at which the system checks for new blocks or chunks to archive.\","]
+#[doc = "      \"default\": {"]
+#[doc = "        \"nanos\": 0,"]
+#[doc = "        \"secs\": 1"]
+#[doc = "      },"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DurationAsStdSchemaProvider\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct CloudArchivalWriterConfig {
+    #[doc = "Determines whether block-related data should be written to cloud storage."]
+    #[serde(default)]
+    pub archive_block_data: bool,
+    #[doc = "Configures the external storage used by the archival node."]
+    pub cloud_storage: CloudStorageConfig,
+    #[doc = "Interval at which the system checks for new blocks or chunks to archive."]
+    #[serde(default = "defaults::cloud_archival_writer_config_polling_interval")]
+    pub polling_interval: DurationAsStdSchemaProvider,
+}
+impl ::std::convert::From<&CloudArchivalWriterConfig> for CloudArchivalWriterConfig {
+    fn from(value: &CloudArchivalWriterConfig) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Configures the external storage used by the archival node."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Configures the external storage used by the archival node.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"storage\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"credentials_file\": {"]
+#[doc = "      \"description\": \"Location of a json file with credentials allowing access to the bucket.\","]
+#[doc = "      \"type\": ["]
+#[doc = "        \"string\","]
+#[doc = "        \"null\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"storage\": {"]
+#[doc = "      \"description\": \"The storage to persist the archival data.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ExternalStorageLocation\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct CloudStorageConfig {
+    #[doc = "Location of a json file with credentials allowing access to the bucket."]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub credentials_file: ::std::option::Option<::std::string::String>,
+    #[doc = "The storage to persist the archival data."]
+    pub storage: ExternalStorageLocation,
+}
+impl ::std::convert::From<&CloudStorageConfig> for CloudStorageConfig {
+    fn from(value: &CloudStorageConfig) -> Self {
         value.clone()
     }
 }
@@ -4173,15 +4269,19 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[doc = "  \"properties\": {"]
 #[doc = "    \"allowed_shard_outgoing_gas\": {"]
 #[doc = "      \"description\": \"How much gas the chosen allowed shard can send to a 100% congested shard.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"max_congestion_incoming_gas\": {"]
 #[doc = "      \"description\": \"How much gas in delayed receipts of a shard is 100% incoming congestion.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"max_congestion_memory_consumption\": {"]
 #[doc = "      \"description\": \"How much memory space of all delayed and buffered receipts in a shard is\\nconsidered 100% congested.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
@@ -4197,33 +4297,43 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[doc = "    },"]
 #[doc = "    \"max_congestion_outgoing_gas\": {"]
 #[doc = "      \"description\": \"How much gas in outgoing buffered receipts of a shard is 100% congested.\\n\\nOutgoing congestion contributes to overall congestion, which reduces how\\nmuch other shards are allowed to forward to this shard.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"max_outgoing_gas\": {"]
 #[doc = "      \"description\": \"The maximum amount of gas attached to receipts a shard can forward to\\nanother shard per chunk.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"max_tx_gas\": {"]
 #[doc = "      \"description\": \"The maximum amount of gas in a chunk spent on converting new transactions to\\nreceipts.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"min_outgoing_gas\": {"]
 #[doc = "      \"description\": \"The minimum gas each shard can send to a shard that is not fully congested.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"min_tx_gas\": {"]
 #[doc = "      \"description\": \"The minimum amount of gas in a chunk spent on converting new transactions\\nto receipts, as long as the receiving shard is not congested.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"outgoing_receipts_big_size_limit\": {"]
 #[doc = "      \"description\": \"Large size limit for outgoing receipts to a shard, used when it's safe\\nto send a lot of receipts without making the state witness too large.\\nIt limits the total sum of outgoing receipts, not individual receipts.\","]
@@ -4249,23 +4359,23 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct CongestionControlConfigView {
     #[doc = "How much gas the chosen allowed shard can send to a 100% congested shard.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub allowed_shard_outgoing_gas: u64,
+    pub allowed_shard_outgoing_gas: NearGas,
     #[doc = "How much gas in delayed receipts of a shard is 100% incoming congestion.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub max_congestion_incoming_gas: u64,
+    pub max_congestion_incoming_gas: NearGas,
     #[doc = "How much memory space of all delayed and buffered receipts in a shard is\nconsidered 100% congested.\n\nSee [`CongestionControlConfig`] for more details."]
     pub max_congestion_memory_consumption: u64,
     #[doc = "How many missed chunks in a row in a shard is considered 100% congested."]
     pub max_congestion_missed_chunks: u64,
     #[doc = "How much gas in outgoing buffered receipts of a shard is 100% congested.\n\nOutgoing congestion contributes to overall congestion, which reduces how\nmuch other shards are allowed to forward to this shard."]
-    pub max_congestion_outgoing_gas: u64,
+    pub max_congestion_outgoing_gas: NearGas,
     #[doc = "The maximum amount of gas attached to receipts a shard can forward to\nanother shard per chunk.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub max_outgoing_gas: u64,
+    pub max_outgoing_gas: NearGas,
     #[doc = "The maximum amount of gas in a chunk spent on converting new transactions to\nreceipts.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub max_tx_gas: u64,
+    pub max_tx_gas: NearGas,
     #[doc = "The minimum gas each shard can send to a shard that is not fully congested.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub min_outgoing_gas: u64,
+    pub min_outgoing_gas: NearGas,
     #[doc = "The minimum amount of gas in a chunk spent on converting new transactions\nto receipts, as long as the receiving shard is not congested.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub min_tx_gas: u64,
+    pub min_tx_gas: NearGas,
     #[doc = "Large size limit for outgoing receipts to a shard, used when it's safe\nto send a lot of receipts without making the state witness too large.\nIt limits the total sum of outgoing receipts, not individual receipts."]
     pub outgoing_receipts_big_size_limit: u64,
     #[doc = "The standard size limit for outgoing receipts aimed at a single shard.\nThis limit is pretty small to keep the size of source_receipt_proofs under control.\nIt limits the total sum of outgoing receipts, not individual receipts."]
@@ -4362,7 +4472,7 @@ impl ::std::convert::From<&Self> for ContractCodeChangesByBlockIdChangesType {
 impl ::std::fmt::Display for ContractCodeChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+            Self::ContractCodeChanges => f.write_str("contract_code_changes"),
         }
     }
 }
@@ -4434,7 +4544,7 @@ impl ::std::convert::From<&Self> for ContractCodeChangesByFinalityChangesType {
 impl ::std::fmt::Display for ContractCodeChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+            Self::ContractCodeChanges => f.write_str("contract_code_changes"),
         }
     }
 }
@@ -4506,7 +4616,7 @@ impl ::std::convert::From<&Self> for ContractCodeChangesBySyncCheckpointChangesT
 impl ::std::fmt::Display for ContractCodeChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeChanges => write!(f, "contract_code_changes"),
+            Self::ContractCodeChanges => f.write_str("contract_code_changes"),
         }
     }
 }
@@ -4907,7 +5017,7 @@ impl ::std::convert::From<&Self> for DataChangesByBlockIdChangesType {
 impl ::std::fmt::Display for DataChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataChanges => write!(f, "data_changes"),
+            Self::DataChanges => f.write_str("data_changes"),
         }
     }
 }
@@ -4979,7 +5089,7 @@ impl ::std::convert::From<&Self> for DataChangesByFinalityChangesType {
 impl ::std::fmt::Display for DataChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataChanges => write!(f, "data_changes"),
+            Self::DataChanges => f.write_str("data_changes"),
         }
     }
 }
@@ -5051,7 +5161,7 @@ impl ::std::convert::From<&Self> for DataChangesBySyncCheckpointChangesType {
 impl ::std::fmt::Display for DataChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataChanges => write!(f, "data_changes"),
+            Self::DataChanges => f.write_str("data_changes"),
         }
     }
 }
@@ -5467,8 +5577,8 @@ impl ::std::convert::From<&Self> for Direction {
 impl ::std::fmt::Display for Direction {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Left => write!(f, "Left"),
-            Self::Right => write!(f, "Right"),
+            Self::Left => f.write_str("Left"),
+            Self::Right => f.write_str("Right"),
         }
     }
 }
@@ -5517,7 +5627,7 @@ impl ::std::convert::TryFrom<::std::string::String> for Direction {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"credentials_file\": {"]
-#[doc = "      \"description\": \"Location of a json file with credentials allowing write access to the bucket.\","]
+#[doc = "      \"description\": \"Location of a json file with credentials allowing access to the bucket.\","]
 #[doc = "      \"type\": ["]
 #[doc = "        \"string\","]
 #[doc = "        \"null\""]
@@ -5558,7 +5668,7 @@ impl ::std::convert::TryFrom<::std::string::String> for Direction {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct DumpConfig {
-    #[doc = "Location of a json file with credentials allowing write access to the bucket."]
+    #[doc = "Location of a json file with credentials allowing access to the bucket."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub credentials_file: ::std::option::Option<::std::string::String>,
     #[doc = "How often to check if a new epoch has started.\nFeel free to set to `None`, defaults are sensible."]
@@ -5801,9 +5911,11 @@ impl ::std::convert::From<&ExecutionMetadataView> for ExecutionMetadataView {
 #[doc = "    },"]
 #[doc = "    \"gas_burnt\": {"]
 #[doc = "      \"description\": \"The amount of the gas burnt by the given transaction or receipt.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"logs\": {"]
 #[doc = "      \"description\": \"Logs from this transaction or receipt.\","]
@@ -5851,7 +5963,7 @@ pub struct ExecutionOutcomeView {
     #[doc = "The id of the account on which the execution happens. For transaction this is signer_id,\nfor receipt this is receiver_id."]
     pub executor_id: AccountId,
     #[doc = "The amount of the gas burnt by the given transaction or receipt."]
-    pub gas_burnt: u64,
+    pub gas_burnt: NearGas,
     #[doc = "Logs from this transaction or receipt."]
     pub logs: ::std::vec::Vec<::std::string::String>,
     #[doc = "Execution metadata, versioned"]
@@ -6097,505 +6209,599 @@ impl ::std::convert::From<CryptoHash> for ExecutionStatusView {
 #[doc = "  \"properties\": {"]
 #[doc = "    \"alt_bn128_g1_multiexp_base\": {"]
 #[doc = "      \"description\": \"Base cost for multiexp\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"alt_bn128_g1_multiexp_element\": {"]
 #[doc = "      \"description\": \"Per element cost for multiexp\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"alt_bn128_g1_sum_base\": {"]
 #[doc = "      \"description\": \"Base cost for sum\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"alt_bn128_g1_sum_element\": {"]
 #[doc = "      \"description\": \"Per element cost for sum\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"alt_bn128_pairing_check_base\": {"]
 #[doc = "      \"description\": \"Base cost for pairing check\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"alt_bn128_pairing_check_element\": {"]
 #[doc = "      \"description\": \"Per element cost for pairing check\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"base\": {"]
 #[doc = "      \"description\": \"Base cost for calling a host function.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"bls12381_g1_multiexp_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_g1_multiexp_element\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_g2_multiexp_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_g2_multiexp_element\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_map_fp2_to_g2_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_map_fp2_to_g2_element\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_map_fp_to_g1_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_map_fp_to_g1_element\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_p1_decompress_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_p1_decompress_element\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_p1_sum_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_p1_sum_element\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_p2_decompress_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_p2_decompress_element\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_p2_sum_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_p2_sum_element\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_pairing_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"bls12381_pairing_element\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"contract_compile_base\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"contract_compile_bytes\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"contract_loading_base\": {"]
 #[doc = "      \"description\": \"Base cost of loading a pre-compiled contract\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"contract_loading_bytes\": {"]
 #[doc = "      \"description\": \"Cost per byte of loading a pre-compiled contract\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"ecrecover_base\": {"]
 #[doc = "      \"description\": \"Cost of calling ecrecover\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"ed25519_verify_base\": {"]
 #[doc = "      \"description\": \"Cost of getting ed25519 base\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"ed25519_verify_byte\": {"]
 #[doc = "      \"description\": \"Cost of getting ed25519 per byte\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"keccak256_base\": {"]
 #[doc = "      \"description\": \"Cost of getting sha256 base\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"keccak256_byte\": {"]
 #[doc = "      \"description\": \"Cost of getting sha256 per byte\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"keccak512_base\": {"]
 #[doc = "      \"description\": \"Cost of getting sha256 base\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"keccak512_byte\": {"]
 #[doc = "      \"description\": \"Cost of getting sha256 per byte\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"log_base\": {"]
 #[doc = "      \"description\": \"Cost for calling logging.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"log_byte\": {"]
 #[doc = "      \"description\": \"Cost for logging per byte\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"promise_and_base\": {"]
 #[doc = "      \"description\": \"Cost for calling `promise_and`\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"promise_and_per_promise\": {"]
 #[doc = "      \"description\": \"Cost for calling `promise_and` for each promise\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"promise_return\": {"]
 #[doc = "      \"description\": \"Cost for calling `promise_return`\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"read_cached_trie_node\": {"]
 #[doc = "      \"description\": \"Cost for reading trie node from memory\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"read_memory_base\": {"]
 #[doc = "      \"description\": \"Base cost for guest memory read\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"read_memory_byte\": {"]
 #[doc = "      \"description\": \"Cost for guest memory read\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"read_register_base\": {"]
 #[doc = "      \"description\": \"Base cost for reading from register\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"read_register_byte\": {"]
 #[doc = "      \"description\": \"Cost for reading byte from register\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"ripemd160_base\": {"]
 #[doc = "      \"description\": \"Cost of getting ripemd160 base\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"ripemd160_block\": {"]
 #[doc = "      \"description\": \"Cost of getting ripemd160 per message block\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"sha256_base\": {"]
 #[doc = "      \"description\": \"Cost of getting sha256 base\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"sha256_byte\": {"]
 #[doc = "      \"description\": \"Cost of getting sha256 per byte\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_has_key_base\": {"]
 #[doc = "      \"description\": \"Storage trie check for key existence cost base\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_has_key_byte\": {"]
 #[doc = "      \"description\": \"Storage trie check for key existence per key byte\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_iter_create_from_byte\": {"]
 #[doc = "      \"description\": \"Create trie range iterator cost per byte of from key.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_iter_create_prefix_base\": {"]
 #[doc = "      \"description\": \"Create trie prefix iterator cost base\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_iter_create_prefix_byte\": {"]
 #[doc = "      \"description\": \"Create trie prefix iterator cost per byte.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_iter_create_range_base\": {"]
 #[doc = "      \"description\": \"Create trie range iterator cost base\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_iter_create_to_byte\": {"]
 #[doc = "      \"description\": \"Create trie range iterator cost per byte of to key.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_iter_next_base\": {"]
 #[doc = "      \"description\": \"Trie iterator per key base cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_iter_next_key_byte\": {"]
 #[doc = "      \"description\": \"Trie iterator next key byte cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_iter_next_value_byte\": {"]
 #[doc = "      \"description\": \"Trie iterator next key byte cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_large_read_overhead_base\": {"]
 #[doc = "      \"description\": \"Storage trie read key overhead base cost, when doing large reads\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_large_read_overhead_byte\": {"]
 #[doc = "      \"description\": \"Storage trie read key overhead  per-byte cost, when doing large reads\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_read_base\": {"]
 #[doc = "      \"description\": \"Storage trie read key base cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_read_key_byte\": {"]
 #[doc = "      \"description\": \"Storage trie read key per byte cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_read_value_byte\": {"]
 #[doc = "      \"description\": \"Storage trie read value cost per byte cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_remove_base\": {"]
 #[doc = "      \"description\": \"Remove key from trie base cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_remove_key_byte\": {"]
 #[doc = "      \"description\": \"Remove key from trie per byte cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_remove_ret_value_byte\": {"]
 #[doc = "      \"description\": \"Remove key from trie ret value byte cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_write_base\": {"]
 #[doc = "      \"description\": \"Storage trie write key base cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_write_evicted_byte\": {"]
 #[doc = "      \"description\": \"Storage trie write cost per byte of evicted value.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_write_key_byte\": {"]
 #[doc = "      \"description\": \"Storage trie write key per byte cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_write_value_byte\": {"]
 #[doc = "      \"description\": \"Storage trie write value per byte cost\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"touching_trie_node\": {"]
 #[doc = "      \"description\": \"Cost per reading trie node from DB\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"utf16_decoding_base\": {"]
 #[doc = "      \"description\": \"Base cost of decoding utf16. It's used for `log_utf16`.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"utf16_decoding_byte\": {"]
 #[doc = "      \"description\": \"Cost per byte of decoding utf16. It's used for `log_utf16`.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"utf8_decoding_base\": {"]
 #[doc = "      \"description\": \"Base cost of decoding utf8. It's used for `log_utf8` and `panic_utf8`.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"utf8_decoding_byte\": {"]
 #[doc = "      \"description\": \"Cost per byte of decoding utf8. It's used for `log_utf8` and `panic_utf8`.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"validator_stake_base\": {"]
 #[doc = "      \"description\": \"Cost of calling `validator_stake`.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"validator_total_stake_base\": {"]
 #[doc = "      \"description\": \"Cost of calling `validator_total_stake`.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"write_memory_base\": {"]
 #[doc = "      \"description\": \"Base cost for guest memory write\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"write_memory_byte\": {"]
 #[doc = "      \"description\": \"Cost for guest memory write per byte\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"write_register_base\": {"]
 #[doc = "      \"description\": \"Base cost for writing into register\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"write_register_byte\": {"]
 #[doc = "      \"description\": \"Cost for writing byte into register\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"yield_create_base\": {"]
 #[doc = "      \"description\": \"Base cost for creating a yield promise.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"yield_create_byte\": {"]
 #[doc = "      \"description\": \"Per byte cost of arguments and method name.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"yield_resume_base\": {"]
 #[doc = "      \"description\": \"Base cost for resuming a yield receipt.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"yield_resume_byte\": {"]
 #[doc = "      \"description\": \"Per byte cost of resume payload.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -6604,159 +6810,159 @@ impl ::std::convert::From<CryptoHash> for ExecutionStatusView {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ExtCostsConfigView {
     #[doc = "Base cost for multiexp"]
-    pub alt_bn128_g1_multiexp_base: u64,
+    pub alt_bn128_g1_multiexp_base: NearGas,
     #[doc = "Per element cost for multiexp"]
-    pub alt_bn128_g1_multiexp_element: u64,
+    pub alt_bn128_g1_multiexp_element: NearGas,
     #[doc = "Base cost for sum"]
-    pub alt_bn128_g1_sum_base: u64,
+    pub alt_bn128_g1_sum_base: NearGas,
     #[doc = "Per element cost for sum"]
-    pub alt_bn128_g1_sum_element: u64,
+    pub alt_bn128_g1_sum_element: NearGas,
     #[doc = "Base cost for pairing check"]
-    pub alt_bn128_pairing_check_base: u64,
+    pub alt_bn128_pairing_check_base: NearGas,
     #[doc = "Per element cost for pairing check"]
-    pub alt_bn128_pairing_check_element: u64,
+    pub alt_bn128_pairing_check_element: NearGas,
     #[doc = "Base cost for calling a host function."]
-    pub base: u64,
-    pub bls12381_g1_multiexp_base: u64,
-    pub bls12381_g1_multiexp_element: u64,
-    pub bls12381_g2_multiexp_base: u64,
-    pub bls12381_g2_multiexp_element: u64,
-    pub bls12381_map_fp2_to_g2_base: u64,
-    pub bls12381_map_fp2_to_g2_element: u64,
-    pub bls12381_map_fp_to_g1_base: u64,
-    pub bls12381_map_fp_to_g1_element: u64,
-    pub bls12381_p1_decompress_base: u64,
-    pub bls12381_p1_decompress_element: u64,
-    pub bls12381_p1_sum_base: u64,
-    pub bls12381_p1_sum_element: u64,
-    pub bls12381_p2_decompress_base: u64,
-    pub bls12381_p2_decompress_element: u64,
-    pub bls12381_p2_sum_base: u64,
-    pub bls12381_p2_sum_element: u64,
-    pub bls12381_pairing_base: u64,
-    pub bls12381_pairing_element: u64,
-    pub contract_compile_base: u64,
-    pub contract_compile_bytes: u64,
+    pub base: NearGas,
+    pub bls12381_g1_multiexp_base: NearGas,
+    pub bls12381_g1_multiexp_element: NearGas,
+    pub bls12381_g2_multiexp_base: NearGas,
+    pub bls12381_g2_multiexp_element: NearGas,
+    pub bls12381_map_fp2_to_g2_base: NearGas,
+    pub bls12381_map_fp2_to_g2_element: NearGas,
+    pub bls12381_map_fp_to_g1_base: NearGas,
+    pub bls12381_map_fp_to_g1_element: NearGas,
+    pub bls12381_p1_decompress_base: NearGas,
+    pub bls12381_p1_decompress_element: NearGas,
+    pub bls12381_p1_sum_base: NearGas,
+    pub bls12381_p1_sum_element: NearGas,
+    pub bls12381_p2_decompress_base: NearGas,
+    pub bls12381_p2_decompress_element: NearGas,
+    pub bls12381_p2_sum_base: NearGas,
+    pub bls12381_p2_sum_element: NearGas,
+    pub bls12381_pairing_base: NearGas,
+    pub bls12381_pairing_element: NearGas,
+    pub contract_compile_base: NearGas,
+    pub contract_compile_bytes: NearGas,
     #[doc = "Base cost of loading a pre-compiled contract"]
-    pub contract_loading_base: u64,
+    pub contract_loading_base: NearGas,
     #[doc = "Cost per byte of loading a pre-compiled contract"]
-    pub contract_loading_bytes: u64,
+    pub contract_loading_bytes: NearGas,
     #[doc = "Cost of calling ecrecover"]
-    pub ecrecover_base: u64,
+    pub ecrecover_base: NearGas,
     #[doc = "Cost of getting ed25519 base"]
-    pub ed25519_verify_base: u64,
+    pub ed25519_verify_base: NearGas,
     #[doc = "Cost of getting ed25519 per byte"]
-    pub ed25519_verify_byte: u64,
+    pub ed25519_verify_byte: NearGas,
     #[doc = "Cost of getting sha256 base"]
-    pub keccak256_base: u64,
+    pub keccak256_base: NearGas,
     #[doc = "Cost of getting sha256 per byte"]
-    pub keccak256_byte: u64,
+    pub keccak256_byte: NearGas,
     #[doc = "Cost of getting sha256 base"]
-    pub keccak512_base: u64,
+    pub keccak512_base: NearGas,
     #[doc = "Cost of getting sha256 per byte"]
-    pub keccak512_byte: u64,
+    pub keccak512_byte: NearGas,
     #[doc = "Cost for calling logging."]
-    pub log_base: u64,
+    pub log_base: NearGas,
     #[doc = "Cost for logging per byte"]
-    pub log_byte: u64,
+    pub log_byte: NearGas,
     #[doc = "Cost for calling `promise_and`"]
-    pub promise_and_base: u64,
+    pub promise_and_base: NearGas,
     #[doc = "Cost for calling `promise_and` for each promise"]
-    pub promise_and_per_promise: u64,
+    pub promise_and_per_promise: NearGas,
     #[doc = "Cost for calling `promise_return`"]
-    pub promise_return: u64,
+    pub promise_return: NearGas,
     #[doc = "Cost for reading trie node from memory"]
-    pub read_cached_trie_node: u64,
+    pub read_cached_trie_node: NearGas,
     #[doc = "Base cost for guest memory read"]
-    pub read_memory_base: u64,
+    pub read_memory_base: NearGas,
     #[doc = "Cost for guest memory read"]
-    pub read_memory_byte: u64,
+    pub read_memory_byte: NearGas,
     #[doc = "Base cost for reading from register"]
-    pub read_register_base: u64,
+    pub read_register_base: NearGas,
     #[doc = "Cost for reading byte from register"]
-    pub read_register_byte: u64,
+    pub read_register_byte: NearGas,
     #[doc = "Cost of getting ripemd160 base"]
-    pub ripemd160_base: u64,
+    pub ripemd160_base: NearGas,
     #[doc = "Cost of getting ripemd160 per message block"]
-    pub ripemd160_block: u64,
+    pub ripemd160_block: NearGas,
     #[doc = "Cost of getting sha256 base"]
-    pub sha256_base: u64,
+    pub sha256_base: NearGas,
     #[doc = "Cost of getting sha256 per byte"]
-    pub sha256_byte: u64,
+    pub sha256_byte: NearGas,
     #[doc = "Storage trie check for key existence cost base"]
-    pub storage_has_key_base: u64,
+    pub storage_has_key_base: NearGas,
     #[doc = "Storage trie check for key existence per key byte"]
-    pub storage_has_key_byte: u64,
+    pub storage_has_key_byte: NearGas,
     #[doc = "Create trie range iterator cost per byte of from key."]
-    pub storage_iter_create_from_byte: u64,
+    pub storage_iter_create_from_byte: NearGas,
     #[doc = "Create trie prefix iterator cost base"]
-    pub storage_iter_create_prefix_base: u64,
+    pub storage_iter_create_prefix_base: NearGas,
     #[doc = "Create trie prefix iterator cost per byte."]
-    pub storage_iter_create_prefix_byte: u64,
+    pub storage_iter_create_prefix_byte: NearGas,
     #[doc = "Create trie range iterator cost base"]
-    pub storage_iter_create_range_base: u64,
+    pub storage_iter_create_range_base: NearGas,
     #[doc = "Create trie range iterator cost per byte of to key."]
-    pub storage_iter_create_to_byte: u64,
+    pub storage_iter_create_to_byte: NearGas,
     #[doc = "Trie iterator per key base cost"]
-    pub storage_iter_next_base: u64,
+    pub storage_iter_next_base: NearGas,
     #[doc = "Trie iterator next key byte cost"]
-    pub storage_iter_next_key_byte: u64,
+    pub storage_iter_next_key_byte: NearGas,
     #[doc = "Trie iterator next key byte cost"]
-    pub storage_iter_next_value_byte: u64,
+    pub storage_iter_next_value_byte: NearGas,
     #[doc = "Storage trie read key overhead base cost, when doing large reads"]
-    pub storage_large_read_overhead_base: u64,
+    pub storage_large_read_overhead_base: NearGas,
     #[doc = "Storage trie read key overhead  per-byte cost, when doing large reads"]
-    pub storage_large_read_overhead_byte: u64,
+    pub storage_large_read_overhead_byte: NearGas,
     #[doc = "Storage trie read key base cost"]
-    pub storage_read_base: u64,
+    pub storage_read_base: NearGas,
     #[doc = "Storage trie read key per byte cost"]
-    pub storage_read_key_byte: u64,
+    pub storage_read_key_byte: NearGas,
     #[doc = "Storage trie read value cost per byte cost"]
-    pub storage_read_value_byte: u64,
+    pub storage_read_value_byte: NearGas,
     #[doc = "Remove key from trie base cost"]
-    pub storage_remove_base: u64,
+    pub storage_remove_base: NearGas,
     #[doc = "Remove key from trie per byte cost"]
-    pub storage_remove_key_byte: u64,
+    pub storage_remove_key_byte: NearGas,
     #[doc = "Remove key from trie ret value byte cost"]
-    pub storage_remove_ret_value_byte: u64,
+    pub storage_remove_ret_value_byte: NearGas,
     #[doc = "Storage trie write key base cost"]
-    pub storage_write_base: u64,
+    pub storage_write_base: NearGas,
     #[doc = "Storage trie write cost per byte of evicted value."]
-    pub storage_write_evicted_byte: u64,
+    pub storage_write_evicted_byte: NearGas,
     #[doc = "Storage trie write key per byte cost"]
-    pub storage_write_key_byte: u64,
+    pub storage_write_key_byte: NearGas,
     #[doc = "Storage trie write value per byte cost"]
-    pub storage_write_value_byte: u64,
+    pub storage_write_value_byte: NearGas,
     #[doc = "Cost per reading trie node from DB"]
-    pub touching_trie_node: u64,
+    pub touching_trie_node: NearGas,
     #[doc = "Base cost of decoding utf16. It's used for `log_utf16`."]
-    pub utf16_decoding_base: u64,
+    pub utf16_decoding_base: NearGas,
     #[doc = "Cost per byte of decoding utf16. It's used for `log_utf16`."]
-    pub utf16_decoding_byte: u64,
+    pub utf16_decoding_byte: NearGas,
     #[doc = "Base cost of decoding utf8. It's used for `log_utf8` and `panic_utf8`."]
-    pub utf8_decoding_base: u64,
+    pub utf8_decoding_base: NearGas,
     #[doc = "Cost per byte of decoding utf8. It's used for `log_utf8` and `panic_utf8`."]
-    pub utf8_decoding_byte: u64,
+    pub utf8_decoding_byte: NearGas,
     #[doc = "Cost of calling `validator_stake`."]
-    pub validator_stake_base: u64,
+    pub validator_stake_base: NearGas,
     #[doc = "Cost of calling `validator_total_stake`."]
-    pub validator_total_stake_base: u64,
+    pub validator_total_stake_base: NearGas,
     #[doc = "Base cost for guest memory write"]
-    pub write_memory_base: u64,
+    pub write_memory_base: NearGas,
     #[doc = "Cost for guest memory write per byte"]
-    pub write_memory_byte: u64,
+    pub write_memory_byte: NearGas,
     #[doc = "Base cost for writing into register"]
-    pub write_register_base: u64,
+    pub write_register_base: NearGas,
     #[doc = "Cost for writing byte into register"]
-    pub write_register_byte: u64,
+    pub write_register_byte: NearGas,
     #[doc = "Base cost for creating a yield promise."]
-    pub yield_create_base: u64,
+    pub yield_create_base: NearGas,
     #[doc = "Per byte cost of arguments and method name."]
-    pub yield_create_byte: u64,
+    pub yield_create_byte: NearGas,
     #[doc = "Base cost for resuming a yield receipt."]
-    pub yield_resume_base: u64,
+    pub yield_resume_base: NearGas,
     #[doc = "Per byte cost of resume payload."]
-    pub yield_resume_byte: u64,
+    pub yield_resume_byte: NearGas,
 }
 impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
     fn from(value: &ExtCostsConfigView) -> Self {
@@ -6793,14 +6999,16 @@ impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
 #[doc = "      \"description\": \"When fetching state parts from external storage, throttle fetch requests\\nto this many concurrent requests.\","]
 #[doc = "      \"default\": 25,"]
 #[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"num_concurrent_requests_during_catchup\": {"]
 #[doc = "      \"description\": \"During catchup, the node will use a different number of concurrent requests\\nto reduce the performance impact of state sync.\","]
 #[doc = "      \"default\": 5,"]
 #[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    }"]
 #[doc = "  }"]
@@ -6815,11 +7023,11 @@ pub struct ExternalStorageConfig {
     #[doc = "Location of state parts."]
     pub location: ExternalStorageLocation,
     #[doc = "When fetching state parts from external storage, throttle fetch requests\nto this many concurrent requests."]
-    #[serde(default = "defaults::default_u64::<u32, 25>")]
-    pub num_concurrent_requests: u32,
+    #[serde(default = "defaults::default_u64::<u8, 25>")]
+    pub num_concurrent_requests: u8,
     #[doc = "During catchup, the node will use a different number of concurrent requests\nto reduce the performance impact of state sync."]
-    #[serde(default = "defaults::default_u64::<u32, 5>")]
-    pub num_concurrent_requests_during_catchup: u32,
+    #[serde(default = "defaults::default_u64::<u8, 5>")]
+    pub num_concurrent_requests_during_catchup: u8,
 }
 impl ::std::convert::From<&ExternalStorageConfig> for ExternalStorageConfig {
     fn from(value: &ExternalStorageConfig) -> Self {
@@ -6940,21 +7148,27 @@ impl ::std::convert::From<&Self> for ExternalStorageLocation {
 #[doc = "  \"properties\": {"]
 #[doc = "    \"execution\": {"]
 #[doc = "      \"description\": \"Fee for executing the object.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"send_not_sir\": {"]
 #[doc = "      \"description\": \"Fee for sending an object potentially across the shards.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"send_sir\": {"]
 #[doc = "      \"description\": \"Fee for sending an object from the sender to itself, guaranteeing that it does not leave\\nthe shard.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -6963,11 +7177,11 @@ impl ::std::convert::From<&Self> for ExternalStorageLocation {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct Fee {
     #[doc = "Fee for executing the object."]
-    pub execution: u64,
+    pub execution: NearGas,
     #[doc = "Fee for sending an object potentially across the shards."]
-    pub send_not_sir: u64,
+    pub send_not_sir: NearGas,
     #[doc = "Fee for sending an object from the sender to itself, guaranteeing that it does not leave\nthe shard."]
-    pub send_sir: u64,
+    pub send_sir: NearGas,
 }
 impl ::std::convert::From<&Fee> for Fee {
     fn from(value: &Fee) -> Self {
@@ -7234,9 +7448,9 @@ impl ::std::convert::From<&Self> for Finality {
 impl ::std::fmt::Display for Finality {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Optimistic => write!(f, "optimistic"),
-            Self::NearFinal => write!(f, "near-final"),
-            Self::Final => write!(f, "final"),
+            Self::Optimistic => f.write_str("optimistic"),
+            Self::NearFinal => f.write_str("near-final"),
+            Self::Final => f.write_str("final"),
         }
     }
 }
@@ -7351,9 +7565,7 @@ impl ::std::fmt::Display for FunctionArgs {
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"gas\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
 #[doc = "    },"]
 #[doc = "    \"method_name\": {"]
 #[doc = "      \"type\": \"string\""]
@@ -7366,7 +7578,7 @@ impl ::std::fmt::Display for FunctionArgs {
 pub struct FunctionCallAction {
     pub args: ::std::string::String,
     pub deposit: ::std::string::String,
-    pub gas: u64,
+    pub gas: NearGas,
     pub method_name: ::std::string::String,
 }
 impl ::std::convert::From<&FunctionCallAction> for FunctionCallAction {
@@ -7780,9 +7992,11 @@ impl ::std::default::Default for GcConfig {
 #[doc = "    },"]
 #[doc = "    \"gas_limit\": {"]
 #[doc = "      \"description\": \"Initial gas limit.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"gas_price_adjustment_rate\": {"]
 #[doc = "      \"description\": \"Gas price adjustment rate\","]
@@ -7979,8 +8193,6 @@ impl ::std::default::Default for GcConfig {
 #[doc = "          \"shard_ids\": ["]
 #[doc = "            0"]
 #[doc = "          ],"]
-#[doc = "          \"shards_parent_map\": null,"]
-#[doc = "          \"shards_split_map\": null,"]
 #[doc = "          \"version\": 0"]
 #[doc = "        }"]
 #[doc = "      },"]
@@ -8051,7 +8263,7 @@ pub struct GenesisConfig {
     #[doc = "Fishermen stake threshold."]
     pub fishermen_threshold: ::std::string::String,
     #[doc = "Initial gas limit."]
-    pub gas_limit: u64,
+    pub gas_limit: NearGas,
     #[doc = "Gas price adjustment rate"]
     pub gas_price_adjustment_rate: [i32; 2usize],
     #[doc = "Height of genesis block."]
@@ -8214,8 +8426,8 @@ impl ::std::convert::From<&Self> for GlobalContractDeployMode {
 impl ::std::fmt::Display for GlobalContractDeployMode {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::CodeHash => write!(f, "CodeHash"),
-            Self::AccountId => write!(f, "AccountId"),
+            Self::CodeHash => f.write_str("CodeHash"),
+            Self::AccountId => f.write_str("AccountId"),
         }
     }
 }
@@ -9631,6 +9843,124 @@ impl ::std::convert::From<&JsonRpcRequestForBlock> for JsonRpcRequestForBlock {
         value.clone()
     }
 }
+#[doc = "`JsonRpcRequestForBlockEffects`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_block_effects\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"block_effects\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcStateChangesInBlockRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForBlockEffects {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForBlockEffectsMethod,
+    pub params: RpcStateChangesInBlockRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForBlockEffects> for JsonRpcRequestForBlockEffects {
+    fn from(value: &JsonRpcRequestForBlockEffects) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForBlockEffectsMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"block_effects\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForBlockEffectsMethod {
+    #[serde(rename = "block_effects")]
+    BlockEffects,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForBlockEffectsMethod {
+    fn from(value: &JsonRpcRequestForBlockEffectsMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForBlockEffectsMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::BlockEffects => f.write_str("block_effects"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForBlockEffectsMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "block_effects" => Ok(Self::BlockEffects),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForBlockEffectsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForBlockEffectsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForBlockEffectsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 #[doc = "`JsonRpcRequestForBlockMethod`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -9668,7 +9998,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForBlockMethod {
 impl ::std::fmt::Display for JsonRpcRequestForBlockMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Block => write!(f, "block"),
+            Self::Block => f.write_str("block"),
         }
     }
 }
@@ -9788,7 +10118,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForBroadcastTxAsyncMethod {
 impl ::std::fmt::Display for JsonRpcRequestForBroadcastTxAsyncMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::BroadcastTxAsync => write!(f, "broadcast_tx_async"),
+            Self::BroadcastTxAsync => f.write_str("broadcast_tx_async"),
         }
     }
 }
@@ -9908,7 +10238,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForBroadcastTxCommitMethod {
 impl ::std::fmt::Display for JsonRpcRequestForBroadcastTxCommitMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::BroadcastTxCommit => write!(f, "broadcast_tx_commit"),
+            Self::BroadcastTxCommit => f.write_str("broadcast_tx_commit"),
         }
     }
 }
@@ -10026,7 +10356,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForChangesMethod {
 impl ::std::fmt::Display for JsonRpcRequestForChangesMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Changes => write!(f, "changes"),
+            Self::Changes => f.write_str("changes"),
         }
     }
 }
@@ -10144,7 +10474,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForChunkMethod {
 impl ::std::fmt::Display for JsonRpcRequestForChunkMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Chunk => write!(f, "chunk"),
+            Self::Chunk => f.write_str("chunk"),
         }
     }
 }
@@ -10262,7 +10592,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForClientConfigMethod {
 impl ::std::fmt::Display for JsonRpcRequestForClientConfigMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ClientConfig => write!(f, "client_config"),
+            Self::ClientConfig => f.write_str("client_config"),
         }
     }
 }
@@ -10430,7 +10760,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalChangesInBlock
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalChangesInBlockMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalChangesInBlock => write!(f, "EXPERIMENTAL_changes_in_block"),
+            Self::ExperimentalChangesInBlock => f.write_str("EXPERIMENTAL_changes_in_block"),
         }
     }
 }
@@ -10506,7 +10836,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalChangesMethod 
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalChangesMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalChanges => write!(f, "EXPERIMENTAL_changes"),
+            Self::ExperimentalChanges => f.write_str("EXPERIMENTAL_changes"),
         }
     }
 }
@@ -10628,7 +10958,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalCongestionLeve
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalCongestionLevelMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalCongestionLevel => write!(f, "EXPERIMENTAL_congestion_level"),
+            Self::ExperimentalCongestionLevel => f.write_str("EXPERIMENTAL_congestion_level"),
         }
     }
 }
@@ -10752,7 +11082,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalGenesisConfigM
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalGenesisConfigMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalGenesisConfig => write!(f, "EXPERIMENTAL_genesis_config"),
+            Self::ExperimentalGenesisConfig => f.write_str("EXPERIMENTAL_genesis_config"),
         }
     }
 }
@@ -10877,7 +11207,7 @@ impl ::std::fmt::Display for JsonRpcRequestForExperimentalLightClientBlockProofM
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ExperimentalLightClientBlockProof => {
-                write!(f, "EXPERIMENTAL_light_client_block_proof")
+                f.write_str("EXPERIMENTAL_light_client_block_proof")
             }
         }
     }
@@ -11002,7 +11332,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalLightClientPro
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalLightClientProofMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalLightClientProof => write!(f, "EXPERIMENTAL_light_client_proof"),
+            Self::ExperimentalLightClientProof => f.write_str("EXPERIMENTAL_light_client_proof"),
         }
     }
 }
@@ -11126,9 +11456,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalMaintenanceWin
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalMaintenanceWindowsMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalMaintenanceWindows => {
-                write!(f, "EXPERIMENTAL_maintenance_windows")
-            }
+            Self::ExperimentalMaintenanceWindows => f.write_str("EXPERIMENTAL_maintenance_windows"),
         }
     }
 }
@@ -11252,7 +11580,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalProtocolConfig
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalProtocolConfigMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalProtocolConfig => write!(f, "EXPERIMENTAL_protocol_config"),
+            Self::ExperimentalProtocolConfig => f.write_str("EXPERIMENTAL_protocol_config"),
         }
     }
 }
@@ -11376,7 +11704,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalReceiptMethod 
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalReceiptMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalReceipt => write!(f, "EXPERIMENTAL_receipt"),
+            Self::ExperimentalReceipt => f.write_str("EXPERIMENTAL_receipt"),
         }
     }
 }
@@ -11498,7 +11826,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalSplitStorageIn
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalSplitStorageInfoMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalSplitStorageInfo => write!(f, "EXPERIMENTAL_split_storage_info"),
+            Self::ExperimentalSplitStorageInfo => f.write_str("EXPERIMENTAL_split_storage_info"),
         }
     }
 }
@@ -11622,7 +11950,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalTxStatusMethod
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalTxStatusMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalTxStatus => write!(f, "EXPERIMENTAL_tx_status"),
+            Self::ExperimentalTxStatus => f.write_str("EXPERIMENTAL_tx_status"),
         }
     }
 }
@@ -11746,7 +12074,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalValidatorsOrde
 impl ::std::fmt::Display for JsonRpcRequestForExperimentalValidatorsOrderedMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ExperimentalValidatorsOrdered => write!(f, "EXPERIMENTAL_validators_ordered"),
+            Self::ExperimentalValidatorsOrdered => f.write_str("EXPERIMENTAL_validators_ordered"),
         }
     }
 }
@@ -11868,7 +12196,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForGasPriceMethod {
 impl ::std::fmt::Display for JsonRpcRequestForGasPriceMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasPrice => write!(f, "gas_price"),
+            Self::GasPrice => f.write_str("gas_price"),
         }
     }
 }
@@ -11896,6 +12224,124 @@ impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForGasPri
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForGasPriceMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForGenesisConfig`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_genesis_config\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"genesis_config\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/GenesisConfigRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForGenesisConfig {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForGenesisConfigMethod,
+    pub params: GenesisConfigRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForGenesisConfig> for JsonRpcRequestForGenesisConfig {
+    fn from(value: &JsonRpcRequestForGenesisConfig) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForGenesisConfigMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"genesis_config\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForGenesisConfigMethod {
+    #[serde(rename = "genesis_config")]
+    GenesisConfig,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForGenesisConfigMethod {
+    fn from(value: &JsonRpcRequestForGenesisConfigMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForGenesisConfigMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::GenesisConfig => f.write_str("genesis_config"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForGenesisConfigMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "genesis_config" => Ok(Self::GenesisConfig),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForGenesisConfigMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForGenesisConfigMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForGenesisConfigMethod {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -11986,7 +12432,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForHealthMethod {
 impl ::std::fmt::Display for JsonRpcRequestForHealthMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Health => write!(f, "health"),
+            Self::Health => f.write_str("health"),
         }
     }
 }
@@ -12106,7 +12552,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForLightClientProofMethod {
 impl ::std::fmt::Display for JsonRpcRequestForLightClientProofMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::LightClientProof => write!(f, "light_client_proof"),
+            Self::LightClientProof => f.write_str("light_client_proof"),
         }
     }
 }
@@ -12134,6 +12580,126 @@ impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForLightC
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForLightClientProofMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForMaintenanceWindows`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_maintenance_windows\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"maintenance_windows\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcMaintenanceWindowsRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForMaintenanceWindows {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForMaintenanceWindowsMethod,
+    pub params: RpcMaintenanceWindowsRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForMaintenanceWindows>
+    for JsonRpcRequestForMaintenanceWindows
+{
+    fn from(value: &JsonRpcRequestForMaintenanceWindows) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForMaintenanceWindowsMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"maintenance_windows\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForMaintenanceWindowsMethod {
+    #[serde(rename = "maintenance_windows")]
+    MaintenanceWindows,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForMaintenanceWindowsMethod {
+    fn from(value: &JsonRpcRequestForMaintenanceWindowsMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForMaintenanceWindowsMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::MaintenanceWindows => f.write_str("maintenance_windows"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForMaintenanceWindowsMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "maintenance_windows" => Ok(Self::MaintenanceWindows),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForMaintenanceWindowsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for JsonRpcRequestForMaintenanceWindowsMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForMaintenanceWindowsMethod {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -12224,7 +12790,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForNetworkInfoMethod {
 impl ::std::fmt::Display for JsonRpcRequestForNetworkInfoMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::NetworkInfo => write!(f, "network_info"),
+            Self::NetworkInfo => f.write_str("network_info"),
         }
     }
 }
@@ -12344,7 +12910,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForNextLightClientBlockMethod
 impl ::std::fmt::Display for JsonRpcRequestForNextLightClientBlockMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::NextLightClientBlock => write!(f, "next_light_client_block"),
+            Self::NextLightClientBlock => f.write_str("next_light_client_block"),
         }
     }
 }
@@ -12466,7 +13032,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForQueryMethod {
 impl ::std::fmt::Display for JsonRpcRequestForQueryMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Query => write!(f, "query"),
+            Self::Query => f.write_str("query"),
         }
     }
 }
@@ -12584,7 +13150,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForSendTxMethod {
 impl ::std::fmt::Display for JsonRpcRequestForSendTxMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SendTx => write!(f, "send_tx"),
+            Self::SendTx => f.write_str("send_tx"),
         }
     }
 }
@@ -12702,7 +13268,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForStatusMethod {
 impl ::std::fmt::Display for JsonRpcRequestForStatusMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Status => write!(f, "status"),
+            Self::Status => f.write_str("status"),
         }
     }
 }
@@ -12820,7 +13386,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForTxMethod {
 impl ::std::fmt::Display for JsonRpcRequestForTxMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Tx => write!(f, "tx"),
+            Self::Tx => f.write_str("tx"),
         }
     }
 }
@@ -12938,7 +13504,7 @@ impl ::std::convert::From<&Self> for JsonRpcRequestForValidatorsMethod {
 impl ::std::fmt::Display for JsonRpcRequestForValidatorsMethod {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Validators => write!(f, "validators"),
+            Self::Validators => f.write_str("validators"),
         }
     }
 }
@@ -14658,6 +15224,15 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"format\": \"uint64\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
+#[doc = "    \"max_elements_per_contract_table\": {"]
+#[doc = "      \"description\": \"If present, stores max number of elements in a single contract's table\","]
+#[doc = "      \"type\": ["]
+#[doc = "        \"integer\","]
+#[doc = "        \"null\""]
+#[doc = "      ],"]
+#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
 #[doc = "    \"max_functions_number_per_contract\": {"]
 #[doc = "      \"description\": \"If present, stores max number of functions in one contract\","]
 #[doc = "      \"type\": ["]
@@ -14669,9 +15244,11 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "    },"]
 #[doc = "    \"max_gas_burnt\": {"]
 #[doc = "      \"description\": \"Max amount of gas that can be used, excluding gas attached to promises.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"max_length_method_name\": {"]
 #[doc = "      \"description\": \"Max length of any method name (without terminating character).\","]
@@ -14760,6 +15337,15 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "      \"format\": \"uint32\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
+#[doc = "    \"max_tables_per_contract\": {"]
+#[doc = "      \"description\": \"If present, stores max number of tables declared globally in one contract\","]
+#[doc = "      \"type\": ["]
+#[doc = "        \"integer\","]
+#[doc = "        \"null\""]
+#[doc = "      ],"]
+#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
 #[doc = "    \"max_total_log_length\": {"]
 #[doc = "      \"description\": \"Maximum total length in bytes of all log messages.\","]
 #[doc = "      \"type\": \"integer\","]
@@ -14768,9 +15354,11 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "    },"]
 #[doc = "    \"max_total_prepaid_gas\": {"]
 #[doc = "      \"description\": \"Max total prepaid gas for all function call actions per receipt.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"max_transaction_size\": {"]
 #[doc = "      \"description\": \"Max transaction size\","]
@@ -14819,11 +15407,14 @@ pub struct LimitConfig {
     pub max_arguments_length: u64,
     #[doc = "Max contract size"]
     pub max_contract_size: u64,
+    #[doc = "If present, stores max number of elements in a single contract's table"]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_elements_per_contract_table: ::std::option::Option<u32>,
     #[doc = "If present, stores max number of functions in one contract"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub max_functions_number_per_contract: ::std::option::Option<u64>,
     #[doc = "Max amount of gas that can be used, excluding gas attached to promises."]
-    pub max_gas_burnt: u64,
+    pub max_gas_burnt: NearGas,
     #[doc = "Max length of any method name (without terminating character)."]
     pub max_length_method_name: u64,
     #[doc = "Max length of returned data"]
@@ -14853,10 +15444,13 @@ pub struct LimitConfig {
     pub max_register_size: u64,
     #[doc = "How tall the stack is allowed to grow?\n\nSee <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\nis calculated."]
     pub max_stack_height: u32,
+    #[doc = "If present, stores max number of tables declared globally in one contract"]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_tables_per_contract: ::std::option::Option<u32>,
     #[doc = "Maximum total length in bytes of all log messages."]
     pub max_total_log_length: u64,
     #[doc = "Max total prepaid gas for all function call actions per receipt."]
-    pub max_total_prepaid_gas: u64,
+    pub max_total_prepaid_gas: NearGas,
     #[doc = "Max transaction size"]
     pub max_transaction_size: u64,
     #[doc = "Maximum number of bytes for payload passed over a yield resume."]
@@ -14913,8 +15507,8 @@ impl ::std::convert::From<&Self> for LogSummaryStyle {
 impl ::std::fmt::Display for LogSummaryStyle {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Plain => write!(f, "plain"),
-            Self::Colored => write!(f, "colored"),
+            Self::Plain => f.write_str("plain"),
+            Self::Colored => f.write_str("colored"),
         }
     }
 }
@@ -15022,9 +15616,9 @@ impl ::std::convert::From<&Self> for MethodResolveError {
 impl ::std::fmt::Display for MethodResolveError {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::MethodEmptyName => write!(f, "MethodEmptyName"),
-            Self::MethodNotFound => write!(f, "MethodNotFound"),
-            Self::MethodInvalidSignature => write!(f, "MethodInvalidSignature"),
+            Self::MethodEmptyName => f.write_str("MethodEmptyName"),
+            Self::MethodNotFound => f.write_str("MethodNotFound"),
+            Self::MethodInvalidSignature => f.write_str("MethodInvalidSignature"),
         }
     }
 }
@@ -15163,10 +15757,10 @@ impl ::std::convert::From<&Self> for MissingTrieValueContext {
 impl ::std::fmt::Display for MissingTrieValueContext {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::TrieIterator => write!(f, "TrieIterator"),
-            Self::TriePrefetchingStorage => write!(f, "TriePrefetchingStorage"),
-            Self::TrieMemoryPartialStorage => write!(f, "TrieMemoryPartialStorage"),
-            Self::TrieStorage => write!(f, "TrieStorage"),
+            Self::TrieIterator => f.write_str("TrieIterator"),
+            Self::TriePrefetchingStorage => f.write_str("TriePrefetchingStorage"),
+            Self::TrieMemoryPartialStorage => f.write_str("TrieMemoryPartialStorage"),
+            Self::TrieStorage => f.write_str("TrieStorage"),
         }
     }
 }
@@ -15380,13 +15974,13 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
         value.clone()
     }
 }
-#[doc = "This is Action which mustn't contain DelegateAction.\n\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\n\nImportant: Don't make the inner Action public, this must only be constructed\nthrough the correct interface that ensures the inner Action is actually not\na delegate action. That would break an assumption of this type, which we use\nin several places. For example, borsh de-/serialization relies on it. If the\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\ncan serialize but deserializing it back causes a parsing error."]
+#[doc = "An Action that can be included in a transaction or receipt, excluding delegate actions. This type represents all possible action types except DelegateAction to prevent infinite recursion in meta-transactions."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"This is Action which mustn't contain DelegateAction.\\n\\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\\n\\nImportant: Don't make the inner Action public, this must only be constructed\\nthrough the correct interface that ensures the inner Action is actually not\\na delegate action. That would break an assumption of this type, which we use\\nin several places. For example, borsh de-/serialization relies on it. If the\\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\\ncan serialize but deserializing it back causes a parsing error.\","]
+#[doc = "  \"description\": \"An Action that can be included in a transaction or receipt, excluding delegate actions. This type represents all possible action types except DelegateAction to prevent infinite recursion in meta-transactions.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<http://nomicon.io/Primitives/Account.html>.\","]
@@ -15855,6 +16449,20 @@ impl ::std::convert::From<&PeerInfoView> for PeerInfoView {
 #[doc = "      \"enum\": ["]
 #[doc = "        \"TooManyLocals\""]
 #[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"description\": \"Contract contains too many tables.\","]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"TooManyTables\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"description\": \"Contract contains too many table elements.\","]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"TooManyTableElements\""]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -15891,6 +16499,10 @@ pub enum PrepareError {
     TooManyFunctions,
     #[doc = "Contract contains too many locals."]
     TooManyLocals,
+    #[doc = "Contract contains too many tables."]
+    TooManyTables,
+    #[doc = "Contract contains too many table elements."]
+    TooManyTableElements,
 }
 impl ::std::convert::From<&Self> for PrepareError {
     fn from(value: &PrepareError) -> Self {
@@ -15900,15 +16512,17 @@ impl ::std::convert::From<&Self> for PrepareError {
 impl ::std::fmt::Display for PrepareError {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Serialization => write!(f, "Serialization"),
-            Self::Deserialization => write!(f, "Deserialization"),
-            Self::InternalMemoryDeclared => write!(f, "InternalMemoryDeclared"),
-            Self::GasInstrumentation => write!(f, "GasInstrumentation"),
-            Self::StackHeightInstrumentation => write!(f, "StackHeightInstrumentation"),
-            Self::Instantiate => write!(f, "Instantiate"),
-            Self::Memory => write!(f, "Memory"),
-            Self::TooManyFunctions => write!(f, "TooManyFunctions"),
-            Self::TooManyLocals => write!(f, "TooManyLocals"),
+            Self::Serialization => f.write_str("Serialization"),
+            Self::Deserialization => f.write_str("Deserialization"),
+            Self::InternalMemoryDeclared => f.write_str("InternalMemoryDeclared"),
+            Self::GasInstrumentation => f.write_str("GasInstrumentation"),
+            Self::StackHeightInstrumentation => f.write_str("StackHeightInstrumentation"),
+            Self::Instantiate => f.write_str("Instantiate"),
+            Self::Memory => f.write_str("Memory"),
+            Self::TooManyFunctions => f.write_str("TooManyFunctions"),
+            Self::TooManyLocals => f.write_str("TooManyLocals"),
+            Self::TooManyTables => f.write_str("TooManyTables"),
+            Self::TooManyTableElements => f.write_str("TooManyTableElements"),
         }
     }
 }
@@ -15925,6 +16539,8 @@ impl ::std::str::FromStr for PrepareError {
             "Memory" => Ok(Self::Memory),
             "TooManyFunctions" => Ok(Self::TooManyFunctions),
             "TooManyLocals" => Ok(Self::TooManyLocals),
+            "TooManyTables" => Ok(Self::TooManyTables),
+            "TooManyTableElements" => Ok(Self::TooManyTableElements),
             _ => Err("invalid value".into()),
         }
     }
@@ -15944,6 +16560,82 @@ impl ::std::convert::TryFrom<&::std::string::String> for PrepareError {
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for PrepareError {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "Configures whether the node checks the next or the next next epoch for network version compatibility."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Configures whether the node checks the next or the next next epoch for network version compatibility.\","]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"Next\","]
+#[doc = "    \"NextNext\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ProtocolVersionCheckConfig {
+    Next,
+    NextNext,
+}
+impl ::std::convert::From<&Self> for ProtocolVersionCheckConfig {
+    fn from(value: &ProtocolVersionCheckConfig) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ProtocolVersionCheckConfig {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Next => f.write_str("Next"),
+            Self::NextNext => f.write_str("NextNext"),
+        }
+    }
+}
+impl ::std::str::FromStr for ProtocolVersionCheckConfig {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "Next" => Ok(Self::Next),
+            "NextNext" => Ok(Self::NextNext),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ProtocolVersionCheckConfig {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ProtocolVersionCheckConfig {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ProtocolVersionCheckConfig {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -16757,6 +17449,7 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"catchup_step_period\","]
 #[doc = "    \"chain_id\","]
 #[doc = "    \"chunk_request_retry_period\","]
+#[doc = "    \"chunk_validation_threads\","]
 #[doc = "    \"chunk_wait_mult\","]
 #[doc = "    \"client_background_migration_threads\","]
 #[doc = "    \"doomslug_step_period\","]
@@ -16781,12 +17474,16 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"orphan_state_witness_pool_size\","]
 #[doc = "    \"produce_chunk_add_transactions_time_limit\","]
 #[doc = "    \"produce_empty_blocks\","]
+#[doc = "    \"protocol_version_check\","]
 #[doc = "    \"resharding_config\","]
 #[doc = "    \"save_invalid_witnesses\","]
 #[doc = "    \"save_latest_witnesses\","]
 #[doc = "    \"save_trie_changes\","]
 #[doc = "    \"save_tx_outcomes\","]
 #[doc = "    \"skip_sync_wait\","]
+#[doc = "    \"state_request_server_threads\","]
+#[doc = "    \"state_request_throttle_period\","]
+#[doc = "    \"state_requests_per_throttle_period\","]
 #[doc = "    \"state_sync\","]
 #[doc = "    \"state_sync_enabled\","]
 #[doc = "    \"state_sync_external_backoff\","]
@@ -16802,8 +17499,7 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"ttl_account_id_router\","]
 #[doc = "    \"tx_routing_height_horizon\","]
 #[doc = "    \"version\","]
-#[doc = "    \"view_client_threads\","]
-#[doc = "    \"view_client_throttle_period\""]
+#[doc = "    \"view_client_threads\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"archive\": {"]
@@ -16870,6 +17566,12 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"maxItems\": 2,"]
 #[doc = "      \"minItems\": 2"]
 #[doc = "    },"]
+#[doc = "    \"chunk_validation_threads\": {"]
+#[doc = "      \"description\": \"Number of threads for ChunkValidationActor pool.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
 #[doc = "    \"chunk_wait_mult\": {"]
 #[doc = "      \"description\": \"Multiplier for the wait time for all chunks to be received.\","]
 #[doc = "      \"type\": \"array\","]
@@ -16885,6 +17587,28 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint\","]
 #[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"cloud_archival_reader\": {"]
+#[doc = "      \"description\": \"Configuration for a cloud-based archival reader.\","]
+#[doc = "      \"anyOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CloudArchivalReaderConfig\""]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"null\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"cloud_archival_writer\": {"]
+#[doc = "      \"description\": \"Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\\nwrites chunk-related data based on the tracked shards.\","]
+#[doc = "      \"anyOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CloudArchivalWriterConfig\""]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"null\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"doomslug_step_period\": {"]
 #[doc = "      \"description\": \"Time between running doomslug timer.\","]
@@ -17016,12 +17740,14 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    },"]
 #[doc = "    \"max_gas_burnt_view\": {"]
 #[doc = "      \"description\": \"Max burnt gas per view method.  If present, overrides value stored in\\ngenesis file.  The value only affects the RPCs without influencing the\\nprotocol thus changing it per-node doesn’t affect the blockchain.\","]
-#[doc = "      \"type\": ["]
-#[doc = "        \"integer\","]
-#[doc = "        \"null\""]
-#[doc = "      ],"]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"anyOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"null\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"min_block_production_delay\": {"]
 #[doc = "      \"description\": \"Minimum duration before producing block.\","]
@@ -17066,6 +17792,14 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"description\": \"Produce empty blocks, use `false` for testing.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
+#[doc = "    \"protocol_version_check\": {"]
+#[doc = "      \"description\": \"Determines whether client should exit if the protocol version is not supported\\nfor the next or next next epoch.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ProtocolVersionCheckConfig\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
 #[doc = "    \"resharding_config\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/MutableConfigValue\""]
 #[doc = "    },"]
@@ -17095,6 +17829,29 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"skip_sync_wait\": {"]
 #[doc = "      \"description\": \"Skip waiting for sync (for testing or single node testnet).\","]
 #[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
+#[doc = "    \"state_request_server_threads\": {"]
+#[doc = "      \"description\": \"Number of threads for StateRequestActor pool.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"state_request_throttle_period\": {"]
+#[doc = "      \"description\": \"Number of seconds between state requests for view client.\\nThrottling window for state requests (headers and parts).\","]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"type\": \"integer\","]
+#[doc = "        \"format\": \"uint64\","]
+#[doc = "        \"minimum\": 0.0"]
+#[doc = "      },"]
+#[doc = "      \"maxItems\": 2,"]
+#[doc = "      \"minItems\": 2"]
+#[doc = "    },"]
+#[doc = "    \"state_requests_per_throttle_period\": {"]
+#[doc = "      \"description\": \"Maximum number of state requests served per throttle period\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint\","]
+#[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"state_sync\": {"]
 #[doc = "      \"description\": \"Options for syncing state.\","]
@@ -17242,17 +17999,6 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"type\": \"integer\","]
 #[doc = "      \"format\": \"uint\","]
 #[doc = "      \"minimum\": 0.0"]
-#[doc = "    },"]
-#[doc = "    \"view_client_throttle_period\": {"]
-#[doc = "      \"description\": \"Number of seconds between state requests for view client.\","]
-#[doc = "      \"type\": \"array\","]
-#[doc = "      \"items\": {"]
-#[doc = "        \"type\": \"integer\","]
-#[doc = "        \"format\": \"uint64\","]
-#[doc = "        \"minimum\": 0.0"]
-#[doc = "      },"]
-#[doc = "      \"maxItems\": 2,"]
-#[doc = "      \"minItems\": 2"]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -17277,10 +18023,18 @@ pub struct RpcClientConfigResponse {
     pub chunk_distribution_network: ::std::option::Option<ChunkDistributionNetworkConfig>,
     #[doc = "Time between checking to re-request chunks."]
     pub chunk_request_retry_period: [u64; 2usize],
+    #[doc = "Number of threads for ChunkValidationActor pool."]
+    pub chunk_validation_threads: u32,
     #[doc = "Multiplier for the wait time for all chunks to be received."]
     pub chunk_wait_mult: [i32; 2usize],
     #[doc = "Number of threads to execute background migration work in client."]
     pub client_background_migration_threads: u32,
+    #[doc = "Configuration for a cloud-based archival reader."]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub cloud_archival_reader: ::std::option::Option<CloudArchivalReaderConfig>,
+    #[doc = "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards."]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub cloud_archival_writer: ::std::option::Option<CloudArchivalWriterConfig>,
     #[doc = "Time between running doomslug timer."]
     pub doomslug_step_period: [u64; 2usize],
     pub enable_multiline_logging: bool,
@@ -17312,7 +18066,7 @@ pub struct RpcClientConfigResponse {
     pub max_block_wait_delay: [u64; 2usize],
     #[doc = "Max burnt gas per view method.  If present, overrides value stored in\ngenesis file.  The value only affects the RPCs without influencing the\nprotocol thus changing it per-node doesn’t affect the blockchain."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub max_gas_burnt_view: ::std::option::Option<u64>,
+    pub max_gas_burnt_view: ::std::option::Option<NearGas>,
     #[doc = "Minimum duration before producing block."]
     pub min_block_production_delay: [u64; 2usize],
     #[doc = "Minimum number of peers to start syncing."]
@@ -17327,6 +18081,8 @@ pub struct RpcClientConfigResponse {
     pub produce_chunk_add_transactions_time_limit: ::std::string::String,
     #[doc = "Produce empty blocks, use `false` for testing."]
     pub produce_empty_blocks: bool,
+    #[doc = "Determines whether client should exit if the protocol version is not supported\nfor the next or next next epoch."]
+    pub protocol_version_check: ProtocolVersionCheckConfig,
     pub resharding_config: MutableConfigValue,
     #[doc = "Listening rpc port for status."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -17341,6 +18097,12 @@ pub struct RpcClientConfigResponse {
     pub save_tx_outcomes: bool,
     #[doc = "Skip waiting for sync (for testing or single node testnet)."]
     pub skip_sync_wait: bool,
+    #[doc = "Number of threads for StateRequestActor pool."]
+    pub state_request_server_threads: u32,
+    #[doc = "Number of seconds between state requests for view client.\nThrottling window for state requests (headers and parts)."]
+    pub state_request_throttle_period: [u64; 2usize],
+    #[doc = "Maximum number of state requests served per throttle period"]
+    pub state_requests_per_throttle_period: u32,
     #[doc = "Options for syncing state."]
     pub state_sync: StateSyncConfig,
     #[doc = "Whether to use the State Sync mechanism.\nIf disabled, the node will do Block Sync instead of State Sync."]
@@ -17377,8 +18139,6 @@ pub struct RpcClientConfigResponse {
     pub version: Version,
     #[doc = "Number of threads for ViewClientActor pool."]
     pub view_client_threads: u32,
-    #[doc = "Number of seconds between state requests for view client."]
-    pub view_client_throttle_period: [u64; 2usize],
 }
 impl ::std::convert::From<&RpcClientConfigResponse> for RpcClientConfigResponse {
     fn from(value: &RpcClientConfigResponse) -> Self {
@@ -17633,7 +18393,7 @@ impl ::std::convert::From<&Self> for RpcErrorVariant0Name {
 impl ::std::fmt::Display for RpcErrorVariant0Name {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::RequestValidationError => write!(f, "REQUEST_VALIDATION_ERROR"),
+            Self::RequestValidationError => f.write_str("REQUEST_VALIDATION_ERROR"),
         }
     }
 }
@@ -17705,7 +18465,7 @@ impl ::std::convert::From<&Self> for RpcErrorVariant1Name {
 impl ::std::fmt::Display for RpcErrorVariant1Name {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::HandlerError => write!(f, "HANDLER_ERROR"),
+            Self::HandlerError => f.write_str("HANDLER_ERROR"),
         }
     }
 }
@@ -17777,7 +18537,7 @@ impl ::std::convert::From<&Self> for RpcErrorVariant2Name {
 impl ::std::fmt::Display for RpcErrorVariant2Name {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::InternalError => write!(f, "INTERNAL_ERROR"),
+            Self::InternalError => f.write_str("INTERNAL_ERROR"),
         }
     }
 }
@@ -18066,7 +18826,6 @@ impl ::std::convert::From<&RpcLightClientBlockProofResponse> for RpcLightClientB
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"title\": \"transaction\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"sender_id\","]
@@ -18089,7 +18848,6 @@ impl ::std::convert::From<&RpcLightClientBlockProofResponse> for RpcLightClientB
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"title\": \"receipt\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"receipt_id\","]
@@ -18183,7 +18941,7 @@ impl ::std::convert::From<&Self> for RpcLightClientExecutionProofRequestVariant0
 impl ::std::fmt::Display for RpcLightClientExecutionProofRequestVariant0Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Transaction => write!(f, "transaction"),
+            Self::Transaction => f.write_str("transaction"),
         }
     }
 }
@@ -18259,7 +19017,7 @@ impl ::std::convert::From<&Self> for RpcLightClientExecutionProofRequestVariant1
 impl ::std::fmt::Display for RpcLightClientExecutionProofRequestVariant1Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Receipt => write!(f, "receipt"),
+            Self::Receipt => f.write_str("receipt"),
         }
     }
 }
@@ -18807,9 +19565,11 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "    },"]
 #[doc = "    \"gas_limit\": {"]
 #[doc = "      \"description\": \"Initial gas limit.\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint64\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearGas\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"gas_price_adjustment_rate\": {"]
 #[doc = "      \"description\": \"Gas price adjustment rate\","]
@@ -19009,7 +19769,7 @@ pub struct RpcProtocolConfigResponse {
     #[doc = "Fishermen stake threshold."]
     pub fishermen_threshold: ::std::string::String,
     #[doc = "Initial gas limit."]
-    pub gas_limit: u64,
+    pub gas_limit: NearGas,
     #[doc = "Gas price adjustment rate"]
     pub gas_price_adjustment_rate: [i32; 2usize],
     #[doc = "Height of genesis block."]
@@ -22195,13 +22955,13 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
         value.clone()
     }
 }
-#[doc = "Describes different costs for the runtime"]
+#[doc = "Describes different fees for the runtime"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Describes different costs for the runtime\","]
+#[doc = "  \"description\": \"Describes different fees for the runtime\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"action_creation_config\","]
@@ -22918,7 +23678,7 @@ impl ::std::convert::From<&Self> for SingleAccessKeyChangesByBlockIdChangesType 
 impl ::std::fmt::Display for SingleAccessKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+            Self::SingleAccessKeyChanges => f.write_str("single_access_key_changes"),
         }
     }
 }
@@ -22992,7 +23752,7 @@ impl ::std::convert::From<&Self> for SingleAccessKeyChangesByFinalityChangesType
 impl ::std::fmt::Display for SingleAccessKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+            Self::SingleAccessKeyChanges => f.write_str("single_access_key_changes"),
         }
     }
 }
@@ -23068,7 +23828,7 @@ impl ::std::convert::From<&Self> for SingleAccessKeyChangesBySyncCheckpointChang
 impl ::std::fmt::Display for SingleAccessKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleAccessKeyChanges => write!(f, "single_access_key_changes"),
+            Self::SingleAccessKeyChanges => f.write_str("single_access_key_changes"),
         }
     }
 }
@@ -23144,7 +23904,7 @@ impl ::std::convert::From<&Self> for SingleGasKeyChangesByBlockIdChangesType {
 impl ::std::fmt::Display for SingleGasKeyChangesByBlockIdChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+            Self::SingleGasKeyChanges => f.write_str("single_gas_key_changes"),
         }
     }
 }
@@ -23216,7 +23976,7 @@ impl ::std::convert::From<&Self> for SingleGasKeyChangesByFinalityChangesType {
 impl ::std::fmt::Display for SingleGasKeyChangesByFinalityChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+            Self::SingleGasKeyChanges => f.write_str("single_gas_key_changes"),
         }
     }
 }
@@ -23288,7 +24048,7 @@ impl ::std::convert::From<&Self> for SingleGasKeyChangesBySyncCheckpointChangesT
 impl ::std::fmt::Display for SingleGasKeyChangesBySyncCheckpointChangesType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::SingleGasKeyChanges => write!(f, "single_gas_key_changes"),
+            Self::SingleGasKeyChanges => f.write_str("single_gas_key_changes"),
         }
     }
 }
@@ -24332,7 +25092,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant0Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant0Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountUpdate => write!(f, "account_update"),
+            Self::AccountUpdate => f.write_str("account_update"),
         }
     }
 }
@@ -24448,7 +25208,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant10Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant10Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeDeletion => write!(f, "contract_code_deletion"),
+            Self::ContractCodeDeletion => f.write_str("contract_code_deletion"),
         }
     }
 }
@@ -24564,7 +25324,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant1Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant1Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccountDeletion => write!(f, "account_deletion"),
+            Self::AccountDeletion => f.write_str("account_deletion"),
         }
     }
 }
@@ -24688,7 +25448,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant2Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant2Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccessKeyUpdate => write!(f, "access_key_update"),
+            Self::AccessKeyUpdate => f.write_str("access_key_update"),
         }
     }
 }
@@ -24808,7 +25568,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant3Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant3Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::AccessKeyDeletion => write!(f, "access_key_deletion"),
+            Self::AccessKeyDeletion => f.write_str("access_key_deletion"),
         }
     }
 }
@@ -24932,7 +25692,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant4Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant4Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasKeyUpdate => write!(f, "gas_key_update"),
+            Self::GasKeyUpdate => f.write_str("gas_key_update"),
         }
     }
 }
@@ -25064,7 +25824,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant5Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant5Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasKeyNonceUpdate => write!(f, "gas_key_nonce_update"),
+            Self::GasKeyNonceUpdate => f.write_str("gas_key_nonce_update"),
         }
     }
 }
@@ -25184,7 +25944,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant6Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant6Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::GasKeyDeletion => write!(f, "gas_key_deletion"),
+            Self::GasKeyDeletion => f.write_str("gas_key_deletion"),
         }
     }
 }
@@ -25308,7 +26068,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant7Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant7Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataUpdate => write!(f, "data_update"),
+            Self::DataUpdate => f.write_str("data_update"),
         }
     }
 }
@@ -25428,7 +26188,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant8Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant8Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::DataDeletion => write!(f, "data_deletion"),
+            Self::DataDeletion => f.write_str("data_deletion"),
         }
     }
 }
@@ -25548,7 +26308,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseViewVariant9Type {
 impl ::std::fmt::Display for StateChangeWithCauseViewVariant9Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ContractCodeUpdate => write!(f, "contract_code_update"),
+            Self::ContractCodeUpdate => f.write_str("contract_code_update"),
         }
     }
 }
@@ -25616,15 +26376,17 @@ impl ::std::convert::From<&StateItem> for StateItem {
         value.clone()
     }
 }
-#[doc = "Options for dumping state to S3."]
+#[doc = "`StateSyncConfig`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"Options for dumping state to S3.\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"properties\": {"]
+#[doc = "    \"concurrency\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/SyncConcurrency\""]
+#[doc = "    },"]
 #[doc = "    \"dump\": {"]
 #[doc = "      \"description\": \"`none` value disables state dump to external storage.\","]
 #[doc = "      \"anyOf\": ["]
@@ -25636,6 +26398,12 @@ impl ::std::convert::From<&StateItem> for StateItem {
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
+#[doc = "    \"parts_compression_lvl\": {"]
+#[doc = "      \"description\": \"Zstd compression level for state parts.\","]
+#[doc = "      \"default\": 1,"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"int32\""]
+#[doc = "    },"]
 #[doc = "    \"sync\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/SyncConfig\""]
 #[doc = "    }"]
@@ -25645,9 +26413,14 @@ impl ::std::convert::From<&StateItem> for StateItem {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct StateSyncConfig {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub concurrency: ::std::option::Option<SyncConcurrency>,
     #[doc = "`none` value disables state dump to external storage."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub dump: ::std::option::Option<DumpConfig>,
+    #[doc = "Zstd compression level for state parts."]
+    #[serde(default = "defaults::default_u64::<i32, 1>")]
+    pub parts_compression_lvl: i32,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub sync: ::std::option::Option<SyncConfig>,
 }
@@ -25659,7 +26432,9 @@ impl ::std::convert::From<&StateSyncConfig> for StateSyncConfig {
 impl ::std::default::Default for StateSyncConfig {
     fn default() -> Self {
         Self {
+            concurrency: Default::default(),
             dump: Default::default(),
+            parts_compression_lvl: defaults::default_u64::<i32, 1>(),
             sync: Default::default(),
         }
     }
@@ -25907,8 +26682,8 @@ impl ::std::convert::From<&Self> for StorageGetMode {
 impl ::std::fmt::Display for StorageGetMode {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::FlatStorage => write!(f, "FlatStorage"),
-            Self::Trie => write!(f, "Trie"),
+            Self::FlatStorage => f.write_str("FlatStorage"),
+            Self::Trie => f.write_str("Trie"),
         }
     }
 }
@@ -26139,8 +26914,8 @@ impl ::std::convert::From<&Self> for SyncCheckpoint {
 impl ::std::fmt::Display for SyncCheckpoint {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Genesis => write!(f, "genesis"),
-            Self::EarliestAvailable => write!(f, "earliest_available"),
+            Self::Genesis => f.write_str("genesis"),
+            Self::EarliestAvailable => f.write_str("earliest_available"),
         }
     }
 }
@@ -26176,6 +26951,68 @@ impl ::std::convert::TryFrom<::std::string::String> for SyncCheckpoint {
         value.parse()
     }
 }
+#[doc = "`SyncConcurrency`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"apply\","]
+#[doc = "    \"apply_during_catchup\","]
+#[doc = "    \"peer_downloads\","]
+#[doc = "    \"per_shard\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"apply\": {"]
+#[doc = "      \"description\": \"Maximum number of \\\"apply parts\\\" tasks that can be performed in parallel.\\nThis is a very disk-heavy task and therefore we set this to a low limit,\\nor else the rocksdb contention makes the whole server freeze up.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"apply_during_catchup\": {"]
+#[doc = "      \"description\": \"Maximum number of \\\"apply parts\\\" tasks that can be performed in parallel\\nduring catchup. We set this to a very low value to avoid overloading the\\nnode while it is still performing normal tasks.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"peer_downloads\": {"]
+#[doc = "      \"description\": \"Maximum number of outstanding requests for decentralized state sync.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"per_shard\": {"]
+#[doc = "      \"description\": \"The maximum parallelism to use per shard. This is mostly for fairness, because\\nthe actual rate limiting is done by the TaskTrackers, but this is useful for\\nbalancing the shards a little.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint8\","]
+#[doc = "      \"maximum\": 255.0,"]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct SyncConcurrency {
+    #[doc = "Maximum number of \"apply parts\" tasks that can be performed in parallel.\nThis is a very disk-heavy task and therefore we set this to a low limit,\nor else the rocksdb contention makes the whole server freeze up."]
+    pub apply: u8,
+    #[doc = "Maximum number of \"apply parts\" tasks that can be performed in parallel\nduring catchup. We set this to a very low value to avoid overloading the\nnode while it is still performing normal tasks."]
+    pub apply_during_catchup: u8,
+    #[doc = "Maximum number of outstanding requests for decentralized state sync."]
+    pub peer_downloads: u8,
+    #[doc = "The maximum parallelism to use per shard. This is mostly for fairness, because\nthe actual rate limiting is done by the TaskTrackers, but this is useful for\nbalancing the shards a little."]
+    pub per_shard: u8,
+}
+impl ::std::convert::From<&SyncConcurrency> for SyncConcurrency {
+    fn from(value: &SyncConcurrency) -> Self {
+        value.clone()
+    }
+}
 #[doc = "Configures how to fetch state parts during state sync."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -26192,7 +27029,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SyncCheckpoint {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Expects parts to be available in external storage.\","]
+#[doc = "      \"description\": \"Expects parts to be available in external storage.\\n\\nUsually as a fallback after some number of attempts to use peers.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"ExternalStorage\""]
@@ -26212,7 +27049,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SyncCheckpoint {
 pub enum SyncConfig {
     #[doc = "Syncs state from the peers without reading anything from external storage."]
     Peers,
-    #[doc = "Expects parts to be available in external storage."]
+    #[doc = "Expects parts to be available in external storage.\n\nUsually as a fallback after some number of attempts to use peers."]
     ExternalStorage(ExternalStorageConfig),
 }
 impl ::std::convert::From<&Self> for SyncConfig {
@@ -26567,12 +27404,12 @@ impl ::std::convert::From<&Self> for TxExecutionStatus {
 impl ::std::fmt::Display for TxExecutionStatus {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::None => write!(f, "NONE"),
-            Self::Included => write!(f, "INCLUDED"),
-            Self::ExecutedOptimistic => write!(f, "EXECUTED_OPTIMISTIC"),
-            Self::IncludedFinal => write!(f, "INCLUDED_FINAL"),
-            Self::Executed => write!(f, "EXECUTED"),
-            Self::Final => write!(f, "FINAL"),
+            Self::None => f.write_str("NONE"),
+            Self::Included => f.write_str("INCLUDED"),
+            Self::ExecutedOptimistic => f.write_str("EXECUTED_OPTIMISTIC"),
+            Self::IncludedFinal => f.write_str("INCLUDED_FINAL"),
+            Self::Executed => f.write_str("EXECUTED"),
+            Self::Final => f.write_str("FINAL"),
         }
     }
 }
@@ -27012,7 +27849,7 @@ impl ::std::convert::From<&Self> for ValidatorStakeViewValidatorStakeStructVersi
 impl ::std::fmt::Display for ValidatorStakeViewValidatorStakeStructVersion {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::V1 => write!(f, "V1"),
+            Self::V1 => f.write_str("V1"),
         }
     }
 }
@@ -27132,7 +27969,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyByBlockIdRequestType {
 impl ::std::fmt::Display for ViewAccessKeyByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
+            Self::ViewAccessKey => f.write_str("view_access_key"),
         }
     }
 }
@@ -27204,7 +28041,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyByFinalityRequestType {
 impl ::std::fmt::Display for ViewAccessKeyByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
+            Self::ViewAccessKey => f.write_str("view_access_key"),
         }
     }
 }
@@ -27276,7 +28113,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewAccessKeyBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKey => write!(f, "view_access_key"),
+            Self::ViewAccessKey => f.write_str("view_access_key"),
         }
     }
 }
@@ -27348,7 +28185,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyListByBlockIdRequestType {
 impl ::std::fmt::Display for ViewAccessKeyListByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+            Self::ViewAccessKeyList => f.write_str("view_access_key_list"),
         }
     }
 }
@@ -27420,7 +28257,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyListByFinalityRequestType {
 impl ::std::fmt::Display for ViewAccessKeyListByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+            Self::ViewAccessKeyList => f.write_str("view_access_key_list"),
         }
     }
 }
@@ -27492,7 +28329,7 @@ impl ::std::convert::From<&Self> for ViewAccessKeyListBySyncCheckpointRequestTyp
 impl ::std::fmt::Display for ViewAccessKeyListBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccessKeyList => write!(f, "view_access_key_list"),
+            Self::ViewAccessKeyList => f.write_str("view_access_key_list"),
         }
     }
 }
@@ -27568,7 +28405,7 @@ impl ::std::convert::From<&Self> for ViewAccountByBlockIdRequestType {
 impl ::std::fmt::Display for ViewAccountByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccount => write!(f, "view_account"),
+            Self::ViewAccount => f.write_str("view_account"),
         }
     }
 }
@@ -27640,7 +28477,7 @@ impl ::std::convert::From<&Self> for ViewAccountByFinalityRequestType {
 impl ::std::fmt::Display for ViewAccountByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccount => write!(f, "view_account"),
+            Self::ViewAccount => f.write_str("view_account"),
         }
     }
 }
@@ -27712,7 +28549,7 @@ impl ::std::convert::From<&Self> for ViewAccountBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewAccountBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewAccount => write!(f, "view_account"),
+            Self::ViewAccount => f.write_str("view_account"),
         }
     }
 }
@@ -27784,7 +28621,7 @@ impl ::std::convert::From<&Self> for ViewCodeByBlockIdRequestType {
 impl ::std::fmt::Display for ViewCodeByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewCode => write!(f, "view_code"),
+            Self::ViewCode => f.write_str("view_code"),
         }
     }
 }
@@ -27856,7 +28693,7 @@ impl ::std::convert::From<&Self> for ViewCodeByFinalityRequestType {
 impl ::std::fmt::Display for ViewCodeByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewCode => write!(f, "view_code"),
+            Self::ViewCode => f.write_str("view_code"),
         }
     }
 }
@@ -27928,7 +28765,7 @@ impl ::std::convert::From<&Self> for ViewCodeBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewCodeBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewCode => write!(f, "view_code"),
+            Self::ViewCode => f.write_str("view_code"),
         }
     }
 }
@@ -28001,7 +28838,7 @@ impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdByBlockIdRequestTy
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
+                f.write_str("view_global_contract_code_by_account_id")
             }
         }
     }
@@ -28081,7 +28918,7 @@ impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdByFinalityRequestT
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
+                f.write_str("view_global_contract_code_by_account_id")
             }
         }
     }
@@ -28161,7 +28998,7 @@ impl ::std::fmt::Display for ViewGlobalContractCodeByAccountIdBySyncCheckpointRe
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::ViewGlobalContractCodeByAccountId => {
-                write!(f, "view_global_contract_code_by_account_id")
+                f.write_str("view_global_contract_code_by_account_id")
             }
         }
     }
@@ -28242,7 +29079,7 @@ impl ::std::convert::From<&Self> for ViewGlobalContractCodeByBlockIdRequestType 
 impl ::std::fmt::Display for ViewGlobalContractCodeByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+            Self::ViewGlobalContractCode => f.write_str("view_global_contract_code"),
         }
     }
 }
@@ -28316,7 +29153,7 @@ impl ::std::convert::From<&Self> for ViewGlobalContractCodeByFinalityRequestType
 impl ::std::fmt::Display for ViewGlobalContractCodeByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+            Self::ViewGlobalContractCode => f.write_str("view_global_contract_code"),
         }
     }
 }
@@ -28392,7 +29229,7 @@ impl ::std::convert::From<&Self> for ViewGlobalContractCodeBySyncCheckpointReque
 impl ::std::fmt::Display for ViewGlobalContractCodeBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewGlobalContractCode => write!(f, "view_global_contract_code"),
+            Self::ViewGlobalContractCode => f.write_str("view_global_contract_code"),
         }
     }
 }
@@ -28468,7 +29305,7 @@ impl ::std::convert::From<&Self> for ViewStateByBlockIdRequestType {
 impl ::std::fmt::Display for ViewStateByBlockIdRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewState => write!(f, "view_state"),
+            Self::ViewState => f.write_str("view_state"),
         }
     }
 }
@@ -28540,7 +29377,7 @@ impl ::std::convert::From<&Self> for ViewStateByFinalityRequestType {
 impl ::std::fmt::Display for ViewStateByFinalityRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewState => write!(f, "view_state"),
+            Self::ViewState => f.write_str("view_state"),
         }
     }
 }
@@ -28612,7 +29449,7 @@ impl ::std::convert::From<&Self> for ViewStateBySyncCheckpointRequestType {
 impl ::std::fmt::Display for ViewStateBySyncCheckpointRequestType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::ViewState => write!(f, "view_state"),
+            Self::ViewState => f.write_str("view_state"),
         }
     }
 }
@@ -28897,11 +29734,11 @@ impl ::std::convert::From<&Self> for VmKind {
 impl ::std::fmt::Display for VmKind {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Wasmer0 => write!(f, "Wasmer0"),
-            Self::Wasmtime => write!(f, "Wasmtime"),
-            Self::Wasmer2 => write!(f, "Wasmer2"),
-            Self::NearVm => write!(f, "NearVm"),
-            Self::NearVm2 => write!(f, "NearVm2"),
+            Self::Wasmer0 => f.write_str("Wasmer0"),
+            Self::Wasmtime => f.write_str("Wasmtime"),
+            Self::Wasmer2 => f.write_str("Wasmer2"),
+            Self::NearVm => f.write_str("NearVm"),
+            Self::NearVm2 => f.write_str("NearVm2"),
         }
     }
 }
@@ -29056,15 +29893,15 @@ impl ::std::convert::From<&Self> for WasmTrap {
 impl ::std::fmt::Display for WasmTrap {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::Unreachable => write!(f, "Unreachable"),
-            Self::IncorrectCallIndirectSignature => write!(f, "IncorrectCallIndirectSignature"),
-            Self::MemoryOutOfBounds => write!(f, "MemoryOutOfBounds"),
-            Self::CallIndirectOob => write!(f, "CallIndirectOOB"),
-            Self::IllegalArithmetic => write!(f, "IllegalArithmetic"),
-            Self::MisalignedAtomicAccess => write!(f, "MisalignedAtomicAccess"),
-            Self::IndirectCallToNull => write!(f, "IndirectCallToNull"),
-            Self::StackOverflow => write!(f, "StackOverflow"),
-            Self::GenericTrap => write!(f, "GenericTrap"),
+            Self::Unreachable => f.write_str("Unreachable"),
+            Self::IncorrectCallIndirectSignature => f.write_str("IncorrectCallIndirectSignature"),
+            Self::MemoryOutOfBounds => f.write_str("MemoryOutOfBounds"),
+            Self::CallIndirectOob => f.write_str("CallIndirectOOB"),
+            Self::IllegalArithmetic => f.write_str("IllegalArithmetic"),
+            Self::MisalignedAtomicAccess => f.write_str("MisalignedAtomicAccess"),
+            Self::IndirectCallToNull => f.write_str("IndirectCallToNull"),
+            Self::StackOverflow => f.write_str("StackOverflow"),
+            Self::GenericTrap => f.write_str("GenericTrap"),
         }
     }
 }
@@ -29166,6 +30003,13 @@ pub mod defaults {
     {
         T::try_from(V).unwrap()
     }
+    pub(super) fn cloud_archival_writer_config_polling_interval(
+    ) -> super::DurationAsStdSchemaProvider {
+        super::DurationAsStdSchemaProvider {
+            nanos: 0_i32,
+            secs: 1_i64,
+        }
+    }
     pub(super) fn execution_outcome_view_metadata() -> super::ExecutionMetadataView {
         super::ExecutionMetadataView {
             gas_profile: Default::default(),
@@ -29198,8 +30042,8 @@ pub mod defaults {
                 .into_iter()
                 .collect(),
             shard_ids: vec![super::ShardId(0_u64)],
-            shards_parent_map: ::std::option::Option::None,
-            shards_split_map: ::std::option::Option::None,
+            shards_parent_map: Default::default(),
+            shards_split_map: Default::default(),
             version: 0_u32,
         })
     }
