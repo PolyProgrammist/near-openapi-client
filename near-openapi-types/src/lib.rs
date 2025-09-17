@@ -3,6 +3,7 @@
 //! Used in [near-openapi-client](https://docs.rs/near-openapi-client/latest/near_openapi_client/)
 pub use near_account_id::AccountId;
 pub use near_gas::NearGas;
+pub use near_token::NearToken;
 #[allow(unused_imports)]
 use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
 #[allow(unused_imports)]
@@ -272,9 +273,13 @@ impl ::std::convert::From<FunctionCallPermission> for AccessKeyPermission {
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
 #[doc = "            \"allowance\": {"]
-#[doc = "              \"type\": ["]
-#[doc = "                \"string\","]
-#[doc = "                \"null\""]
+#[doc = "              \"anyOf\": ["]
+#[doc = "                {"]
+#[doc = "                  \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "                },"]
+#[doc = "                {"]
+#[doc = "                  \"type\": \"null\""]
+#[doc = "                }"]
 #[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"method_names\": {"]
@@ -300,7 +305,7 @@ pub enum AccessKeyPermissionView {
     FullAccess,
     FunctionCall {
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-        allowance: ::std::option::Option<::std::string::String>,
+        allowance: ::std::option::Option<NearToken>,
         method_names: ::std::vec::Vec<::std::string::String>,
         receiver_id: ::std::string::String,
     },
@@ -751,7 +756,7 @@ impl ::std::fmt::Display for AccountIdValidityRulesVersion {
 #[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "    },"]
 #[doc = "    \"amount\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"public_key\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
@@ -763,7 +768,7 @@ impl ::std::fmt::Display for AccountIdValidityRulesVersion {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct AccountInfo {
     pub account_id: AccountId,
-    pub amount: ::std::string::String,
+    pub amount: NearToken,
     pub public_key: PublicKey,
 }
 impl ::std::convert::From<&AccountInfo> for AccountInfo {
@@ -787,7 +792,7 @@ impl ::std::convert::From<&AccountInfo> for AccountInfo {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"amount\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"code_hash\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -813,7 +818,7 @@ impl ::std::convert::From<&AccountInfo> for AccountInfo {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"locked\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"storage_paid_at\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
@@ -833,13 +838,13 @@ impl ::std::convert::From<&AccountInfo> for AccountInfo {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct AccountView {
-    pub amount: ::std::string::String,
+    pub amount: NearToken,
     pub code_hash: CryptoHash,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub global_contract_account_id: ::std::option::Option<AccountId>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub global_contract_hash: ::std::option::Option<CryptoHash>,
-    pub locked: ::std::string::String,
+    pub locked: NearToken,
     #[doc = "TODO(2271): deprecated."]
     #[serde(default)]
     pub storage_paid_at: u64,
@@ -1296,7 +1301,11 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "            },"]
 #[doc = "            \"amount\": {"]
 #[doc = "              \"description\": \"Balance required to complete an action.\","]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"allOf\": ["]
+#[doc = "                {"]
+#[doc = "                  \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "                }"]
+#[doc = "              ]"]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -1344,13 +1353,13 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"balance\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"locked\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"stake\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -1375,10 +1384,10 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"minimum_stake\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"stake\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -1626,21 +1635,21 @@ pub enum ActionErrorKind {
         #[doc = "An account which needs balance"]
         account_id: AccountId,
         #[doc = "Balance required to complete an action."]
-        amount: ::std::string::String,
+        amount: NearToken,
     },
     #[doc = "Account is not yet staked, but tries to unstake"]
     TriesToUnstake { account_id: AccountId },
     #[doc = "The account doesn't have enough balance to increase the stake."]
     TriesToStake {
         account_id: AccountId,
-        balance: ::std::string::String,
-        locked: ::std::string::String,
-        stake: ::std::string::String,
+        balance: NearToken,
+        locked: NearToken,
+        stake: NearToken,
     },
     InsufficientStake {
         account_id: AccountId,
-        minimum_stake: ::std::string::String,
-        stake: ::std::string::String,
+        minimum_stake: NearToken,
+        stake: NearToken,
     },
     #[doc = "An error occurred during a `FunctionCall` Action, parameter is debug message."]
     FunctionCallError(FunctionCallError),
@@ -1745,7 +1754,7 @@ impl ::std::convert::From<InvalidAccessKeyError> for ActionErrorKind {
 #[doc = "              \"$ref\": \"#/components/schemas/FunctionArgs\""]
 #[doc = "            },"]
 #[doc = "            \"deposit\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"gas\": {"]
 #[doc = "              \"$ref\": \"#/components/schemas/NearGas\""]
@@ -1771,7 +1780,7 @@ impl ::std::convert::From<InvalidAccessKeyError> for ActionErrorKind {
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
 #[doc = "            \"deposit\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -1795,7 +1804,7 @@ impl ::std::convert::From<InvalidAccessKeyError> for ActionErrorKind {
 #[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
 #[doc = "            },"]
 #[doc = "            \"stake\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -1984,16 +1993,16 @@ pub enum ActionView {
     },
     FunctionCall {
         args: FunctionArgs,
-        deposit: ::std::string::String,
+        deposit: NearToken,
         gas: NearGas,
         method_name: ::std::string::String,
     },
     Transfer {
-        deposit: ::std::string::String,
+        deposit: NearToken,
     },
     Stake {
         public_key: PublicKey,
-        stake: ::std::string::String,
+        stake: NearToken,
     },
     AddKey {
         access_key: AccessKeyView,
@@ -3247,7 +3256,7 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"gas_price\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"hash\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -3301,7 +3310,11 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "    },"]
 #[doc = "    \"rent_paid\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"signature\": {"]
 #[doc = "      \"description\": \"Signature of the block producer.\","]
@@ -3321,7 +3334,7 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"total_supply\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"validator_proposals\": {"]
 #[doc = "      \"type\": \"array\","]
@@ -3331,7 +3344,11 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "    },"]
 #[doc = "    \"validator_reward\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -3357,7 +3374,7 @@ pub struct BlockHeaderView {
     pub epoch_id: CryptoHash,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub epoch_sync_data_hash: ::std::option::Option<CryptoHash>,
-    pub gas_price: ::std::string::String,
+    pub gas_price: NearToken,
     pub hash: CryptoHash,
     pub height: u64,
     pub last_ds_final_block: CryptoHash,
@@ -3373,16 +3390,16 @@ pub struct BlockHeaderView {
     pub prev_state_root: CryptoHash,
     pub random_value: CryptoHash,
     #[doc = "TODO(2271): deprecated."]
-    pub rent_paid: ::std::string::String,
+    pub rent_paid: NearToken,
     #[doc = "Signature of the block producer."]
     pub signature: Signature,
     #[doc = "Legacy json number. Should not be used."]
     pub timestamp: u64,
     pub timestamp_nanosec: ::std::string::String,
-    pub total_supply: ::std::string::String,
+    pub total_supply: NearToken,
     pub validator_proposals: ::std::vec::Vec<ValidatorStakeView>,
     #[doc = "TODO(2271): deprecated."]
-    pub validator_reward: ::std::string::String,
+    pub validator_reward: NearToken,
 }
 impl ::std::convert::From<&BlockHeaderView> for BlockHeaderView {
     fn from(value: &BlockHeaderView) -> Self {
@@ -3904,7 +3921,7 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"balance_burnt\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"bandwidth_requests\": {"]
 #[doc = "      \"anyOf\": ["]
@@ -3967,7 +3984,11 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "    },"]
 #[doc = "    \"rent_paid\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"shard_id\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/ShardId\""]
@@ -3986,7 +4007,11 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "    },"]
 #[doc = "    \"validator_reward\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -3994,7 +4019,7 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ChunkHeaderView {
-    pub balance_burnt: ::std::string::String,
+    pub balance_burnt: NearToken,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub bandwidth_requests: ::std::option::Option<BandwidthRequests>,
     pub chunk_hash: CryptoHash,
@@ -4011,13 +4036,13 @@ pub struct ChunkHeaderView {
     pub prev_block_hash: CryptoHash,
     pub prev_state_root: CryptoHash,
     #[doc = "TODO(2271): deprecated."]
-    pub rent_paid: ::std::string::String,
+    pub rent_paid: NearToken,
     pub shard_id: ShardId,
     pub signature: Signature,
     pub tx_root: CryptoHash,
     pub validator_proposals: ::std::vec::Vec<ValidatorStakeView>,
     #[doc = "TODO(2271): deprecated."]
-    pub validator_reward: ::std::string::String,
+    pub validator_reward: NearToken,
 }
 impl ::std::convert::From<&ChunkHeaderView> for ChunkHeaderView {
     fn from(value: &ChunkHeaderView) -> Self {
@@ -4937,7 +4962,7 @@ impl ::std::fmt::Display for CryptoHash {
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"stake\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -4973,7 +4998,7 @@ pub struct CurrentEpochValidatorInfo {
     #[doc = "Shards this validator is assigned to as chunk validator in the current epoch."]
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub shards_endorsed: ::std::vec::Vec<ShardId>,
-    pub stake: ::std::string::String,
+    pub stake: NearToken,
 }
 impl ::std::convert::From<&CurrentEpochValidatorInfo> for CurrentEpochValidatorInfo {
     fn from(value: &CurrentEpochValidatorInfo) -> Self {
@@ -5952,7 +5977,11 @@ impl ::std::convert::From<&ExecutionMetadataView> for ExecutionMetadataView {
 #[doc = "    },"]
 #[doc = "    \"tokens_burnt\": {"]
 #[doc = "      \"description\": \"The amount of tokens burnt corresponding to the burnt gas amount.\\nThis value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\\nthe prepaid gas price might be lower than the actual gas price and it creates a deficit.\\n`tokens_burnt` also contains the penalty subtracted from refunds, while\\n`gas_burnt` only contains the gas that we actually burn for the execution.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -5974,7 +6003,7 @@ pub struct ExecutionOutcomeView {
     #[doc = "Execution status. Contains the result in case of successful execution."]
     pub status: ExecutionStatusView,
     #[doc = "The amount of tokens burnt corresponding to the burnt gas amount.\nThis value doesn't always equal to the `gas_burnt` multiplied by the gas price, because\nthe prepaid gas price might be lower than the actual gas price and it creates a deficit.\n`tokens_burnt` also contains the penalty subtracted from refunds, while\n`gas_burnt` only contains the gas that we actually burn for the execution."]
-    pub tokens_burnt: ::std::string::String,
+    pub tokens_burnt: NearToken,
 }
 impl ::std::convert::From<&ExecutionOutcomeView> for ExecutionOutcomeView {
     fn from(value: &ExecutionOutcomeView) -> Self {
@@ -7562,7 +7591,7 @@ impl ::std::fmt::Display for FunctionArgs {
 #[doc = "      \"type\": \"string\""]
 #[doc = "    },"]
 #[doc = "    \"deposit\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"gas\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/NearGas\""]
@@ -7577,7 +7606,7 @@ impl ::std::fmt::Display for FunctionArgs {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct FunctionCallAction {
     pub args: ::std::string::String,
-    pub deposit: ::std::string::String,
+    pub deposit: NearToken,
     pub gas: NearGas,
     pub method_name: ::std::string::String,
 }
@@ -7749,9 +7778,13 @@ impl ::std::convert::From<HostError> for FunctionCallError {
 #[doc = "  \"properties\": {"]
 #[doc = "    \"allowance\": {"]
 #[doc = "      \"description\": \"Allowance is a balance limit to use by this access key to pay for function call gas and\\ntransaction fees. When this access key is used, both account balance and the allowance is\\ndecreased by the same value.\\n`None` means unlimited allowance.\\nNOTE: To change or increase the allowance, the old access key needs to be deleted and a new\\naccess key should be created.\","]
-#[doc = "      \"type\": ["]
-#[doc = "        \"string\","]
-#[doc = "        \"null\""]
+#[doc = "      \"anyOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"null\""]
+#[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"method_names\": {"]
@@ -7773,7 +7806,7 @@ impl ::std::convert::From<HostError> for FunctionCallError {
 pub struct FunctionCallPermission {
     #[doc = "Allowance is a balance limit to use by this access key to pay for function call gas and\ntransaction fees. When this access key is used, both account balance and the allowance is\ndecreased by the same value.\n`None` means unlimited allowance.\nNOTE: To change or increase the allowance, the old access key needs to be deleted and a new\naccess key should be created."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub allowance: ::std::option::Option<::std::string::String>,
+    pub allowance: ::std::option::Option<NearToken>,
     #[doc = "A list of method names that can be used. The access key only allows transactions with the\nfunction call of one of the given method names.\nEmpty list means any method name can be used."]
     pub method_names: ::std::vec::Vec<::std::string::String>,
     #[doc = "The access key only allows transactions with the given receiver's account id."]
@@ -7798,9 +7831,7 @@ impl ::std::convert::From<&FunctionCallPermission> for FunctionCallPermission {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"balance\": {"]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"uint128\","]
-#[doc = "      \"minimum\": 0.0"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"num_nonces\": {"]
 #[doc = "      \"type\": \"integer\","]
@@ -7816,7 +7847,7 @@ impl ::std::convert::From<&FunctionCallPermission> for FunctionCallPermission {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct GasKeyView {
-    pub balance: u64,
+    pub balance: NearToken,
     pub num_nonces: u32,
     pub permission: AccessKeyPermissionView,
 }
@@ -7988,7 +8019,11 @@ impl ::std::default::Default for GcConfig {
 #[doc = "    },"]
 #[doc = "    \"fishermen_threshold\": {"]
 #[doc = "      \"description\": \"Fishermen stake threshold.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"gas_limit\": {"]
 #[doc = "      \"description\": \"Initial gas limit.\","]
@@ -8020,7 +8055,7 @@ impl ::std::default::Default for GcConfig {
 #[doc = "      \"format\": \"date-time\""]
 #[doc = "    },"]
 #[doc = "    \"max_gas_price\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"max_inflation_rate\": {"]
 #[doc = "      \"description\": \"Maximum inflation on the total supply every epoch.\","]
@@ -8042,7 +8077,11 @@ impl ::std::default::Default for GcConfig {
 #[doc = "    },"]
 #[doc = "    \"min_gas_price\": {"]
 #[doc = "      \"description\": \"Minimum gas price. It is also the initial gas price.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"minimum_stake_divisor\": {"]
 #[doc = "      \"description\": \"The minimum stake required for staking is last seat price divided by this number.\","]
@@ -8216,7 +8255,11 @@ impl ::std::default::Default for GcConfig {
 #[doc = "    },"]
 #[doc = "    \"total_supply\": {"]
 #[doc = "      \"description\": \"Total supply of tokens at genesis.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"transaction_validity_period\": {"]
 #[doc = "      \"description\": \"Number of blocks for which a given transaction is valid\","]
@@ -8261,7 +8304,7 @@ pub struct GenesisConfig {
     #[doc = "Epoch length counted in block heights."]
     pub epoch_length: u64,
     #[doc = "Fishermen stake threshold."]
-    pub fishermen_threshold: ::std::string::String,
+    pub fishermen_threshold: NearToken,
     #[doc = "Initial gas limit."]
     pub gas_limit: NearGas,
     #[doc = "Gas price adjustment rate"]
@@ -8270,14 +8313,14 @@ pub struct GenesisConfig {
     pub genesis_height: u64,
     #[doc = "Official time of blockchain start."]
     pub genesis_time: ::chrono::DateTime<::chrono::offset::Utc>,
-    pub max_gas_price: ::std::string::String,
+    pub max_gas_price: NearToken,
     #[doc = "Maximum inflation on the total supply every epoch."]
     pub max_inflation_rate: [i32; 2usize],
     #[doc = "Max stake percentage of the validators we will kick out."]
     #[serde(default = "defaults::default_u64::<u8, 100>")]
     pub max_kickout_stake_perc: u8,
     #[doc = "Minimum gas price. It is also the initial gas price."]
-    pub min_gas_price: ::std::string::String,
+    pub min_gas_price: NearToken,
     #[doc = "The minimum stake required for staking is last seat price divided by this number."]
     #[serde(default = "defaults::default_u64::<u64, 10>")]
     pub minimum_stake_divisor: u64,
@@ -8326,7 +8369,7 @@ pub struct GenesisConfig {
     #[serde(default = "defaults::default_u64::<u64, 68>")]
     pub target_validator_mandates_per_shard: u64,
     #[doc = "Total supply of tokens at genesis."]
-    pub total_supply: ::std::string::String,
+    pub total_supply: NearToken,
     #[doc = "Number of blocks for which a given transaction is valid"]
     pub transaction_validity_period: u64,
     #[doc = "This is only for test purposes. We hard code some configs for mainnet and testnet\nin AllEpochConfig, and we want to have a way to test that code path. This flag is for that.\nIf set to true, the node will use the same config override path as mainnet and testnet."]
@@ -9295,10 +9338,10 @@ impl ::std::convert::From<&Self> for HostError {
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"allowance\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"cost\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"public_key\": {"]
 #[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
@@ -9338,8 +9381,8 @@ pub enum InvalidAccessKeyError {
     #[doc = "Access Key does not have enough allowance to cover transaction cost"]
     NotEnoughAllowance {
         account_id: AccountId,
-        allowance: ::std::string::String,
-        cost: ::std::string::String,
+        allowance: NearToken,
+        cost: NearToken,
         public_key: PublicKey,
     },
     #[doc = "Having a deposit with a function call action is not allowed with a function call access key."]
@@ -9515,10 +9558,10 @@ impl ::std::convert::From<&Self> for InvalidAccessKeyError {
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
 #[doc = "            \"balance\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"cost\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"signer_id\": {"]
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
@@ -9544,7 +9587,11 @@ impl ::std::convert::From<&Self> for InvalidAccessKeyError {
 #[doc = "          \"properties\": {"]
 #[doc = "            \"amount\": {"]
 #[doc = "              \"description\": \"Required balance to cover the state.\","]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"allOf\": ["]
+#[doc = "                {"]
+#[doc = "                  \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "                }"]
+#[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"signer_id\": {"]
 #[doc = "              \"description\": \"An account which doesn't have enough balance to cover storage.\","]
@@ -9736,14 +9783,14 @@ pub enum InvalidTxError {
     InvalidSignature,
     #[doc = "Account does not have enough balance to cover TX cost"]
     NotEnoughBalance {
-        balance: ::std::string::String,
-        cost: ::std::string::String,
+        balance: NearToken,
+        cost: NearToken,
         signer_id: AccountId,
     },
     #[doc = "Signer account doesn't have enough balance after transaction."]
     LackBalanceForState {
         #[doc = "Required balance to cover the state."]
-        amount: ::std::string::String,
+        amount: NearToken,
         #[doc = "An account which doesn't have enough balance to cover storage."]
         signer_id: AccountId,
     },
@@ -15956,7 +16003,7 @@ impl ::std::convert::From<&NetworkInfoView> for NetworkInfoView {
 #[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"stake\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -15967,7 +16014,7 @@ pub struct NextEpochValidatorInfo {
     pub account_id: AccountId,
     pub public_key: PublicKey,
     pub shards: ::std::vec::Vec<ShardId>,
-    pub stake: ::std::string::String,
+    pub stake: NearToken,
 }
 impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
     fn from(value: &NextEpochValidatorInfo) -> Self {
@@ -16765,7 +16812,7 @@ impl ::std::convert::From<&RangeOfUint64> for RangeOfUint64 {
 #[doc = "              }"]
 #[doc = "            },"]
 #[doc = "            \"gas_price\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"input_data_ids\": {"]
 #[doc = "              \"type\": \"array\","]
@@ -16867,7 +16914,7 @@ impl ::std::convert::From<&RangeOfUint64> for RangeOfUint64 {
 pub enum ReceiptEnumView {
     Action {
         actions: ::std::vec::Vec<ActionView>,
-        gas_price: ::std::string::String,
+        gas_price: NearToken,
         input_data_ids: ::std::vec::Vec<CryptoHash>,
         #[serde(default)]
         is_promise_yield: bool,
@@ -18624,7 +18671,7 @@ impl ::std::default::Default for RpcGasPriceRequest {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"gas_price\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -18632,7 +18679,7 @@ impl ::std::default::Default for RpcGasPriceRequest {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct RpcGasPriceResponse {
-    pub gas_price: ::std::string::String,
+    pub gas_price: NearToken,
 }
 impl ::std::convert::From<&RpcGasPriceResponse> for RpcGasPriceResponse {
     fn from(value: &RpcGasPriceResponse) -> Self {
@@ -19561,7 +19608,11 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "    },"]
 #[doc = "    \"fishermen_threshold\": {"]
 #[doc = "      \"description\": \"Fishermen stake threshold.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"gas_limit\": {"]
 #[doc = "      \"description\": \"Initial gas limit.\","]
@@ -19594,7 +19645,11 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "    },"]
 #[doc = "    \"max_gas_price\": {"]
 #[doc = "      \"description\": \"Maximum gas price.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"max_inflation_rate\": {"]
 #[doc = "      \"description\": \"Maximum inflation on the total supply every epoch.\","]
@@ -19615,7 +19670,11 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = "    },"]
 #[doc = "    \"min_gas_price\": {"]
 #[doc = "      \"description\": \"Minimum gas price. It is also the initial gas price.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"minimum_stake_divisor\": {"]
 #[doc = "      \"description\": \"The minimum stake required for staking is last seat price divided by this number.\","]
@@ -19767,7 +19826,7 @@ pub struct RpcProtocolConfigResponse {
     #[doc = "Epoch length counted in block heights."]
     pub epoch_length: u64,
     #[doc = "Fishermen stake threshold."]
-    pub fishermen_threshold: ::std::string::String,
+    pub fishermen_threshold: NearToken,
     #[doc = "Initial gas limit."]
     pub gas_limit: NearGas,
     #[doc = "Gas price adjustment rate"]
@@ -19777,13 +19836,13 @@ pub struct RpcProtocolConfigResponse {
     #[doc = "Official time of blockchain start."]
     pub genesis_time: ::chrono::DateTime<::chrono::offset::Utc>,
     #[doc = "Maximum gas price."]
-    pub max_gas_price: ::std::string::String,
+    pub max_gas_price: NearToken,
     #[doc = "Maximum inflation on the total supply every epoch."]
     pub max_inflation_rate: [i32; 2usize],
     #[doc = "Max stake percentage of the validators we will kick out."]
     pub max_kickout_stake_perc: u8,
     #[doc = "Minimum gas price. It is also the initial gas price."]
-    pub min_gas_price: ::std::string::String,
+    pub min_gas_price: NearToken,
     #[doc = "The minimum stake required for staking is last seat price divided by this number."]
     pub minimum_stake_divisor: u64,
     #[doc = "The lowest ratio s/s_total any block producer can have.\nSee <https://github.com/near/NEPs/pull/167> for details"]
@@ -20905,7 +20964,7 @@ impl ::std::convert::From<&Self> for RpcQueryRequest {
 #[serde(untagged)]
 pub enum RpcQueryResponse {
     Variant0 {
-        amount: ::std::string::String,
+        amount: NearToken,
         block_hash: CryptoHash,
         block_height: u64,
         code_hash: CryptoHash,
@@ -20913,7 +20972,7 @@ pub enum RpcQueryResponse {
         global_contract_account_id: ::std::option::Option<AccountId>,
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
         global_contract_hash: ::std::option::Option<CryptoHash>,
-        locked: ::std::string::String,
+        locked: NearToken,
         #[doc = "TODO(2271): deprecated."]
         #[serde(default)]
         storage_paid_at: u64,
@@ -22905,7 +22964,11 @@ impl ::std::default::Default for RpcValidatorsOrderedRequest {
 #[doc = "    },"]
 #[doc = "    \"storage_amount_per_byte\": {"]
 #[doc = "      \"description\": \"Amount of yN per byte required to have on the account.  See\\n<https://nomicon.io/Economics/Economic#state-stake> for details.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"transaction_costs\": {"]
 #[doc = "      \"description\": \"Costs of different actions that need to be performed when sending and\\nprocessing transaction and receipts.\","]
@@ -22942,7 +23005,7 @@ pub struct RuntimeConfigView {
     #[doc = "The configuration for congestion control."]
     pub congestion_control_config: CongestionControlConfigView,
     #[doc = "Amount of yN per byte required to have on the account.  See\n<https://nomicon.io/Economics/Economic#state-stake> for details."]
-    pub storage_amount_per_byte: ::std::string::String,
+    pub storage_amount_per_byte: NearToken,
     #[doc = "Costs of different actions that need to be performed when sending and\nprocessing transaction and receipts."]
     pub transaction_costs: RuntimeFeesConfigView,
     #[doc = "Config of wasm operations."]
@@ -24142,7 +24205,11 @@ impl ::std::convert::From<&SlashedValidator> for SlashedValidator {
 #[doc = "    },"]
 #[doc = "    \"stake\": {"]
 #[doc = "      \"description\": \"Amount of tokens to stake.\","]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -24153,7 +24220,7 @@ pub struct StakeAction {
     #[doc = "Validator key which will be used to sign transactions on behalf of signer_id"]
     pub public_key: PublicKey,
     #[doc = "Amount of tokens to stake."]
-    pub stake: ::std::string::String,
+    pub stake: NearToken,
 }
 impl ::std::convert::From<&StakeAction> for StakeAction {
     fn from(value: &StakeAction) -> Self {
@@ -24508,7 +24575,7 @@ impl ::std::convert::From<&Self> for StateChangeKindView {
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"amount\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"code_hash\": {"]
 #[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
@@ -24534,7 +24601,7 @@ impl ::std::convert::From<&Self> for StateChangeKindView {
 #[doc = "              ]"]
 #[doc = "            },"]
 #[doc = "            \"locked\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"storage_paid_at\": {"]
 #[doc = "              \"description\": \"TODO(2271): deprecated.\","]
@@ -24982,7 +25049,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseView {
 #[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "    },"]
 #[doc = "    \"amount\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"code_base64\": false,"]
 #[doc = "    \"code_hash\": {"]
@@ -25012,7 +25079,7 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseView {
 #[doc = "    \"index\": false,"]
 #[doc = "    \"key_base64\": false,"]
 #[doc = "    \"locked\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    },"]
 #[doc = "    \"nonce\": false,"]
 #[doc = "    \"public_key\": false,"]
@@ -25036,13 +25103,13 @@ impl ::std::convert::From<&Self> for StateChangeWithCauseView {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct StateChangeWithCauseViewVariant0Change {
     pub account_id: AccountId,
-    pub amount: ::std::string::String,
+    pub amount: NearToken,
     pub code_hash: CryptoHash,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub global_contract_account_id: ::std::option::Option<AccountId>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub global_contract_hash: ::std::option::Option<CryptoHash>,
-    pub locked: ::std::string::String,
+    pub locked: NearToken,
     #[doc = "TODO(2271): deprecated."]
     #[serde(default)]
     pub storage_paid_at: u64,
@@ -27236,7 +27303,7 @@ impl ::std::convert::From<::std::vec::Vec<AccountId>> for TrackedShardsConfig {
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"deposit\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -27244,7 +27311,7 @@ impl ::std::convert::From<::std::vec::Vec<AccountId>> for TrackedShardsConfig {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct TransferAction {
-    pub deposit: ::std::string::String,
+    pub deposit: NearToken,
 }
 impl ::std::convert::From<&TransferAction> for TransferAction {
     fn from(value: &TransferAction) -> Self {
@@ -27599,10 +27666,10 @@ impl ::std::convert::From<&ValidatorInfo> for ValidatorInfo {
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
 #[doc = "            \"stake_u128\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            },"]
 #[doc = "            \"threshold_u128\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        }"]
@@ -27691,8 +27758,8 @@ pub enum ValidatorKickoutReason {
     Unstaked,
     #[doc = "Validator stake is now below threshold"]
     NotEnoughStake {
-        stake_u128: ::std::string::String,
-        threshold_u128: ::std::string::String,
+        stake_u128: NearToken,
+        threshold_u128: NearToken,
     },
     #[doc = "Enough stake but is not chosen because of seat limits."]
     DidNotGetASeat,
@@ -27768,7 +27835,7 @@ impl ::std::convert::From<&ValidatorKickoutView> for ValidatorKickoutView {
 pub struct ValidatorStakeView {
     pub account_id: AccountId,
     pub public_key: PublicKey,
-    pub stake: ::std::string::String,
+    pub stake: NearToken,
     pub validator_stake_struct_version: ValidatorStakeViewValidatorStakeStructVersion,
 }
 impl ::std::convert::From<&ValidatorStakeView> for ValidatorStakeView {
@@ -27796,7 +27863,7 @@ impl ::std::convert::From<&ValidatorStakeView> for ValidatorStakeView {
 #[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
 #[doc = "    },"]
 #[doc = "    \"stake\": {"]
-#[doc = "      \"type\": \"string\""]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
 #[doc = "    }"]
 #[doc = "  }"]
 #[doc = "}"]
@@ -27806,7 +27873,7 @@ impl ::std::convert::From<&ValidatorStakeView> for ValidatorStakeView {
 pub struct ValidatorStakeViewV1 {
     pub account_id: AccountId,
     pub public_key: PublicKey,
-    pub stake: ::std::string::String,
+    pub stake: NearToken,
 }
 impl ::std::convert::From<&ValidatorStakeViewV1> for ValidatorStakeViewV1 {
     fn from(value: &ValidatorStakeViewV1) -> Self {
