@@ -1025,7 +1025,7 @@ async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Cli
     let rpc_port: u16 = 3040;
     let net_port: u16 = 3031;
 
-    let version = "master/03ce0e41c4ceb2059012895530dc1d02920f5c23";
+    let version = "master/4f6bdeeef4f763cb183d63c5eb6fd7d5d7ea1a91";
 
     near_sandbox_utils::init_with_version(&home_dir, version)?
         .wait_with_output()
