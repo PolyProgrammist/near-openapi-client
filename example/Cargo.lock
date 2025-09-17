@@ -1401,6 +1401,7 @@ dependencies = [
  "futures-core",
  "near-account-id",
  "near-gas",
+ "near-token",
  "progenitor-client",
  "reqwest",
  "serde",
@@ -1537,6 +1538,15 @@ checksum = "806ae1785ed79e99e9183646e5fe18ecee504385350a45c600ee189d904808a9"
 dependencies = [
  "serde",
  "time",
+]
+
+[[package]]
+name = "near-token"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6107def22c73b98d33a17cb897fcfe8b307201de98e882077bdea0db185a4862"
+dependencies = [
+ "serde",
 ]
 
 [[package]]
