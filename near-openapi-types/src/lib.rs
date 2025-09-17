@@ -881,227 +881,6 @@ impl ::std::convert::From<&AccountWithPublicKey> for AccountWithPublicKey {
         value.clone()
     }
 }
-#[doc = "`Action`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"oneOf\": ["]
-#[doc = "    {"]
-#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<http://nomicon.io/Primitives/Account.html>.\","]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"CreateAccount\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"CreateAccount\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/CreateAccountAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"description\": \"Sets a Wasm code to a receiver_id\","]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"DeployContract\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"DeployContract\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/DeployContractAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"FunctionCall\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"FunctionCall\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/FunctionCallAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"Transfer\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"Transfer\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/TransferAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"Stake\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"Stake\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/StakeAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"AddKey\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"AddKey\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/AddKeyAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"DeleteKey\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"DeleteKey\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/DeleteKeyAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"DeleteAccount\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"DeleteAccount\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/DeleteAccountAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"Delegate\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"Delegate\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/SignedDelegateAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"DeployGlobalContract\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"DeployGlobalContract\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/DeployGlobalContractAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"UseGlobalContract\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"UseGlobalContract\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/UseGlobalContractAction\""]
-#[doc = "        }"]
-#[doc = "      },"]
-#[doc = "      \"additionalProperties\": false"]
-#[doc = "    }"]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub enum Action {
-    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\na new account ID must pass validation rules described here\n<http://nomicon.io/Primitives/Account.html>."]
-    CreateAccount(CreateAccountAction),
-    #[doc = "Sets a Wasm code to a receiver_id"]
-    DeployContract(DeployContractAction),
-    FunctionCall(FunctionCallAction),
-    Transfer(TransferAction),
-    Stake(StakeAction),
-    AddKey(AddKeyAction),
-    DeleteKey(DeleteKeyAction),
-    DeleteAccount(DeleteAccountAction),
-    Delegate(SignedDelegateAction),
-    DeployGlobalContract(DeployGlobalContractAction),
-    UseGlobalContract(UseGlobalContractAction),
-}
-impl ::std::convert::From<&Self> for Action {
-    fn from(value: &Action) -> Self {
-        value.clone()
-    }
-}
-impl ::std::convert::From<CreateAccountAction> for Action {
-    fn from(value: CreateAccountAction) -> Self {
-        Self::CreateAccount(value)
-    }
-}
-impl ::std::convert::From<DeployContractAction> for Action {
-    fn from(value: DeployContractAction) -> Self {
-        Self::DeployContract(value)
-    }
-}
-impl ::std::convert::From<FunctionCallAction> for Action {
-    fn from(value: FunctionCallAction) -> Self {
-        Self::FunctionCall(value)
-    }
-}
-impl ::std::convert::From<TransferAction> for Action {
-    fn from(value: TransferAction) -> Self {
-        Self::Transfer(value)
-    }
-}
-impl ::std::convert::From<StakeAction> for Action {
-    fn from(value: StakeAction) -> Self {
-        Self::Stake(value)
-    }
-}
-impl ::std::convert::From<AddKeyAction> for Action {
-    fn from(value: AddKeyAction) -> Self {
-        Self::AddKey(value)
-    }
-}
-impl ::std::convert::From<DeleteKeyAction> for Action {
-    fn from(value: DeleteKeyAction) -> Self {
-        Self::DeleteKey(value)
-    }
-}
-impl ::std::convert::From<DeleteAccountAction> for Action {
-    fn from(value: DeleteAccountAction) -> Self {
-        Self::DeleteAccount(value)
-    }
-}
-impl ::std::convert::From<SignedDelegateAction> for Action {
-    fn from(value: SignedDelegateAction) -> Self {
-        Self::Delegate(value)
-    }
-}
-impl ::std::convert::From<DeployGlobalContractAction> for Action {
-    fn from(value: DeployGlobalContractAction) -> Self {
-        Self::DeployGlobalContract(value)
-    }
-}
-impl ::std::convert::From<UseGlobalContractAction> for Action {
-    fn from(value: UseGlobalContractAction) -> Self {
-        Self::UseGlobalContract(value)
-    }
-}
 #[doc = "Describes the cost of creating a specific action, `Action`. Includes all variants."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -15608,36 +15387,201 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"description\": \"This is Action which mustn't contain DelegateAction.\\n\\nThis struct is needed to avoid the recursion when Action/DelegateAction is deserialized.\\n\\nImportant: Don't make the inner Action public, this must only be constructed\\nthrough the correct interface that ensures the inner Action is actually not\\na delegate action. That would break an assumption of this type, which we use\\nin several places. For example, borsh de-/serialization relies on it. If the\\ninvariant is broken, we may end up with a `Transaction` or `Receipt` that we\\ncan serialize but deserializing it back causes a parsing error.\","]
-#[doc = "  \"allOf\": ["]
+#[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"$ref\": \"#/components/schemas/Action\""]
+#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<http://nomicon.io/Primitives/Account.html>.\","]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"CreateAccount\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"CreateAccount\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CreateAccountAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"description\": \"Sets a Wasm code to a receiver_id\","]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeployContract\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeployContract\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DeployContractAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"FunctionCall\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"FunctionCall\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/FunctionCallAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"Transfer\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"Transfer\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/TransferAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"Stake\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"Stake\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/StakeAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"AddKey\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"AddKey\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/AddKeyAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeleteKey\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeleteKey\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DeleteKeyAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeleteAccount\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeleteAccount\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DeleteAccountAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeployGlobalContract\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeployGlobalContract\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DeployGlobalContractAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"UseGlobalContract\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"UseGlobalContract\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/UseGlobalContractAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-#[serde(transparent)]
-pub struct NonDelegateAction(pub Action);
-impl ::std::ops::Deref for NonDelegateAction {
-    type Target = Action;
-    fn deref(&self) -> &Action {
-        &self.0
-    }
+pub enum NonDelegateAction {
+    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\na new account ID must pass validation rules described here\n<http://nomicon.io/Primitives/Account.html>."]
+    CreateAccount(CreateAccountAction),
+    #[doc = "Sets a Wasm code to a receiver_id"]
+    DeployContract(DeployContractAction),
+    FunctionCall(FunctionCallAction),
+    Transfer(TransferAction),
+    Stake(StakeAction),
+    AddKey(AddKeyAction),
+    DeleteKey(DeleteKeyAction),
+    DeleteAccount(DeleteAccountAction),
+    DeployGlobalContract(DeployGlobalContractAction),
+    UseGlobalContract(UseGlobalContractAction),
 }
-impl ::std::convert::From<NonDelegateAction> for Action {
-    fn from(value: NonDelegateAction) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&NonDelegateAction> for NonDelegateAction {
+impl ::std::convert::From<&Self> for NonDelegateAction {
     fn from(value: &NonDelegateAction) -> Self {
         value.clone()
     }
 }
-impl ::std::convert::From<Action> for NonDelegateAction {
-    fn from(value: Action) -> Self {
-        Self(value)
+impl ::std::convert::From<CreateAccountAction> for NonDelegateAction {
+    fn from(value: CreateAccountAction) -> Self {
+        Self::CreateAccount(value)
+    }
+}
+impl ::std::convert::From<DeployContractAction> for NonDelegateAction {
+    fn from(value: DeployContractAction) -> Self {
+        Self::DeployContract(value)
+    }
+}
+impl ::std::convert::From<FunctionCallAction> for NonDelegateAction {
+    fn from(value: FunctionCallAction) -> Self {
+        Self::FunctionCall(value)
+    }
+}
+impl ::std::convert::From<TransferAction> for NonDelegateAction {
+    fn from(value: TransferAction) -> Self {
+        Self::Transfer(value)
+    }
+}
+impl ::std::convert::From<StakeAction> for NonDelegateAction {
+    fn from(value: StakeAction) -> Self {
+        Self::Stake(value)
+    }
+}
+impl ::std::convert::From<AddKeyAction> for NonDelegateAction {
+    fn from(value: AddKeyAction) -> Self {
+        Self::AddKey(value)
+    }
+}
+impl ::std::convert::From<DeleteKeyAction> for NonDelegateAction {
+    fn from(value: DeleteKeyAction) -> Self {
+        Self::DeleteKey(value)
+    }
+}
+impl ::std::convert::From<DeleteAccountAction> for NonDelegateAction {
+    fn from(value: DeleteAccountAction) -> Self {
+        Self::DeleteAccount(value)
+    }
+}
+impl ::std::convert::From<DeployGlobalContractAction> for NonDelegateAction {
+    fn from(value: DeployGlobalContractAction) -> Self {
+        Self::DeployGlobalContract(value)
+    }
+}
+impl ::std::convert::From<UseGlobalContractAction> for NonDelegateAction {
+    fn from(value: UseGlobalContractAction) -> Self {
+        Self::UseGlobalContract(value)
     }
 }
 #[doc = "Peer id is the public key."]
