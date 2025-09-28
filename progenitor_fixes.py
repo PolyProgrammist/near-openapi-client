@@ -83,6 +83,7 @@ pub mod types {"""
     client = lib_rs[client_index:]
 
     types = 'pub use near_account_id::AccountId;\npub use near_gas::NearGas;\npub use near_token::NearToken;\n' + types[len(types_start):-2]
+    types = types.replace('super::NearToken("0".to_string())', 'super::NearToken::from_yoctonear(0)')
     account_id_start = types.find('#[doc = "NEAR Account Identifier')
     account_id_validity_start = types.find('#[doc = "`AccountIdValidityRulesVersion`"]')
     types = types[:account_id_start] + types[account_id_validity_start:]

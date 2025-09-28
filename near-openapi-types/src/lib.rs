@@ -1980,6 +1980,37 @@ impl ::std::convert::From<InvalidAccessKeyError> for ActionErrorKind {
 #[doc = "        }"]
 #[doc = "      },"]
 #[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeterministicStateInit\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeterministicStateInit\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"code\","]
+#[doc = "            \"data\","]
+#[doc = "            \"deposit\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"code\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/GlobalContractIdentifierView\""]
+#[doc = "            },"]
+#[doc = "            \"data\": {"]
+#[doc = "              \"type\": \"object\","]
+#[doc = "              \"additionalProperties\": {"]
+#[doc = "                \"type\": \"string\""]
+#[doc = "              }"]
+#[doc = "            },"]
+#[doc = "            \"deposit\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -2029,6 +2060,11 @@ pub enum ActionView {
     },
     UseGlobalContractByAccountId {
         account_id: AccountId,
+    },
+    DeterministicStateInit {
+        code: GlobalContractIdentifierView,
+        data: ::std::collections::HashMap<::std::string::String, ::std::string::String>,
+        deposit: NearToken,
     },
 }
 impl ::std::convert::From<&Self> for ActionView {
@@ -2339,6 +2375,86 @@ impl ::std::convert::From<&Self> for ActionView {
 #[doc = "        }"]
 #[doc = "      },"]
 #[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"InvalidDeterministicStateInitReceiver\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"InvalidDeterministicStateInitReceiver\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"derived_id\","]
+#[doc = "            \"receiver_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"derived_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"receiver_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeterministicStateInitKeyLengthExceeded\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeterministicStateInitKeyLengthExceeded\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"length\","]
+#[doc = "            \"limit\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"length\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"limit\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeterministicStateInitValueLengthExceeded\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeterministicStateInitValueLengthExceeded\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"length\","]
+#[doc = "            \"limit\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"length\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"limit\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -2364,19 +2480,35 @@ pub enum ActionsValidationError {
         total_number_of_bytes: u64,
     },
     #[doc = "The length of some method name exceeded the limit in a Add Key action."]
-    AddKeyMethodNameLengthExceeded { length: u64, limit: u64 },
+    AddKeyMethodNameLengthExceeded {
+        length: u64,
+        limit: u64,
+    },
     #[doc = "Integer overflow during a compute."]
     IntegerOverflow,
     #[doc = "Invalid account ID."]
-    InvalidAccountId { account_id: ::std::string::String },
+    InvalidAccountId {
+        account_id: ::std::string::String,
+    },
     #[doc = "The size of the contract code exceeded the limit in a DeployContract action."]
-    ContractSizeExceeded { limit: u64, size: u64 },
+    ContractSizeExceeded {
+        limit: u64,
+        size: u64,
+    },
     #[doc = "The length of the method name exceeded the limit in a Function Call action."]
-    FunctionCallMethodNameLengthExceeded { length: u64, limit: u64 },
+    FunctionCallMethodNameLengthExceeded {
+        length: u64,
+        limit: u64,
+    },
     #[doc = "The length of the arguments exceeded the limit in a Function Call action."]
-    FunctionCallArgumentsLengthExceeded { length: u64, limit: u64 },
+    FunctionCallArgumentsLengthExceeded {
+        length: u64,
+        limit: u64,
+    },
     #[doc = "An attempt to stake with a public key that is not convertible to ristretto."]
-    UnsuitableStakingKey { public_key: PublicKey },
+    UnsuitableStakingKey {
+        public_key: PublicKey,
+    },
     #[doc = "The attached amount of gas in a FunctionCall action has to be a positive number."]
     FunctionCallZeroAttachedGas,
     #[doc = "There should be the only one DelegateAction"]
@@ -2385,6 +2517,18 @@ pub enum ActionsValidationError {
     UnsupportedProtocolFeature {
         protocol_feature: ::std::string::String,
         version: u32,
+    },
+    InvalidDeterministicStateInitReceiver {
+        derived_id: AccountId,
+        receiver_id: AccountId,
+    },
+    DeterministicStateInitKeyLengthExceeded {
+        length: u64,
+        limit: u64,
+    },
+    DeterministicStateInitValueLengthExceeded {
+        length: u64,
+        limit: u64,
     },
 }
 impl ::std::convert::From<&Self> for ActionsValidationError {
@@ -3155,13 +3299,11 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "    \"prev_hash\","]
 #[doc = "    \"prev_state_root\","]
 #[doc = "    \"random_value\","]
-#[doc = "    \"rent_paid\","]
 #[doc = "    \"signature\","]
 #[doc = "    \"timestamp\","]
 #[doc = "    \"timestamp_nanosec\","]
 #[doc = "    \"total_supply\","]
-#[doc = "    \"validator_proposals\","]
-#[doc = "    \"validator_reward\""]
+#[doc = "    \"validator_proposals\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"approvals\": {"]
@@ -3310,6 +3452,7 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "    },"]
 #[doc = "    \"rent_paid\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
+#[doc = "      \"default\": \"0\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
@@ -3344,6 +3487,7 @@ impl ::std::convert::From<&BlockHeaderInnerLiteView> for BlockHeaderInnerLiteVie
 #[doc = "    },"]
 #[doc = "    \"validator_reward\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
+#[doc = "      \"default\": \"0\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
@@ -3390,6 +3534,7 @@ pub struct BlockHeaderView {
     pub prev_state_root: CryptoHash,
     pub random_value: CryptoHash,
     #[doc = "TODO(2271): deprecated."]
+    #[serde(default = "defaults::block_header_view_rent_paid")]
     pub rent_paid: NearToken,
     #[doc = "Signature of the block producer."]
     pub signature: Signature,
@@ -3399,6 +3544,7 @@ pub struct BlockHeaderView {
     pub total_supply: NearToken,
     pub validator_proposals: ::std::vec::Vec<ValidatorStakeView>,
     #[doc = "TODO(2271): deprecated."]
+    #[serde(default = "defaults::block_header_view_validator_reward")]
     pub validator_reward: NearToken,
 }
 impl ::std::convert::From<&BlockHeaderView> for BlockHeaderView {
@@ -3912,12 +4058,10 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "    \"outgoing_receipts_root\","]
 #[doc = "    \"prev_block_hash\","]
 #[doc = "    \"prev_state_root\","]
-#[doc = "    \"rent_paid\","]
 #[doc = "    \"shard_id\","]
 #[doc = "    \"signature\","]
 #[doc = "    \"tx_root\","]
-#[doc = "    \"validator_proposals\","]
-#[doc = "    \"validator_reward\""]
+#[doc = "    \"validator_proposals\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"balance_burnt\": {"]
@@ -3984,6 +4128,7 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "    },"]
 #[doc = "    \"rent_paid\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
+#[doc = "      \"default\": \"0\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
@@ -4007,6 +4152,7 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
 #[doc = "    },"]
 #[doc = "    \"validator_reward\": {"]
 #[doc = "      \"description\": \"TODO(2271): deprecated.\","]
+#[doc = "      \"default\": \"0\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
@@ -4036,12 +4182,14 @@ pub struct ChunkHeaderView {
     pub prev_block_hash: CryptoHash,
     pub prev_state_root: CryptoHash,
     #[doc = "TODO(2271): deprecated."]
+    #[serde(default = "defaults::chunk_header_view_rent_paid")]
     pub rent_paid: NearToken,
     pub shard_id: ShardId,
     pub signature: Signature,
     pub tx_root: CryptoHash,
     pub validator_proposals: ::std::vec::Vec<ValidatorStakeView>,
     #[doc = "TODO(2271): deprecated."]
+    #[serde(default = "defaults::chunk_header_view_validator_reward")]
     pub validator_reward: NearToken,
 }
 impl ::std::convert::From<&ChunkHeaderView> for ChunkHeaderView {
@@ -5561,6 +5709,110 @@ pub struct DetailedDebugStatus {
 }
 impl ::std::convert::From<&DetailedDebugStatus> for DetailedDebugStatus {
     fn from(value: &DetailedDebugStatus) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`DeterministicAccountStateInit`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"V1\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"V1\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DeterministicAccountStateInitV1\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub enum DeterministicAccountStateInit {
+    V1(DeterministicAccountStateInitV1),
+}
+impl ::std::convert::From<&Self> for DeterministicAccountStateInit {
+    fn from(value: &DeterministicAccountStateInit) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<DeterministicAccountStateInitV1> for DeterministicAccountStateInit {
+    fn from(value: DeterministicAccountStateInitV1) -> Self {
+        Self::V1(value)
+    }
+}
+#[doc = "`DeterministicAccountStateInitV1`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"code\","]
+#[doc = "    \"data\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"code\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/GlobalContractIdentifier\""]
+#[doc = "    },"]
+#[doc = "    \"data\": {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"additionalProperties\": {"]
+#[doc = "        \"type\": \"string\""]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct DeterministicAccountStateInitV1 {
+    pub code: GlobalContractIdentifier,
+    pub data: ::std::collections::HashMap<::std::string::String, ::std::string::String>,
+}
+impl ::std::convert::From<&DeterministicAccountStateInitV1> for DeterministicAccountStateInitV1 {
+    fn from(value: &DeterministicAccountStateInitV1) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`DeterministicStateInitAction`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"deposit\","]
+#[doc = "    \"state_init\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"deposit\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "    },"]
+#[doc = "    \"state_init\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/DeterministicAccountStateInit\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct DeterministicStateInitAction {
+    pub deposit: NearToken,
+    pub state_init: DeterministicAccountStateInit,
+}
+impl ::std::convert::From<&DeterministicStateInitAction> for DeterministicStateInitAction {
+    fn from(value: &DeterministicStateInitAction) -> Self {
         value.clone()
     }
 }
@@ -8559,6 +8811,51 @@ impl ::std::convert::From<CryptoHash> for GlobalContractIdentifier {
 impl ::std::convert::From<AccountId> for GlobalContractIdentifier {
     fn from(value: AccountId) -> Self {
         Self::AccountId(value)
+    }
+}
+#[doc = "`GlobalContractIdentifierView`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"anyOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct GlobalContractIdentifierView {
+    #[serde(
+        flatten,
+        default,
+        skip_serializing_if = "::std::option::Option::is_none"
+    )]
+    pub subtype_0: ::std::option::Option<CryptoHash>,
+    #[serde(
+        flatten,
+        default,
+        skip_serializing_if = "::std::option::Option::is_none"
+    )]
+    pub subtype_1: ::std::option::Option<AccountId>,
+}
+impl ::std::convert::From<&GlobalContractIdentifierView> for GlobalContractIdentifierView {
+    fn from(value: &GlobalContractIdentifierView) -> Self {
+        value.clone()
+    }
+}
+impl ::std::default::Default for GlobalContractIdentifierView {
+    fn default() -> Self {
+        Self {
+            subtype_0: Default::default(),
+            subtype_1: Default::default(),
+        }
     }
 }
 #[doc = "`HostError`"]
@@ -16150,6 +16447,18 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
 #[doc = "        }"]
 #[doc = "      },"]
 #[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeterministicStateInit\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeterministicStateInit\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DeterministicStateInitAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -16169,6 +16478,7 @@ pub enum NonDelegateAction {
     DeleteAccount(DeleteAccountAction),
     DeployGlobalContract(DeployGlobalContractAction),
     UseGlobalContract(UseGlobalContractAction),
+    DeterministicStateInit(DeterministicStateInitAction),
 }
 impl ::std::convert::From<&Self> for NonDelegateAction {
     fn from(value: &NonDelegateAction) -> Self {
@@ -16223,6 +16533,11 @@ impl ::std::convert::From<DeployGlobalContractAction> for NonDelegateAction {
 impl ::std::convert::From<UseGlobalContractAction> for NonDelegateAction {
     fn from(value: UseGlobalContractAction) -> Self {
         Self::UseGlobalContract(value)
+    }
+}
+impl ::std::convert::From<DeterministicStateInitAction> for NonDelegateAction {
+    fn from(value: DeterministicStateInitAction) -> Self {
+        Self::DeterministicStateInit(value)
     }
 }
 #[doc = "Peer id is the public key."]
@@ -17527,6 +17842,7 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"save_latest_witnesses\","]
 #[doc = "    \"save_trie_changes\","]
 #[doc = "    \"save_tx_outcomes\","]
+#[doc = "    \"save_untracked_partial_chunks_parts\","]
 #[doc = "    \"skip_sync_wait\","]
 #[doc = "    \"state_request_server_threads\","]
 #[doc = "    \"state_request_throttle_period\","]
@@ -17873,6 +18189,10 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"description\": \"Whether to persist transaction outcomes to disk or not.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
+#[doc = "    \"save_untracked_partial_chunks_parts\": {"]
+#[doc = "      \"description\": \"Whether to persist partial chunk parts for untracked shards or not.\","]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
 #[doc = "    \"skip_sync_wait\": {"]
 #[doc = "      \"description\": \"Skip waiting for sync (for testing or single node testnet).\","]
 #[doc = "      \"type\": \"boolean\""]
@@ -18142,6 +18462,8 @@ pub struct RpcClientConfigResponse {
     pub save_trie_changes: bool,
     #[doc = "Whether to persist transaction outcomes to disk or not."]
     pub save_tx_outcomes: bool,
+    #[doc = "Whether to persist partial chunk parts for untracked shards or not."]
+    pub save_untracked_partial_chunks_parts: bool,
     #[doc = "Skip waiting for sync (for testing or single node testnet)."]
     pub skip_sync_wait: bool,
     #[doc = "Number of threads for StateRequestActor pool."]
@@ -29598,6 +29920,7 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "{"]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
+#[doc = "    \"deterministic_account_ids\","]
 #[doc = "    \"discard_custom_sections\","]
 #[doc = "    \"eth_implicit_accounts\","]
 #[doc = "    \"ext_costs\","]
@@ -29613,6 +29936,10 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "    \"vm_kind\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
+#[doc = "    \"deterministic_account_ids\": {"]
+#[doc = "      \"description\": \"See [VMConfig::deterministic_account_ids](crate::vm::Config::deterministic_account_ids).\","]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
 #[doc = "    \"discard_custom_sections\": {"]
 #[doc = "      \"description\": \"See [VMConfig::discard_custom_sections](crate::vm::Config::discard_custom_sections).\","]
 #[doc = "      \"type\": \"boolean\""]
@@ -29691,6 +30018,8 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct VmConfigView {
+    #[doc = "See [VMConfig::deterministic_account_ids](crate::vm::Config::deterministic_account_ids)."]
+    pub deterministic_account_ids: bool,
     #[doc = "See [VMConfig::discard_custom_sections](crate::vm::Config::discard_custom_sections)."]
     pub discard_custom_sections: bool,
     #[doc = "See [VMConfig::eth_implicit_accounts](crate::vm::Config::eth_implicit_accounts)."]
@@ -29757,13 +30086,6 @@ impl ::std::convert::From<&VmConfigView> for VmConfigView {
 #[doc = "      \"enum\": ["]
 #[doc = "        \"NearVm\""]
 #[doc = "      ]"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"description\": \"NearVM. Exists temporarily while bulk memory and reftypes are getting enabled.\","]
-#[doc = "      \"type\": \"string\","]
-#[doc = "      \"enum\": ["]
-#[doc = "        \"NearVm2\""]
-#[doc = "      ]"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -29790,8 +30112,6 @@ pub enum VmKind {
     Wasmer2,
     #[doc = "NearVM."]
     NearVm,
-    #[doc = "NearVM. Exists temporarily while bulk memory and reftypes are getting enabled."]
-    NearVm2,
 }
 impl ::std::convert::From<&Self> for VmKind {
     fn from(value: &VmKind) -> Self {
@@ -29805,7 +30125,6 @@ impl ::std::fmt::Display for VmKind {
             Self::Wasmtime => f.write_str("Wasmtime"),
             Self::Wasmer2 => f.write_str("Wasmer2"),
             Self::NearVm => f.write_str("NearVm"),
-            Self::NearVm2 => f.write_str("NearVm2"),
         }
     }
 }
@@ -29817,7 +30136,6 @@ impl ::std::str::FromStr for VmKind {
             "Wasmtime" => Ok(Self::Wasmtime),
             "Wasmer2" => Ok(Self::Wasmer2),
             "NearVm" => Ok(Self::NearVm),
-            "NearVm2" => Ok(Self::NearVm2),
             _ => Err("invalid value".into()),
         }
     }
@@ -30069,6 +30387,18 @@ pub mod defaults {
         <T as ::std::convert::TryFrom<u64>>::Error: ::std::fmt::Debug,
     {
         T::try_from(V).unwrap()
+    }
+    pub(super) fn block_header_view_rent_paid() -> super::NearToken {
+        super::NearToken::from_yoctonear(0)
+    }
+    pub(super) fn block_header_view_validator_reward() -> super::NearToken {
+        super::NearToken::from_yoctonear(0)
+    }
+    pub(super) fn chunk_header_view_rent_paid() -> super::NearToken {
+        super::NearToken::from_yoctonear(0)
+    }
+    pub(super) fn chunk_header_view_validator_reward() -> super::NearToken {
+        super::NearToken::from_yoctonear(0)
     }
     pub(super) fn cloud_archival_writer_config_polling_interval(
     ) -> super::DurationAsStdSchemaProvider {
