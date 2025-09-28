@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.3.0...near-openapi-types-v0.4.0) - 2025-09-28
+
+### Added
+
+- introduce NearToken ([#16](https://github.com/PolyProgrammist/near-openapi-client/pull/16))
+
+### Fixed
+
+- remove Action schema from OpenAPI spec
+- apply NonDelegateAction schema change from nearcore PR #14061
+
+### Other
+
+- Uses NearGas, updates spec
+
 ## [0.3.0](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.2.1...near-openapi-types-v0.3.0) - 2025-07-08
 
 ### Other
