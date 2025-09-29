@@ -19431,16 +19431,7 @@ impl ::std::convert::From<&ReceiptView> for ReceiptView {
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"info\": {"]
-#[doc = "          \"type\": \"object\","]
-#[doc = "          \"required\": ["]
-#[doc = "            \"error_message\""]
-#[doc = "          ],"]
-#[doc = "          \"properties\": {"]
-#[doc = "            \"error_message\": {"]
-#[doc = "              \"writeOnly\": true,"]
-#[doc = "              \"type\": \"string\""]
-#[doc = "            }"]
-#[doc = "          }"]
+#[doc = "          \"type\": \"object\""]
 #[doc = "        },"]
 #[doc = "        \"name\": {"]
 #[doc = "          \"type\": \"string\","]
@@ -19498,9 +19489,7 @@ impl ::std::convert::From<&ReceiptView> for ReceiptView {
 #[serde(tag = "name", content = "info")]
 pub enum RpcBlockError {
     #[serde(rename = "UNKNOWN_BLOCK")]
-    UnknownBlock {
-        error_message: ::std::string::String,
-    },
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
     #[serde(rename = "NOT_SYNCED_YET")]
     NotSyncedYet,
     #[serde(rename = "INTERNAL_ERROR")]
@@ -19511,6 +19500,13 @@ pub enum RpcBlockError {
 impl ::std::convert::From<&Self> for RpcBlockError {
     fn from(value: &RpcBlockError) -> Self {
         value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcBlockError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "`RpcBlockRequest`"]

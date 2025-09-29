@@ -15,6 +15,8 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
     let (sender_account_id, block_final_hash, base64_signed_tx, sent_tx_hash, executed_receipt_id, later_block_hash) =
         prepare_blockchain(&signer, client_local.clone()).await?;
 
+    // Test all the requests
+
     test_block(&client_local, block_final_hash.clone()).await?;
     test_status(&client_local).await?;
 
@@ -67,6 +69,9 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
     test_experimental_split_storage_info(&client_local).await?;
     test_query_account(&client_local, sender_account_id.clone()).await?;
     test_function_call(&client_local, sender_account_id.clone()).await?;
+
+    // Test errors
+    test_block_error(&client_local).await?;
 
     sandbox_node.kill().await?;
 
@@ -845,6 +850,28 @@ async fn test_function_call(
     }
 
     println!("response for function_call: {:#?}", function_call);
+
+    Ok(())
+}
+
+async fn test_block_error(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_block = client::types::JsonRpcRequestForBlock {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForBlockMethod::Block,
+        params: client::types::RpcBlockRequest::BlockId({
+            client::types::BlockId::BlockHeight(500000000)
+        }),
+    };
+
+    let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError =
+        client.block(&payload_block).await?.into_inner();
+    assert!(matches!(
+        block,
+        client::types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError::Variant1 { .. }
+    ));
+
+    println!("error for block: {:#?}", block);
 
     Ok(())
 }
