@@ -19671,16 +19671,7 @@ impl ::std::convert::From<&RpcBlockResponse> for RpcBlockResponse {
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"info\": {"]
-#[doc = "          \"type\": \"object\","]
-#[doc = "          \"required\": ["]
-#[doc = "            \"error_message\""]
-#[doc = "          ],"]
-#[doc = "          \"properties\": {"]
-#[doc = "            \"error_message\": {"]
-#[doc = "              \"writeOnly\": true,"]
-#[doc = "              \"type\": \"string\""]
-#[doc = "            }"]
-#[doc = "          }"]
+#[doc = "          \"type\": \"object\""]
 #[doc = "        },"]
 #[doc = "        \"name\": {"]
 #[doc = "          \"type\": \"string\","]
@@ -19754,9 +19745,7 @@ pub enum RpcChunkError {
         error_message: ::std::string::String,
     },
     #[serde(rename = "UNKNOWN_BLOCK")]
-    UnknownBlock {
-        error_message: ::std::string::String,
-    },
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
     #[serde(rename = "INVALID_SHARD_ID")]
     InvalidShardId { shard_id: ShardId },
     #[serde(rename = "UNKNOWN_CHUNK")]
@@ -19765,6 +19754,13 @@ pub enum RpcChunkError {
 impl ::std::convert::From<&Self> for RpcChunkError {
     fn from(value: &RpcChunkError) -> Self {
         value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcChunkError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "`RpcChunkRequest`"]
@@ -20802,16 +20798,7 @@ impl ::std::convert::From<&RpcCongestionLevelResponse> for RpcCongestionLevelRes
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"info\": {"]
-#[doc = "          \"type\": \"object\","]
-#[doc = "          \"required\": ["]
-#[doc = "            \"error_message\""]
-#[doc = "          ],"]
-#[doc = "          \"properties\": {"]
-#[doc = "            \"error_message\": {"]
-#[doc = "              \"writeOnly\": true,"]
-#[doc = "              \"type\": \"string\""]
-#[doc = "            }"]
-#[doc = "          }"]
+#[doc = "          \"type\": \"object\""]
 #[doc = "        },"]
 #[doc = "        \"name\": {"]
 #[doc = "          \"type\": \"string\","]
@@ -20833,13 +20820,18 @@ pub enum RpcGasPriceError {
         error_message: ::std::string::String,
     },
     #[serde(rename = "UNKNOWN_BLOCK")]
-    UnknownBlock {
-        error_message: ::std::string::String,
-    },
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
 }
 impl ::std::convert::From<&Self> for RpcGasPriceError {
     fn from(value: &RpcGasPriceError) -> Self {
         value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcGasPriceError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "`RpcGasPriceRequest`"]
@@ -21417,16 +21409,7 @@ impl ::std::convert::From<&RpcLightClientExecutionProofResponse>
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"info\": {"]
-#[doc = "          \"type\": \"object\","]
-#[doc = "          \"required\": ["]
-#[doc = "            \"error_message\""]
-#[doc = "          ],"]
-#[doc = "          \"properties\": {"]
-#[doc = "            \"error_message\": {"]
-#[doc = "              \"writeOnly\": true,"]
-#[doc = "              \"type\": \"string\""]
-#[doc = "            }"]
-#[doc = "          }"]
+#[doc = "          \"type\": \"object\""]
 #[doc = "        },"]
 #[doc = "        \"name\": {"]
 #[doc = "          \"type\": \"string\","]
@@ -21474,15 +21457,20 @@ pub enum RpcLightClientNextBlockError {
         error_message: ::std::string::String,
     },
     #[serde(rename = "UNKNOWN_BLOCK")]
-    UnknownBlock {
-        error_message: ::std::string::String,
-    },
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
     #[serde(rename = "EPOCH_OUT_OF_BOUNDS")]
     EpochOutOfBounds { epoch_id: EpochId },
 }
 impl ::std::convert::From<&Self> for RpcLightClientNextBlockError {
     fn from(value: &RpcLightClientNextBlockError) -> Self {
         value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcLightClientNextBlockError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "`RpcLightClientNextBlockRequest`"]
@@ -21613,16 +21601,7 @@ impl ::std::default::Default for RpcLightClientNextBlockResponse {
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"info\": {"]
-#[doc = "          \"type\": \"object\","]
-#[doc = "          \"required\": ["]
-#[doc = "            \"error_message\""]
-#[doc = "          ],"]
-#[doc = "          \"properties\": {"]
-#[doc = "            \"error_message\": {"]
-#[doc = "              \"writeOnly\": true,"]
-#[doc = "              \"type\": \"string\""]
-#[doc = "            }"]
-#[doc = "          }"]
+#[doc = "          \"type\": \"object\""]
 #[doc = "        },"]
 #[doc = "        \"name\": {"]
 #[doc = "          \"type\": \"string\","]
@@ -21780,9 +21759,7 @@ impl ::std::default::Default for RpcLightClientNextBlockResponse {
 #[serde(tag = "name", content = "info")]
 pub enum RpcLightClientProofError {
     #[serde(rename = "UNKNOWN_BLOCK")]
-    UnknownBlock {
-        error_message: ::std::string::String,
-    },
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
     #[serde(rename = "INCONSISTENT_STATE")]
     InconsistentState {
         execution_outcome_shard_id: ShardId,
@@ -21809,6 +21786,13 @@ pub enum RpcLightClientProofError {
 impl ::std::convert::From<&Self> for RpcLightClientProofError {
     fn from(value: &RpcLightClientProofError) -> Self {
         value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcLightClientProofError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "`RpcMaintenanceWindowsError`"]
@@ -22104,16 +22088,7 @@ impl ::std::convert::From<&RpcPeerInfo> for RpcPeerInfo {
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"info\": {"]
-#[doc = "          \"type\": \"object\","]
-#[doc = "          \"required\": ["]
-#[doc = "            \"error_message\""]
-#[doc = "          ],"]
-#[doc = "          \"properties\": {"]
-#[doc = "            \"error_message\": {"]
-#[doc = "              \"writeOnly\": true,"]
-#[doc = "              \"type\": \"string\""]
-#[doc = "            }"]
-#[doc = "          }"]
+#[doc = "          \"type\": \"object\""]
 #[doc = "        },"]
 #[doc = "        \"name\": {"]
 #[doc = "          \"type\": \"string\","]
@@ -22157,9 +22132,7 @@ impl ::std::convert::From<&RpcPeerInfo> for RpcPeerInfo {
 #[serde(tag = "name", content = "info")]
 pub enum RpcProtocolConfigError {
     #[serde(rename = "UNKNOWN_BLOCK")]
-    UnknownBlock {
-        error_message: ::std::string::String,
-    },
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
     #[serde(rename = "INTERNAL_ERROR")]
     InternalError {
         error_message: ::std::string::String,
@@ -22168,6 +22141,13 @@ pub enum RpcProtocolConfigError {
 impl ::std::convert::From<&Self> for RpcProtocolConfigError {
     fn from(value: &RpcProtocolConfigError) -> Self {
         value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcProtocolConfigError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "`RpcProtocolConfigRequest`"]
@@ -24640,16 +24620,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"info\": {"]
-#[doc = "          \"type\": \"object\","]
-#[doc = "          \"required\": ["]
-#[doc = "            \"error_message\""]
-#[doc = "          ],"]
-#[doc = "          \"properties\": {"]
-#[doc = "            \"error_message\": {"]
-#[doc = "              \"writeOnly\": true,"]
-#[doc = "              \"type\": \"string\""]
-#[doc = "            }"]
-#[doc = "          }"]
+#[doc = "          \"type\": \"object\""]
 #[doc = "        },"]
 #[doc = "        \"name\": {"]
 #[doc = "          \"type\": \"string\","]
@@ -24707,9 +24678,7 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[serde(tag = "name", content = "info")]
 pub enum RpcStateChangesError {
     #[serde(rename = "UNKNOWN_BLOCK")]
-    UnknownBlock {
-        error_message: ::std::string::String,
-    },
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
     #[serde(rename = "NOT_SYNCED_YET")]
     NotSyncedYet,
     #[serde(rename = "INTERNAL_ERROR")]
@@ -24720,6 +24689,13 @@ pub enum RpcStateChangesError {
 impl ::std::convert::From<&Self> for RpcStateChangesError {
     fn from(value: &RpcStateChangesError) -> Self {
         value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcStateChangesError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "It is a [serializable view] of [`StateChangesRequest`].\n\n[serializable view]: ./index.html\n[`StateChangesRequest`]: ../types/struct.StateChangesRequest.html"]
@@ -26143,20 +26119,7 @@ impl ::std::convert::From<&RpcStatusResponse> for RpcStatusResponse {
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"info\": {"]
-#[doc = "          \"type\": \"object\","]
-#[doc = "          \"required\": ["]
-#[doc = "            \"context\""]
-#[doc = "          ],"]
-#[doc = "          \"properties\": {"]
-#[doc = "            \"context\": {"]
-#[doc = "              \"writeOnly\": true,"]
-#[doc = "              \"allOf\": ["]
-#[doc = "                {"]
-#[doc = "                  \"$ref\": \"#/components/schemas/InvalidTxError\""]
-#[doc = "                }"]
-#[doc = "              ]"]
-#[doc = "            }"]
-#[doc = "          }"]
+#[doc = "          \"type\": \"object\""]
 #[doc = "        },"]
 #[doc = "        \"name\": {"]
 #[doc = "          \"type\": \"string\","]
@@ -26280,7 +26243,7 @@ impl ::std::convert::From<&RpcStatusResponse> for RpcStatusResponse {
 #[serde(tag = "name", content = "info")]
 pub enum RpcTransactionError {
     #[serde(rename = "INVALID_TRANSACTION")]
-    InvalidTransaction { context: InvalidTxError },
+    InvalidTransaction(::serde_json::Map<::std::string::String, ::serde_json::Value>),
     #[serde(rename = "DOES_NOT_TRACK_SHARD")]
     DoesNotTrackShard,
     #[serde(rename = "REQUEST_ROUTED")]
@@ -26297,6 +26260,13 @@ pub enum RpcTransactionError {
 impl ::std::convert::From<&Self> for RpcTransactionError {
     fn from(value: &RpcTransactionError) -> Self {
         value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcTransactionError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::InvalidTransaction(value)
     }
 }
 #[doc = "`RpcTransactionResponse`"]

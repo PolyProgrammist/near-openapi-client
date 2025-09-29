@@ -72,6 +72,11 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
 
     // Test errors
     test_block_error(&client_local).await?;
+    test_chunk_error(&client_local, block_final_hash.clone()).await?;
+    test_query_account_error(&client_local).await?;
+    test_experimental_receipt_error(&client_local).await?;
+    test_experimental_tx_status_error(&client_local).await?;
+    test_validators_error(&client_local).await?;
 
     sandbox_node.kill().await?;
 
@@ -872,6 +877,133 @@ async fn test_block_error(client: &Client) -> Result<(), Box<dyn Error>> {
     ));
 
     println!("error for block: {:#?}", block);
+
+    Ok(())
+}
+
+async fn test_chunk_error(client: &Client, block_hash: CryptoHash) -> Result<(), Box<dyn Error>> {
+    let payload_chunk = client::types::JsonRpcRequestForChunk {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForChunkMethod::Chunk,
+        params: client::types::RpcChunkRequest::BlockShardId {
+            block_id: client::types::BlockId::CryptoHash(block_hash.clone()),
+            shard_id: client::types::ShardId(100),
+        },
+    };
+
+    let chunk: client::types::JsonRpcResponseForRpcChunkResponseAndRpcChunkError =
+        client.chunk(&payload_chunk).await?.into_inner();
+    assert!(matches!(
+        chunk,
+        client::types::JsonRpcResponseForRpcChunkResponseAndRpcChunkError::Variant1 { .. }
+    ));
+
+    println!("error for chunk: {:#?}", chunk);
+
+    Ok(())
+}
+
+async fn test_query_account_error(
+    client: &Client,
+) -> Result<(), Box<dyn Error>> {
+    let payload_query_account = client::types::JsonRpcRequestForQuery {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForQueryMethod::Query,
+        params: client::types::RpcQueryRequest::ViewAccountByFinality {
+            account_id: "unknown_account.near".parse().unwrap(),
+            request_type: client::types::ViewAccountByFinalityRequestType::ViewAccount,
+            finality: client::types::Finality::Final,
+        },
+    };
+
+    let query_account: client::types::JsonRpcResponseForRpcQueryResponseAndRpcQueryError =
+        client.query(&payload_query_account).await?.into_inner();
+    assert!(matches!(
+        query_account,
+        client::types::JsonRpcResponseForRpcQueryResponseAndRpcQueryError::Variant1 { .. }
+    ));
+
+    println!("error for query_account: {:#?}", query_account);
+
+    Ok(())
+}
+
+async fn test_experimental_receipt_error(
+    client: &Client,
+) -> Result<(), Box<dyn Error>> {
+    let payload_receipt = client::types::JsonRpcRequestForExperimentalReceipt {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalReceiptMethod::ExperimentalReceipt,
+        params: client::types::RpcReceiptRequest {
+            receipt_id: "4GKCxmBc716EejJqchdhwALPxEtqLw6tFceznbUnBtgA".parse().unwrap(),
+        },
+    };
+
+    let receipt: client::types::JsonRpcResponseForRpcReceiptResponseAndRpcReceiptError = client
+        .experimental_receipt(&payload_receipt)
+        .await?
+        .into_inner();
+    assert!(matches!(
+        receipt,
+        client::types::JsonRpcResponseForRpcReceiptResponseAndRpcReceiptError::Variant1 { .. }
+    ));
+
+    println!("error for receipt: {:#?}", receipt);
+
+    Ok(())
+}
+
+async fn test_experimental_tx_status_error(
+    client: &Client,
+) -> Result<(), Box<dyn Error>> {
+    let payload_exp_tx_status = client::types::JsonRpcRequestForExperimentalTxStatus {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalTxStatusMethod::ExperimentalTxStatus,
+        params: client::types::RpcTransactionStatusRequest::Variant1 {
+            tx_hash: "4GKCxmBc716EejJqchdhwALPxEtqLw6tFceznbUnBtgA".parse().unwrap(),
+            sender_account_id: "alice.near".parse().unwrap(),
+            wait_until: client::types::TxExecutionStatus::None,
+        },
+    };
+
+    let exp_tx_status: client::types::JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError = client
+        .experimental_tx_status(&payload_exp_tx_status)
+        .await?
+        .into_inner();
+    assert!(matches!(
+        exp_tx_status,
+        client::types::JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError::Variant1 {
+            ..
+        }
+    ));
+
+    println!("error for exp_tx_status: {:#?}", exp_tx_status);
+
+    Ok(())
+}
+
+async fn test_validators_error(client: &Client) -> Result<(), Box<dyn Error>> {
+    let payload_validators = client::types::JsonRpcRequestForValidators {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForValidatorsMethod::Validators,
+        params: client::types::RpcValidatorRequest::EpochId("4GKCxmBc716EejJqchdhwALPxEtqLw6tFceznbUnBtgA".parse().unwrap()),
+    };
+
+    let validators: client::types::JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError =
+        client.validators(&payload_validators).await?.into_inner();
+    assert!(matches!(
+        validators,
+        client::types::JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError::Variant1 {
+            ..
+        }
+    ));
+
+    println!("error for validators: {:#?}", validators);
 
     Ok(())
 }
