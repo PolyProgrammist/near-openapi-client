@@ -30,7 +30,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         params: client::types::RpcBlockRequest::Finality(client::types::Finality::Final),
     };
 
-    let block_final: client::types::JsonRpcResponseForRpcBlockResponseAndRpcError =
+    let block_final: client::types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError =
         client_local.block(&payload_block_final).await?.into_inner();
     println!("response for block_final: {:#?}", block_final);
 

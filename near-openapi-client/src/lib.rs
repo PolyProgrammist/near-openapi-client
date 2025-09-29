@@ -462,7 +462,9 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalChanges,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError>,
+        ResponseValue<
+            types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcStateChangesError,
+        >,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -499,7 +501,9 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalChangesInBlock,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError>,
+        ResponseValue<
+            types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcStateChangesError,
+        >,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -536,7 +540,7 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalCongestionLevel,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcCongestionLevelResponseAndRpcError>,
+        ResponseValue<types::JsonRpcResponseForRpcCongestionLevelResponseAndRpcChunkError>,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -572,7 +576,8 @@ impl Client {
     pub async fn experimental_genesis_config<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalGenesisConfig,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForGenesisConfigAndRpcError>, Error<()>> {
+    ) -> Result<ResponseValue<types::JsonRpcResponseForGenesisConfigAndGenesisConfigError>, Error<()>>
+    {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -607,7 +612,9 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalLightClientBlockProof,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError>,
+        ResponseValue<
+            types::JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcLightClientProofError,
+        >,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -639,14 +646,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Returns the proofs for a transaction execution.\n\nSends a `POST` request to `/EXPERIMENTAL_light_client_proof`\n\n"]
-    pub async fn experimental_light_client_proof<'a>(
-        &'a self,
-        body: &'a types::JsonRpcRequestForExperimentalLightClientProof,
-    ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError>,
-        Error<()>,
-    > {
+    #[doc = "Returns the proofs for a transaction execution.\n\nSends a `POST` request to `/EXPERIMENTAL_light_client_proof`\n\n"]    pub async fn experimental_light_client_proof < 'a > (& 'a self , body : & 'a types :: JsonRpcRequestForExperimentalLightClientProof) -> Result < ResponseValue < types :: JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcLightClientProofError > , Error < () > , >{
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -680,8 +680,10 @@ impl Client {
     pub async fn experimental_maintenance_windows<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalMaintenanceWindows,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcMaintenanceWindowsError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -716,7 +718,7 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalProtocolConfig,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcError>,
+        ResponseValue<types::JsonRpcResponseForRpcProtocolConfigResponseAndRpcProtocolConfigError>,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -752,8 +754,10 @@ impl Client {
     pub async fn experimental_receipt<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalReceipt,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcReceiptResponseAndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcReceiptResponseAndRpcReceiptError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -788,7 +792,9 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalSplitStorageInfo,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError>,
+        ResponseValue<
+            types::JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcSplitStorageInfoError,
+        >,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -824,8 +830,10 @@ impl Client {
     pub async fn experimental_tx_status<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalTxStatus,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcTransactionResponseAndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -860,7 +868,7 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForExperimentalValidatorsOrdered,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError>,
+        ResponseValue<types::JsonRpcResponseForArrayOfValidatorStakeViewAndRpcValidatorError>,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -896,7 +904,7 @@ impl Client {
     pub async fn block<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForBlock,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcBlockResponseAndRpcError>, Error<()>>
+    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError>, Error<()>>
     {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
@@ -932,7 +940,9 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForBlockEffects,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError>,
+        ResponseValue<
+            types::JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcStateChangesError,
+        >,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -968,7 +978,8 @@ impl Client {
     pub async fn broadcast_tx_async<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForBroadcastTxAsync,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForCryptoHashAndRpcError>, Error<()>> {
+    ) -> Result<ResponseValue<types::JsonRpcResponseForCryptoHashAndRpcTransactionError>, Error<()>>
+    {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1002,8 +1013,10 @@ impl Client {
     pub async fn broadcast_tx_commit<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForBroadcastTxCommit,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcTransactionResponseAndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1038,7 +1051,9 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForChanges,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError>,
+        ResponseValue<
+            types::JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcStateChangesError,
+        >,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -1074,7 +1089,7 @@ impl Client {
     pub async fn chunk<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForChunk,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcChunkResponseAndRpcError>, Error<()>>
+    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcChunkResponseAndRpcChunkError>, Error<()>>
     {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
@@ -1109,8 +1124,10 @@ impl Client {
     pub async fn client_config<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForClientConfig,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcClientConfigResponseAndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcClientConfigResponseAndRpcClientConfigError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1144,8 +1161,10 @@ impl Client {
     pub async fn gas_price<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForGasPrice,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcGasPriceResponseAndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcGasPriceResponseAndRpcGasPriceError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1179,7 +1198,8 @@ impl Client {
     pub async fn genesis_config<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForGenesisConfig,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForGenesisConfigAndRpcError>, Error<()>> {
+    ) -> Result<ResponseValue<types::JsonRpcResponseForGenesisConfigAndGenesisConfigError>, Error<()>>
+    {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1214,7 +1234,7 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForHealth,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForNullableRpcHealthResponseAndRpcError>,
+        ResponseValue<types::JsonRpcResponseForNullableRpcHealthResponseAndRpcStatusError>,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -1246,14 +1266,7 @@ impl Client {
             _ => Err(Error::UnexpectedResponse(response)),
         }
     }
-    #[doc = "Returns the proofs for a transaction execution.\n\nSends a `POST` request to `/light_client_proof`\n\n"]
-    pub async fn light_client_proof<'a>(
-        &'a self,
-        body: &'a types::JsonRpcRequestForLightClientProof,
-    ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError>,
-        Error<()>,
-    > {
+    #[doc = "Returns the proofs for a transaction execution.\n\nSends a `POST` request to `/light_client_proof`\n\n"]    pub async fn light_client_proof < 'a > (& 'a self , body : & 'a types :: JsonRpcRequestForLightClientProof) -> Result < ResponseValue < types :: JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcLightClientProofError > , Error < () > , >{
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1287,8 +1300,10 @@ impl Client {
     pub async fn maintenance_windows<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForMaintenanceWindows,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForArrayOfRangeOfUint64AndRpcMaintenanceWindowsError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1322,8 +1337,10 @@ impl Client {
     pub async fn network_info<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForNetworkInfo,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcNetworkInfoResponseAndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcNetworkInfoResponseAndRpcNetworkInfoError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1358,7 +1375,9 @@ impl Client {
         &'a self,
         body: &'a types::JsonRpcRequestForNextLightClientBlock,
     ) -> Result<
-        ResponseValue<types::JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError>,
+        ResponseValue<
+            types::JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcLightClientNextBlockError,
+        >,
         Error<()>,
     > {
         let url = format!("{}/", self.baseurl,);
@@ -1394,7 +1413,7 @@ impl Client {
     pub async fn query<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForQuery,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcQueryResponseAndRpcError>, Error<()>>
+    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcQueryResponseAndRpcQueryError>, Error<()>>
     {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
@@ -1429,8 +1448,10 @@ impl Client {
     pub async fn send_tx<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForSendTx,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcTransactionResponseAndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1464,7 +1485,7 @@ impl Client {
     pub async fn status<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForStatus,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcStatusResponseAndRpcError>, Error<()>>
+    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcStatusResponseAndRpcStatusError>, Error<()>>
     {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
@@ -1499,8 +1520,10 @@ impl Client {
     pub async fn tx<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForTx,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcTransactionResponseAndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
@@ -1532,8 +1555,10 @@ impl Client {
     pub async fn validators<'a>(
         &'a self,
         body: &'a types::JsonRpcRequestForValidators,
-    ) -> Result<ResponseValue<types::JsonRpcResponseForRpcValidatorResponseAndRpcError>, Error<()>>
-    {
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError>,
+        Error<()>,
+    > {
         let url = format!("{}/", self.baseurl,);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
