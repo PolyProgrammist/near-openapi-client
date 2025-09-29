@@ -5,6 +5,7 @@ use near_openapi_client as client;
 use near_primitives::transaction::{Action, Transaction, TransactionV0, TransferAction};
 use std::error::Error;
 use tokio::time::{sleep, Duration};
+use client::{ResponseValue, Error as ProgenitorError};
 
 const NEAR_RPC_URL_LOCAL: &str = "http://127.0.0.1:3040";
 const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
@@ -77,6 +78,7 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
     test_experimental_receipt_error(&client_local).await?;
     test_experimental_tx_status_error(&client_local).await?;
     test_validators_error(&client_local).await?;
+    test_request_validation_error(&client_local).await?;
 
     sandbox_node.kill().await?;
 
@@ -875,6 +877,9 @@ async fn test_block_error(client: &Client) -> Result<(), Box<dyn Error>> {
         block,
         client::types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError::Variant1 { .. }
     ));
+    if let client::types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError::Variant1 { error, .. } = block.clone() {
+        assert!(matches!(error, client::types::ErrorWrapperForRpcBlockError::HandlerError(_)));
+    }
 
     println!("error for block: {:#?}", block);
 
@@ -898,6 +903,9 @@ async fn test_chunk_error(client: &Client, block_hash: CryptoHash) -> Result<(),
         chunk,
         client::types::JsonRpcResponseForRpcChunkResponseAndRpcChunkError::Variant1 { .. }
     ));
+    if let client::types::JsonRpcResponseForRpcChunkResponseAndRpcChunkError::Variant1 { error, .. } = chunk.clone() {
+        assert!(matches!(error, client::types::ErrorWrapperForRpcChunkError::HandlerError(_)));
+    }
 
     println!("error for chunk: {:#?}", chunk);
 
@@ -924,6 +932,9 @@ async fn test_query_account_error(
         query_account,
         client::types::JsonRpcResponseForRpcQueryResponseAndRpcQueryError::Variant1 { .. }
     ));
+    if let client::types::JsonRpcResponseForRpcQueryResponseAndRpcQueryError::Variant1 { error, .. } = query_account.clone() {
+        assert!(matches!(error, client::types::ErrorWrapperForRpcQueryError::HandlerError(_)));
+    }
 
     println!("error for query_account: {:#?}", query_account);
 
@@ -950,6 +961,9 @@ async fn test_experimental_receipt_error(
         receipt,
         client::types::JsonRpcResponseForRpcReceiptResponseAndRpcReceiptError::Variant1 { .. }
     ));
+    if let client::types::JsonRpcResponseForRpcReceiptResponseAndRpcReceiptError::Variant1 { error, .. } = receipt.clone() {
+        assert!(matches!(error, client::types::ErrorWrapperForRpcReceiptError::HandlerError(_)));
+    }
 
     println!("error for receipt: {:#?}", receipt);
 
@@ -980,6 +994,9 @@ async fn test_experimental_tx_status_error(
             ..
         }
     ));
+    if let client::types::JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError::Variant1 { error, .. } = exp_tx_status.clone() {
+        assert!(matches!(error, client::types::ErrorWrapperForRpcTransactionError::HandlerError(_)));
+    }
 
     println!("error for exp_tx_status: {:#?}", exp_tx_status);
 
@@ -1002,11 +1019,48 @@ async fn test_validators_error(client: &Client) -> Result<(), Box<dyn Error>> {
             ..
         }
     ));
+    if let client::types::JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError::Variant1 { error, .. } = validators.clone() {
+        assert!(matches!(error, client::types::ErrorWrapperForRpcValidatorError::HandlerError(_)));
+    }
 
     println!("error for validators: {:#?}", validators);
 
     Ok(())
 }
+
+async fn test_request_validation_error(client: &Client) -> Result<(), Box<dyn Error>> {
+    let client = reqwest::Client::new();
+
+    let payload = serde_json::json!({
+        "jsonrpc": "2.0",
+        "id": "dontcare",
+        "method": "block",
+        "params": { "finality": "finale" }
+    });
+
+    let resp = client
+        .post("http://127.0.0.1:3040")
+        .json(&payload)
+        .send()
+        .await?;
+
+    let status = resp.status();
+    let response_typed: Result<ResponseValue<client::types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError>, ProgenitorError<()>> =  ResponseValue::from_response(resp).await;
+
+    let block: client::types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError = response_typed.unwrap().into_inner();
+
+    assert!(matches!(
+        block,
+        client::types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError::Variant1 { .. }
+    ));
+
+    if let client::types::JsonRpcResponseForRpcBlockResponseAndRpcBlockError::Variant1 { error, .. } = block.clone() {
+        assert!(matches!(error, client::types::ErrorWrapperForRpcBlockError::RequestValidationError(_)));
+    }
+
+    Ok(())
+}
+
 
 async fn prepare_blockchain(
     signer: &Signer,
