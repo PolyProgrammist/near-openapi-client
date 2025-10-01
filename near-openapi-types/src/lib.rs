@@ -16327,7 +16327,7 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
 #[doc = "  \"description\": \"An Action that can be included in a transaction or receipt, excluding delegate actions. This type represents all possible action types except DelegateAction to prevent infinite recursion in meta-transactions.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<http://nomicon.io/Primitives/Account.html>.\","]
+#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<https://nomicon.io/DataStructures/Account>.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"CreateAccount\""]
@@ -16466,7 +16466,7 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub enum NonDelegateAction {
-    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\na new account ID must pass validation rules described here\n<http://nomicon.io/Primitives/Account.html>."]
+    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\na new account ID must pass validation rules described here\n<https://nomicon.io/DataStructures/Account>."]
     CreateAccount(CreateAccountAction),
     #[doc = "Sets a Wasm code to a receiver_id"]
     DeployContract(DeployContractAction),
