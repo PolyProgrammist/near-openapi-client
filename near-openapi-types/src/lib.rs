@@ -3601,6 +3601,82 @@ impl ::std::convert::From<CryptoHash> for BlockId {
         Self::CryptoHash(value)
     }
 }
+#[doc = "`BlockReference`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"block_id\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"block_id\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"finality\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"finality\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"sync_checkpoint\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"sync_checkpoint\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub enum BlockReference {
+    #[serde(rename = "block_id")]
+    BlockId(BlockId),
+    #[serde(rename = "finality")]
+    Finality(Finality),
+    #[serde(rename = "sync_checkpoint")]
+    SyncCheckpoint(SyncCheckpoint),
+}
+impl ::std::convert::From<&Self> for BlockReference {
+    fn from(value: &BlockReference) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<BlockId> for BlockReference {
+    fn from(value: BlockId) -> Self {
+        Self::BlockId(value)
+    }
+}
+impl ::std::convert::From<Finality> for BlockReference {
+    fn from(value: Finality) -> Self {
+        Self::Finality(value)
+    }
+}
+impl ::std::convert::From<SyncCheckpoint> for BlockReference {
+    fn from(value: SyncCheckpoint) -> Self {
+        Self::SyncCheckpoint(value)
+    }
+}
 #[doc = "Height and hash of a block"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -4037,6 +4113,69 @@ impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
         value.clone()
     }
 }
+#[doc = "`ChunkHash`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(transparent)]
+pub struct ChunkHash(pub CryptoHash);
+impl ::std::ops::Deref for ChunkHash {
+    type Target = CryptoHash;
+    fn deref(&self) -> &CryptoHash {
+        &self.0
+    }
+}
+impl ::std::convert::From<ChunkHash> for CryptoHash {
+    fn from(value: ChunkHash) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<&ChunkHash> for ChunkHash {
+    fn from(value: &ChunkHash) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<CryptoHash> for ChunkHash {
+    fn from(value: CryptoHash) -> Self {
+        Self(value)
+    }
+}
+impl ::std::str::FromStr for ChunkHash {
+    type Err = <CryptoHash as ::std::str::FromStr>::Err;
+    fn from_str(value: &str) -> ::std::result::Result<Self, Self::Err> {
+        Ok(Self(value.parse()?))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ChunkHash {
+    type Error = <CryptoHash as ::std::str::FromStr>::Err;
+    fn try_from(value: &str) -> ::std::result::Result<Self, Self::Error> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&String> for ChunkHash {
+    type Error = <CryptoHash as ::std::str::FromStr>::Err;
+    fn try_from(value: &String) -> ::std::result::Result<Self, Self::Error> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<String> for ChunkHash {
+    type Error = <CryptoHash as ::std::str::FromStr>::Err;
+    fn try_from(value: String) -> ::std::result::Result<Self, Self::Error> {
+        value.parse()
+    }
+}
+impl ::std::fmt::Display for ChunkHash {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
 #[doc = "Contains main info about the chunk."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -4197,40 +4336,6 @@ impl ::std::convert::From<&ChunkHeaderView> for ChunkHeaderView {
         value.clone()
     }
 }
-#[doc = "Configuration for a cloud-based archival reader."]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"description\": \"Configuration for a cloud-based archival reader.\","]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"cloud_storage\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"cloud_storage\": {"]
-#[doc = "      \"description\": \"Configures the external storage used by the archival node.\","]
-#[doc = "      \"allOf\": ["]
-#[doc = "        {"]
-#[doc = "          \"$ref\": \"#/components/schemas/CloudStorageConfig\""]
-#[doc = "        }"]
-#[doc = "      ]"]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct CloudArchivalReaderConfig {
-    #[doc = "Configures the external storage used by the archival node."]
-    pub cloud_storage: CloudStorageConfig,
-}
-impl ::std::convert::From<&CloudArchivalReaderConfig> for CloudArchivalReaderConfig {
-    fn from(value: &CloudArchivalReaderConfig) -> Self {
-        value.clone()
-    }
-}
 #[doc = "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards. This config also controls additional archival\nbehavior such as block data and polling interval."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -4239,22 +4344,11 @@ impl ::std::convert::From<&CloudArchivalReaderConfig> for CloudArchivalReaderCon
 #[doc = "{"]
 #[doc = "  \"description\": \"Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\\nwrites chunk-related data based on the tracked shards. This config also controls additional archival\\nbehavior such as block data and polling interval.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"cloud_storage\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"archive_block_data\": {"]
 #[doc = "      \"description\": \"Determines whether block-related data should be written to cloud storage.\","]
 #[doc = "      \"default\": false,"]
 #[doc = "      \"type\": \"boolean\""]
-#[doc = "    },"]
-#[doc = "    \"cloud_storage\": {"]
-#[doc = "      \"description\": \"Configures the external storage used by the archival node.\","]
-#[doc = "      \"allOf\": ["]
-#[doc = "        {"]
-#[doc = "          \"$ref\": \"#/components/schemas/CloudStorageConfig\""]
-#[doc = "        }"]
-#[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"polling_interval\": {"]
 #[doc = "      \"description\": \"Interval at which the system checks for new blocks or chunks to archive.\","]
@@ -4277,8 +4371,6 @@ pub struct CloudArchivalWriterConfig {
     #[doc = "Determines whether block-related data should be written to cloud storage."]
     #[serde(default)]
     pub archive_block_data: bool,
-    #[doc = "Configures the external storage used by the archival node."]
-    pub cloud_storage: CloudStorageConfig,
     #[doc = "Interval at which the system checks for new blocks or chunks to archive."]
     #[serde(default = "defaults::cloud_archival_writer_config_polling_interval")]
     pub polling_interval: DurationAsStdSchemaProvider,
@@ -4288,48 +4380,12 @@ impl ::std::convert::From<&CloudArchivalWriterConfig> for CloudArchivalWriterCon
         value.clone()
     }
 }
-#[doc = "Configures the external storage used by the archival node."]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"description\": \"Configures the external storage used by the archival node.\","]
-#[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"storage\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"credentials_file\": {"]
-#[doc = "      \"description\": \"Location of a json file with credentials allowing access to the bucket.\","]
-#[doc = "      \"type\": ["]
-#[doc = "        \"string\","]
-#[doc = "        \"null\""]
-#[doc = "      ]"]
-#[doc = "    },"]
-#[doc = "    \"storage\": {"]
-#[doc = "      \"description\": \"The storage to persist the archival data.\","]
-#[doc = "      \"allOf\": ["]
-#[doc = "        {"]
-#[doc = "          \"$ref\": \"#/components/schemas/ExternalStorageLocation\""]
-#[doc = "        }"]
-#[doc = "      ]"]
-#[doc = "    }"]
-#[doc = "  }"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-pub struct CloudStorageConfig {
-    #[doc = "Location of a json file with credentials allowing access to the bucket."]
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub credentials_file: ::std::option::Option<::std::string::String>,
-    #[doc = "The storage to persist the archival data."]
-    pub storage: ExternalStorageLocation,
-}
-impl ::std::convert::From<&CloudStorageConfig> for CloudStorageConfig {
-    fn from(value: &CloudStorageConfig) -> Self {
-        value.clone()
+impl ::std::default::Default for CloudArchivalWriterConfig {
+    fn default() -> Self {
+        Self {
+            archive_block_data: Default::default(),
+            polling_interval: defaults::cloud_archival_writer_config_polling_interval(),
+        }
     }
 }
 #[doc = "`CompilationError`"]
@@ -6122,6 +6178,1633 @@ impl ::std::convert::From<&EpochSyncConfig> for EpochSyncConfig {
         value.clone()
     }
 }
+#[doc = "`ErrorWrapperForGenesisConfigError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/GenesisConfigError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForGenesisConfigError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(GenesisConfigError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForGenesisConfigError {
+    fn from(value: &ErrorWrapperForGenesisConfigError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForGenesisConfigError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<GenesisConfigError> for ErrorWrapperForGenesisConfigError {
+    fn from(value: GenesisConfigError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForGenesisConfigError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcBlockError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcBlockError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcBlockError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcBlockError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcBlockError {
+    fn from(value: &ErrorWrapperForRpcBlockError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcBlockError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcBlockError> for ErrorWrapperForRpcBlockError {
+    fn from(value: RpcBlockError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcBlockError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcChunkError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcChunkError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcChunkError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcChunkError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcChunkError {
+    fn from(value: &ErrorWrapperForRpcChunkError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcChunkError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcChunkError> for ErrorWrapperForRpcChunkError {
+    fn from(value: RpcChunkError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcChunkError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcClientConfigError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcClientConfigError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcClientConfigError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcClientConfigError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcClientConfigError {
+    fn from(value: &ErrorWrapperForRpcClientConfigError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcClientConfigError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcClientConfigError> for ErrorWrapperForRpcClientConfigError {
+    fn from(value: RpcClientConfigError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcClientConfigError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcGasPriceError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcGasPriceError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcGasPriceError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcGasPriceError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcGasPriceError {
+    fn from(value: &ErrorWrapperForRpcGasPriceError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcGasPriceError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcGasPriceError> for ErrorWrapperForRpcGasPriceError {
+    fn from(value: RpcGasPriceError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcGasPriceError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcLightClientNextBlockError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcLightClientNextBlockError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcLightClientNextBlockError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcLightClientNextBlockError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcLightClientNextBlockError {
+    fn from(value: &ErrorWrapperForRpcLightClientNextBlockError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind>
+    for ErrorWrapperForRpcLightClientNextBlockError
+{
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcLightClientNextBlockError>
+    for ErrorWrapperForRpcLightClientNextBlockError
+{
+    fn from(value: RpcLightClientNextBlockError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcLightClientNextBlockError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcLightClientProofError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcLightClientProofError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcLightClientProofError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcLightClientProofError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcLightClientProofError {
+    fn from(value: &ErrorWrapperForRpcLightClientProofError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind>
+    for ErrorWrapperForRpcLightClientProofError
+{
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcLightClientProofError> for ErrorWrapperForRpcLightClientProofError {
+    fn from(value: RpcLightClientProofError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcLightClientProofError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcMaintenanceWindowsError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcMaintenanceWindowsError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcMaintenanceWindowsError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcMaintenanceWindowsError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcMaintenanceWindowsError {
+    fn from(value: &ErrorWrapperForRpcMaintenanceWindowsError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind>
+    for ErrorWrapperForRpcMaintenanceWindowsError
+{
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcMaintenanceWindowsError>
+    for ErrorWrapperForRpcMaintenanceWindowsError
+{
+    fn from(value: RpcMaintenanceWindowsError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcMaintenanceWindowsError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcNetworkInfoError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcNetworkInfoError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcNetworkInfoError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcNetworkInfoError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcNetworkInfoError {
+    fn from(value: &ErrorWrapperForRpcNetworkInfoError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcNetworkInfoError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcNetworkInfoError> for ErrorWrapperForRpcNetworkInfoError {
+    fn from(value: RpcNetworkInfoError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcNetworkInfoError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcProtocolConfigError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcProtocolConfigError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcProtocolConfigError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcProtocolConfigError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcProtocolConfigError {
+    fn from(value: &ErrorWrapperForRpcProtocolConfigError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcProtocolConfigError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcProtocolConfigError> for ErrorWrapperForRpcProtocolConfigError {
+    fn from(value: RpcProtocolConfigError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcProtocolConfigError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcQueryError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcQueryError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcQueryError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcQueryError {
+    fn from(value: &ErrorWrapperForRpcQueryError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcQueryError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcQueryError> for ErrorWrapperForRpcQueryError {
+    fn from(value: RpcQueryError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcQueryError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcReceiptError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcReceiptError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcReceiptError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcReceiptError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcReceiptError {
+    fn from(value: &ErrorWrapperForRpcReceiptError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcReceiptError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcReceiptError> for ErrorWrapperForRpcReceiptError {
+    fn from(value: RpcReceiptError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcReceiptError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcSplitStorageInfoError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcSplitStorageInfoError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcSplitStorageInfoError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcSplitStorageInfoError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcSplitStorageInfoError {
+    fn from(value: &ErrorWrapperForRpcSplitStorageInfoError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind>
+    for ErrorWrapperForRpcSplitStorageInfoError
+{
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcSplitStorageInfoError> for ErrorWrapperForRpcSplitStorageInfoError {
+    fn from(value: RpcSplitStorageInfoError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcSplitStorageInfoError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcStateChangesError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcStateChangesError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcStateChangesError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcStateChangesError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcStateChangesError {
+    fn from(value: &ErrorWrapperForRpcStateChangesError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcStateChangesError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcStateChangesError> for ErrorWrapperForRpcStateChangesError {
+    fn from(value: RpcStateChangesError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcStateChangesError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcStatusError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcStatusError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcStatusError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcStatusError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcStatusError {
+    fn from(value: &ErrorWrapperForRpcStatusError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcStatusError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcStatusError> for ErrorWrapperForRpcStatusError {
+    fn from(value: RpcStatusError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcStatusError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcTransactionError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcTransactionError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcTransactionError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcTransactionError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcTransactionError {
+    fn from(value: &ErrorWrapperForRpcTransactionError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcTransactionError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcTransactionError> for ErrorWrapperForRpcTransactionError {
+    fn from(value: RpcTransactionError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcTransactionError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
+#[doc = "`ErrorWrapperForRpcValidatorError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcValidatorError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"HANDLER_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"cause\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"cause\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/InternalError\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "cause")]
+pub enum ErrorWrapperForRpcValidatorError {
+    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
+    RequestValidationError(RpcRequestValidationErrorKind),
+    #[serde(rename = "HANDLER_ERROR")]
+    HandlerError(RpcValidatorError),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError(InternalError),
+}
+impl ::std::convert::From<&Self> for ErrorWrapperForRpcValidatorError {
+    fn from(value: &ErrorWrapperForRpcValidatorError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<RpcRequestValidationErrorKind> for ErrorWrapperForRpcValidatorError {
+    fn from(value: RpcRequestValidationErrorKind) -> Self {
+        Self::RequestValidationError(value)
+    }
+}
+impl ::std::convert::From<RpcValidatorError> for ErrorWrapperForRpcValidatorError {
+    fn from(value: RpcValidatorError) -> Self {
+        Self::HandlerError(value)
+    }
+}
+impl ::std::convert::From<InternalError> for ErrorWrapperForRpcValidatorError {
+    fn from(value: InternalError) -> Self {
+        Self::InternalError(value)
+    }
+}
 #[doc = "`ExecutionMetadataView`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -7315,12 +8998,13 @@ impl ::std::convert::From<&ExternalStorageConfig> for ExternalStorageConfig {
         value.clone()
     }
 }
-#[doc = "`ExternalStorageLocation`"]
+#[doc = "Supported external storage backends and their minimal config."]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
+#[doc = "  \"description\": \"Supported external storage backends and their minimal config.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
@@ -7336,7 +9020,7 @@ impl ::std::convert::From<&ExternalStorageConfig> for ExternalStorageConfig {
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
 #[doc = "            \"bucket\": {"]
-#[doc = "              \"description\": \"Location of state dumps on S3.\","]
+#[doc = "              \"description\": \"Location on S3.\","]
 #[doc = "              \"type\": \"string\""]
 #[doc = "            },"]
 #[doc = "            \"region\": {"]
@@ -7349,6 +9033,7 @@ impl ::std::convert::From<&ExternalStorageConfig> for ExternalStorageConfig {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"description\": \"Local filesystem root for storing data.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"Filesystem\""]
@@ -7369,6 +9054,7 @@ impl ::std::convert::From<&ExternalStorageConfig> for ExternalStorageConfig {
 #[doc = "      \"additionalProperties\": false"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"description\": \"Google Cloud Storage bucket name.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"GCS\""]
@@ -7395,18 +9081,16 @@ impl ::std::convert::From<&ExternalStorageConfig> for ExternalStorageConfig {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub enum ExternalStorageLocation {
     S3 {
-        #[doc = "Location of state dumps on S3."]
+        #[doc = "Location on S3."]
         bucket: ::std::string::String,
         #[doc = "Data may only be available in certain locations."]
         region: ::std::string::String,
     },
-    Filesystem {
-        root_dir: ::std::string::String,
-    },
+    #[doc = "Local filesystem root for storing data."]
+    Filesystem { root_dir: ::std::string::String },
+    #[doc = "Google Cloud Storage bucket name."]
     #[serde(rename = "GCS")]
-    Gcs {
-        bucket: ::std::string::String,
-    },
+    Gcs { bucket: ::std::string::String },
 }
 impl ::std::convert::From<&Self> for ExternalStorageLocation {
     fn from(value: &ExternalStorageLocation) -> Self {
@@ -8635,6 +10319,40 @@ impl ::std::convert::From<&GenesisConfig> for GenesisConfig {
         value.clone()
     }
 }
+#[doc = "`GenesisConfigError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"null\""]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(transparent)]
+pub struct GenesisConfigError(pub ());
+impl ::std::ops::Deref for GenesisConfigError {
+    type Target = ();
+    fn deref(&self) -> &() {
+        &self.0
+    }
+}
+impl ::std::convert::From<GenesisConfigError> for () {
+    fn from(value: GenesisConfigError) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<&GenesisConfigError> for GenesisConfigError {
+    fn from(value: &GenesisConfigError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<()> for GenesisConfigError {
+    fn from(value: ()) -> Self {
+        Self(value)
+    }
+}
 #[doc = "`GenesisConfigRequest`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -9527,6 +11245,56 @@ pub enum HostError {
 }
 impl ::std::convert::From<&Self> for HostError {
     fn from(value: &HostError) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`InternalError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum InternalError {
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for InternalError {
+    fn from(value: &InternalError) -> Self {
         value.clone()
     }
 }
@@ -13883,13 +15651,13 @@ impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForValidat
         value.parse()
     }
 }
-#[doc = "`JsonRpcResponseForArrayOfRangeOfUint64AndRpcError`"]
+#[doc = "`JsonRpcResponseForArrayOfRangeOfUint64AndRpcMaintenanceWindowsError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_Array_of_Range_of_uint64_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_Array_of_Range_of_uint64_and_RpcMaintenanceWindowsError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -13913,7 +15681,7 @@ impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForValidat
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcMaintenanceWindowsError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -13935,30 +15703,32 @@ impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForValidat
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForArrayOfRangeOfUint64AndRpcError {
+pub enum JsonRpcResponseForArrayOfRangeOfUint64AndRpcMaintenanceWindowsError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: ::std::vec::Vec<RangeOfUint64>,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcMaintenanceWindowsError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForArrayOfRangeOfUint64AndRpcError {
-    fn from(value: &JsonRpcResponseForArrayOfRangeOfUint64AndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForArrayOfRangeOfUint64AndRpcMaintenanceWindowsError
+{
+    fn from(value: &JsonRpcResponseForArrayOfRangeOfUint64AndRpcMaintenanceWindowsError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError`"]
+#[doc = "`JsonRpcResponseForArrayOfValidatorStakeViewAndRpcValidatorError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_Array_of_ValidatorStakeView_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_Array_of_ValidatorStakeView_and_RpcValidatorError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -13982,7 +15752,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForArrayOfRangeOfUint64AndRp
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcValidatorError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14004,30 +15774,32 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForArrayOfRangeOfUint64AndRp
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError {
+pub enum JsonRpcResponseForArrayOfValidatorStakeViewAndRpcValidatorError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: ::std::vec::Vec<ValidatorStakeView>,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcValidatorError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError {
-    fn from(value: &JsonRpcResponseForArrayOfValidatorStakeViewAndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForArrayOfValidatorStakeViewAndRpcValidatorError
+{
+    fn from(value: &JsonRpcResponseForArrayOfValidatorStakeViewAndRpcValidatorError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForCryptoHashAndRpcError`"]
+#[doc = "`JsonRpcResponseForCryptoHashAndRpcTransactionError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_CryptoHash_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_CryptoHash_and_RpcTransactionError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14048,7 +15820,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForArrayOfValidatorStakeView
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcTransactionError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14070,30 +15842,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForArrayOfValidatorStakeView
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForCryptoHashAndRpcError {
+pub enum JsonRpcResponseForCryptoHashAndRpcTransactionError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: CryptoHash,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcTransactionError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForCryptoHashAndRpcError {
-    fn from(value: &JsonRpcResponseForCryptoHashAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForCryptoHashAndRpcTransactionError {
+    fn from(value: &JsonRpcResponseForCryptoHashAndRpcTransactionError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForGenesisConfigAndRpcError`"]
+#[doc = "`JsonRpcResponseForGenesisConfigAndGenesisConfigError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_GenesisConfig_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_GenesisConfig_and_GenesisConfigError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14114,7 +15886,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForCryptoHashAndRpcError {
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_GenesisConfigError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14136,30 +15908,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForCryptoHashAndRpcError {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForGenesisConfigAndRpcError {
+pub enum JsonRpcResponseForGenesisConfigAndGenesisConfigError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: GenesisConfig,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForGenesisConfigError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForGenesisConfigAndRpcError {
-    fn from(value: &JsonRpcResponseForGenesisConfigAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForGenesisConfigAndGenesisConfigError {
+    fn from(value: &JsonRpcResponseForGenesisConfigAndGenesisConfigError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForNullableRpcHealthResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForNullableRpcHealthResponseAndRpcStatusError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_Nullable_RpcHealthResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_Nullable_RpcHealthResponse_and_RpcStatusError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14187,7 +15959,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForGenesisConfigAndRpcError 
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcStatusError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14209,30 +15981,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForGenesisConfigAndRpcError 
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForNullableRpcHealthResponseAndRpcError {
+pub enum JsonRpcResponseForNullableRpcHealthResponseAndRpcStatusError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: ::std::option::Option<RpcHealthResponse>,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcStatusError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForNullableRpcHealthResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForNullableRpcHealthResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForNullableRpcHealthResponseAndRpcStatusError {
+    fn from(value: &JsonRpcResponseForNullableRpcHealthResponseAndRpcStatusError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcBlockResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcBlockResponseAndRpcBlockError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcBlockResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcBlockResponse_and_RpcBlockError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14253,7 +16025,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForNullableRpcHealthResponse
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcBlockError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14275,30 +16047,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForNullableRpcHealthResponse
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcBlockResponseAndRpcError {
+pub enum JsonRpcResponseForRpcBlockResponseAndRpcBlockError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcBlockResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcBlockError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcBlockResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcBlockResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcBlockResponseAndRpcBlockError {
+    fn from(value: &JsonRpcResponseForRpcBlockResponseAndRpcBlockError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcChunkResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcChunkResponseAndRpcChunkError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcChunkResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcChunkResponse_and_RpcChunkError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14319,7 +16091,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcBlockResponseAndRpcErr
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcChunkError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14341,30 +16113,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcBlockResponseAndRpcErr
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcChunkResponseAndRpcError {
+pub enum JsonRpcResponseForRpcChunkResponseAndRpcChunkError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcChunkResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcChunkError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcChunkResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcChunkResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcChunkResponseAndRpcChunkError {
+    fn from(value: &JsonRpcResponseForRpcChunkResponseAndRpcChunkError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcClientConfigResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcClientConfigResponseAndRpcClientConfigError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcClientConfigResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcClientConfigResponse_and_RpcClientConfigError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14385,7 +16157,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcChunkResponseAndRpcErr
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcClientConfigError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14407,30 +16179,32 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcChunkResponseAndRpcErr
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcClientConfigResponseAndRpcError {
+pub enum JsonRpcResponseForRpcClientConfigResponseAndRpcClientConfigError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcClientConfigResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcClientConfigError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcClientConfigResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcClientConfigResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForRpcClientConfigResponseAndRpcClientConfigError
+{
+    fn from(value: &JsonRpcResponseForRpcClientConfigResponseAndRpcClientConfigError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcCongestionLevelResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcCongestionLevelResponseAndRpcChunkError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcCongestionLevelResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcCongestionLevelResponse_and_RpcChunkError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14451,7 +16225,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcClientConfigResponseAn
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcChunkError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14473,30 +16247,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcClientConfigResponseAn
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcCongestionLevelResponseAndRpcError {
+pub enum JsonRpcResponseForRpcCongestionLevelResponseAndRpcChunkError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcCongestionLevelResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcChunkError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcCongestionLevelResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcCongestionLevelResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcCongestionLevelResponseAndRpcChunkError {
+    fn from(value: &JsonRpcResponseForRpcCongestionLevelResponseAndRpcChunkError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcGasPriceResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcGasPriceResponseAndRpcGasPriceError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcGasPriceResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcGasPriceResponse_and_RpcGasPriceError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14517,7 +16291,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcCongestionLevelRespons
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcGasPriceError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14539,30 +16313,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcCongestionLevelRespons
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcGasPriceResponseAndRpcError {
+pub enum JsonRpcResponseForRpcGasPriceResponseAndRpcGasPriceError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcGasPriceResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcGasPriceError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcGasPriceResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcGasPriceResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcGasPriceResponseAndRpcGasPriceError {
+    fn from(value: &JsonRpcResponseForRpcGasPriceResponseAndRpcGasPriceError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcLightClientProofError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcLightClientBlockProofResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcLightClientBlockProofResponse_and_RpcLightClientProofError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14583,7 +16357,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcGasPriceResponseAndRpc
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcLightClientProofError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14605,30 +16379,34 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcGasPriceResponseAndRpc
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError {
+pub enum JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcLightClientProofError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcLightClientBlockProofResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcLightClientProofError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcLightClientProofError
+{
+    fn from(
+        value: &JsonRpcResponseForRpcLightClientBlockProofResponseAndRpcLightClientProofError,
+    ) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcLightClientProofError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcLightClientExecutionProofResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcLightClientExecutionProofResponse_and_RpcLightClientProofError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14649,7 +16427,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcLightClientBlockProofR
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcLightClientProofError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14671,32 +16449,34 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcLightClientBlockProofR
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError {
+pub enum JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcLightClientProofError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcLightClientExecutionProofResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcLightClientProofError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
 impl ::std::convert::From<&Self>
-    for JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError
+    for JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcLightClientProofError
 {
-    fn from(value: &JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcError) -> Self {
+    fn from(
+        value: &JsonRpcResponseForRpcLightClientExecutionProofResponseAndRpcLightClientProofError,
+    ) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcLightClientNextBlockError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcLightClientNextBlockResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcLightClientNextBlockResponse_and_RpcLightClientNextBlockError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14717,7 +16497,7 @@ impl ::std::convert::From<&Self>
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcLightClientNextBlockError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14739,30 +16519,34 @@ impl ::std::convert::From<&Self>
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError {
+pub enum JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcLightClientNextBlockError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcLightClientNextBlockResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcLightClientNextBlockError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcLightClientNextBlockError
+{
+    fn from(
+        value: &JsonRpcResponseForRpcLightClientNextBlockResponseAndRpcLightClientNextBlockError,
+    ) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcNetworkInfoResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcNetworkInfoResponseAndRpcNetworkInfoError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcNetworkInfoResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcNetworkInfoResponse_and_RpcNetworkInfoError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14783,7 +16567,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcLightClientNextBlockRe
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcNetworkInfoError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14805,30 +16589,32 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcLightClientNextBlockRe
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcNetworkInfoResponseAndRpcError {
+pub enum JsonRpcResponseForRpcNetworkInfoResponseAndRpcNetworkInfoError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcNetworkInfoResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcNetworkInfoError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcNetworkInfoResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcNetworkInfoResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForRpcNetworkInfoResponseAndRpcNetworkInfoError
+{
+    fn from(value: &JsonRpcResponseForRpcNetworkInfoResponseAndRpcNetworkInfoError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcProtocolConfigResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcProtocolConfigResponseAndRpcProtocolConfigError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcProtocolConfigResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcProtocolConfigResponse_and_RpcProtocolConfigError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14849,7 +16635,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcNetworkInfoResponseAnd
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcProtocolConfigError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14871,30 +16657,32 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcNetworkInfoResponseAnd
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcProtocolConfigResponseAndRpcError {
+pub enum JsonRpcResponseForRpcProtocolConfigResponseAndRpcProtocolConfigError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcProtocolConfigResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcProtocolConfigError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcProtocolConfigResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcProtocolConfigResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForRpcProtocolConfigResponseAndRpcProtocolConfigError
+{
+    fn from(value: &JsonRpcResponseForRpcProtocolConfigResponseAndRpcProtocolConfigError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcQueryResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcQueryResponseAndRpcQueryError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcQueryResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcQueryResponse_and_RpcQueryError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14915,7 +16703,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcProtocolConfigResponse
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcQueryError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -14937,30 +16725,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcProtocolConfigResponse
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcQueryResponseAndRpcError {
+pub enum JsonRpcResponseForRpcQueryResponseAndRpcQueryError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcQueryResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcQueryError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcQueryResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcQueryResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcQueryResponseAndRpcQueryError {
+    fn from(value: &JsonRpcResponseForRpcQueryResponseAndRpcQueryError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcReceiptResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcReceiptResponseAndRpcReceiptError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcReceiptResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcReceiptResponse_and_RpcReceiptError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -14981,7 +16769,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcQueryResponseAndRpcErr
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcReceiptError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -15003,30 +16791,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcQueryResponseAndRpcErr
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcReceiptResponseAndRpcError {
+pub enum JsonRpcResponseForRpcReceiptResponseAndRpcReceiptError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcReceiptResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcReceiptError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcReceiptResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcReceiptResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcReceiptResponseAndRpcReceiptError {
+    fn from(value: &JsonRpcResponseForRpcReceiptResponseAndRpcReceiptError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcSplitStorageInfoError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcSplitStorageInfoResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcSplitStorageInfoResponse_and_RpcSplitStorageInfoError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -15047,7 +16835,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcReceiptResponseAndRpcE
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcSplitStorageInfoError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -15069,30 +16857,34 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcReceiptResponseAndRpcE
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError {
+pub enum JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcSplitStorageInfoError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcSplitStorageInfoResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcSplitStorageInfoError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcSplitStorageInfoError
+{
+    fn from(
+        value: &JsonRpcResponseForRpcSplitStorageInfoResponseAndRpcSplitStorageInfoError,
+    ) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcStateChangesError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcStateChangesInBlockByTypeResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcStateChangesInBlockByTypeResponse_and_RpcStateChangesError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -15113,7 +16905,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcSplitStorageInfoRespon
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcStateChangesError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -15135,32 +16927,34 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcSplitStorageInfoRespon
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError {
+pub enum JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcStateChangesError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcStateChangesInBlockByTypeResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcStateChangesError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
 impl ::std::convert::From<&Self>
-    for JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError
+    for JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcStateChangesError
 {
-    fn from(value: &JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcError) -> Self {
+    fn from(
+        value: &JsonRpcResponseForRpcStateChangesInBlockByTypeResponseAndRpcStateChangesError,
+    ) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcStateChangesError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcStateChangesInBlockResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcStateChangesInBlockResponse_and_RpcStateChangesError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -15181,7 +16975,7 @@ impl ::std::convert::From<&Self>
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcStateChangesError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -15203,30 +16997,34 @@ impl ::std::convert::From<&Self>
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError {
+pub enum JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcStateChangesError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcStateChangesInBlockResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcStateChangesError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcStateChangesError
+{
+    fn from(
+        value: &JsonRpcResponseForRpcStateChangesInBlockResponseAndRpcStateChangesError,
+    ) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcStatusResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcStatusResponseAndRpcStatusError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcStatusResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcStatusResponse_and_RpcStatusError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -15247,7 +17045,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcStateChangesInBlockRes
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcStatusError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -15269,30 +17067,30 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcStateChangesInBlockRes
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcStatusResponseAndRpcError {
+pub enum JsonRpcResponseForRpcStatusResponseAndRpcStatusError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcStatusResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcStatusError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcStatusResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcStatusResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcStatusResponseAndRpcStatusError {
+    fn from(value: &JsonRpcResponseForRpcStatusResponseAndRpcStatusError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcTransactionResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcTransactionResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcTransactionResponse_and_RpcTransactionError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -15313,7 +17111,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcStatusResponseAndRpcEr
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcTransactionError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -15335,30 +17133,32 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcStatusResponseAndRpcEr
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcTransactionResponseAndRpcError {
+pub enum JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcTransactionResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcTransactionError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcTransactionResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcTransactionResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError
+{
+    fn from(value: &JsonRpcResponseForRpcTransactionResponseAndRpcTransactionError) -> Self {
         value.clone()
     }
 }
-#[doc = "`JsonRpcResponseForRpcValidatorResponseAndRpcError`"]
+#[doc = "`JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"title\": \"JsonRpcResponse_for_RpcValidatorResponse_and_RpcError\","]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcValidatorResponse_and_RpcValidatorError\","]
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
@@ -15379,7 +17179,7 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcTransactionResponseAnd
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
 #[doc = "        \"error\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcError\""]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcValidatorError\""]
 #[doc = "        }"]
 #[doc = "      }"]
 #[doc = "    }"]
@@ -15401,20 +17201,20 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcTransactionResponseAnd
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 #[serde(untagged)]
-pub enum JsonRpcResponseForRpcValidatorResponseAndRpcError {
+pub enum JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError {
     Variant0 {
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
         result: RpcValidatorResponse,
     },
     Variant1 {
-        error: RpcError,
+        error: ErrorWrapperForRpcValidatorError,
         id: ::std::string::String,
         jsonrpc: ::std::string::String,
     },
 }
-impl ::std::convert::From<&Self> for JsonRpcResponseForRpcValidatorResponseAndRpcError {
-    fn from(value: &JsonRpcResponseForRpcValidatorResponseAndRpcError) -> Self {
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError {
+    fn from(value: &JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError) -> Self {
         value.clone()
     }
 }
@@ -16327,7 +18127,7 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
 #[doc = "  \"description\": \"An Action that can be included in a transaction or receipt, excluding delegate actions. This type represents all possible action types except DelegateAction to prevent infinite recursion in meta-transactions.\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
-#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<http://nomicon.io/Primitives/Account.html>.\","]
+#[doc = "      \"description\": \"Create an (sub)account using a transaction `receiver_id` as an ID for\\na new account ID must pass validation rules described here\\n<https://nomicon.io/DataStructures/Account>.\","]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
 #[doc = "        \"CreateAccount\""]
@@ -16466,7 +18266,7 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub enum NonDelegateAction {
-    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\na new account ID must pass validation rules described here\n<http://nomicon.io/Primitives/Account.html>."]
+    #[doc = "Create an (sub)account using a transaction `receiver_id` as an ID for\na new account ID must pass validation rules described here\n<https://nomicon.io/DataStructures/Account>."]
     CreateAccount(CreateAccountAction),
     #[doc = "Sets a Wasm code to a receiver_id"]
     DeployContract(DeployContractAction),
@@ -17534,6 +19334,99 @@ impl ::std::convert::From<&ReceiptView> for ReceiptView {
         value.clone()
     }
 }
+#[doc = "`RpcBlockError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_BLOCK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"NOT_SYNCED_YET\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcBlockError {
+    #[serde(rename = "UNKNOWN_BLOCK")]
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
+    #[serde(rename = "NOT_SYNCED_YET")]
+    NotSyncedYet,
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcBlockError {
+    fn from(value: &RpcBlockError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcBlockError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
+    }
+}
 #[doc = "`RpcBlockRequest`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -17655,6 +19548,139 @@ impl ::std::convert::From<&RpcBlockResponse> for RpcBlockResponse {
         value.clone()
     }
 }
+#[doc = "`RpcChunkError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_BLOCK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"shard_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"shard_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/ShardId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INVALID_SHARD_ID\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"chunk_hash\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"chunk_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/ChunkHash\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_CHUNK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcChunkError {
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+    #[serde(rename = "UNKNOWN_BLOCK")]
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
+    #[serde(rename = "INVALID_SHARD_ID")]
+    InvalidShardId { shard_id: ShardId },
+    #[serde(rename = "UNKNOWN_CHUNK")]
+    UnknownChunk { chunk_hash: ChunkHash },
+}
+impl ::std::convert::From<&Self> for RpcChunkError {
+    fn from(value: &RpcChunkError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcChunkError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
+    }
+}
 #[doc = "`RpcChunkRequest`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -17760,6 +19786,56 @@ impl ::std::convert::From<&RpcChunkResponse> for RpcChunkResponse {
         value.clone()
     }
 }
+#[doc = "`RpcClientConfigError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcClientConfigError {
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcClientConfigError {
+    fn from(value: &RpcClientConfigError) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`RpcClientConfigRequest`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -17815,6 +19891,8 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    \"chunk_wait_mult\","]
 #[doc = "    \"client_background_migration_threads\","]
 #[doc = "    \"doomslug_step_period\","]
+#[doc = "    \"dynamic_resharding_dry_run\","]
+#[doc = "    \"enable_early_prepare_transactions\","]
 #[doc = "    \"enable_multiline_logging\","]
 #[doc = "    \"enable_statistics_export\","]
 #[doc = "    \"epoch_length\","]
@@ -17951,17 +20029,6 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"format\": \"uint\","]
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
-#[doc = "    \"cloud_archival_reader\": {"]
-#[doc = "      \"description\": \"Configuration for a cloud-based archival reader.\","]
-#[doc = "      \"anyOf\": ["]
-#[doc = "        {"]
-#[doc = "          \"$ref\": \"#/components/schemas/CloudArchivalReaderConfig\""]
-#[doc = "        },"]
-#[doc = "        {"]
-#[doc = "          \"type\": \"null\""]
-#[doc = "        }"]
-#[doc = "      ]"]
-#[doc = "    },"]
 #[doc = "    \"cloud_archival_writer\": {"]
 #[doc = "      \"description\": \"Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\\nwrites chunk-related data based on the tracked shards.\","]
 #[doc = "      \"anyOf\": ["]
@@ -17983,6 +20050,14 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      },"]
 #[doc = "      \"maxItems\": 2,"]
 #[doc = "      \"minItems\": 2"]
+#[doc = "    },"]
+#[doc = "    \"dynamic_resharding_dry_run\": {"]
+#[doc = "      \"description\": \"If true, the runtime will do a dynamic resharding 'dry run' at the last block of each epoch.\\nThis means calculating tentative boundary accounts for splitting the tracked shards.\","]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
+#[doc = "    \"enable_early_prepare_transactions\": {"]
+#[doc = "      \"description\": \"If true, transactions for the next chunk will be prepared early, right after the previous chunk's\\npost-state is ready. This can help produce chunks faster, for high-throughput chains.\\nThe current implementation increases latency on low-load chains, which will be fixed in the future.\\nThe default is disabled.\","]
+#[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"enable_multiline_logging\": {"]
 #[doc = "      \"type\": \"boolean\""]
@@ -18396,14 +20471,15 @@ pub struct RpcClientConfigResponse {
     pub chunk_wait_mult: [i32; 2usize],
     #[doc = "Number of threads to execute background migration work in client."]
     pub client_background_migration_threads: u32,
-    #[doc = "Configuration for a cloud-based archival reader."]
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub cloud_archival_reader: ::std::option::Option<CloudArchivalReaderConfig>,
     #[doc = "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub cloud_archival_writer: ::std::option::Option<CloudArchivalWriterConfig>,
     #[doc = "Time between running doomslug timer."]
     pub doomslug_step_period: [u64; 2usize],
+    #[doc = "If true, the runtime will do a dynamic resharding 'dry run' at the last block of each epoch.\nThis means calculating tentative boundary accounts for splitting the tracked shards."]
+    pub dynamic_resharding_dry_run: bool,
+    #[doc = "If true, transactions for the next chunk will be prepared early, right after the previous chunk's\npost-state is ready. This can help produce chunks faster, for high-throughput chains.\nThe current implementation increases latency on low-load chains, which will be fixed in the future.\nThe default is disabled."]
+    pub enable_early_prepare_transactions: bool,
     pub enable_multiline_logging: bool,
     #[doc = "Re-export storage layer statistics as prometheus metrics."]
     pub enable_statistics_export: bool,
@@ -18599,57 +20675,31 @@ impl ::std::convert::From<&RpcCongestionLevelResponse> for RpcCongestionLevelRes
         value.clone()
     }
 }
-#[doc = "This struct may be returned from JSON RPC server in case of error\nIt is expected that this struct has impl From<_> all other RPC errors\nlike [RpcBlockError](crate::types::blocks::RpcBlockError)"]
+#[doc = "`RpcGasPriceError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
 #[doc = r""]
 #[doc = r" ```json"]
 #[doc = "{"]
-#[doc = "  \"description\": \"This struct may be returned from JSON RPC server in case of error\\nIt is expected that this struct has impl From<_> all other RPC errors\\nlike [RpcBlockError](crate::types::blocks::RpcBlockError)\","]
-#[doc = "  \"type\": \"object\","]
 #[doc = "  \"oneOf\": ["]
 #[doc = "    {"]
 #[doc = "      \"type\": \"object\","]
 #[doc = "      \"required\": ["]
-#[doc = "        \"cause\","]
+#[doc = "        \"info\","]
 #[doc = "        \"name\""]
 #[doc = "      ],"]
 #[doc = "      \"properties\": {"]
-#[doc = "        \"cause\": {"]
-#[doc = "          \"$ref\": \"#/components/schemas/RpcRequestValidationErrorKind\""]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
 #[doc = "        },"]
-#[doc = "        \"name\": {"]
-#[doc = "          \"type\": \"string\","]
-#[doc = "          \"enum\": ["]
-#[doc = "            \"REQUEST_VALIDATION_ERROR\""]
-#[doc = "          ]"]
-#[doc = "        }"]
-#[doc = "      }"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"cause\","]
-#[doc = "        \"name\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"cause\": {},"]
-#[doc = "        \"name\": {"]
-#[doc = "          \"type\": \"string\","]
-#[doc = "          \"enum\": ["]
-#[doc = "            \"HANDLER_ERROR\""]
-#[doc = "          ]"]
-#[doc = "        }"]
-#[doc = "      }"]
-#[doc = "    },"]
-#[doc = "    {"]
-#[doc = "      \"type\": \"object\","]
-#[doc = "      \"required\": ["]
-#[doc = "        \"cause\","]
-#[doc = "        \"name\""]
-#[doc = "      ],"]
-#[doc = "      \"properties\": {"]
-#[doc = "        \"cause\": {},"]
 #[doc = "        \"name\": {"]
 #[doc = "          \"type\": \"string\","]
 #[doc = "          \"enum\": ["]
@@ -18657,288 +20707,49 @@ impl ::std::convert::From<&RpcCongestionLevelResponse> for RpcCongestionLevelRes
 #[doc = "          ]"]
 #[doc = "        }"]
 #[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_BLOCK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
 #[doc = "    }"]
-#[doc = "  ],"]
-#[doc = "  \"required\": ["]
-#[doc = "    \"code\","]
-#[doc = "    \"message\""]
-#[doc = "  ],"]
-#[doc = "  \"properties\": {"]
-#[doc = "    \"cause\": {},"]
-#[doc = "    \"code\": {"]
-#[doc = "      \"description\": \"Deprecated please use the `error_struct` instead\","]
-#[doc = "      \"type\": \"integer\","]
-#[doc = "      \"format\": \"int64\""]
-#[doc = "    },"]
-#[doc = "    \"data\": {"]
-#[doc = "      \"description\": \"Deprecated please use the `error_struct` instead\""]
-#[doc = "    },"]
-#[doc = "    \"message\": {"]
-#[doc = "      \"description\": \"Deprecated please use the `error_struct` instead\","]
-#[doc = "      \"type\": \"string\""]
-#[doc = "    },"]
-#[doc = "    \"name\": {}"]
-#[doc = "  },"]
-#[doc = "  \"additionalProperties\": false"]
+#[doc = "  ]"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-#[serde(untagged, deny_unknown_fields)]
-pub enum RpcError {
-    Variant0 {
-        cause: RpcRequestValidationErrorKind,
-        #[doc = "Deprecated please use the `error_struct` instead"]
-        code: i64,
-        #[doc = "Deprecated please use the `error_struct` instead"]
-        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-        data: ::std::option::Option<::serde_json::Value>,
-        #[doc = "Deprecated please use the `error_struct` instead"]
-        message: ::std::string::String,
-        name: RpcErrorVariant0Name,
-    },
-    Variant1 {
-        cause: ::serde_json::Value,
-        #[doc = "Deprecated please use the `error_struct` instead"]
-        code: i64,
-        #[doc = "Deprecated please use the `error_struct` instead"]
-        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-        data: ::std::option::Option<::serde_json::Value>,
-        #[doc = "Deprecated please use the `error_struct` instead"]
-        message: ::std::string::String,
-        name: RpcErrorVariant1Name,
-    },
-    Variant2 {
-        cause: ::serde_json::Value,
-        #[doc = "Deprecated please use the `error_struct` instead"]
-        code: i64,
-        #[doc = "Deprecated please use the `error_struct` instead"]
-        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-        data: ::std::option::Option<::serde_json::Value>,
-        #[doc = "Deprecated please use the `error_struct` instead"]
-        message: ::std::string::String,
-        name: RpcErrorVariant2Name,
-    },
-}
-impl ::std::convert::From<&Self> for RpcError {
-    fn from(value: &RpcError) -> Self {
-        value.clone()
-    }
-}
-#[doc = "`RpcErrorVariant0Name`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"REQUEST_VALIDATION_ERROR\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcErrorVariant0Name {
-    #[serde(rename = "REQUEST_VALIDATION_ERROR")]
-    RequestValidationError,
-}
-impl ::std::convert::From<&Self> for RpcErrorVariant0Name {
-    fn from(value: &RpcErrorVariant0Name) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcErrorVariant0Name {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::RequestValidationError => f.write_str("REQUEST_VALIDATION_ERROR"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcErrorVariant0Name {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "REQUEST_VALIDATION_ERROR" => Ok(Self::RequestValidationError),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcErrorVariant0Name {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcErrorVariant0Name {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcErrorVariant0Name {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcErrorVariant1Name`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"HANDLER_ERROR\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcErrorVariant1Name {
-    #[serde(rename = "HANDLER_ERROR")]
-    HandlerError,
-}
-impl ::std::convert::From<&Self> for RpcErrorVariant1Name {
-    fn from(value: &RpcErrorVariant1Name) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for RpcErrorVariant1Name {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::HandlerError => f.write_str("HANDLER_ERROR"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcErrorVariant1Name {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "HANDLER_ERROR" => Ok(Self::HandlerError),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcErrorVariant1Name {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcErrorVariant1Name {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcErrorVariant1Name {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-#[doc = "`RpcErrorVariant2Name`"]
-#[doc = r""]
-#[doc = r" <details><summary>JSON schema</summary>"]
-#[doc = r""]
-#[doc = r" ```json"]
-#[doc = "{"]
-#[doc = "  \"type\": \"string\","]
-#[doc = "  \"enum\": ["]
-#[doc = "    \"INTERNAL_ERROR\""]
-#[doc = "  ]"]
-#[doc = "}"]
-#[doc = r" ```"]
-#[doc = r" </details>"]
-#[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
-pub enum RpcErrorVariant2Name {
+#[serde(tag = "name", content = "info")]
+pub enum RpcGasPriceError {
     #[serde(rename = "INTERNAL_ERROR")]
-    InternalError,
+    InternalError {
+        error_message: ::std::string::String,
+    },
+    #[serde(rename = "UNKNOWN_BLOCK")]
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
 }
-impl ::std::convert::From<&Self> for RpcErrorVariant2Name {
-    fn from(value: &RpcErrorVariant2Name) -> Self {
+impl ::std::convert::From<&Self> for RpcGasPriceError {
+    fn from(value: &RpcGasPriceError) -> Self {
         value.clone()
     }
 }
-impl ::std::fmt::Display for RpcErrorVariant2Name {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::InternalError => f.write_str("INTERNAL_ERROR"),
-        }
-    }
-}
-impl ::std::str::FromStr for RpcErrorVariant2Name {
-    type Err = self::error::ConversionError;
-    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "INTERNAL_ERROR" => Ok(Self::InternalError),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for RpcErrorVariant2Name {
-    type Error = self::error::ConversionError;
-    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for RpcErrorVariant2Name {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for RpcErrorVariant2Name {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcGasPriceError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "`RpcGasPriceRequest`"]
@@ -19475,6 +21286,111 @@ impl ::std::convert::From<&RpcLightClientExecutionProofResponse>
         value.clone()
     }
 }
+#[doc = "`RpcLightClientNextBlockError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_BLOCK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"epoch_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"epoch_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/EpochId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"EPOCH_OUT_OF_BOUNDS\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcLightClientNextBlockError {
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+    #[serde(rename = "UNKNOWN_BLOCK")]
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
+    #[serde(rename = "EPOCH_OUT_OF_BOUNDS")]
+    EpochOutOfBounds { epoch_id: EpochId },
+}
+impl ::std::convert::From<&Self> for RpcLightClientNextBlockError {
+    fn from(value: &RpcLightClientNextBlockError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcLightClientNextBlockError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
+    }
+}
 #[doc = "`RpcLightClientNextBlockRequest`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -19588,6 +21504,265 @@ impl ::std::default::Default for RpcLightClientNextBlockResponse {
         }
     }
 }
+#[doc = "`RpcLightClientProofError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_BLOCK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"execution_outcome_shard_id\","]
+#[doc = "            \"number_or_shards\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"execution_outcome_shard_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/ShardId\""]
+#[doc = "            },"]
+#[doc = "            \"number_or_shards\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INCONSISTENT_STATE\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"transaction_or_receipt_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"transaction_or_receipt_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"NOT_CONFIRMED\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"transaction_or_receipt_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"transaction_or_receipt_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_TRANSACTION_OR_RECEIPT\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"shard_id\","]
+#[doc = "            \"transaction_or_receipt_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"shard_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/ShardId\""]
+#[doc = "            },"]
+#[doc = "            \"transaction_or_receipt_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNAVAILABLE_SHARD\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcLightClientProofError {
+    #[serde(rename = "UNKNOWN_BLOCK")]
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
+    #[serde(rename = "INCONSISTENT_STATE")]
+    InconsistentState {
+        execution_outcome_shard_id: ShardId,
+        number_or_shards: u32,
+    },
+    #[serde(rename = "NOT_CONFIRMED")]
+    NotConfirmed {
+        transaction_or_receipt_id: CryptoHash,
+    },
+    #[serde(rename = "UNKNOWN_TRANSACTION_OR_RECEIPT")]
+    UnknownTransactionOrReceipt {
+        transaction_or_receipt_id: CryptoHash,
+    },
+    #[serde(rename = "UNAVAILABLE_SHARD")]
+    UnavailableShard {
+        shard_id: ShardId,
+        transaction_or_receipt_id: CryptoHash,
+    },
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcLightClientProofError {
+    fn from(value: &RpcLightClientProofError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcLightClientProofError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
+    }
+}
+#[doc = "`RpcMaintenanceWindowsError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcMaintenanceWindowsError {
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcMaintenanceWindowsError {
+    fn from(value: &RpcMaintenanceWindowsError) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`RpcMaintenanceWindowsRequest`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -19613,6 +21788,56 @@ pub struct RpcMaintenanceWindowsRequest {
 }
 impl ::std::convert::From<&RpcMaintenanceWindowsRequest> for RpcMaintenanceWindowsRequest {
     fn from(value: &RpcMaintenanceWindowsRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`RpcNetworkInfoError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcNetworkInfoError {
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcNetworkInfoError {
+    fn from(value: &RpcNetworkInfoError) -> Self {
         value.clone()
     }
 }
@@ -19764,6 +21989,83 @@ pub struct RpcPeerInfo {
 impl ::std::convert::From<&RpcPeerInfo> for RpcPeerInfo {
     fn from(value: &RpcPeerInfo) -> Self {
         value.clone()
+    }
+}
+#[doc = "`RpcProtocolConfigError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_BLOCK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcProtocolConfigError {
+    #[serde(rename = "UNKNOWN_BLOCK")]
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcProtocolConfigError {
+    fn from(value: &RpcProtocolConfigError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcProtocolConfigError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "`RpcProtocolConfigRequest`"]
@@ -20202,6 +22504,459 @@ pub struct RpcProtocolConfigResponse {
 }
 impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigResponse {
     fn from(value: &RpcProtocolConfigResponse) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`RpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"NO_SYNCED_BLOCKS\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"requested_shard_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"requested_shard_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/ShardId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNAVAILABLE_SHARD\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_hash\","]
+#[doc = "            \"block_height\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"block_height\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"GARBAGE_COLLECTED_BLOCK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_reference\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_reference\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/BlockReference\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_BLOCK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_hash\","]
+#[doc = "            \"block_height\","]
+#[doc = "            \"requested_account_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"block_height\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"requested_account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INVALID_ACCOUNT\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_hash\","]
+#[doc = "            \"block_height\","]
+#[doc = "            \"requested_account_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"block_height\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"requested_account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_ACCOUNT\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_hash\","]
+#[doc = "            \"block_height\","]
+#[doc = "            \"contract_account_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"block_height\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"contract_account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"NO_CONTRACT_CODE\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_hash\","]
+#[doc = "            \"block_height\","]
+#[doc = "            \"contract_account_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"block_height\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"contract_account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"TOO_LARGE_CONTRACT_STATE\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_hash\","]
+#[doc = "            \"block_height\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"block_height\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_ACCESS_KEY\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_hash\","]
+#[doc = "            \"block_height\","]
+#[doc = "            \"vm_error\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"block_height\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"vm_error\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"CONTRACT_EXECUTION_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_hash\","]
+#[doc = "            \"block_height\","]
+#[doc = "            \"identifier\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"block_height\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"identifier\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/GlobalContractIdentifier\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"NO_GLOBAL_CONTRACT_CODE\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcQueryError {
+    #[serde(rename = "NO_SYNCED_BLOCKS")]
+    NoSyncedBlocks,
+    #[serde(rename = "UNAVAILABLE_SHARD")]
+    UnavailableShard { requested_shard_id: ShardId },
+    #[serde(rename = "GARBAGE_COLLECTED_BLOCK")]
+    GarbageCollectedBlock {
+        block_hash: CryptoHash,
+        block_height: u64,
+    },
+    #[serde(rename = "UNKNOWN_BLOCK")]
+    UnknownBlock { block_reference: BlockReference },
+    #[serde(rename = "INVALID_ACCOUNT")]
+    InvalidAccount {
+        block_hash: CryptoHash,
+        block_height: u64,
+        requested_account_id: AccountId,
+    },
+    #[serde(rename = "UNKNOWN_ACCOUNT")]
+    UnknownAccount {
+        block_hash: CryptoHash,
+        block_height: u64,
+        requested_account_id: AccountId,
+    },
+    #[serde(rename = "NO_CONTRACT_CODE")]
+    NoContractCode {
+        block_hash: CryptoHash,
+        block_height: u64,
+        contract_account_id: AccountId,
+    },
+    #[serde(rename = "TOO_LARGE_CONTRACT_STATE")]
+    TooLargeContractState {
+        block_hash: CryptoHash,
+        block_height: u64,
+        contract_account_id: AccountId,
+    },
+    #[serde(rename = "UNKNOWN_ACCESS_KEY")]
+    UnknownAccessKey {
+        block_hash: CryptoHash,
+        block_height: u64,
+        public_key: PublicKey,
+    },
+    #[serde(rename = "CONTRACT_EXECUTION_ERROR")]
+    ContractExecutionError {
+        block_hash: CryptoHash,
+        block_height: u64,
+        vm_error: ::std::string::String,
+    },
+    #[serde(rename = "NO_GLOBAL_CONTRACT_CODE")]
+    NoGlobalContractCode {
+        block_hash: CryptoHash,
+        block_height: u64,
+        identifier: GlobalContractIdentifier,
+    },
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcQueryError {
+    fn from(value: &RpcQueryError) -> Self {
         value.clone()
     }
 }
@@ -21336,6 +24091,84 @@ impl ::std::convert::From<&Self> for RpcQueryResponse {
         value.clone()
     }
 }
+#[doc = "`RpcReceiptError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"receipt_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"receipt_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_RECEIPT\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcReceiptError {
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+    #[serde(rename = "UNKNOWN_RECEIPT")]
+    UnknownReceipt { receipt_id: CryptoHash },
+}
+impl ::std::convert::From<&Self> for RpcReceiptError {
+    fn from(value: &RpcReceiptError) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`RpcReceiptRequest`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -21530,6 +24363,56 @@ impl ::std::convert::From<&RpcSendTransactionRequest> for RpcSendTransactionRequ
         value.clone()
     }
 }
+#[doc = "`RpcSplitStorageInfoError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcSplitStorageInfoError {
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcSplitStorageInfoError {
+    fn from(value: &RpcSplitStorageInfoError) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`RpcSplitStorageInfoRequest`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -21638,6 +24521,99 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
             head_height: Default::default(),
             hot_db_kind: Default::default(),
         }
+    }
+}
+#[doc = "`RpcStateChangesError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_BLOCK\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"NOT_SYNCED_YET\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcStateChangesError {
+    #[serde(rename = "UNKNOWN_BLOCK")]
+    UnknownBlock(::serde_json::Map<::std::string::String, ::serde_json::Value>),
+    #[serde(rename = "NOT_SYNCED_YET")]
+    NotSyncedYet,
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcStateChangesError {
+    fn from(value: &RpcStateChangesError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcStateChangesError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::UnknownBlock(value)
     }
 }
 #[doc = "It is a [serializable view] of [`StateChangesRequest`].\n\n[serializable view]: ./index.html\n[`StateChangesRequest`]: ../types/struct.StateChangesRequest.html"]
@@ -22707,6 +25683,135 @@ impl ::std::convert::From<&RpcStateChangesInBlockResponse> for RpcStateChangesIn
         value.clone()
     }
 }
+#[doc = "`RpcStatusError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"NODE_IS_SYNCING\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"elapsed\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"elapsed\": {"]
+#[doc = "              \"type\": \"array\","]
+#[doc = "              \"items\": {"]
+#[doc = "                \"type\": \"integer\","]
+#[doc = "                \"format\": \"uint64\","]
+#[doc = "                \"minimum\": 0.0"]
+#[doc = "              },"]
+#[doc = "              \"maxItems\": 2,"]
+#[doc = "              \"minItems\": 2"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"NO_NEW_BLOCKS\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"epoch_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"epoch_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/EpochId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"EPOCH_OUT_OF_BOUNDS\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcStatusError {
+    #[serde(rename = "NODE_IS_SYNCING")]
+    NodeIsSyncing,
+    #[serde(rename = "NO_NEW_BLOCKS")]
+    NoNewBlocks { elapsed: [u64; 2usize] },
+    #[serde(rename = "EPOCH_OUT_OF_BOUNDS")]
+    EpochOutOfBounds { epoch_id: EpochId },
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcStatusError {
+    fn from(value: &RpcStatusError) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`RpcStatusRequest`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -22917,6 +26022,171 @@ impl ::std::convert::From<&RpcStatusResponse> for RpcStatusResponse {
         value.clone()
     }
 }
+#[doc = "`RpcTransactionError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\""]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INVALID_TRANSACTION\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"DOES_NOT_TRACK_SHARD\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"transaction_hash\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"transaction_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"REQUEST_ROUTED\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"requested_transaction_hash\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"requested_transaction_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_TRANSACTION\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"debug_info\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"debug_info\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"TIMEOUT_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcTransactionError {
+    #[serde(rename = "INVALID_TRANSACTION")]
+    InvalidTransaction(::serde_json::Map<::std::string::String, ::serde_json::Value>),
+    #[serde(rename = "DOES_NOT_TRACK_SHARD")]
+    DoesNotTrackShard,
+    #[serde(rename = "REQUEST_ROUTED")]
+    RequestRouted { transaction_hash: CryptoHash },
+    #[serde(rename = "UNKNOWN_TRANSACTION")]
+    UnknownTransaction {
+        requested_transaction_hash: CryptoHash,
+    },
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError { debug_info: ::std::string::String },
+    #[serde(rename = "TIMEOUT_ERROR")]
+    TimeoutError,
+}
+impl ::std::convert::From<&Self> for RpcTransactionError {
+    fn from(value: &RpcTransactionError) -> Self {
+        value.clone()
+    }
+}
+impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json::Value>>
+    for RpcTransactionError
+{
+    fn from(value: ::serde_json::Map<::std::string::String, ::serde_json::Value>) -> Self {
+        Self::InvalidTransaction(value)
+    }
+}
 #[doc = "`RpcTransactionResponse`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -23042,6 +26312,88 @@ pub enum RpcTransactionStatusRequest {
 }
 impl ::std::convert::From<&Self> for RpcTransactionStatusRequest {
     fn from(value: &RpcTransactionStatusRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`RpcValidatorError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_EPOCH\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"VALIDATOR_INFO_UNAVAILABLE\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"error_message\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"error_message\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"INTERNAL_ERROR\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(tag = "name", content = "info")]
+pub enum RpcValidatorError {
+    #[serde(rename = "UNKNOWN_EPOCH")]
+    UnknownEpoch,
+    #[serde(rename = "VALIDATOR_INFO_UNAVAILABLE")]
+    ValidatorInfoUnavailable,
+    #[serde(rename = "INTERNAL_ERROR")]
+    InternalError {
+        error_message: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for RpcValidatorError {
+    fn from(value: &RpcValidatorError) -> Self {
         value.clone()
     }
 }
@@ -29929,6 +33281,8 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "    \"grow_mem_cost\","]
 #[doc = "    \"implicit_account_creation\","]
 #[doc = "    \"limit_config\","]
+#[doc = "    \"linear_op_base_cost\","]
+#[doc = "    \"linear_op_unit_cost\","]
 #[doc = "    \"reftypes_bulk_memory\","]
 #[doc = "    \"regular_op_cost\","]
 #[doc = "    \"saturating_float_to_int\","]
@@ -29981,6 +33335,18 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "          \"$ref\": \"#/components/schemas/LimitConfig\""]
 #[doc = "        }"]
 #[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"linear_op_base_cost\": {"]
+#[doc = "      \"description\": \"Base gas cost of a linear operation\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"linear_op_unit_cost\": {"]
+#[doc = "      \"description\": \"Unit gas cost of a linear operation\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"reftypes_bulk_memory\": {"]
 #[doc = "      \"description\": \"See [VMConfig::reftypes_bulk_memory](crate::vm::Config::reftypes_bulk_memory).\","]
@@ -30036,6 +33402,10 @@ pub struct VmConfigView {
     pub implicit_account_creation: bool,
     #[doc = "Describes limits for VM and Runtime.\n\nTODO: Consider changing this to `VMLimitConfigView` to avoid dependency\non runtime."]
     pub limit_config: LimitConfig,
+    #[doc = "Base gas cost of a linear operation"]
+    pub linear_op_base_cost: u64,
+    #[doc = "Unit gas cost of a linear operation"]
+    pub linear_op_unit_cost: u64,
     #[doc = "See [VMConfig::reftypes_bulk_memory](crate::vm::Config::reftypes_bulk_memory)."]
     pub reftypes_bulk_memory: bool,
     #[doc = "Gas cost of a regular operation."]
