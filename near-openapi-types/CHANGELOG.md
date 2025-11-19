@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.5.0...near-openapi-types-v0.5.1) - 2025-11-19
+
+### Added
+
+- add thiserror::Error derive for error types ([#23](https://github.com/PolyProgrammist/near-openapi-client/pull/23))
+
 ## [0.4.1](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.4.0...near-openapi-types-v0.4.1) - 2025-11-06
 
 ### Other
