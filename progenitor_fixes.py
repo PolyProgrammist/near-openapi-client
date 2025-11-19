@@ -139,7 +139,7 @@ license.workspace = true
 repository.workspace = true
 description = "Types for progenitor-generated client of NEAR JSON RPC API"
 """, types_cargo_toml)
-    types_cargo_toml += 'near-account-id = { version = "1.1.1", features = ["serde"] }\nnear-gas = { version = "0.3.2", features = ["serde"] }\nnear-token = { version = "0.3.1", features = ["serde"] }\n'
+    types_cargo_toml += 'near-account-id = { version = "1.1.1", features = ["serde"] }\nnear-gas = { version = "0.3.2", features = ["serde"] }\nnear-token = { version = "0.3.1", features = ["serde"] }\nthiserror = "2.0.17"\nstrum_macros = "0.27.2"\n'
     
     client_cargo_toml_file = open('./near-openapi-client/Cargo.toml', 'w')
     client_cargo_toml_file.write(client_cargo_toml)
