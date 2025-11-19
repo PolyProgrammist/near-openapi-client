@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.5.1...near-openapi-types-v0.5.2) - 2025-11-19
+
+### Other
+
+- [create-pull-request] automated change ([#22](https://github.com/PolyProgrammist/near-openapi-client/pull/22))
+
 ## [0.5.1](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.5.0...near-openapi-types-v0.5.1) - 2025-11-19
 
 ### Added
