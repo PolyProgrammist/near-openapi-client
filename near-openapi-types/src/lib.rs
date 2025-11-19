@@ -574,10 +574,6 @@ impl ::std::convert::TryFrom<::std::string::String> for AccountChangesBySyncChec
 #[doc = "{"]
 #[doc = "  \"description\": \"The structure describes configuration for creation of new accounts.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"min_allowed_top_level_account_length\","]
-#[doc = "    \"registrar_account_id\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"min_allowed_top_level_account_length\": {"]
 #[doc = "      \"description\": \"The minimum length of the top-level account ID that is allowed to be created by any account.\","]
@@ -601,13 +597,23 @@ impl ::std::convert::TryFrom<::std::string::String> for AccountChangesBySyncChec
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct AccountCreationConfigView {
     #[doc = "The minimum length of the top-level account ID that is allowed to be created by any account."]
-    pub min_allowed_top_level_account_length: u8,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub min_allowed_top_level_account_length: ::std::option::Option<u8>,
     #[doc = "The account ID of the account registrar. This account ID allowed to create top-level\naccounts of any valid length."]
-    pub registrar_account_id: AccountId,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub registrar_account_id: ::std::option::Option<AccountId>,
 }
 impl ::std::convert::From<&AccountCreationConfigView> for AccountCreationConfigView {
     fn from(value: &AccountCreationConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for AccountCreationConfigView {
+    fn default() -> Self {
+        Self {
+            min_allowed_top_level_account_length: Default::default(),
+            registrar_account_id: Default::default(),
+        }
     }
 }
 #[doc = "AccountData is a piece of global state that a validator\nsigns and broadcasts to the network.\n\nIt is essentially the data that a validator wants to share with the network.\nAll the nodes in the network are collecting the account data\nbroadcasted by the validators.\nSince the number of the validators is bounded and their\nidentity is known (and the maximal size of allowed AccountData is bounded)\nthe global state that is distributed in the form of AccountData is bounded\nas well.\nFind more information in the docs [here](https://github.com/near/nearcore/blob/560f7fc8f4b3106e0d5d46050688610b1f104ac6/chain/client/src/client.rs#L2232)"]
@@ -896,19 +902,6 @@ impl ::std::convert::From<&AccountWithPublicKey> for AccountWithPublicKey {
 #[doc = "{"]
 #[doc = "  \"description\": \"Describes the cost of creating a specific action, `Action`. Includes all variants.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"add_key_cost\","]
-#[doc = "    \"create_account_cost\","]
-#[doc = "    \"delegate_cost\","]
-#[doc = "    \"delete_account_cost\","]
-#[doc = "    \"delete_key_cost\","]
-#[doc = "    \"deploy_contract_cost\","]
-#[doc = "    \"deploy_contract_cost_per_byte\","]
-#[doc = "    \"function_call_cost\","]
-#[doc = "    \"function_call_cost_per_byte\","]
-#[doc = "    \"stake_cost\","]
-#[doc = "    \"transfer_cost\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"add_key_cost\": {"]
 #[doc = "      \"description\": \"Base cost of adding a key.\","]
@@ -1005,31 +998,59 @@ impl ::std::convert::From<&AccountWithPublicKey> for AccountWithPublicKey {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ActionCreationConfigView {
     #[doc = "Base cost of adding a key."]
-    pub add_key_cost: AccessKeyCreationConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub add_key_cost: ::std::option::Option<AccessKeyCreationConfigView>,
     #[doc = "Base cost of creating an account."]
-    pub create_account_cost: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub create_account_cost: ::std::option::Option<Fee>,
     #[doc = "Base cost for processing a delegate action.\n\nThis is on top of the costs for the actions inside the delegate action."]
-    pub delegate_cost: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub delegate_cost: ::std::option::Option<Fee>,
     #[doc = "Base cost of deleting an account."]
-    pub delete_account_cost: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub delete_account_cost: ::std::option::Option<Fee>,
     #[doc = "Base cost of deleting a key."]
-    pub delete_key_cost: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub delete_key_cost: ::std::option::Option<Fee>,
     #[doc = "Base cost of deploying a contract."]
-    pub deploy_contract_cost: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub deploy_contract_cost: ::std::option::Option<Fee>,
     #[doc = "Cost per byte of deploying a contract."]
-    pub deploy_contract_cost_per_byte: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub deploy_contract_cost_per_byte: ::std::option::Option<Fee>,
     #[doc = "Base cost of calling a function."]
-    pub function_call_cost: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub function_call_cost: ::std::option::Option<Fee>,
     #[doc = "Cost per byte of method name and arguments of calling a function."]
-    pub function_call_cost_per_byte: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub function_call_cost_per_byte: ::std::option::Option<Fee>,
     #[doc = "Base cost of staking."]
-    pub stake_cost: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub stake_cost: ::std::option::Option<Fee>,
     #[doc = "Base cost of making a transfer."]
-    pub transfer_cost: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub transfer_cost: ::std::option::Option<Fee>,
 }
 impl ::std::convert::From<&ActionCreationConfigView> for ActionCreationConfigView {
     fn from(value: &ActionCreationConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for ActionCreationConfigView {
+    fn default() -> Self {
+        Self {
+            add_key_cost: Default::default(),
+            create_account_cost: Default::default(),
+            delegate_cost: Default::default(),
+            delete_account_cost: Default::default(),
+            delete_key_cost: Default::default(),
+            deploy_contract_cost: Default::default(),
+            deploy_contract_cost_per_byte: Default::default(),
+            function_call_cost: Default::default(),
+            function_call_cost_per_byte: Default::default(),
+            stake_cost: Default::default(),
+            transfer_cost: Default::default(),
+        }
     }
 }
 #[doc = "An error happened during Action execution"]
@@ -4294,10 +4315,6 @@ impl ::std::default::Default for CatchupStatusViewShardSyncStatus {
 #[doc = "{"]
 #[doc = "  \"description\": \"Config for the Chunk Distribution Network feature.\\nThis allows nodes to push and pull chunks from a central stream.\\nThe two benefits of this approach are: (1) less request/response traffic\\non the peer-to-peer network and (2) lower latency for RPC nodes indexing the chain.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"enabled\","]
-#[doc = "    \"uris\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"enabled\": {"]
 #[doc = "      \"type\": \"boolean\""]
@@ -4311,12 +4328,22 @@ impl ::std::default::Default for CatchupStatusViewShardSyncStatus {
 #[doc = r" </details>"]
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ChunkDistributionNetworkConfig {
-    pub enabled: bool,
-    pub uris: ChunkDistributionUris,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub enabled: ::std::option::Option<bool>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub uris: ::std::option::Option<ChunkDistributionUris>,
 }
 impl ::std::convert::From<&ChunkDistributionNetworkConfig> for ChunkDistributionNetworkConfig {
     fn from(value: &ChunkDistributionNetworkConfig) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for ChunkDistributionNetworkConfig {
+    fn default() -> Self {
+        Self {
+            enabled: Default::default(),
+            uris: Default::default(),
+        }
     }
 }
 #[doc = "URIs for the Chunk Distribution Network feature."]
@@ -4327,10 +4354,6 @@ impl ::std::convert::From<&ChunkDistributionNetworkConfig> for ChunkDistribution
 #[doc = "{"]
 #[doc = "  \"description\": \"URIs for the Chunk Distribution Network feature.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"get\","]
-#[doc = "    \"set\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"get\": {"]
 #[doc = "      \"description\": \"URI for pulling chunks from the stream.\","]
@@ -4347,13 +4370,23 @@ impl ::std::convert::From<&ChunkDistributionNetworkConfig> for ChunkDistribution
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ChunkDistributionUris {
     #[doc = "URI for pulling chunks from the stream."]
-    pub get: ::std::string::String,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub get: ::std::option::Option<::std::string::String>,
     #[doc = "URI for publishing chunks to the stream."]
-    pub set: ::std::string::String,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub set: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&ChunkDistributionUris> for ChunkDistributionUris {
     fn from(value: &ChunkDistributionUris) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for ChunkDistributionUris {
+    fn default() -> Self {
+        Self {
+            get: Default::default(),
+            set: Default::default(),
+        }
     }
 }
 #[doc = "`ChunkHash`"]
@@ -4731,20 +4764,6 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[doc = "{"]
 #[doc = "  \"description\": \"The configuration for congestion control. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"allowed_shard_outgoing_gas\","]
-#[doc = "    \"max_congestion_incoming_gas\","]
-#[doc = "    \"max_congestion_memory_consumption\","]
-#[doc = "    \"max_congestion_missed_chunks\","]
-#[doc = "    \"max_congestion_outgoing_gas\","]
-#[doc = "    \"max_outgoing_gas\","]
-#[doc = "    \"max_tx_gas\","]
-#[doc = "    \"min_outgoing_gas\","]
-#[doc = "    \"min_tx_gas\","]
-#[doc = "    \"outgoing_receipts_big_size_limit\","]
-#[doc = "    \"outgoing_receipts_usual_size_limit\","]
-#[doc = "    \"reject_tx_congestion_threshold\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"allowed_shard_outgoing_gas\": {"]
 #[doc = "      \"description\": \"How much gas the chosen allowed shard can send to a 100% congested shard.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
@@ -4838,32 +4857,62 @@ impl ::std::convert::From<PrepareError> for CompilationError {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct CongestionControlConfigView {
     #[doc = "How much gas the chosen allowed shard can send to a 100% congested shard.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub allowed_shard_outgoing_gas: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub allowed_shard_outgoing_gas: ::std::option::Option<NearGas>,
     #[doc = "How much gas in delayed receipts of a shard is 100% incoming congestion.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub max_congestion_incoming_gas: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_congestion_incoming_gas: ::std::option::Option<NearGas>,
     #[doc = "How much memory space of all delayed and buffered receipts in a shard is\nconsidered 100% congested.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub max_congestion_memory_consumption: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_congestion_memory_consumption: ::std::option::Option<u64>,
     #[doc = "How many missed chunks in a row in a shard is considered 100% congested."]
-    pub max_congestion_missed_chunks: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_congestion_missed_chunks: ::std::option::Option<u64>,
     #[doc = "How much gas in outgoing buffered receipts of a shard is 100% congested.\n\nOutgoing congestion contributes to overall congestion, which reduces how\nmuch other shards are allowed to forward to this shard."]
-    pub max_congestion_outgoing_gas: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_congestion_outgoing_gas: ::std::option::Option<NearGas>,
     #[doc = "The maximum amount of gas attached to receipts a shard can forward to\nanother shard per chunk.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub max_outgoing_gas: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_outgoing_gas: ::std::option::Option<NearGas>,
     #[doc = "The maximum amount of gas in a chunk spent on converting new transactions to\nreceipts.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub max_tx_gas: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_tx_gas: ::std::option::Option<NearGas>,
     #[doc = "The minimum gas each shard can send to a shard that is not fully congested.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub min_outgoing_gas: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub min_outgoing_gas: ::std::option::Option<NearGas>,
     #[doc = "The minimum amount of gas in a chunk spent on converting new transactions\nto receipts, as long as the receiving shard is not congested.\n\nSee [`CongestionControlConfig`] for more details."]
-    pub min_tx_gas: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub min_tx_gas: ::std::option::Option<NearGas>,
     #[doc = "Large size limit for outgoing receipts to a shard, used when it's safe\nto send a lot of receipts without making the state witness too large.\nIt limits the total sum of outgoing receipts, not individual receipts."]
-    pub outgoing_receipts_big_size_limit: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub outgoing_receipts_big_size_limit: ::std::option::Option<u64>,
     #[doc = "The standard size limit for outgoing receipts aimed at a single shard.\nThis limit is pretty small to keep the size of source_receipt_proofs under control.\nIt limits the total sum of outgoing receipts, not individual receipts."]
-    pub outgoing_receipts_usual_size_limit: u64,
-    pub reject_tx_congestion_threshold: f64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub outgoing_receipts_usual_size_limit: ::std::option::Option<u64>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub reject_tx_congestion_threshold: ::std::option::Option<f64>,
 }
 impl ::std::convert::From<&CongestionControlConfigView> for CongestionControlConfigView {
     fn from(value: &CongestionControlConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for CongestionControlConfigView {
+    fn default() -> Self {
+        Self {
+            allowed_shard_outgoing_gas: Default::default(),
+            max_congestion_incoming_gas: Default::default(),
+            max_congestion_memory_consumption: Default::default(),
+            max_congestion_missed_chunks: Default::default(),
+            max_congestion_outgoing_gas: Default::default(),
+            max_outgoing_gas: Default::default(),
+            max_tx_gas: Default::default(),
+            min_outgoing_gas: Default::default(),
+            min_tx_gas: Default::default(),
+            outgoing_receipts_big_size_limit: Default::default(),
+            outgoing_receipts_usual_size_limit: Default::default(),
+            reject_tx_congestion_threshold: Default::default(),
+        }
     }
 }
 #[doc = "Stores the congestion level of a shard. More info about congestion [here](https://near.github.io/nearcore/architecture/how/receipt-congestion.html?highlight=congestion#receipt-congestion)"]
@@ -5683,10 +5732,6 @@ impl ::std::convert::TryFrom<::std::string::String> for DataChangesBySyncCheckpo
 #[doc = "{"]
 #[doc = "  \"description\": \"The fees settings for a data receipt creation\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"base_cost\","]
-#[doc = "    \"cost_per_byte\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"base_cost\": {"]
 #[doc = "      \"description\": \"Base cost of creating a data receipt.\\nBoth `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\\nis charged for each input dependency. The dependencies are specified when a receipt is\\ncreated using `promise_then` and `promise_batch_then`.\\nNOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\\nEven if the last action is not a function call (in case of success it will return empty\\nvalue).\","]
@@ -5711,13 +5756,23 @@ impl ::std::convert::TryFrom<::std::string::String> for DataChangesBySyncCheckpo
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct DataReceiptCreationConfigView {
     #[doc = "Base cost of creating a data receipt.\nBoth `send` and `exec` costs are burned when a new receipt has input dependencies. The gas\nis charged for each input dependency. The dependencies are specified when a receipt is\ncreated using `promise_then` and `promise_batch_then`.\nNOTE: Any receipt with output dependencies will produce data receipts. Even if it fails.\nEven if the last action is not a function call (in case of success it will return empty\nvalue)."]
-    pub base_cost: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub base_cost: ::std::option::Option<Fee>,
     #[doc = "Additional cost per byte sent.\nBoth `send` and `exec` costs are burned when a function call finishes execution and returns\n`N` bytes of data to every output dependency. For each output dependency the cost is\n`(send(sir) + exec()) * N`."]
-    pub cost_per_byte: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub cost_per_byte: ::std::option::Option<Fee>,
 }
 impl ::std::convert::From<&DataReceiptCreationConfigView> for DataReceiptCreationConfigView {
     fn from(value: &DataReceiptCreationConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for DataReceiptCreationConfigView {
+    fn default() -> Self {
+        Self {
+            base_cost: Default::default(),
+            cost_per_byte: Default::default(),
+        }
     }
 }
 #[doc = "`DataReceiverView`"]
@@ -6232,9 +6287,6 @@ impl ::std::convert::TryFrom<::std::string::String> for Direction {
 #[doc = "{"]
 #[doc = "  \"description\": \"Configures how to dump state to external storage.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"location\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"credentials_file\": {"]
 #[doc = "      \"description\": \"Location of a json file with credentials allowing access to the bucket.\","]
@@ -6285,7 +6337,8 @@ pub struct DumpConfig {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub iteration_delay: ::std::option::Option<DurationAsStdSchemaProvider>,
     #[doc = "Specifies where to write the obtained state parts."]
-    pub location: ExternalStorageLocation,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub location: ::std::option::Option<ExternalStorageLocation>,
     #[doc = "Use in case a node that dumps state to the external storage\ngets in trouble."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub restart_dump_for_shards: ::std::option::Option<::std::vec::Vec<ShardId>>,
@@ -6293,6 +6346,16 @@ pub struct DumpConfig {
 impl ::std::convert::From<&DumpConfig> for DumpConfig {
     fn from(value: &DumpConfig) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for DumpConfig {
+    fn default() -> Self {
+        Self {
+            credentials_file: Default::default(),
+            iteration_delay: Default::default(),
+            location: Default::default(),
+            restart_dump_for_shards: Default::default(),
+        }
     }
 }
 #[doc = "`DurationAsStdSchemaProvider`"]
@@ -6404,10 +6467,6 @@ impl ::std::fmt::Display for EpochId {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"epoch_sync_horizon\","]
-#[doc = "    \"timeout_for_epoch_sync\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"disable_epoch_sync_for_bootstrapping\": {"]
 #[doc = "      \"description\": \"If true, even if the node started from genesis, it will not perform epoch sync.\\nThere should be no reason to set this flag in production, because on both mainnet\\nand testnet it would be infeasible to catch up from genesis without epoch sync.\","]
@@ -6443,16 +6502,28 @@ pub struct EpochSyncConfig {
     #[serde(default)]
     pub disable_epoch_sync_for_bootstrapping: bool,
     #[doc = "This serves as two purposes: (1) the node will not epoch sync and instead resort to\nheader sync, if the genesis block is within this many blocks from the current block;\n(2) the node will reject an epoch sync proof if the provided proof is for an epoch\nthat is more than this many blocks behind the current block."]
-    pub epoch_sync_horizon: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub epoch_sync_horizon: ::std::option::Option<u64>,
     #[doc = "If true, the node will ignore epoch sync requests from the network. It is strongly\nrecommended not to set this flag, because it will prevent other nodes from\nbootstrapping. This flag is only included as a kill-switch and may be removed in a\nfuture release. Please note that epoch sync requests are heavily rate limited and\ncached, and therefore should not affect the performance of the node or introduce\nany non-negligible increase in network traffic."]
     #[serde(default)]
     pub ignore_epoch_sync_network_requests: bool,
     #[doc = "Timeout for epoch sync requests. The node will continue retrying indefinitely even\nif this timeout is exceeded."]
-    pub timeout_for_epoch_sync: DurationAsStdSchemaProvider,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub timeout_for_epoch_sync: ::std::option::Option<DurationAsStdSchemaProvider>,
 }
 impl ::std::convert::From<&EpochSyncConfig> for EpochSyncConfig {
     fn from(value: &EpochSyncConfig) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for EpochSyncConfig {
+    fn default() -> Self {
+        Self {
+            disable_epoch_sync_for_bootstrapping: Default::default(),
+            epoch_sync_horizon: Default::default(),
+            ignore_epoch_sync_network_requests: Default::default(),
+            timeout_for_epoch_sync: Default::default(),
+        }
     }
 }
 #[doc = "`ErrorWrapperForGenesisConfigError`"]
@@ -8477,95 +8548,6 @@ impl ::std::convert::From<CryptoHash> for ExecutionStatusView {
 #[doc = "{"]
 #[doc = "  \"description\": \"Typed view of ExtCostsConfig to preserve JSON output field names in protocol\\nconfig RPC output.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"alt_bn128_g1_multiexp_base\","]
-#[doc = "    \"alt_bn128_g1_multiexp_element\","]
-#[doc = "    \"alt_bn128_g1_sum_base\","]
-#[doc = "    \"alt_bn128_g1_sum_element\","]
-#[doc = "    \"alt_bn128_pairing_check_base\","]
-#[doc = "    \"alt_bn128_pairing_check_element\","]
-#[doc = "    \"base\","]
-#[doc = "    \"bls12381_g1_multiexp_base\","]
-#[doc = "    \"bls12381_g1_multiexp_element\","]
-#[doc = "    \"bls12381_g2_multiexp_base\","]
-#[doc = "    \"bls12381_g2_multiexp_element\","]
-#[doc = "    \"bls12381_map_fp2_to_g2_base\","]
-#[doc = "    \"bls12381_map_fp2_to_g2_element\","]
-#[doc = "    \"bls12381_map_fp_to_g1_base\","]
-#[doc = "    \"bls12381_map_fp_to_g1_element\","]
-#[doc = "    \"bls12381_p1_decompress_base\","]
-#[doc = "    \"bls12381_p1_decompress_element\","]
-#[doc = "    \"bls12381_p1_sum_base\","]
-#[doc = "    \"bls12381_p1_sum_element\","]
-#[doc = "    \"bls12381_p2_decompress_base\","]
-#[doc = "    \"bls12381_p2_decompress_element\","]
-#[doc = "    \"bls12381_p2_sum_base\","]
-#[doc = "    \"bls12381_p2_sum_element\","]
-#[doc = "    \"bls12381_pairing_base\","]
-#[doc = "    \"bls12381_pairing_element\","]
-#[doc = "    \"contract_compile_base\","]
-#[doc = "    \"contract_compile_bytes\","]
-#[doc = "    \"contract_loading_base\","]
-#[doc = "    \"contract_loading_bytes\","]
-#[doc = "    \"ecrecover_base\","]
-#[doc = "    \"ed25519_verify_base\","]
-#[doc = "    \"ed25519_verify_byte\","]
-#[doc = "    \"keccak256_base\","]
-#[doc = "    \"keccak256_byte\","]
-#[doc = "    \"keccak512_base\","]
-#[doc = "    \"keccak512_byte\","]
-#[doc = "    \"log_base\","]
-#[doc = "    \"log_byte\","]
-#[doc = "    \"promise_and_base\","]
-#[doc = "    \"promise_and_per_promise\","]
-#[doc = "    \"promise_return\","]
-#[doc = "    \"read_cached_trie_node\","]
-#[doc = "    \"read_memory_base\","]
-#[doc = "    \"read_memory_byte\","]
-#[doc = "    \"read_register_base\","]
-#[doc = "    \"read_register_byte\","]
-#[doc = "    \"ripemd160_base\","]
-#[doc = "    \"ripemd160_block\","]
-#[doc = "    \"sha256_base\","]
-#[doc = "    \"sha256_byte\","]
-#[doc = "    \"storage_has_key_base\","]
-#[doc = "    \"storage_has_key_byte\","]
-#[doc = "    \"storage_iter_create_from_byte\","]
-#[doc = "    \"storage_iter_create_prefix_base\","]
-#[doc = "    \"storage_iter_create_prefix_byte\","]
-#[doc = "    \"storage_iter_create_range_base\","]
-#[doc = "    \"storage_iter_create_to_byte\","]
-#[doc = "    \"storage_iter_next_base\","]
-#[doc = "    \"storage_iter_next_key_byte\","]
-#[doc = "    \"storage_iter_next_value_byte\","]
-#[doc = "    \"storage_large_read_overhead_base\","]
-#[doc = "    \"storage_large_read_overhead_byte\","]
-#[doc = "    \"storage_read_base\","]
-#[doc = "    \"storage_read_key_byte\","]
-#[doc = "    \"storage_read_value_byte\","]
-#[doc = "    \"storage_remove_base\","]
-#[doc = "    \"storage_remove_key_byte\","]
-#[doc = "    \"storage_remove_ret_value_byte\","]
-#[doc = "    \"storage_write_base\","]
-#[doc = "    \"storage_write_evicted_byte\","]
-#[doc = "    \"storage_write_key_byte\","]
-#[doc = "    \"storage_write_value_byte\","]
-#[doc = "    \"touching_trie_node\","]
-#[doc = "    \"utf16_decoding_base\","]
-#[doc = "    \"utf16_decoding_byte\","]
-#[doc = "    \"utf8_decoding_base\","]
-#[doc = "    \"utf8_decoding_byte\","]
-#[doc = "    \"validator_stake_base\","]
-#[doc = "    \"validator_total_stake_base\","]
-#[doc = "    \"write_memory_base\","]
-#[doc = "    \"write_memory_byte\","]
-#[doc = "    \"write_register_base\","]
-#[doc = "    \"write_register_byte\","]
-#[doc = "    \"yield_create_base\","]
-#[doc = "    \"yield_create_byte\","]
-#[doc = "    \"yield_resume_base\","]
-#[doc = "    \"yield_resume_byte\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"alt_bn128_g1_multiexp_base\": {"]
 #[doc = "      \"description\": \"Base cost for multiexp\","]
@@ -9170,163 +9152,343 @@ impl ::std::convert::From<CryptoHash> for ExecutionStatusView {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct ExtCostsConfigView {
     #[doc = "Base cost for multiexp"]
-    pub alt_bn128_g1_multiexp_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub alt_bn128_g1_multiexp_base: ::std::option::Option<NearGas>,
     #[doc = "Per element cost for multiexp"]
-    pub alt_bn128_g1_multiexp_element: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub alt_bn128_g1_multiexp_element: ::std::option::Option<NearGas>,
     #[doc = "Base cost for sum"]
-    pub alt_bn128_g1_sum_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub alt_bn128_g1_sum_base: ::std::option::Option<NearGas>,
     #[doc = "Per element cost for sum"]
-    pub alt_bn128_g1_sum_element: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub alt_bn128_g1_sum_element: ::std::option::Option<NearGas>,
     #[doc = "Base cost for pairing check"]
-    pub alt_bn128_pairing_check_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub alt_bn128_pairing_check_base: ::std::option::Option<NearGas>,
     #[doc = "Per element cost for pairing check"]
-    pub alt_bn128_pairing_check_element: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub alt_bn128_pairing_check_element: ::std::option::Option<NearGas>,
     #[doc = "Base cost for calling a host function."]
-    pub base: NearGas,
-    pub bls12381_g1_multiexp_base: NearGas,
-    pub bls12381_g1_multiexp_element: NearGas,
-    pub bls12381_g2_multiexp_base: NearGas,
-    pub bls12381_g2_multiexp_element: NearGas,
-    pub bls12381_map_fp2_to_g2_base: NearGas,
-    pub bls12381_map_fp2_to_g2_element: NearGas,
-    pub bls12381_map_fp_to_g1_base: NearGas,
-    pub bls12381_map_fp_to_g1_element: NearGas,
-    pub bls12381_p1_decompress_base: NearGas,
-    pub bls12381_p1_decompress_element: NearGas,
-    pub bls12381_p1_sum_base: NearGas,
-    pub bls12381_p1_sum_element: NearGas,
-    pub bls12381_p2_decompress_base: NearGas,
-    pub bls12381_p2_decompress_element: NearGas,
-    pub bls12381_p2_sum_base: NearGas,
-    pub bls12381_p2_sum_element: NearGas,
-    pub bls12381_pairing_base: NearGas,
-    pub bls12381_pairing_element: NearGas,
-    pub contract_compile_base: NearGas,
-    pub contract_compile_bytes: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_g1_multiexp_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_g1_multiexp_element: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_g2_multiexp_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_g2_multiexp_element: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_map_fp2_to_g2_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_map_fp2_to_g2_element: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_map_fp_to_g1_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_map_fp_to_g1_element: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_p1_decompress_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_p1_decompress_element: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_p1_sum_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_p1_sum_element: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_p2_decompress_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_p2_decompress_element: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_p2_sum_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_p2_sum_element: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_pairing_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub bls12381_pairing_element: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub contract_compile_base: ::std::option::Option<NearGas>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub contract_compile_bytes: ::std::option::Option<NearGas>,
     #[doc = "Base cost of loading a pre-compiled contract"]
-    pub contract_loading_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub contract_loading_base: ::std::option::Option<NearGas>,
     #[doc = "Cost per byte of loading a pre-compiled contract"]
-    pub contract_loading_bytes: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub contract_loading_bytes: ::std::option::Option<NearGas>,
     #[doc = "Cost of calling ecrecover"]
-    pub ecrecover_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub ecrecover_base: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting ed25519 base"]
-    pub ed25519_verify_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub ed25519_verify_base: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting ed25519 per byte"]
-    pub ed25519_verify_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub ed25519_verify_byte: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting sha256 base"]
-    pub keccak256_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub keccak256_base: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting sha256 per byte"]
-    pub keccak256_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub keccak256_byte: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting sha256 base"]
-    pub keccak512_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub keccak512_base: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting sha256 per byte"]
-    pub keccak512_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub keccak512_byte: ::std::option::Option<NearGas>,
     #[doc = "Cost for calling logging."]
-    pub log_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub log_base: ::std::option::Option<NearGas>,
     #[doc = "Cost for logging per byte"]
-    pub log_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub log_byte: ::std::option::Option<NearGas>,
     #[doc = "Cost for calling `promise_and`"]
-    pub promise_and_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub promise_and_base: ::std::option::Option<NearGas>,
     #[doc = "Cost for calling `promise_and` for each promise"]
-    pub promise_and_per_promise: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub promise_and_per_promise: ::std::option::Option<NearGas>,
     #[doc = "Cost for calling `promise_return`"]
-    pub promise_return: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub promise_return: ::std::option::Option<NearGas>,
     #[doc = "Cost for reading trie node from memory"]
-    pub read_cached_trie_node: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub read_cached_trie_node: ::std::option::Option<NearGas>,
     #[doc = "Base cost for guest memory read"]
-    pub read_memory_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub read_memory_base: ::std::option::Option<NearGas>,
     #[doc = "Cost for guest memory read"]
-    pub read_memory_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub read_memory_byte: ::std::option::Option<NearGas>,
     #[doc = "Base cost for reading from register"]
-    pub read_register_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub read_register_base: ::std::option::Option<NearGas>,
     #[doc = "Cost for reading byte from register"]
-    pub read_register_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub read_register_byte: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting ripemd160 base"]
-    pub ripemd160_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub ripemd160_base: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting ripemd160 per message block"]
-    pub ripemd160_block: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub ripemd160_block: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting sha256 base"]
-    pub sha256_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub sha256_base: ::std::option::Option<NearGas>,
     #[doc = "Cost of getting sha256 per byte"]
-    pub sha256_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub sha256_byte: ::std::option::Option<NearGas>,
     #[doc = "Storage trie check for key existence cost base"]
-    pub storage_has_key_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_has_key_base: ::std::option::Option<NearGas>,
     #[doc = "Storage trie check for key existence per key byte"]
-    pub storage_has_key_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_has_key_byte: ::std::option::Option<NearGas>,
     #[doc = "Create trie range iterator cost per byte of from key."]
-    pub storage_iter_create_from_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_iter_create_from_byte: ::std::option::Option<NearGas>,
     #[doc = "Create trie prefix iterator cost base"]
-    pub storage_iter_create_prefix_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_iter_create_prefix_base: ::std::option::Option<NearGas>,
     #[doc = "Create trie prefix iterator cost per byte."]
-    pub storage_iter_create_prefix_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_iter_create_prefix_byte: ::std::option::Option<NearGas>,
     #[doc = "Create trie range iterator cost base"]
-    pub storage_iter_create_range_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_iter_create_range_base: ::std::option::Option<NearGas>,
     #[doc = "Create trie range iterator cost per byte of to key."]
-    pub storage_iter_create_to_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_iter_create_to_byte: ::std::option::Option<NearGas>,
     #[doc = "Trie iterator per key base cost"]
-    pub storage_iter_next_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_iter_next_base: ::std::option::Option<NearGas>,
     #[doc = "Trie iterator next key byte cost"]
-    pub storage_iter_next_key_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_iter_next_key_byte: ::std::option::Option<NearGas>,
     #[doc = "Trie iterator next key byte cost"]
-    pub storage_iter_next_value_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_iter_next_value_byte: ::std::option::Option<NearGas>,
     #[doc = "Storage trie read key overhead base cost, when doing large reads"]
-    pub storage_large_read_overhead_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_large_read_overhead_base: ::std::option::Option<NearGas>,
     #[doc = "Storage trie read key overhead  per-byte cost, when doing large reads"]
-    pub storage_large_read_overhead_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_large_read_overhead_byte: ::std::option::Option<NearGas>,
     #[doc = "Storage trie read key base cost"]
-    pub storage_read_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_read_base: ::std::option::Option<NearGas>,
     #[doc = "Storage trie read key per byte cost"]
-    pub storage_read_key_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_read_key_byte: ::std::option::Option<NearGas>,
     #[doc = "Storage trie read value cost per byte cost"]
-    pub storage_read_value_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_read_value_byte: ::std::option::Option<NearGas>,
     #[doc = "Remove key from trie base cost"]
-    pub storage_remove_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_remove_base: ::std::option::Option<NearGas>,
     #[doc = "Remove key from trie per byte cost"]
-    pub storage_remove_key_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_remove_key_byte: ::std::option::Option<NearGas>,
     #[doc = "Remove key from trie ret value byte cost"]
-    pub storage_remove_ret_value_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_remove_ret_value_byte: ::std::option::Option<NearGas>,
     #[doc = "Storage trie write key base cost"]
-    pub storage_write_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_write_base: ::std::option::Option<NearGas>,
     #[doc = "Storage trie write cost per byte of evicted value."]
-    pub storage_write_evicted_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_write_evicted_byte: ::std::option::Option<NearGas>,
     #[doc = "Storage trie write key per byte cost"]
-    pub storage_write_key_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_write_key_byte: ::std::option::Option<NearGas>,
     #[doc = "Storage trie write value per byte cost"]
-    pub storage_write_value_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_write_value_byte: ::std::option::Option<NearGas>,
     #[doc = "Cost per reading trie node from DB"]
-    pub touching_trie_node: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub touching_trie_node: ::std::option::Option<NearGas>,
     #[doc = "Base cost of decoding utf16. It's used for `log_utf16`."]
-    pub utf16_decoding_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub utf16_decoding_base: ::std::option::Option<NearGas>,
     #[doc = "Cost per byte of decoding utf16. It's used for `log_utf16`."]
-    pub utf16_decoding_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub utf16_decoding_byte: ::std::option::Option<NearGas>,
     #[doc = "Base cost of decoding utf8. It's used for `log_utf8` and `panic_utf8`."]
-    pub utf8_decoding_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub utf8_decoding_base: ::std::option::Option<NearGas>,
     #[doc = "Cost per byte of decoding utf8. It's used for `log_utf8` and `panic_utf8`."]
-    pub utf8_decoding_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub utf8_decoding_byte: ::std::option::Option<NearGas>,
     #[doc = "Cost of calling `validator_stake`."]
-    pub validator_stake_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub validator_stake_base: ::std::option::Option<NearGas>,
     #[doc = "Cost of calling `validator_total_stake`."]
-    pub validator_total_stake_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub validator_total_stake_base: ::std::option::Option<NearGas>,
     #[doc = "Base cost for guest memory write"]
-    pub write_memory_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub write_memory_base: ::std::option::Option<NearGas>,
     #[doc = "Cost for guest memory write per byte"]
-    pub write_memory_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub write_memory_byte: ::std::option::Option<NearGas>,
     #[doc = "Base cost for writing into register"]
-    pub write_register_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub write_register_base: ::std::option::Option<NearGas>,
     #[doc = "Cost for writing byte into register"]
-    pub write_register_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub write_register_byte: ::std::option::Option<NearGas>,
     #[doc = "Base cost for creating a yield promise."]
-    pub yield_create_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub yield_create_base: ::std::option::Option<NearGas>,
     #[doc = "Per byte cost of arguments and method name."]
-    pub yield_create_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub yield_create_byte: ::std::option::Option<NearGas>,
     #[doc = "Base cost for resuming a yield receipt."]
-    pub yield_resume_base: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub yield_resume_base: ::std::option::Option<NearGas>,
     #[doc = "Per byte cost of resume payload."]
-    pub yield_resume_byte: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub yield_resume_byte: ::std::option::Option<NearGas>,
 }
 impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
     fn from(value: &ExtCostsConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for ExtCostsConfigView {
+    fn default() -> Self {
+        Self {
+            alt_bn128_g1_multiexp_base: Default::default(),
+            alt_bn128_g1_multiexp_element: Default::default(),
+            alt_bn128_g1_sum_base: Default::default(),
+            alt_bn128_g1_sum_element: Default::default(),
+            alt_bn128_pairing_check_base: Default::default(),
+            alt_bn128_pairing_check_element: Default::default(),
+            base: Default::default(),
+            bls12381_g1_multiexp_base: Default::default(),
+            bls12381_g1_multiexp_element: Default::default(),
+            bls12381_g2_multiexp_base: Default::default(),
+            bls12381_g2_multiexp_element: Default::default(),
+            bls12381_map_fp2_to_g2_base: Default::default(),
+            bls12381_map_fp2_to_g2_element: Default::default(),
+            bls12381_map_fp_to_g1_base: Default::default(),
+            bls12381_map_fp_to_g1_element: Default::default(),
+            bls12381_p1_decompress_base: Default::default(),
+            bls12381_p1_decompress_element: Default::default(),
+            bls12381_p1_sum_base: Default::default(),
+            bls12381_p1_sum_element: Default::default(),
+            bls12381_p2_decompress_base: Default::default(),
+            bls12381_p2_decompress_element: Default::default(),
+            bls12381_p2_sum_base: Default::default(),
+            bls12381_p2_sum_element: Default::default(),
+            bls12381_pairing_base: Default::default(),
+            bls12381_pairing_element: Default::default(),
+            contract_compile_base: Default::default(),
+            contract_compile_bytes: Default::default(),
+            contract_loading_base: Default::default(),
+            contract_loading_bytes: Default::default(),
+            ecrecover_base: Default::default(),
+            ed25519_verify_base: Default::default(),
+            ed25519_verify_byte: Default::default(),
+            keccak256_base: Default::default(),
+            keccak256_byte: Default::default(),
+            keccak512_base: Default::default(),
+            keccak512_byte: Default::default(),
+            log_base: Default::default(),
+            log_byte: Default::default(),
+            promise_and_base: Default::default(),
+            promise_and_per_promise: Default::default(),
+            promise_return: Default::default(),
+            read_cached_trie_node: Default::default(),
+            read_memory_base: Default::default(),
+            read_memory_byte: Default::default(),
+            read_register_base: Default::default(),
+            read_register_byte: Default::default(),
+            ripemd160_base: Default::default(),
+            ripemd160_block: Default::default(),
+            sha256_base: Default::default(),
+            sha256_byte: Default::default(),
+            storage_has_key_base: Default::default(),
+            storage_has_key_byte: Default::default(),
+            storage_iter_create_from_byte: Default::default(),
+            storage_iter_create_prefix_base: Default::default(),
+            storage_iter_create_prefix_byte: Default::default(),
+            storage_iter_create_range_base: Default::default(),
+            storage_iter_create_to_byte: Default::default(),
+            storage_iter_next_base: Default::default(),
+            storage_iter_next_key_byte: Default::default(),
+            storage_iter_next_value_byte: Default::default(),
+            storage_large_read_overhead_base: Default::default(),
+            storage_large_read_overhead_byte: Default::default(),
+            storage_read_base: Default::default(),
+            storage_read_key_byte: Default::default(),
+            storage_read_value_byte: Default::default(),
+            storage_remove_base: Default::default(),
+            storage_remove_key_byte: Default::default(),
+            storage_remove_ret_value_byte: Default::default(),
+            storage_write_base: Default::default(),
+            storage_write_evicted_byte: Default::default(),
+            storage_write_key_byte: Default::default(),
+            storage_write_value_byte: Default::default(),
+            touching_trie_node: Default::default(),
+            utf16_decoding_base: Default::default(),
+            utf16_decoding_byte: Default::default(),
+            utf8_decoding_base: Default::default(),
+            utf8_decoding_byte: Default::default(),
+            validator_stake_base: Default::default(),
+            validator_total_stake_base: Default::default(),
+            write_memory_base: Default::default(),
+            write_memory_byte: Default::default(),
+            write_register_base: Default::default(),
+            write_register_byte: Default::default(),
+            yield_create_base: Default::default(),
+            yield_create_byte: Default::default(),
+            yield_resume_base: Default::default(),
+            yield_resume_byte: Default::default(),
+        }
     }
 }
 #[doc = "`ExternalStorageConfig`"]
@@ -9336,9 +9498,6 @@ impl ::std::convert::From<&ExtCostsConfigView> for ExtCostsConfigView {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"location\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"external_storage_fallback_threshold\": {"]
 #[doc = "      \"description\": \"The number of attempts the node will make to obtain a part from peers in\\nthe network before it fetches from external storage.\","]
@@ -9381,7 +9540,8 @@ pub struct ExternalStorageConfig {
     #[serde(default = "defaults::default_u64::<u64, 3>")]
     pub external_storage_fallback_threshold: u64,
     #[doc = "Location of state parts."]
-    pub location: ExternalStorageLocation,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub location: ::std::option::Option<ExternalStorageLocation>,
     #[doc = "When fetching state parts from external storage, throttle fetch requests\nto this many concurrent requests."]
     #[serde(default = "defaults::default_u64::<u8, 25>")]
     pub num_concurrent_requests: u8,
@@ -9392,6 +9552,16 @@ pub struct ExternalStorageConfig {
 impl ::std::convert::From<&ExternalStorageConfig> for ExternalStorageConfig {
     fn from(value: &ExternalStorageConfig) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for ExternalStorageConfig {
+    fn default() -> Self {
+        Self {
+            external_storage_fallback_threshold: defaults::default_u64::<u64, 3>(),
+            location: Default::default(),
+            num_concurrent_requests: defaults::default_u64::<u8, 25>(),
+            num_concurrent_requests_during_catchup: defaults::default_u64::<u8, 5>(),
+        }
     }
 }
 #[doc = "Supported external storage backends and their minimal config."]
@@ -17864,33 +18034,6 @@ impl ::std::convert::From<&LightClientBlockLiteView> for LightClientBlockLiteVie
 #[doc = "{"]
 #[doc = "  \"description\": \"Describes limits for VM and Runtime.\\nTODO #4139: consider switching to strongly-typed wrappers instead of raw quantities\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"initial_memory_pages\","]
-#[doc = "    \"max_actions_per_receipt\","]
-#[doc = "    \"max_arguments_length\","]
-#[doc = "    \"max_contract_size\","]
-#[doc = "    \"max_gas_burnt\","]
-#[doc = "    \"max_length_method_name\","]
-#[doc = "    \"max_length_returned_data\","]
-#[doc = "    \"max_length_storage_key\","]
-#[doc = "    \"max_length_storage_value\","]
-#[doc = "    \"max_memory_pages\","]
-#[doc = "    \"max_number_bytes_method_names\","]
-#[doc = "    \"max_number_input_data_dependencies\","]
-#[doc = "    \"max_number_logs\","]
-#[doc = "    \"max_number_registers\","]
-#[doc = "    \"max_promises_per_function_call_action\","]
-#[doc = "    \"max_receipt_size\","]
-#[doc = "    \"max_register_size\","]
-#[doc = "    \"max_stack_height\","]
-#[doc = "    \"max_total_log_length\","]
-#[doc = "    \"max_total_prepaid_gas\","]
-#[doc = "    \"max_transaction_size\","]
-#[doc = "    \"max_yield_payload_size\","]
-#[doc = "    \"per_receipt_storage_proof_size_limit\","]
-#[doc = "    \"registers_memory_limit\","]
-#[doc = "    \"yield_timeout_length_in_blocks\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_id_validity_rules_version\": {"]
 #[doc = "      \"description\": \"Whether to enforce account_id well-formed-ness where it wasn't enforced\\nhistorically.\","]
@@ -18101,13 +18244,17 @@ pub struct LimitConfig {
     #[serde(default = "defaults::limit_config_account_id_validity_rules_version")]
     pub account_id_validity_rules_version: AccountIdValidityRulesVersion,
     #[doc = "The initial number of memory pages.\nNOTE: It's not a limiter itself, but it's a value we use for initial_memory_pages."]
-    pub initial_memory_pages: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub initial_memory_pages: ::std::option::Option<u32>,
     #[doc = "Max number of actions per receipt."]
-    pub max_actions_per_receipt: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_actions_per_receipt: ::std::option::Option<u64>,
     #[doc = "Max length of arguments in a function call action."]
-    pub max_arguments_length: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_arguments_length: ::std::option::Option<u64>,
     #[doc = "Max contract size"]
-    pub max_contract_size: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_contract_size: ::std::option::Option<u64>,
     #[doc = "If present, stores max number of elements in a single contract's table"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub max_elements_per_contract_table: ::std::option::Option<u32>,
@@ -18115,57 +18262,115 @@ pub struct LimitConfig {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub max_functions_number_per_contract: ::std::option::Option<u64>,
     #[doc = "Max amount of gas that can be used, excluding gas attached to promises."]
-    pub max_gas_burnt: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_gas_burnt: ::std::option::Option<NearGas>,
     #[doc = "Max length of any method name (without terminating character)."]
-    pub max_length_method_name: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_length_method_name: ::std::option::Option<u64>,
     #[doc = "Max length of returned data"]
-    pub max_length_returned_data: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_length_returned_data: ::std::option::Option<u64>,
     #[doc = "Max storage key size"]
-    pub max_length_storage_key: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_length_storage_key: ::std::option::Option<u64>,
     #[doc = "Max storage value size"]
-    pub max_length_storage_value: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_length_storage_value: ::std::option::Option<u64>,
     #[doc = "If present, stores max number of locals declared globally in one contract"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub max_locals_per_contract: ::std::option::Option<u64>,
     #[doc = "What is the maximal memory pages amount is allowed to have for a contract."]
-    pub max_memory_pages: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_memory_pages: ::std::option::Option<u32>,
     #[doc = "Max total length of all method names (including terminating character) for a function call\npermission access key."]
-    pub max_number_bytes_method_names: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_number_bytes_method_names: ::std::option::Option<u64>,
     #[doc = "Max number of input data dependencies"]
-    pub max_number_input_data_dependencies: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_number_input_data_dependencies: ::std::option::Option<u64>,
     #[doc = "Maximum number of log entries."]
-    pub max_number_logs: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_number_logs: ::std::option::Option<u64>,
     #[doc = "Maximum number of registers that can be used simultaneously.\n\nNote that due to an implementation quirk [read: a bug] in VMLogic, if we\nhave this number of registers, no subsequent writes to the registers\nwill succeed even if they replace an existing register."]
-    pub max_number_registers: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_number_registers: ::std::option::Option<u64>,
     #[doc = "Max number of promises that a function call can create"]
-    pub max_promises_per_function_call_action: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_promises_per_function_call_action: ::std::option::Option<u64>,
     #[doc = "Max receipt size"]
-    pub max_receipt_size: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_receipt_size: ::std::option::Option<u64>,
     #[doc = "Maximum number of bytes that can be stored in a single register."]
-    pub max_register_size: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_register_size: ::std::option::Option<u64>,
     #[doc = "How tall the stack is allowed to grow?\n\nSee <https://wiki.parity.io/WebAssembly-StackHeight> to find out how the stack frame cost\nis calculated."]
-    pub max_stack_height: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_stack_height: ::std::option::Option<u32>,
     #[doc = "If present, stores max number of tables declared globally in one contract"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub max_tables_per_contract: ::std::option::Option<u32>,
     #[doc = "Maximum total length in bytes of all log messages."]
-    pub max_total_log_length: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_total_log_length: ::std::option::Option<u64>,
     #[doc = "Max total prepaid gas for all function call actions per receipt."]
-    pub max_total_prepaid_gas: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_total_prepaid_gas: ::std::option::Option<NearGas>,
     #[doc = "Max transaction size"]
-    pub max_transaction_size: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_transaction_size: ::std::option::Option<u64>,
     #[doc = "Maximum number of bytes for payload passed over a yield resume."]
-    pub max_yield_payload_size: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_yield_payload_size: ::std::option::Option<u64>,
     #[doc = "Hard limit on the size of storage proof generated while executing a single receipt."]
-    pub per_receipt_storage_proof_size_limit: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub per_receipt_storage_proof_size_limit: ::std::option::Option<u32>,
     #[doc = "Limit of memory used by registers."]
-    pub registers_memory_limit: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub registers_memory_limit: ::std::option::Option<u64>,
     #[doc = "Number of blocks after which a yielded promise times out."]
-    pub yield_timeout_length_in_blocks: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub yield_timeout_length_in_blocks: ::std::option::Option<u64>,
 }
 impl ::std::convert::From<&LimitConfig> for LimitConfig {
     fn from(value: &LimitConfig) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for LimitConfig {
+    fn default() -> Self {
+        Self {
+            account_id_validity_rules_version:
+                defaults::limit_config_account_id_validity_rules_version(),
+            initial_memory_pages: Default::default(),
+            max_actions_per_receipt: Default::default(),
+            max_arguments_length: Default::default(),
+            max_contract_size: Default::default(),
+            max_elements_per_contract_table: Default::default(),
+            max_functions_number_per_contract: Default::default(),
+            max_gas_burnt: Default::default(),
+            max_length_method_name: Default::default(),
+            max_length_returned_data: Default::default(),
+            max_length_storage_key: Default::default(),
+            max_length_storage_value: Default::default(),
+            max_locals_per_contract: Default::default(),
+            max_memory_pages: Default::default(),
+            max_number_bytes_method_names: Default::default(),
+            max_number_input_data_dependencies: Default::default(),
+            max_number_logs: Default::default(),
+            max_number_registers: Default::default(),
+            max_promises_per_function_call_action: Default::default(),
+            max_receipt_size: Default::default(),
+            max_register_size: Default::default(),
+            max_stack_height: Default::default(),
+            max_tables_per_contract: Default::default(),
+            max_total_log_length: Default::default(),
+            max_total_prepaid_gas: Default::default(),
+            max_transaction_size: Default::default(),
+            max_yield_payload_size: Default::default(),
+            per_receipt_storage_proof_size_limit: Default::default(),
+            registers_memory_limit: Default::default(),
+            yield_timeout_length_in_blocks: Default::default(),
+        }
     }
 }
 #[doc = "`LogSummaryStyle`"]
@@ -20543,69 +20748,6 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "{"]
 #[doc = "  \"description\": \"ClientConfig where some fields can be updated at runtime.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"archive\","]
-#[doc = "    \"block_fetch_horizon\","]
-#[doc = "    \"block_header_fetch_horizon\","]
-#[doc = "    \"block_production_tracking_delay\","]
-#[doc = "    \"catchup_step_period\","]
-#[doc = "    \"chain_id\","]
-#[doc = "    \"chunk_request_retry_period\","]
-#[doc = "    \"chunk_validation_threads\","]
-#[doc = "    \"chunk_wait_mult\","]
-#[doc = "    \"client_background_migration_threads\","]
-#[doc = "    \"doomslug_step_period\","]
-#[doc = "    \"dynamic_resharding_dry_run\","]
-#[doc = "    \"enable_early_prepare_transactions\","]
-#[doc = "    \"enable_multiline_logging\","]
-#[doc = "    \"enable_statistics_export\","]
-#[doc = "    \"epoch_length\","]
-#[doc = "    \"epoch_sync\","]
-#[doc = "    \"expected_shutdown\","]
-#[doc = "    \"gc\","]
-#[doc = "    \"header_sync_expected_height_per_second\","]
-#[doc = "    \"header_sync_initial_timeout\","]
-#[doc = "    \"header_sync_progress_timeout\","]
-#[doc = "    \"header_sync_stall_ban_timeout\","]
-#[doc = "    \"log_summary_period\","]
-#[doc = "    \"log_summary_style\","]
-#[doc = "    \"max_block_production_delay\","]
-#[doc = "    \"max_block_wait_delay\","]
-#[doc = "    \"min_block_production_delay\","]
-#[doc = "    \"min_num_peers\","]
-#[doc = "    \"num_block_producer_seats\","]
-#[doc = "    \"orphan_state_witness_max_size\","]
-#[doc = "    \"orphan_state_witness_pool_size\","]
-#[doc = "    \"produce_chunk_add_transactions_time_limit\","]
-#[doc = "    \"produce_empty_blocks\","]
-#[doc = "    \"protocol_version_check\","]
-#[doc = "    \"resharding_config\","]
-#[doc = "    \"save_invalid_witnesses\","]
-#[doc = "    \"save_latest_witnesses\","]
-#[doc = "    \"save_trie_changes\","]
-#[doc = "    \"save_tx_outcomes\","]
-#[doc = "    \"save_untracked_partial_chunks_parts\","]
-#[doc = "    \"skip_sync_wait\","]
-#[doc = "    \"state_request_server_threads\","]
-#[doc = "    \"state_request_throttle_period\","]
-#[doc = "    \"state_requests_per_throttle_period\","]
-#[doc = "    \"state_sync\","]
-#[doc = "    \"state_sync_enabled\","]
-#[doc = "    \"state_sync_external_backoff\","]
-#[doc = "    \"state_sync_external_timeout\","]
-#[doc = "    \"state_sync_p2p_timeout\","]
-#[doc = "    \"state_sync_retry_backoff\","]
-#[doc = "    \"sync_check_period\","]
-#[doc = "    \"sync_height_threshold\","]
-#[doc = "    \"sync_max_block_requests\","]
-#[doc = "    \"sync_step_period\","]
-#[doc = "    \"tracked_shards_config\","]
-#[doc = "    \"transaction_request_handler_threads\","]
-#[doc = "    \"ttl_account_id_router\","]
-#[doc = "    \"tx_routing_height_horizon\","]
-#[doc = "    \"version\","]
-#[doc = "    \"view_client_threads\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"archive\": {"]
 #[doc = "      \"description\": \"Not clear old data, set `true` for archive nodes.\","]
@@ -21113,145 +21255,279 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct RpcClientConfigResponse {
     #[doc = "Not clear old data, set `true` for archive nodes."]
-    pub archive: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub archive: ::std::option::Option<bool>,
     #[doc = "Horizon at which instead of fetching block, fetch full state."]
-    pub block_fetch_horizon: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub block_fetch_horizon: ::std::option::Option<u64>,
     #[doc = "Behind this horizon header fetch kicks in."]
-    pub block_header_fetch_horizon: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub block_header_fetch_horizon: ::std::option::Option<u64>,
     #[doc = "Duration to check for producing / skipping block."]
-    pub block_production_tracking_delay: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub block_production_tracking_delay: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Time between check to perform catchup."]
-    pub catchup_step_period: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub catchup_step_period: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Chain id for status."]
-    pub chain_id: ::std::string::String,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub chain_id: ::std::option::Option<::std::string::String>,
     #[doc = "Optional config for the Chunk Distribution Network feature.\nIf set to `None` then this node does not participate in the Chunk Distribution Network.\nNodes not participating will still function fine, but possibly with higher\nlatency due to the need of requesting chunks over the peer-to-peer network."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub chunk_distribution_network: ::std::option::Option<ChunkDistributionNetworkConfig>,
     #[doc = "Time between checking to re-request chunks."]
-    pub chunk_request_retry_period: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub chunk_request_retry_period: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Number of threads for ChunkValidationActor pool."]
-    pub chunk_validation_threads: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub chunk_validation_threads: ::std::option::Option<u32>,
     #[doc = "Multiplier for the wait time for all chunks to be received."]
-    pub chunk_wait_mult: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub chunk_wait_mult: ::std::option::Option<[i32; 2usize]>,
     #[doc = "Number of threads to execute background migration work in client."]
-    pub client_background_migration_threads: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub client_background_migration_threads: ::std::option::Option<u32>,
     #[doc = "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub cloud_archival_writer: ::std::option::Option<CloudArchivalWriterConfig>,
     #[doc = "Time between running doomslug timer."]
-    pub doomslug_step_period: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub doomslug_step_period: ::std::option::Option<[u64; 2usize]>,
     #[doc = "If true, the runtime will do a dynamic resharding 'dry run' at the last block of each epoch.\nThis means calculating tentative boundary accounts for splitting the tracked shards."]
-    pub dynamic_resharding_dry_run: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub dynamic_resharding_dry_run: ::std::option::Option<bool>,
     #[doc = "If true, transactions for the next chunk will be prepared early, right after the previous chunk's\npost-state is ready. This can help produce chunks faster, for high-throughput chains.\nThe current implementation increases latency on low-load chains, which will be fixed in the future.\nThe default is disabled."]
-    pub enable_early_prepare_transactions: bool,
-    pub enable_multiline_logging: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub enable_early_prepare_transactions: ::std::option::Option<bool>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub enable_multiline_logging: ::std::option::Option<bool>,
     #[doc = "Re-export storage layer statistics as prometheus metrics."]
-    pub enable_statistics_export: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub enable_statistics_export: ::std::option::Option<bool>,
     #[doc = "Epoch length."]
-    pub epoch_length: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub epoch_length: ::std::option::Option<u64>,
     #[doc = "Options for epoch sync."]
-    pub epoch_sync: EpochSyncConfig,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub epoch_sync: ::std::option::Option<EpochSyncConfig>,
     #[doc = "Graceful shutdown at expected block height."]
-    pub expected_shutdown: MutableConfigValue,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub expected_shutdown: ::std::option::Option<MutableConfigValue>,
     #[doc = "Garbage collection configuration."]
-    pub gc: GcConfig,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub gc: ::std::option::Option<GcConfig>,
     #[doc = "Expected increase of header head height per second during header sync"]
-    pub header_sync_expected_height_per_second: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub header_sync_expected_height_per_second: ::std::option::Option<u64>,
     #[doc = "How much time to wait after initial header sync"]
-    pub header_sync_initial_timeout: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub header_sync_initial_timeout: ::std::option::Option<[u64; 2usize]>,
     #[doc = "How much time to wait after some progress is made in header sync"]
-    pub header_sync_progress_timeout: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub header_sync_progress_timeout: ::std::option::Option<[u64; 2usize]>,
     #[doc = "How much time to wait before banning a peer in header sync if sync is too slow"]
-    pub header_sync_stall_ban_timeout: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub header_sync_stall_ban_timeout: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Period between logging summary information."]
-    pub log_summary_period: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub log_summary_period: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Enable coloring of the logs"]
-    pub log_summary_style: LogSummaryStyle,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub log_summary_style: ::std::option::Option<LogSummaryStyle>,
     #[doc = "Maximum wait for approvals before producing block."]
-    pub max_block_production_delay: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_block_production_delay: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Maximum duration before skipping given height."]
-    pub max_block_wait_delay: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_block_wait_delay: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Max burnt gas per view method.  If present, overrides value stored in\ngenesis file.  The value only affects the RPCs without influencing the\nprotocol thus changing it per-node doesn’t affect the blockchain."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub max_gas_burnt_view: ::std::option::Option<NearGas>,
     #[doc = "Minimum duration before producing block."]
-    pub min_block_production_delay: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub min_block_production_delay: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Minimum number of peers to start syncing."]
-    pub min_num_peers: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub min_num_peers: ::std::option::Option<u32>,
     #[doc = "Number of block producer seats"]
-    pub num_block_producer_seats: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub num_block_producer_seats: ::std::option::Option<u64>,
     #[doc = "Maximum size of state witnesses in the OrphanStateWitnessPool.\n\nWe keep only orphan witnesses which are smaller than this size.\nThis limits the maximum memory usage of OrphanStateWitnessPool."]
-    pub orphan_state_witness_max_size: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub orphan_state_witness_max_size: ::std::option::Option<u64>,
     #[doc = "OrphanStateWitnessPool keeps instances of ChunkStateWitness which can't be processed\nbecause the previous block isn't available. The witnesses wait in the pool until the\nrequired block appears. This variable controls how many witnesses can be stored in the pool."]
-    pub orphan_state_witness_pool_size: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub orphan_state_witness_pool_size: ::std::option::Option<u32>,
     #[doc = "Limit the time of adding transactions to a chunk.\nA node produces a chunk by adding transactions from the transaction pool until\nsome limit is reached. This time limit ensures that adding transactions won't take\nlonger than the specified duration, which helps to produce the chunk quickly."]
-    pub produce_chunk_add_transactions_time_limit: ::std::string::String,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub produce_chunk_add_transactions_time_limit: ::std::option::Option<::std::string::String>,
     #[doc = "Produce empty blocks, use `false` for testing."]
-    pub produce_empty_blocks: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub produce_empty_blocks: ::std::option::Option<bool>,
     #[doc = "Determines whether client should exit if the protocol version is not supported\nfor the next or next next epoch."]
-    pub protocol_version_check: ProtocolVersionCheckConfig,
-    pub resharding_config: MutableConfigValue,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub protocol_version_check: ::std::option::Option<ProtocolVersionCheckConfig>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub resharding_config: ::std::option::Option<MutableConfigValue>,
     #[doc = "Listening rpc port for status."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub rpc_addr: ::std::option::Option<::std::string::String>,
     #[doc = "Save observed instances of invalid ChunkStateWitness to the database in DBCol::InvalidChunkStateWitnesses.\nSaving invalid witnesses is useful for analysis and debugging.\nThis option can cause extra load on the database and is not recommended for production use."]
-    pub save_invalid_witnesses: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub save_invalid_witnesses: ::std::option::Option<bool>,
     #[doc = "Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\nSaving the latest witnesses is useful for analysis and debugging.\nThis option can cause extra load on the database and is not recommended for production use."]
-    pub save_latest_witnesses: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub save_latest_witnesses: ::std::option::Option<bool>,
     #[doc = "save_trie_changes should be set to true iff\n- archive if false - non-archival nodes need trie changes to perform garbage collection\n- archive is true, cold_store is configured and migration to split_storage is finished - node\nworking in split storage mode needs trie changes in order to do garbage collection on hot."]
-    pub save_trie_changes: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub save_trie_changes: ::std::option::Option<bool>,
     #[doc = "Whether to persist transaction outcomes to disk or not."]
-    pub save_tx_outcomes: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub save_tx_outcomes: ::std::option::Option<bool>,
     #[doc = "Whether to persist partial chunk parts for untracked shards or not."]
-    pub save_untracked_partial_chunks_parts: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub save_untracked_partial_chunks_parts: ::std::option::Option<bool>,
     #[doc = "Skip waiting for sync (for testing or single node testnet)."]
-    pub skip_sync_wait: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub skip_sync_wait: ::std::option::Option<bool>,
     #[doc = "Number of threads for StateRequestActor pool."]
-    pub state_request_server_threads: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub state_request_server_threads: ::std::option::Option<u32>,
     #[doc = "Number of seconds between state requests for view client.\nThrottling window for state requests (headers and parts)."]
-    pub state_request_throttle_period: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub state_request_throttle_period: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Maximum number of state requests served per throttle period"]
-    pub state_requests_per_throttle_period: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub state_requests_per_throttle_period: ::std::option::Option<u32>,
     #[doc = "Options for syncing state."]
-    pub state_sync: StateSyncConfig,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub state_sync: ::std::option::Option<StateSyncConfig>,
     #[doc = "Whether to use the State Sync mechanism.\nIf disabled, the node will do Block Sync instead of State Sync."]
-    pub state_sync_enabled: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub state_sync_enabled: ::std::option::Option<bool>,
     #[doc = "Additional waiting period after a failed request to external storage"]
-    pub state_sync_external_backoff: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub state_sync_external_backoff: ::std::option::Option<[u64; 2usize]>,
     #[doc = "How long to wait for a response from centralized state sync"]
-    pub state_sync_external_timeout: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub state_sync_external_timeout: ::std::option::Option<[u64; 2usize]>,
     #[doc = "How long to wait for a response from p2p state sync"]
-    pub state_sync_p2p_timeout: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub state_sync_p2p_timeout: ::std::option::Option<[u64; 2usize]>,
     #[doc = "How long to wait after a failed state sync request"]
-    pub state_sync_retry_backoff: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub state_sync_retry_backoff: ::std::option::Option<[u64; 2usize]>,
     #[doc = "How often to check that we are not out of sync."]
-    pub sync_check_period: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub sync_check_period: ::std::option::Option<[u64; 2usize]>,
     #[doc = "Sync height threshold: below this difference in height don't start syncing."]
-    pub sync_height_threshold: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub sync_height_threshold: ::std::option::Option<u64>,
     #[doc = "Maximum number of block requests to send to peers to sync"]
-    pub sync_max_block_requests: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub sync_max_block_requests: ::std::option::Option<u32>,
     #[doc = "While syncing, how long to check for each step."]
-    pub sync_step_period: [u64; 2usize],
-    pub tracked_shards_config: TrackedShardsConfig,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub sync_step_period: ::std::option::Option<[u64; 2usize]>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub tracked_shards_config: ::std::option::Option<TrackedShardsConfig>,
     #[doc = "Limit of the size of per-shard transaction pool measured in bytes. If not set, the size\nwill be unbounded."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub transaction_pool_size_limit: ::std::option::Option<u64>,
-    pub transaction_request_handler_threads: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub transaction_request_handler_threads: ::std::option::Option<u32>,
     #[doc = "Upper bound of the byte size of contract state that is still viewable. None is no limit"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub trie_viewer_state_size_limit: ::std::option::Option<u64>,
     #[doc = "Time to persist Accounts Id in the router without removing them."]
-    pub ttl_account_id_router: [u64; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub ttl_account_id_router: ::std::option::Option<[u64; 2usize]>,
     #[doc = "If the node is not a chunk producer within that many blocks, then route\nto upcoming chunk producers."]
-    pub tx_routing_height_horizon: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub tx_routing_height_horizon: ::std::option::Option<u64>,
     #[doc = "Version of the binary."]
-    pub version: Version,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub version: ::std::option::Option<Version>,
     #[doc = "Number of threads for ViewClientActor pool."]
-    pub view_client_threads: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub view_client_threads: ::std::option::Option<u32>,
 }
 impl ::std::convert::From<&RpcClientConfigResponse> for RpcClientConfigResponse {
     fn from(value: &RpcClientConfigResponse) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for RpcClientConfigResponse {
+    fn default() -> Self {
+        Self {
+            archive: Default::default(),
+            block_fetch_horizon: Default::default(),
+            block_header_fetch_horizon: Default::default(),
+            block_production_tracking_delay: Default::default(),
+            catchup_step_period: Default::default(),
+            chain_id: Default::default(),
+            chunk_distribution_network: Default::default(),
+            chunk_request_retry_period: Default::default(),
+            chunk_validation_threads: Default::default(),
+            chunk_wait_mult: Default::default(),
+            client_background_migration_threads: Default::default(),
+            cloud_archival_writer: Default::default(),
+            doomslug_step_period: Default::default(),
+            dynamic_resharding_dry_run: Default::default(),
+            enable_early_prepare_transactions: Default::default(),
+            enable_multiline_logging: Default::default(),
+            enable_statistics_export: Default::default(),
+            epoch_length: Default::default(),
+            epoch_sync: Default::default(),
+            expected_shutdown: Default::default(),
+            gc: Default::default(),
+            header_sync_expected_height_per_second: Default::default(),
+            header_sync_initial_timeout: Default::default(),
+            header_sync_progress_timeout: Default::default(),
+            header_sync_stall_ban_timeout: Default::default(),
+            log_summary_period: Default::default(),
+            log_summary_style: Default::default(),
+            max_block_production_delay: Default::default(),
+            max_block_wait_delay: Default::default(),
+            max_gas_burnt_view: Default::default(),
+            min_block_production_delay: Default::default(),
+            min_num_peers: Default::default(),
+            num_block_producer_seats: Default::default(),
+            orphan_state_witness_max_size: Default::default(),
+            orphan_state_witness_pool_size: Default::default(),
+            produce_chunk_add_transactions_time_limit: Default::default(),
+            produce_empty_blocks: Default::default(),
+            protocol_version_check: Default::default(),
+            resharding_config: Default::default(),
+            rpc_addr: Default::default(),
+            save_invalid_witnesses: Default::default(),
+            save_latest_witnesses: Default::default(),
+            save_trie_changes: Default::default(),
+            save_tx_outcomes: Default::default(),
+            save_untracked_partial_chunks_parts: Default::default(),
+            skip_sync_wait: Default::default(),
+            state_request_server_threads: Default::default(),
+            state_request_throttle_period: Default::default(),
+            state_requests_per_throttle_period: Default::default(),
+            state_sync: Default::default(),
+            state_sync_enabled: Default::default(),
+            state_sync_external_backoff: Default::default(),
+            state_sync_external_timeout: Default::default(),
+            state_sync_p2p_timeout: Default::default(),
+            state_sync_retry_backoff: Default::default(),
+            sync_check_period: Default::default(),
+            sync_height_threshold: Default::default(),
+            sync_max_block_requests: Default::default(),
+            sync_step_period: Default::default(),
+            tracked_shards_config: Default::default(),
+            transaction_pool_size_limit: Default::default(),
+            transaction_request_handler_threads: Default::default(),
+            trie_viewer_state_size_limit: Default::default(),
+            ttl_account_id_router: Default::default(),
+            tx_routing_height_horizon: Default::default(),
+            version: Default::default(),
+            view_client_threads: Default::default(),
+        }
     }
 }
 #[doc = "`RpcCongestionLevelRequest`"]
@@ -22856,41 +23132,6 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"avg_hidden_validator_seats_per_shard\","]
-#[doc = "    \"block_producer_kickout_threshold\","]
-#[doc = "    \"chain_id\","]
-#[doc = "    \"chunk_producer_kickout_threshold\","]
-#[doc = "    \"chunk_validator_only_kickout_threshold\","]
-#[doc = "    \"dynamic_resharding\","]
-#[doc = "    \"epoch_length\","]
-#[doc = "    \"fishermen_threshold\","]
-#[doc = "    \"gas_limit\","]
-#[doc = "    \"gas_price_adjustment_rate\","]
-#[doc = "    \"genesis_height\","]
-#[doc = "    \"genesis_time\","]
-#[doc = "    \"max_gas_price\","]
-#[doc = "    \"max_inflation_rate\","]
-#[doc = "    \"max_kickout_stake_perc\","]
-#[doc = "    \"min_gas_price\","]
-#[doc = "    \"minimum_stake_divisor\","]
-#[doc = "    \"minimum_stake_ratio\","]
-#[doc = "    \"minimum_validators_per_shard\","]
-#[doc = "    \"num_block_producer_seats\","]
-#[doc = "    \"num_block_producer_seats_per_shard\","]
-#[doc = "    \"num_blocks_per_year\","]
-#[doc = "    \"online_max_threshold\","]
-#[doc = "    \"online_min_threshold\","]
-#[doc = "    \"protocol_reward_rate\","]
-#[doc = "    \"protocol_treasury_account\","]
-#[doc = "    \"protocol_upgrade_stake_threshold\","]
-#[doc = "    \"protocol_version\","]
-#[doc = "    \"runtime_config\","]
-#[doc = "    \"shard_layout\","]
-#[doc = "    \"shuffle_shard_assignment_for_chunk_producers\","]
-#[doc = "    \"target_validator_mandates_per_shard\","]
-#[doc = "    \"transaction_validity_period\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"avg_hidden_validator_seats_per_shard\": {"]
 #[doc = "      \"description\": \"Expected number of hidden validators per shard.\","]
@@ -23142,75 +23383,147 @@ impl ::std::convert::From<SyncCheckpoint> for RpcProtocolConfigRequest {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct RpcProtocolConfigResponse {
     #[doc = "Expected number of hidden validators per shard."]
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub avg_hidden_validator_seats_per_shard: ::std::vec::Vec<u64>,
     #[doc = "Threshold for kicking out block producers, between 0 and 100."]
-    pub block_producer_kickout_threshold: u8,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub block_producer_kickout_threshold: ::std::option::Option<u8>,
     #[doc = "ID of the blockchain. This must be unique for every blockchain.\nIf your testnet blockchains do not have unique chain IDs, you will have a bad time."]
-    pub chain_id: ::std::string::String,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub chain_id: ::std::option::Option<::std::string::String>,
     #[doc = "Threshold for kicking out chunk producers, between 0 and 100."]
-    pub chunk_producer_kickout_threshold: u8,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub chunk_producer_kickout_threshold: ::std::option::Option<u8>,
     #[doc = "Threshold for kicking out nodes which are only chunk validators, between 0 and 100."]
-    pub chunk_validator_only_kickout_threshold: u8,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub chunk_validator_only_kickout_threshold: ::std::option::Option<u8>,
     #[doc = "Enable dynamic re-sharding."]
-    pub dynamic_resharding: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub dynamic_resharding: ::std::option::Option<bool>,
     #[doc = "Epoch length counted in block heights."]
-    pub epoch_length: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub epoch_length: ::std::option::Option<u64>,
     #[doc = "Fishermen stake threshold."]
-    pub fishermen_threshold: NearToken,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub fishermen_threshold: ::std::option::Option<NearToken>,
     #[doc = "Initial gas limit."]
-    pub gas_limit: NearGas,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub gas_limit: ::std::option::Option<NearGas>,
     #[doc = "Gas price adjustment rate"]
-    pub gas_price_adjustment_rate: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub gas_price_adjustment_rate: ::std::option::Option<[i32; 2usize]>,
     #[doc = "Height of genesis block."]
-    pub genesis_height: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub genesis_height: ::std::option::Option<u64>,
     #[doc = "Official time of blockchain start."]
-    pub genesis_time: ::chrono::DateTime<::chrono::offset::Utc>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub genesis_time: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     #[doc = "Maximum gas price."]
-    pub max_gas_price: NearToken,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_gas_price: ::std::option::Option<NearToken>,
     #[doc = "Maximum inflation on the total supply every epoch."]
-    pub max_inflation_rate: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_inflation_rate: ::std::option::Option<[i32; 2usize]>,
     #[doc = "Max stake percentage of the validators we will kick out."]
-    pub max_kickout_stake_perc: u8,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_kickout_stake_perc: ::std::option::Option<u8>,
     #[doc = "Minimum gas price. It is also the initial gas price."]
-    pub min_gas_price: NearToken,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub min_gas_price: ::std::option::Option<NearToken>,
     #[doc = "The minimum stake required for staking is last seat price divided by this number."]
-    pub minimum_stake_divisor: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub minimum_stake_divisor: ::std::option::Option<u64>,
     #[doc = "The lowest ratio s/s_total any block producer can have.\nSee <https://github.com/near/NEPs/pull/167> for details"]
-    pub minimum_stake_ratio: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub minimum_stake_ratio: ::std::option::Option<[i32; 2usize]>,
     #[doc = "The minimum number of validators each shard must have"]
-    pub minimum_validators_per_shard: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub minimum_validators_per_shard: ::std::option::Option<u64>,
     #[doc = "Number of block producer seats at genesis."]
-    pub num_block_producer_seats: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub num_block_producer_seats: ::std::option::Option<u64>,
     #[doc = "Defines number of shards and number of block producer seats per each shard at genesis."]
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub num_block_producer_seats_per_shard: ::std::vec::Vec<u64>,
     #[doc = "Expected number of blocks per year"]
-    pub num_blocks_per_year: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub num_blocks_per_year: ::std::option::Option<u64>,
     #[doc = "Online maximum threshold above which validator gets full reward."]
-    pub online_max_threshold: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub online_max_threshold: ::std::option::Option<[i32; 2usize]>,
     #[doc = "Online minimum threshold below which validator doesn't receive reward."]
-    pub online_min_threshold: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub online_min_threshold: ::std::option::Option<[i32; 2usize]>,
     #[doc = "Protocol treasury rate"]
-    pub protocol_reward_rate: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub protocol_reward_rate: ::std::option::Option<[i32; 2usize]>,
     #[doc = "Protocol treasury account"]
-    pub protocol_treasury_account: AccountId,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub protocol_treasury_account: ::std::option::Option<AccountId>,
     #[doc = "Threshold of stake that needs to indicate that they ready for upgrade."]
-    pub protocol_upgrade_stake_threshold: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub protocol_upgrade_stake_threshold: ::std::option::Option<[i32; 2usize]>,
     #[doc = "Current Protocol Version"]
-    pub protocol_version: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub protocol_version: ::std::option::Option<u32>,
     #[doc = "Runtime configuration (mostly economics constants)."]
-    pub runtime_config: RuntimeConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub runtime_config: ::std::option::Option<RuntimeConfigView>,
     #[doc = "Layout information regarding how to split accounts to shards"]
-    pub shard_layout: ShardLayout,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub shard_layout: ::std::option::Option<ShardLayout>,
     #[doc = "If true, shuffle the chunk producers across shards. In other words, if\nthe shard assignments were `[S_0, S_1, S_2, S_3]` where `S_i` represents\nthe set of chunk producers for shard `i`, if this flag were true, the\nshard assignments might become, for example, `[S_2, S_0, S_3, S_1]`."]
-    pub shuffle_shard_assignment_for_chunk_producers: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub shuffle_shard_assignment_for_chunk_producers: ::std::option::Option<bool>,
     #[doc = "Number of target chunk validator mandates for each shard."]
-    pub target_validator_mandates_per_shard: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub target_validator_mandates_per_shard: ::std::option::Option<u64>,
     #[doc = "Number of blocks for which a given transaction is valid"]
-    pub transaction_validity_period: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub transaction_validity_period: ::std::option::Option<u64>,
 }
 impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigResponse {
     fn from(value: &RpcProtocolConfigResponse) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for RpcProtocolConfigResponse {
+    fn default() -> Self {
+        Self {
+            avg_hidden_validator_seats_per_shard: Default::default(),
+            block_producer_kickout_threshold: Default::default(),
+            chain_id: Default::default(),
+            chunk_producer_kickout_threshold: Default::default(),
+            chunk_validator_only_kickout_threshold: Default::default(),
+            dynamic_resharding: Default::default(),
+            epoch_length: Default::default(),
+            fishermen_threshold: Default::default(),
+            gas_limit: Default::default(),
+            gas_price_adjustment_rate: Default::default(),
+            genesis_height: Default::default(),
+            genesis_time: Default::default(),
+            max_gas_price: Default::default(),
+            max_inflation_rate: Default::default(),
+            max_kickout_stake_perc: Default::default(),
+            min_gas_price: Default::default(),
+            minimum_stake_divisor: Default::default(),
+            minimum_stake_ratio: Default::default(),
+            minimum_validators_per_shard: Default::default(),
+            num_block_producer_seats: Default::default(),
+            num_block_producer_seats_per_shard: Default::default(),
+            num_blocks_per_year: Default::default(),
+            online_max_threshold: Default::default(),
+            online_min_threshold: Default::default(),
+            protocol_reward_rate: Default::default(),
+            protocol_treasury_account: Default::default(),
+            protocol_upgrade_stake_threshold: Default::default(),
+            protocol_version: Default::default(),
+            runtime_config: Default::default(),
+            shard_layout: Default::default(),
+            shuffle_shard_assignment_for_chunk_producers: Default::default(),
+            target_validator_mandates_per_shard: Default::default(),
+            transaction_validity_period: Default::default(),
+        }
     }
 }
 #[doc = "`RpcQueryError`"]
@@ -27683,14 +27996,6 @@ impl ::std::default::Default for RpcValidatorsOrderedRequest {
 #[doc = "{"]
 #[doc = "  \"description\": \"View that preserves JSON format of the runtime config.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"account_creation_config\","]
-#[doc = "    \"congestion_control_config\","]
-#[doc = "    \"storage_amount_per_byte\","]
-#[doc = "    \"transaction_costs\","]
-#[doc = "    \"wasm_config\","]
-#[doc = "    \"witness_config\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"account_creation_config\": {"]
 #[doc = "      \"description\": \"Config that defines rules for account creation.\","]
@@ -27747,21 +28052,39 @@ impl ::std::default::Default for RpcValidatorsOrderedRequest {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct RuntimeConfigView {
     #[doc = "Config that defines rules for account creation."]
-    pub account_creation_config: AccountCreationConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub account_creation_config: ::std::option::Option<AccountCreationConfigView>,
     #[doc = "The configuration for congestion control."]
-    pub congestion_control_config: CongestionControlConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub congestion_control_config: ::std::option::Option<CongestionControlConfigView>,
     #[doc = "Amount of yN per byte required to have on the account.  See\n<https://nomicon.io/Economics/Economic#state-stake> for details."]
-    pub storage_amount_per_byte: NearToken,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_amount_per_byte: ::std::option::Option<NearToken>,
     #[doc = "Costs of different actions that need to be performed when sending and\nprocessing transaction and receipts."]
-    pub transaction_costs: RuntimeFeesConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub transaction_costs: ::std::option::Option<RuntimeFeesConfigView>,
     #[doc = "Config of wasm operations."]
-    pub wasm_config: VmConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub wasm_config: ::std::option::Option<VmConfigView>,
     #[doc = "Configuration specific to ChunkStateWitness."]
-    pub witness_config: WitnessConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub witness_config: ::std::option::Option<WitnessConfigView>,
 }
 impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
     fn from(value: &RuntimeConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for RuntimeConfigView {
+    fn default() -> Self {
+        Self {
+            account_creation_config: Default::default(),
+            congestion_control_config: Default::default(),
+            storage_amount_per_byte: Default::default(),
+            transaction_costs: Default::default(),
+            wasm_config: Default::default(),
+            witness_config: Default::default(),
+        }
     }
 }
 #[doc = "Describes different fees for the runtime"]
@@ -27772,14 +28095,6 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
 #[doc = "{"]
 #[doc = "  \"description\": \"Describes different fees for the runtime\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"action_creation_config\","]
-#[doc = "    \"action_receipt_creation_config\","]
-#[doc = "    \"burnt_gas_reward\","]
-#[doc = "    \"data_receipt_creation_config\","]
-#[doc = "    \"pessimistic_gas_price_inflation_ratio\","]
-#[doc = "    \"storage_usage_config\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"action_creation_config\": {"]
 #[doc = "      \"description\": \"Describes the cost of creating a certain action, `Action`. Includes all variants.\","]
@@ -27840,21 +28155,39 @@ impl ::std::convert::From<&RuntimeConfigView> for RuntimeConfigView {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct RuntimeFeesConfigView {
     #[doc = "Describes the cost of creating a certain action, `Action`. Includes all variants."]
-    pub action_creation_config: ActionCreationConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub action_creation_config: ::std::option::Option<ActionCreationConfigView>,
     #[doc = "Describes the cost of creating an action receipt, `ActionReceipt`, excluding the actual cost\nof actions.\n- `send` cost is burned when a receipt is created using `promise_create` or\n    `promise_batch_create`\n- `exec` cost is burned when the receipt is being executed."]
-    pub action_receipt_creation_config: Fee,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub action_receipt_creation_config: ::std::option::Option<Fee>,
     #[doc = "Fraction of the burnt gas to reward to the contract account for execution."]
-    pub burnt_gas_reward: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub burnt_gas_reward: ::std::option::Option<[i32; 2usize]>,
     #[doc = "Describes the cost of creating a data receipt, `DataReceipt`."]
-    pub data_receipt_creation_config: DataReceiptCreationConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub data_receipt_creation_config: ::std::option::Option<DataReceiptCreationConfigView>,
     #[doc = "Pessimistic gas price inflation ratio."]
-    pub pessimistic_gas_price_inflation_ratio: [i32; 2usize],
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub pessimistic_gas_price_inflation_ratio: ::std::option::Option<[i32; 2usize]>,
     #[doc = "Describes fees for storage."]
-    pub storage_usage_config: StorageUsageConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_usage_config: ::std::option::Option<StorageUsageConfigView>,
 }
 impl ::std::convert::From<&RuntimeFeesConfigView> for RuntimeFeesConfigView {
     fn from(value: &RuntimeFeesConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for RuntimeFeesConfigView {
+    fn default() -> Self {
+        Self {
+            action_creation_config: Default::default(),
+            action_receipt_creation_config: Default::default(),
+            burnt_gas_reward: Default::default(),
+            data_receipt_creation_config: Default::default(),
+            pessimistic_gas_price_inflation_ratio: Default::default(),
+            storage_usage_config: Default::default(),
+        }
     }
 }
 #[doc = "The shard identifier. It may be an arbitrary number - it does not need to be\na number in the range 0..NUM_SHARDS. The shard ids do not need to be\nsequential or contiguous.\n\nThe shard id is wrapped in a new type to prevent the old pattern of using\nindices in range 0..NUM_SHARDS and casting to ShardId. Once the transition\nif fully complete it potentially may be simplified to a regular type alias."]
@@ -31547,10 +31880,6 @@ impl ::std::convert::TryFrom<::std::string::String> for StorageGetMode {
 #[doc = "{"]
 #[doc = "  \"description\": \"Describes cost of storage per block\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"num_bytes_account\","]
-#[doc = "    \"num_extra_bytes_record\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"num_bytes_account\": {"]
 #[doc = "      \"description\": \"Number of bytes for an account record, including rounding up for account id.\","]
@@ -31571,13 +31900,23 @@ impl ::std::convert::TryFrom<::std::string::String> for StorageGetMode {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct StorageUsageConfigView {
     #[doc = "Number of bytes for an account record, including rounding up for account id."]
-    pub num_bytes_account: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub num_bytes_account: ::std::option::Option<u64>,
     #[doc = "Additional number of bytes for a k/v record"]
-    pub num_extra_bytes_record: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub num_extra_bytes_record: ::std::option::Option<u64>,
 }
 impl ::std::convert::From<&StorageUsageConfigView> for StorageUsageConfigView {
     fn from(value: &StorageUsageConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for StorageUsageConfigView {
+    fn default() -> Self {
+        Self {
+            num_bytes_account: Default::default(),
+            num_extra_bytes_record: Default::default(),
+        }
     }
 }
 #[doc = "This type is used to mark keys (arrays of bytes) that are queried from store.\n\nNOTE: Currently, this type is only used in the view_client and RPC to be able to transparently\npretty-serialize the bytes arrays as base64-encoded strings (see `serialize.rs`)."]
@@ -31778,12 +32117,6 @@ impl ::std::convert::TryFrom<::std::string::String> for SyncCheckpoint {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"apply\","]
-#[doc = "    \"apply_during_catchup\","]
-#[doc = "    \"peer_downloads\","]
-#[doc = "    \"per_shard\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"apply\": {"]
 #[doc = "      \"description\": \"Maximum number of \\\"apply parts\\\" tasks that can be performed in parallel.\\nThis is a very disk-heavy task and therefore we set this to a low limit,\\nor else the rocksdb contention makes the whole server freeze up.\","]
@@ -31820,17 +32153,31 @@ impl ::std::convert::TryFrom<::std::string::String> for SyncCheckpoint {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct SyncConcurrency {
     #[doc = "Maximum number of \"apply parts\" tasks that can be performed in parallel.\nThis is a very disk-heavy task and therefore we set this to a low limit,\nor else the rocksdb contention makes the whole server freeze up."]
-    pub apply: u8,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub apply: ::std::option::Option<u8>,
     #[doc = "Maximum number of \"apply parts\" tasks that can be performed in parallel\nduring catchup. We set this to a very low value to avoid overloading the\nnode while it is still performing normal tasks."]
-    pub apply_during_catchup: u8,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub apply_during_catchup: ::std::option::Option<u8>,
     #[doc = "Maximum number of outstanding requests for decentralized state sync."]
-    pub peer_downloads: u8,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub peer_downloads: ::std::option::Option<u8>,
     #[doc = "The maximum parallelism to use per shard. This is mostly for fairness, because\nthe actual rate limiting is done by the TaskTrackers, but this is useful for\nbalancing the shards a little."]
-    pub per_shard: u8,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub per_shard: ::std::option::Option<u8>,
 }
 impl ::std::convert::From<&SyncConcurrency> for SyncConcurrency {
     fn from(value: &SyncConcurrency) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for SyncConcurrency {
+    fn default() -> Self {
+        Self {
+            apply: Default::default(),
+            apply_during_catchup: Default::default(),
+            peer_downloads: Default::default(),
+            per_shard: Default::default(),
+        }
     }
 }
 #[doc = "Configures how to fetch state parts during state sync."]
@@ -34821,24 +35168,6 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = r" ```json"]
 #[doc = "{"]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"deterministic_account_ids\","]
-#[doc = "    \"discard_custom_sections\","]
-#[doc = "    \"eth_implicit_accounts\","]
-#[doc = "    \"ext_costs\","]
-#[doc = "    \"fix_contract_loading_cost\","]
-#[doc = "    \"global_contract_host_fns\","]
-#[doc = "    \"grow_mem_cost\","]
-#[doc = "    \"implicit_account_creation\","]
-#[doc = "    \"limit_config\","]
-#[doc = "    \"linear_op_base_cost\","]
-#[doc = "    \"linear_op_unit_cost\","]
-#[doc = "    \"reftypes_bulk_memory\","]
-#[doc = "    \"regular_op_cost\","]
-#[doc = "    \"saturating_float_to_int\","]
-#[doc = "    \"storage_get_mode\","]
-#[doc = "    \"vm_kind\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"deterministic_account_ids\": {"]
 #[doc = "      \"description\": \"See [VMConfig::deterministic_account_ids](crate::vm::Config::deterministic_account_ids).\","]
@@ -34935,41 +35264,79 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct VmConfigView {
     #[doc = "See [VMConfig::deterministic_account_ids](crate::vm::Config::deterministic_account_ids)."]
-    pub deterministic_account_ids: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub deterministic_account_ids: ::std::option::Option<bool>,
     #[doc = "See [VMConfig::discard_custom_sections](crate::vm::Config::discard_custom_sections)."]
-    pub discard_custom_sections: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub discard_custom_sections: ::std::option::Option<bool>,
     #[doc = "See [VMConfig::eth_implicit_accounts](crate::vm::Config::eth_implicit_accounts)."]
-    pub eth_implicit_accounts: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub eth_implicit_accounts: ::std::option::Option<bool>,
     #[doc = "Costs for runtime externals"]
-    pub ext_costs: ExtCostsConfigView,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub ext_costs: ::std::option::Option<ExtCostsConfigView>,
     #[doc = "See [VMConfig::fix_contract_loading_cost](crate::vm::Config::fix_contract_loading_cost)."]
-    pub fix_contract_loading_cost: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub fix_contract_loading_cost: ::std::option::Option<bool>,
     #[doc = "See [VMConfig::global_contract_host_fns](crate::vm::Config::global_contract_host_fns)."]
-    pub global_contract_host_fns: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub global_contract_host_fns: ::std::option::Option<bool>,
     #[doc = "Gas cost of a growing memory by single page."]
-    pub grow_mem_cost: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub grow_mem_cost: ::std::option::Option<u32>,
     #[doc = "See [VMConfig::implicit_account_creation](crate::vm::Config::implicit_account_creation)."]
-    pub implicit_account_creation: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub implicit_account_creation: ::std::option::Option<bool>,
     #[doc = "Describes limits for VM and Runtime.\n\nTODO: Consider changing this to `VMLimitConfigView` to avoid dependency\non runtime."]
-    pub limit_config: LimitConfig,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub limit_config: ::std::option::Option<LimitConfig>,
     #[doc = "Base gas cost of a linear operation"]
-    pub linear_op_base_cost: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub linear_op_base_cost: ::std::option::Option<u64>,
     #[doc = "Unit gas cost of a linear operation"]
-    pub linear_op_unit_cost: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub linear_op_unit_cost: ::std::option::Option<u64>,
     #[doc = "See [VMConfig::reftypes_bulk_memory](crate::vm::Config::reftypes_bulk_memory)."]
-    pub reftypes_bulk_memory: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub reftypes_bulk_memory: ::std::option::Option<bool>,
     #[doc = "Gas cost of a regular operation."]
-    pub regular_op_cost: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub regular_op_cost: ::std::option::Option<u32>,
     #[doc = "See [VMConfig::saturating_float_to_int](crate::vm::Config::saturating_float_to_int)."]
-    pub saturating_float_to_int: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub saturating_float_to_int: ::std::option::Option<bool>,
     #[doc = "See [VMConfig::storage_get_mode](crate::vm::Config::storage_get_mode)."]
-    pub storage_get_mode: StorageGetMode,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub storage_get_mode: ::std::option::Option<StorageGetMode>,
     #[doc = "See [VMConfig::vm_kind](crate::vm::Config::vm_kind)."]
-    pub vm_kind: VmKind,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub vm_kind: ::std::option::Option<VmKind>,
 }
 impl ::std::convert::From<&VmConfigView> for VmConfigView {
     fn from(value: &VmConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for VmConfigView {
+    fn default() -> Self {
+        Self {
+            deterministic_account_ids: Default::default(),
+            discard_custom_sections: Default::default(),
+            eth_implicit_accounts: Default::default(),
+            ext_costs: Default::default(),
+            fix_contract_loading_cost: Default::default(),
+            global_contract_host_fns: Default::default(),
+            grow_mem_cost: Default::default(),
+            implicit_account_creation: Default::default(),
+            limit_config: Default::default(),
+            linear_op_base_cost: Default::default(),
+            linear_op_unit_cost: Default::default(),
+            reftypes_bulk_memory: Default::default(),
+            regular_op_cost: Default::default(),
+            saturating_float_to_int: Default::default(),
+            storage_get_mode: Default::default(),
+            vm_kind: Default::default(),
+        }
     }
 }
 #[doc = "`VmKind`"]
@@ -35257,11 +35624,6 @@ impl ::std::convert::TryFrom<::std::string::String> for WasmTrap {
 #[doc = "{"]
 #[doc = "  \"description\": \"Configuration specific to ChunkStateWitness.\","]
 #[doc = "  \"type\": \"object\","]
-#[doc = "  \"required\": ["]
-#[doc = "    \"combined_transactions_size_limit\","]
-#[doc = "    \"main_storage_proof_size_soft_limit\","]
-#[doc = "    \"new_transactions_validation_state_size_soft_limit\""]
-#[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"combined_transactions_size_limit\": {"]
 #[doc = "      \"description\": \"Maximum size of transactions contained inside ChunkStateWitness.\\n\\nA witness contains transactions from both the previous chunk and the current one.\\nThis parameter limits the sum of sizes of transactions from both of those chunks.\","]
@@ -35288,15 +35650,27 @@ impl ::std::convert::TryFrom<::std::string::String> for WasmTrap {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct WitnessConfigView {
     #[doc = "Maximum size of transactions contained inside ChunkStateWitness.\n\nA witness contains transactions from both the previous chunk and the current one.\nThis parameter limits the sum of sizes of transactions from both of those chunks."]
-    pub combined_transactions_size_limit: u32,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub combined_transactions_size_limit: ::std::option::Option<u32>,
     #[doc = "Size limit for storage proof generated while executing receipts in a chunk.\nAfter this limit is reached we defer execution of any new receipts."]
-    pub main_storage_proof_size_soft_limit: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub main_storage_proof_size_soft_limit: ::std::option::Option<u64>,
     #[doc = "Soft size limit of storage proof used to validate new transactions in ChunkStateWitness."]
-    pub new_transactions_validation_state_size_soft_limit: u64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub new_transactions_validation_state_size_soft_limit: ::std::option::Option<u64>,
 }
 impl ::std::convert::From<&WitnessConfigView> for WitnessConfigView {
     fn from(value: &WitnessConfigView) -> Self {
         value.clone()
+    }
+}
+impl ::std::default::Default for WitnessConfigView {
+    fn default() -> Self {
+        Self {
+            combined_transactions_size_limit: Default::default(),
+            main_storage_proof_size_soft_limit: Default::default(),
+            new_transactions_validation_state_size_soft_limit: Default::default(),
+        }
     }
 }
 #[doc = r" Generation of default values for serde."]
