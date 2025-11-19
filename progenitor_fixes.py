@@ -90,7 +90,31 @@ pub mod types {"""
     near_gas_start = types.find('#[doc = "`NearGas`"]')
     network_info_view_start = types.find('#[doc = "`NetworkInfoView`"]') # remove NearGas and NearToken
     types = types[:near_gas_start] + types[network_info_view_start:]
-    
+
+    # Add thiserror::Error and strum_macros::Display derives for error types
+    # Match RpcRequestValidationErrorKind and types ending with Error (but not JsonRpcResponseFor*)
+
+    # First find all types that already have Display impl
+    types_with_display = set(re.findall(r'impl ::std::fmt::Display for (\w+)', types))
+
+    def add_error_derives(m):
+        if m.group(4).startswith('JsonRpcResponseFor'):
+            return m.group(0)
+        derives = m.group(1).rstrip().rstrip(',')  # Remove trailing whitespace and comma
+        type_name = m.group(4)
+        # Only add strum_macros::Display if type doesn't already have Display impl
+        if type_name in types_with_display:
+            new_derives = f'{derives}, thiserror::Error'
+        else:
+            new_derives = f'{derives}, thiserror::Error, strum_macros::Display'
+        return f'#[derive({new_derives})]{m.group(2)}{m.group(3)}pub enum {type_name}'
+
+    types = re.sub(
+        r'#\[derive\(([^)]+)\)\](\n(?:\s*#\[[^\n]+\n)*)(\s*)pub enum (RpcRequestValidationErrorKind|[A-Z][a-zA-Z0-9]*Error)\b',
+        add_error_derives,
+        types
+    )
+
     types_lib_rs = dependencies + types
     types_lib_rs = """//! This crate provides types for the Near OpenAPI specification.
 //!
