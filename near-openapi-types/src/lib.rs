@@ -1591,6 +1591,54 @@ impl ::std::convert::From<&ActionError> for ActionError {
 #[doc = "        }"]
 #[doc = "      },"]
 #[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"GasKeyDoesNotExist\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"GasKeyDoesNotExist\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"GasKeyAlreadyExists\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"GasKeyAlreadyExists\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -1679,6 +1727,14 @@ pub enum ActionErrorKind {
     },
     GlobalContractDoesNotExist {
         identifier: GlobalContractIdentifier,
+    },
+    GasKeyDoesNotExist {
+        account_id: AccountId,
+        public_key: PublicKey,
+    },
+    GasKeyAlreadyExists {
+        account_id: AccountId,
+        public_key: PublicKey,
     },
 }
 impl ::std::convert::From<&Self> for ActionErrorKind {
@@ -2011,6 +2067,80 @@ impl ::std::convert::From<InvalidAccessKeyError> for ActionErrorKind {
 #[doc = "        }"]
 #[doc = "      },"]
 #[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"AddGasKey\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"AddGasKey\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"num_nonces\","]
+#[doc = "            \"permission\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"num_nonces\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint32\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"permission\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccessKeyPermissionView\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeleteGasKey\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeleteGasKey\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"TransferToGasKey\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"TransferToGasKey\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"amount\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"amount\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -2065,6 +2195,18 @@ pub enum ActionView {
         code: GlobalContractIdentifierView,
         data: ::std::collections::HashMap<::std::string::String, ::std::string::String>,
         deposit: NearToken,
+    },
+    AddGasKey {
+        num_nonces: u32,
+        permission: AccessKeyPermissionView,
+        public_key: PublicKey,
+    },
+    DeleteGasKey {
+        public_key: PublicKey,
+    },
+    TransferToGasKey {
+        amount: NearToken,
+        public_key: PublicKey,
     },
 }
 impl ::std::convert::From<&Self> for ActionView {
@@ -2455,12 +2597,67 @@ impl ::std::convert::From<&Self> for ActionView {
 #[doc = "        }"]
 #[doc = "      },"]
 #[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"GasKeyPermissionInvalid\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"GasKeyPermissionInvalid\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"permission\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"permission\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccessKeyPermission\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"GasKeyTooManyNoncesRequested\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"GasKeyTooManyNoncesRequested\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"limit\","]
+#[doc = "            \"requested_nonces\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"limit\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint32\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"requested_nonces\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint32\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 pub enum ActionsValidationError {
     #[doc = "The delete action must be a final action in transaction"]
     DeleteActionMustBeFinal,
@@ -2530,9 +2727,55 @@ pub enum ActionsValidationError {
         length: u64,
         limit: u64,
     },
+    GasKeyPermissionInvalid {
+        permission: AccessKeyPermission,
+    },
+    GasKeyTooManyNoncesRequested {
+        limit: u32,
+        requested_nonces: u32,
+    },
 }
 impl ::std::convert::From<&Self> for ActionsValidationError {
     fn from(value: &ActionsValidationError) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`AddGasKeyAction`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"num_nonces\","]
+#[doc = "    \"permission\","]
+#[doc = "    \"public_key\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"num_nonces\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"permission\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccessKeyPermission\""]
+#[doc = "    },"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct AddGasKeyAction {
+    pub num_nonces: u32,
+    pub permission: AccessKeyPermission,
+    pub public_key: PublicKey,
+}
+impl ::std::convert::From<&AddGasKeyAction> for AddGasKeyAction {
+    fn from(value: &AddGasKeyAction) -> Self {
         value.clone()
     }
 }
@@ -4452,7 +4695,14 @@ impl ::std::default::Default for CloudArchivalWriterConfig {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 pub enum CompilationError {
     CodeDoesNotExist {
         account_id: AccountId,
@@ -5613,6 +5863,33 @@ impl ::std::convert::From<&DeleteAccountAction> for DeleteAccountAction {
         value.clone()
     }
 }
+#[doc = "`DeleteGasKeyAction`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"public_key\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct DeleteGasKeyAction {
+    pub public_key: PublicKey,
+}
+impl ::std::convert::From<&DeleteGasKeyAction> for DeleteGasKeyAction {
+    fn from(value: &DeleteGasKeyAction) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`DeleteKeyAction`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -6243,7 +6520,14 @@ impl ::std::convert::From<&EpochSyncConfig> for EpochSyncConfig {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForGenesisConfigError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -6338,7 +6622,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForGenesisConfigError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcBlockError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -6433,7 +6724,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcBlockError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcChunkError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -6528,7 +6826,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcChunkError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcClientConfigError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -6623,7 +6928,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcClientConfigError
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcGasPriceError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -6718,7 +7030,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcGasPriceError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcLightClientNextBlockError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -6817,7 +7136,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcLightClientNextBl
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcLightClientProofError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -6914,7 +7240,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcLightClientProofE
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcMaintenanceWindowsError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -7013,7 +7346,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcMaintenanceWindow
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcNetworkInfoError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -7108,7 +7448,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcNetworkInfoError 
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcProtocolConfigError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -7203,7 +7550,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcProtocolConfigErr
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcQueryError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -7298,7 +7652,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcQueryError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcReceiptError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -7393,7 +7754,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcReceiptError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcSplitStorageInfoError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -7490,7 +7858,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcSplitStorageInfoE
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcStateChangesError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -7585,7 +7960,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcStateChangesError
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcStatusError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -7680,7 +8062,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcStatusError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcTransactionError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -7775,7 +8164,14 @@ impl ::std::convert::From<InternalError> for ErrorWrapperForRpcTransactionError 
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "cause")]
 pub enum ErrorWrapperForRpcValidatorError {
     #[serde(rename = "REQUEST_VALIDATION_ERROR")]
@@ -9655,7 +10051,14 @@ impl ::std::convert::From<&FunctionCallAction> for FunctionCallAction {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 pub enum FunctionCallError {
     WasmUnknownError,
     #[serde(rename = "_EVMError")]
@@ -9753,6 +10156,122 @@ impl ::std::convert::From<&FunctionCallPermission> for FunctionCallPermission {
         value.clone()
     }
 }
+#[doc = "Gas key is like an access key, except it stores a balance separately, and transactions signed\nwith it deduct their cost from the gas key balance instead of the account balance."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Gas key is like an access key, except it stores a balance separately, and transactions signed\\nwith it deduct their cost from the gas key balance instead of the account balance.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"balance\","]
+#[doc = "    \"num_nonces\","]
+#[doc = "    \"permission\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"balance\": {"]
+#[doc = "      \"description\": \"The balance of the gas key.\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"num_nonces\": {"]
+#[doc = "      \"description\": \"The number of nonces this gas key has.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"permission\": {"]
+#[doc = "      \"description\": \"Defines the permissions for this gas key.\\nIf this is a `FunctionCallPermission`, the allowance must be None (unlimited).\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/AccessKeyPermission\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct GasKey {
+    #[doc = "The balance of the gas key."]
+    pub balance: NearToken,
+    #[doc = "The number of nonces this gas key has."]
+    pub num_nonces: u32,
+    #[doc = "Defines the permissions for this gas key.\nIf this is a `FunctionCallPermission`, the allowance must be None (unlimited)."]
+    pub permission: AccessKeyPermission,
+}
+impl ::std::convert::From<&GasKey> for GasKey {
+    fn from(value: &GasKey) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`GasKeyInfoView`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"gas_key\","]
+#[doc = "    \"public_key\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"gas_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/GasKeyView\""]
+#[doc = "    },"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct GasKeyInfoView {
+    pub gas_key: GasKeyView,
+    pub public_key: PublicKey,
+}
+impl ::std::convert::From<&GasKeyInfoView> for GasKeyInfoView {
+    fn from(value: &GasKeyInfoView) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`GasKeyList`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"keys\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"keys\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"$ref\": \"#/components/schemas/GasKeyInfoView\""]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct GasKeyList {
+    pub keys: ::std::vec::Vec<GasKeyInfoView>,
+}
+impl ::std::convert::From<&GasKeyList> for GasKeyList {
+    fn from(value: &GasKeyList) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`GasKeyView`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -9762,12 +10281,21 @@ impl ::std::convert::From<&FunctionCallPermission> for FunctionCallPermission {
 #[doc = "  \"type\": \"object\","]
 #[doc = "  \"required\": ["]
 #[doc = "    \"balance\","]
+#[doc = "    \"nonces\","]
 #[doc = "    \"num_nonces\","]
 #[doc = "    \"permission\""]
 #[doc = "  ],"]
 #[doc = "  \"properties\": {"]
 #[doc = "    \"balance\": {"]
 #[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "    },"]
+#[doc = "    \"nonces\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"type\": \"integer\","]
+#[doc = "        \"format\": \"uint64\","]
+#[doc = "        \"minimum\": 0.0"]
+#[doc = "      }"]
 #[doc = "    },"]
 #[doc = "    \"num_nonces\": {"]
 #[doc = "      \"type\": \"integer\","]
@@ -9784,6 +10312,7 @@ impl ::std::convert::From<&FunctionCallPermission> for FunctionCallPermission {
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct GasKeyView {
     pub balance: NearToken,
+    pub nonces: ::std::vec::Vec<u64>,
     pub num_nonces: u32,
     pub permission: AccessKeyPermissionView,
 }
@@ -11168,7 +11697,14 @@ impl ::std::default::Default for GlobalContractIdentifierView {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 pub enum HostError {
     #[doc = "String encoding is bad UTF-16 sequence"]
     #[serde(rename = "BadUTF16")]
@@ -11285,7 +11821,14 @@ impl ::std::convert::From<&Self> for HostError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum InternalError {
     #[serde(rename = "INTERNAL_ERROR")]
@@ -11427,7 +11970,14 @@ impl ::std::convert::From<&Self> for InternalError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 pub enum InvalidAccessKeyError {
     #[doc = "The access key identified by the `public_key` doesn't exist for the account"]
     AccessKeyNotFound {
@@ -11818,7 +12368,14 @@ impl ::std::convert::From<&Self> for InvalidAccessKeyError {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 pub enum InvalidTxError {
     #[doc = "Happens if a wrong AccessKey used or AccessKey has not enough permissions"]
     InvalidAccessKeyError(InvalidAccessKeyError),
@@ -17746,6 +18303,7 @@ impl ::std::convert::From<&MerklePathItem> for MerklePathItem {
     Ord,
     PartialEq,
     PartialOrd,
+    thiserror::Error,
 )]
 pub enum MethodResolveError {
     MethodEmptyName,
@@ -18259,6 +18817,42 @@ impl ::std::convert::From<&NextEpochValidatorInfo> for NextEpochValidatorInfo {
 #[doc = "        }"]
 #[doc = "      },"]
 #[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"AddGasKey\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"AddGasKey\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/AddGasKeyAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"DeleteGasKey\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"DeleteGasKey\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DeleteGasKeyAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"TransferToGasKey\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"TransferToGasKey\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/TransferToGasKeyAction\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -18279,6 +18873,9 @@ pub enum NonDelegateAction {
     DeployGlobalContract(DeployGlobalContractAction),
     UseGlobalContract(UseGlobalContractAction),
     DeterministicStateInit(DeterministicStateInitAction),
+    AddGasKey(AddGasKeyAction),
+    DeleteGasKey(DeleteGasKeyAction),
+    TransferToGasKey(TransferToGasKeyAction),
 }
 impl ::std::convert::From<&Self> for NonDelegateAction {
     fn from(value: &NonDelegateAction) -> Self {
@@ -18338,6 +18935,21 @@ impl ::std::convert::From<UseGlobalContractAction> for NonDelegateAction {
 impl ::std::convert::From<DeterministicStateInitAction> for NonDelegateAction {
     fn from(value: DeterministicStateInitAction) -> Self {
         Self::DeterministicStateInit(value)
+    }
+}
+impl ::std::convert::From<AddGasKeyAction> for NonDelegateAction {
+    fn from(value: AddGasKeyAction) -> Self {
+        Self::AddGasKey(value)
+    }
+}
+impl ::std::convert::From<DeleteGasKeyAction> for NonDelegateAction {
+    fn from(value: DeleteGasKeyAction) -> Self {
+        Self::DeleteGasKey(value)
+    }
+}
+impl ::std::convert::From<TransferToGasKeyAction> for NonDelegateAction {
+    fn from(value: TransferToGasKeyAction) -> Self {
+        Self::TransferToGasKey(value)
     }
 }
 #[doc = "Peer id is the public key."]
@@ -18641,6 +19253,7 @@ impl ::std::convert::From<&PeerInfoView> for PeerInfoView {
     Ord,
     PartialEq,
     PartialOrd,
+    thiserror::Error,
 )]
 pub enum PrepareError {
     #[doc = "Error happened while serializing the module."]
@@ -19247,12 +19860,40 @@ impl ::std::convert::From<&Self> for ReceiptEnumView {
 #[doc = "        }"]
 #[doc = "      },"]
 #[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"description\": \"The `refund_to` of an ActionReceipt is not valid.\","]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"InvalidRefundTo\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"InvalidRefundTo\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"type\": \"string\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 pub enum ReceiptValidationError {
     #[doc = "The `predecessor_id` of a Receipt is not valid."]
     InvalidPredecessorId { account_id: ::std::string::String },
@@ -19273,6 +19914,8 @@ pub enum ReceiptValidationError {
     ActionsValidation(ActionsValidationError),
     #[doc = "Receipt is bigger than the limit."]
     ReceiptSizeExceeded { limit: u64, size: u64 },
+    #[doc = "The `refund_to` of an ActionReceipt is not valid."]
+    InvalidRefundTo { account_id: ::std::string::String },
 }
 impl ::std::convert::From<&Self> for ReceiptValidationError {
     fn from(value: &ReceiptValidationError) -> Self {
@@ -19403,7 +20046,14 @@ impl ::std::convert::From<&ReceiptView> for ReceiptView {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcBlockError {
     #[serde(rename = "UNKNOWN_BLOCK")]
@@ -19655,7 +20305,14 @@ impl ::std::convert::From<&RpcBlockResponse> for RpcBlockResponse {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcChunkError {
     #[serde(rename = "INTERNAL_ERROR")]
@@ -19823,7 +20480,14 @@ impl ::std::convert::From<&RpcChunkResponse> for RpcChunkResponse {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcClientConfigError {
     #[serde(rename = "INTERNAL_ERROR")]
@@ -20730,7 +21394,14 @@ impl ::std::convert::From<&RpcCongestionLevelResponse> for RpcCongestionLevelRes
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcGasPriceError {
     #[serde(rename = "INTERNAL_ERROR")]
@@ -21367,7 +22038,14 @@ impl ::std::convert::From<&RpcLightClientExecutionProofResponse>
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcLightClientNextBlockError {
     #[serde(rename = "INTERNAL_ERROR")]
@@ -21673,7 +22351,14 @@ impl ::std::default::Default for RpcLightClientNextBlockResponse {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcLightClientProofError {
     #[serde(rename = "UNKNOWN_BLOCK")]
@@ -21750,7 +22435,14 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcMaintenanceWindowsError {
     #[serde(rename = "INTERNAL_ERROR")]
@@ -21828,7 +22520,14 @@ impl ::std::convert::From<&RpcMaintenanceWindowsRequest> for RpcMaintenanceWindo
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcNetworkInfoError {
     #[serde(rename = "INTERNAL_ERROR")]
@@ -22046,7 +22745,14 @@ impl ::std::convert::From<&RpcPeerInfo> for RpcPeerInfo {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcProtocolConfigError {
     #[serde(rename = "UNKNOWN_BLOCK")]
@@ -22804,6 +23510,42 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "          \"required\": ["]
 #[doc = "            \"block_hash\","]
 #[doc = "            \"block_height\","]
+#[doc = "            \"public_key\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_hash\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "            },"]
+#[doc = "            \"block_height\": {"]
+#[doc = "              \"type\": \"integer\","]
+#[doc = "              \"format\": \"uint64\","]
+#[doc = "              \"minimum\": 0.0"]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        \"name\": {"]
+#[doc = "          \"type\": \"string\","]
+#[doc = "          \"enum\": ["]
+#[doc = "            \"UNKNOWN_GAS_KEY\""]
+#[doc = "          ]"]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"info\","]
+#[doc = "        \"name\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"info\": {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_hash\","]
+#[doc = "            \"block_height\","]
 #[doc = "            \"vm_error\""]
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
@@ -22894,7 +23636,14 @@ impl ::std::convert::From<&RpcProtocolConfigResponse> for RpcProtocolConfigRespo
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcQueryError {
     #[serde(rename = "NO_SYNCED_BLOCKS")]
@@ -22934,6 +23683,12 @@ pub enum RpcQueryError {
     },
     #[serde(rename = "UNKNOWN_ACCESS_KEY")]
     UnknownAccessKey {
+        block_hash: CryptoHash,
+        block_height: u64,
+        public_key: PublicKey,
+    },
+    #[serde(rename = "UNKNOWN_GAS_KEY")]
+    UnknownGasKey {
         block_hash: CryptoHash,
         block_height: u64,
         public_key: PublicKey,
@@ -23144,6 +23899,78 @@ impl ::std::convert::From<&Self> for RpcQueryError {
 #[doc = "              \"type\": \"string\","]
 #[doc = "              \"enum\": ["]
 #[doc = "                \"view_access_key_list\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"view_gas_key_by_block_id\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"public_key\","]
+#[doc = "            \"request_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            },"]
+#[doc = "            \"request_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"view_gas_key\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"view_gas_key_list_by_block_id\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"block_id\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"block_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"request_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"request_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"view_gas_key_list\""]
 #[doc = "              ]"]
 #[doc = "            }"]
 #[doc = "          }"]
@@ -23442,6 +24269,78 @@ impl ::std::convert::From<&Self> for RpcQueryError {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_gas_key_by_finality\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"finality\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"finality\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"public_key\","]
+#[doc = "            \"request_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            },"]
+#[doc = "            \"request_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"view_gas_key\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"view_gas_key_list_by_finality\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"finality\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"finality\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"request_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"request_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"view_gas_key_list\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
 #[doc = "      \"title\": \"call_function_by_finality\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
@@ -23733,6 +24632,78 @@ impl ::std::convert::From<&Self> for RpcQueryError {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    {"]
+#[doc = "      \"title\": \"view_gas_key_by_sync_checkpoint\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"sync_checkpoint\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"sync_checkpoint\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"public_key\","]
+#[doc = "            \"request_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"public_key\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "            },"]
+#[doc = "            \"request_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"view_gas_key\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"title\": \"view_gas_key_list_by_sync_checkpoint\","]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"sync_checkpoint\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"sync_checkpoint\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"object\","]
+#[doc = "          \"required\": ["]
+#[doc = "            \"account_id\","]
+#[doc = "            \"request_type\""]
+#[doc = "          ],"]
+#[doc = "          \"properties\": {"]
+#[doc = "            \"account_id\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "            },"]
+#[doc = "            \"request_type\": {"]
+#[doc = "              \"type\": \"string\","]
+#[doc = "              \"enum\": ["]
+#[doc = "                \"view_gas_key_list\""]
+#[doc = "              ]"]
+#[doc = "            }"]
+#[doc = "          }"]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    {"]
 #[doc = "      \"title\": \"call_function_by_sync_checkpoint\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
@@ -23878,6 +24849,17 @@ pub enum RpcQueryRequest {
         block_id: BlockId,
         request_type: ViewAccessKeyListByBlockIdRequestType,
     },
+    ViewGasKeyByBlockId {
+        account_id: AccountId,
+        block_id: BlockId,
+        public_key: PublicKey,
+        request_type: ViewGasKeyByBlockIdRequestType,
+    },
+    ViewGasKeyListByBlockId {
+        account_id: AccountId,
+        block_id: BlockId,
+        request_type: ViewGasKeyListByBlockIdRequestType,
+    },
     CallFunctionByBlockId {
         account_id: AccountId,
         args_base64: FunctionArgs,
@@ -23924,6 +24906,17 @@ pub enum RpcQueryRequest {
         finality: Finality,
         request_type: ViewAccessKeyListByFinalityRequestType,
     },
+    ViewGasKeyByFinality {
+        account_id: AccountId,
+        finality: Finality,
+        public_key: PublicKey,
+        request_type: ViewGasKeyByFinalityRequestType,
+    },
+    ViewGasKeyListByFinality {
+        account_id: AccountId,
+        finality: Finality,
+        request_type: ViewGasKeyListByFinalityRequestType,
+    },
     CallFunctionByFinality {
         account_id: AccountId,
         args_base64: FunctionArgs,
@@ -23968,6 +24961,17 @@ pub enum RpcQueryRequest {
     ViewAccessKeyListBySyncCheckpoint {
         account_id: AccountId,
         request_type: ViewAccessKeyListBySyncCheckpointRequestType,
+        sync_checkpoint: SyncCheckpoint,
+    },
+    ViewGasKeyBySyncCheckpoint {
+        account_id: AccountId,
+        public_key: PublicKey,
+        request_type: ViewGasKeyBySyncCheckpointRequestType,
+        sync_checkpoint: SyncCheckpoint,
+    },
+    ViewGasKeyListBySyncCheckpoint {
+        account_id: AccountId,
+        request_type: ViewGasKeyListBySyncCheckpointRequestType,
         sync_checkpoint: SyncCheckpoint,
     },
     CallFunctionBySyncCheckpoint {
@@ -24018,6 +25022,12 @@ impl ::std::convert::From<&Self> for RpcQueryRequest {
 #[doc = "    },"]
 #[doc = "    {"]
 #[doc = "      \"$ref\": \"#/components/schemas/AccessKeyList\""]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"$ref\": \"#/components/schemas/GasKeyView\""]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"$ref\": \"#/components/schemas/GasKeyList\""]
 #[doc = "    }"]
 #[doc = "  ],"]
 #[doc = "  \"required\": ["]
@@ -24084,6 +25094,19 @@ pub enum RpcQueryResponse {
         block_hash: CryptoHash,
         block_height: u64,
         keys: ::std::vec::Vec<AccessKeyInfoView>,
+    },
+    Variant6 {
+        balance: NearToken,
+        block_hash: CryptoHash,
+        block_height: u64,
+        nonces: ::std::vec::Vec<u64>,
+        num_nonces: u32,
+        permission: AccessKeyPermissionView,
+    },
+    Variant7 {
+        block_hash: CryptoHash,
+        block_height: u64,
+        keys: ::std::vec::Vec<GasKeyInfoView>,
     },
 }
 impl ::std::convert::From<&Self> for RpcQueryResponse {
@@ -24154,7 +25177,14 @@ impl ::std::convert::From<&Self> for RpcQueryResponse {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcReceiptError {
     #[serde(rename = "INTERNAL_ERROR")]
@@ -24310,7 +25340,14 @@ impl ::std::convert::From<&RpcReceiptResponse> for RpcReceiptResponse {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcRequestValidationErrorKind {
     #[serde(rename = "METHOD_NOT_FOUND")]
@@ -24400,7 +25437,14 @@ impl ::std::convert::From<&RpcSendTransactionRequest> for RpcSendTransactionRequ
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcSplitStorageInfoError {
     #[serde(rename = "INTERNAL_ERROR")]
@@ -24592,7 +25636,14 @@ impl ::std::default::Default for RpcSplitStorageInfoResponse {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcStateChangesError {
     #[serde(rename = "UNKNOWN_BLOCK")]
@@ -25793,7 +26844,14 @@ impl ::std::convert::From<&RpcStateChangesInBlockResponse> for RpcStateChangesIn
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcStatusError {
     #[serde(rename = "NODE_IS_SYNCING")]
@@ -26157,7 +27215,14 @@ impl ::std::convert::From<&RpcStatusResponse> for RpcStatusResponse {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcTransactionError {
     #[serde(rename = "INVALID_TRANSACTION")]
@@ -26380,7 +27445,14 @@ impl ::std::convert::From<&Self> for RpcTransactionStatusRequest {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 #[serde(tag = "name", content = "info")]
 pub enum RpcValidatorError {
     #[serde(rename = "UNKNOWN_EPOCH")]
@@ -28408,7 +29480,7 @@ impl ::std::convert::From<&Self> for StateChangeKindView {
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
 #[doc = "            \"gas_key\": {"]
-#[doc = "              \"$ref\": \"#/components/schemas/GasKeyView\""]
+#[doc = "              \"$ref\": \"#/components/schemas/GasKey\""]
 #[doc = "            },"]
 #[doc = "            \"public_key\": {"]
 #[doc = "              \"$ref\": \"#/components/schemas/PublicKey\""]
@@ -29365,7 +30437,7 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseView
 #[doc = "    \"code_base64\": false,"]
 #[doc = "    \"code_hash\": false,"]
 #[doc = "    \"gas_key\": {"]
-#[doc = "      \"$ref\": \"#/components/schemas/GasKeyView\""]
+#[doc = "      \"$ref\": \"#/components/schemas/GasKey\""]
 #[doc = "    },"]
 #[doc = "    \"global_contract_account_id\": false,"]
 #[doc = "    \"global_contract_hash\": false,"]
@@ -29386,7 +30458,7 @@ impl ::std::convert::TryFrom<::std::string::String> for StateChangeWithCauseView
 #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
 pub struct StateChangeWithCauseViewVariant4Change {
     pub account_id: AccountId,
-    pub gas_key: GasKeyView,
+    pub gas_key: GasKey,
     pub public_key: PublicKey,
 }
 impl ::std::convert::From<&StateChangeWithCauseViewVariant4Change>
@@ -30359,7 +31431,14 @@ impl ::std::convert::From<&StatusSyncInfo> for StatusSyncInfo {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 pub enum StorageError {
     #[doc = "Key-value db internal failure"]
     StorageInternalError,
@@ -30992,6 +32071,38 @@ impl ::std::convert::From<&TransferAction> for TransferAction {
         value.clone()
     }
 }
+#[doc = "`TransferToGasKeyAction`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"deposit\","]
+#[doc = "    \"public_key\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"deposit\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "    },"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct TransferToGasKeyAction {
+    pub deposit: NearToken,
+    pub public_key: PublicKey,
+}
+impl ::std::convert::From<&TransferToGasKeyAction> for TransferToGasKeyAction {
+    fn from(value: &TransferToGasKeyAction) -> Self {
+        value.clone()
+    }
+}
 #[doc = "Error returned in the ExecutionOutcome in case of failure"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -31030,7 +32141,14 @@ impl ::std::convert::From<&TransferAction> for TransferAction {
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Debug,
+    thiserror::Error,
+    strum_macros::Display,
+)]
 pub enum TxExecutionError {
     #[doc = "An error happened during Action execution"]
     ActionError(ActionError),
@@ -32534,6 +33652,438 @@ impl ::std::convert::TryFrom<&::std::string::String> for ViewCodeBySyncCheckpoin
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for ViewCodeBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGasKeyByBlockIdRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_gas_key\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGasKeyByBlockIdRequestType {
+    #[serde(rename = "view_gas_key")]
+    ViewGasKey,
+}
+impl ::std::convert::From<&Self> for ViewGasKeyByBlockIdRequestType {
+    fn from(value: &ViewGasKeyByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGasKeyByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGasKey => f.write_str("view_gas_key"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGasKeyByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_gas_key" => Ok(Self::ViewGasKey),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGasKeyByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewGasKeyByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewGasKeyByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGasKeyByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_gas_key\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGasKeyByFinalityRequestType {
+    #[serde(rename = "view_gas_key")]
+    ViewGasKey,
+}
+impl ::std::convert::From<&Self> for ViewGasKeyByFinalityRequestType {
+    fn from(value: &ViewGasKeyByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGasKeyByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGasKey => f.write_str("view_gas_key"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGasKeyByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_gas_key" => Ok(Self::ViewGasKey),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGasKeyByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewGasKeyByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewGasKeyByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGasKeyBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_gas_key\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGasKeyBySyncCheckpointRequestType {
+    #[serde(rename = "view_gas_key")]
+    ViewGasKey,
+}
+impl ::std::convert::From<&Self> for ViewGasKeyBySyncCheckpointRequestType {
+    fn from(value: &ViewGasKeyBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGasKeyBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGasKey => f.write_str("view_gas_key"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGasKeyBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_gas_key" => Ok(Self::ViewGasKey),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGasKeyBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewGasKeyBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewGasKeyBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGasKeyListByBlockIdRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_gas_key_list\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGasKeyListByBlockIdRequestType {
+    #[serde(rename = "view_gas_key_list")]
+    ViewGasKeyList,
+}
+impl ::std::convert::From<&Self> for ViewGasKeyListByBlockIdRequestType {
+    fn from(value: &ViewGasKeyListByBlockIdRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGasKeyListByBlockIdRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGasKeyList => f.write_str("view_gas_key_list"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGasKeyListByBlockIdRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_gas_key_list" => Ok(Self::ViewGasKeyList),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGasKeyListByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewGasKeyListByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewGasKeyListByBlockIdRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGasKeyListByFinalityRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_gas_key_list\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGasKeyListByFinalityRequestType {
+    #[serde(rename = "view_gas_key_list")]
+    ViewGasKeyList,
+}
+impl ::std::convert::From<&Self> for ViewGasKeyListByFinalityRequestType {
+    fn from(value: &ViewGasKeyListByFinalityRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGasKeyListByFinalityRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGasKeyList => f.write_str("view_gas_key_list"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGasKeyListByFinalityRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_gas_key_list" => Ok(Self::ViewGasKeyList),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGasKeyListByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewGasKeyListByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewGasKeyListByFinalityRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`ViewGasKeyListBySyncCheckpointRequestType`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"view_gas_key_list\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum ViewGasKeyListBySyncCheckpointRequestType {
+    #[serde(rename = "view_gas_key_list")]
+    ViewGasKeyList,
+}
+impl ::std::convert::From<&Self> for ViewGasKeyListBySyncCheckpointRequestType {
+    fn from(value: &ViewGasKeyListBySyncCheckpointRequestType) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for ViewGasKeyListBySyncCheckpointRequestType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ViewGasKeyList => f.write_str("view_gas_key_list"),
+        }
+    }
+}
+impl ::std::str::FromStr for ViewGasKeyListBySyncCheckpointRequestType {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "view_gas_key_list" => Ok(Self::ViewGasKeyList),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ViewGasKeyListBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ViewGasKeyListBySyncCheckpointRequestType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ViewGasKeyListBySyncCheckpointRequestType {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
