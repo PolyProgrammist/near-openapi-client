@@ -115,10 +115,10 @@ pub mod types {"""
         types
     )
 
-    types_lib_rs = dependencies + types
     types_lib_rs = """//! This crate provides types for the Near OpenAPI specification.
 //!
-//! Used in [near-openapi-client](https://docs.rs/near-openapi-client/latest/near_openapi_client/)\n""" + types_lib_rs
+//! Used in [near-openapi-client](https://docs.rs/near-openapi-client/latest/near_openapi_client/)
+""" + types
 
     client_lib_rs = dependencies + client
     client_lib_rs = 'pub use near_openapi_types as types;\n' + client_lib_rs
@@ -163,6 +163,12 @@ license.workspace = true
 repository.workspace = true
 description = "Types for progenitor-generated client of NEAR JSON RPC API"
 """, types_cargo_toml)
+    # Remove client-specific dependencies not needed for types crate
+    types_cargo_toml = re.sub(r'bytes = "[^"]+"\n', '', types_cargo_toml)
+    types_cargo_toml = re.sub(r'futures-core = "[^"]+"\n', '', types_cargo_toml)
+    types_cargo_toml = re.sub(r'progenitor-client = "[^"]+"\n', '', types_cargo_toml)
+    types_cargo_toml = re.sub(r'reqwest = \{[^}]+\}\n', '', types_cargo_toml)
+    types_cargo_toml = re.sub(r'serde_urlencoded = "[^"]+"\n', '', types_cargo_toml)
     types_cargo_toml += 'near-account-id = { version = "1.1.1", features = ["serde"] }\nnear-gas = { version = "0.3.2", features = ["serde"] }\nnear-token = { version = "0.3.1", features = ["serde"] }\nthiserror = "2.0.17"\nstrum_macros = "0.27.2"\n'
     
     client_cargo_toml_file = open('./near-openapi-client/Cargo.toml', 'w')

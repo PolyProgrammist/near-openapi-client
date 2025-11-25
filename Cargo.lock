@@ -480,17 +480,12 @@ dependencies = [
 name = "near-openapi-types"
 version = "0.5.2"
 dependencies = [
- "bytes",
  "chrono",
- "futures-core",
  "near-account-id",
  "near-gas",
  "near-token",
- "progenitor-client",
- "reqwest",
  "serde",
  "serde_json",
- "serde_urlencoded",
  "strum_macros",
  "thiserror",
 ]

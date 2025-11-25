@@ -4,10 +4,6 @@
 pub use near_account_id::AccountId;
 pub use near_gas::NearGas;
 pub use near_token::NearToken;
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
-pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 
 #[doc = r" Error types."]
 pub mod error {
@@ -20846,6 +20842,10 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
+#[doc = "    \"disable_tx_routing\": {"]
+#[doc = "      \"description\": \"If true, the node won't forward transactions to next the chunk producers.\","]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
 #[doc = "    \"doomslug_step_period\": {"]
 #[doc = "      \"description\": \"Time between running doomslug timer.\","]
 #[doc = "      \"type\": \"array\","]
@@ -21060,6 +21060,10 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    },"]
 #[doc = "    \"save_latest_witnesses\": {"]
 #[doc = "      \"description\": \"Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\\nSaving the latest witnesses is useful for analysis and debugging.\\nThis option can cause extra load on the database and is not recommended for production use.\","]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
+#[doc = "    \"save_state_changes\": {"]
+#[doc = "      \"description\": \"Whether to persist state changes on disk or not.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"save_trie_changes\": {"]
@@ -21290,6 +21294,9 @@ pub struct RpcClientConfigResponse {
     #[doc = "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub cloud_archival_writer: ::std::option::Option<CloudArchivalWriterConfig>,
+    #[doc = "If true, the node won't forward transactions to next the chunk producers."]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub disable_tx_routing: ::std::option::Option<bool>,
     #[doc = "Time between running doomslug timer."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub doomslug_step_period: ::std::option::Option<[u64; 2usize]>,
@@ -21378,6 +21385,9 @@ pub struct RpcClientConfigResponse {
     #[doc = "Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\nSaving the latest witnesses is useful for analysis and debugging.\nThis option can cause extra load on the database and is not recommended for production use."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub save_latest_witnesses: ::std::option::Option<bool>,
+    #[doc = "Whether to persist state changes on disk or not."]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub save_state_changes: ::std::option::Option<bool>,
     #[doc = "save_trie_changes should be set to true iff\n- archive if false - non-archival nodes need trie changes to perform garbage collection\n- archive is true, cold_store is configured and migration to split_storage is finished - node\nworking in split storage mode needs trie changes in order to do garbage collection on hot."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub save_trie_changes: ::std::option::Option<bool>,
@@ -21472,6 +21482,7 @@ impl ::std::default::Default for RpcClientConfigResponse {
             chunk_wait_mult: Default::default(),
             client_background_migration_threads: Default::default(),
             cloud_archival_writer: Default::default(),
+            disable_tx_routing: Default::default(),
             doomslug_step_period: Default::default(),
             dynamic_resharding_dry_run: Default::default(),
             enable_early_prepare_transactions: Default::default(),
@@ -21502,6 +21513,7 @@ impl ::std::default::Default for RpcClientConfigResponse {
             rpc_addr: Default::default(),
             save_invalid_witnesses: Default::default(),
             save_latest_witnesses: Default::default(),
+            save_state_changes: Default::default(),
             save_trie_changes: Default::default(),
             save_tx_outcomes: Default::default(),
             save_untracked_partial_chunks_parts: Default::default(),

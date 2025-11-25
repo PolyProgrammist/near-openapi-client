@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "NEAR Protocol JSON RPC API",
-        "version": "1.2.0"
+        "version": "1.2.1"
     },
     "paths": {
         "/EXPERIMENTAL_changes": {
@@ -11337,6 +11337,10 @@
                         ],
                         "description": "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards."
                     },
+                    "disable_tx_routing": {
+                        "description": "If true, the node won't forward transactions to next the chunk producers.",
+                        "type": "boolean"
+                    },
                     "doomslug_step_period": {
                         "description": "Time between running doomslug timer.",
                         "items": {
@@ -11552,6 +11556,10 @@
                     },
                     "save_latest_witnesses": {
                         "description": "Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\nSaving the latest witnesses is useful for analysis and debugging.\nThis option can cause extra load on the database and is not recommended for production use.",
+                        "type": "boolean"
+                    },
+                    "save_state_changes": {
+                        "description": "Whether to persist state changes on disk or not.",
                         "type": "boolean"
                     },
                     "save_trie_changes": {
