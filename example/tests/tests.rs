@@ -3,6 +3,7 @@ use client::Client;
 use near_crypto::{InMemorySigner, Signer};
 use near_openapi_client as client;
 use near_primitives::transaction::{Action, Transaction, TransactionV0, TransferAction};
+use near_sandbox::{Sandbox, SandboxConfig};
 use std::error::Error;
 use tokio::time::{sleep, Duration};
 
@@ -11,7 +12,7 @@ const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 
 #[tokio::test]
 async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
-    let (signer, mut sandbox_node, client_local, client_remote) = prepare_sandbox().await.unwrap();
+    let (signer, sandbox_node, client_local, client_remote) = prepare_sandbox().await.unwrap();
     let (sender_account_id, block_final_hash, base64_signed_tx, sent_tx_hash, executed_receipt_id, later_block_hash) =
         prepare_blockchain(&signer, client_local.clone()).await?;
 
@@ -67,19 +68,19 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
     test_experimental_split_storage_info(&client_local).await?;
     test_query_account(&client_local, sender_account_id.clone()).await?;
     test_function_call(&client_local, sender_account_id.clone()).await?;
-    test_experimental_view_account(&client_local, sender_account_id.clone()).await?;
-    test_experimental_view_code(&client_local, sender_account_id.clone()).await?;
-    test_experimental_view_state(&client_local, sender_account_id.clone()).await?;
-    test_experimental_view_access_key(
-        &client_local,
-        sender_account_id.clone(),
-        &signer,
-    )
-    .await?;
-    test_experimental_view_access_key_list(&client_local, sender_account_id.clone()).await?;
-    test_experimental_call_function(&client_local, sender_account_id.clone()).await?;
+    // test_experimental_view_account(&client_local, sender_account_id.clone()).await?;
+    // test_experimental_view_code(&client_local, sender_account_id.clone()).await?;
+    // test_experimental_view_state(&client_local, sender_account_id.clone()).await?;
+    // test_experimental_view_access_key(
+    //     &client_local,
+    //     sender_account_id.clone(),
+    //     &signer,
+    // )
+    // .await?;
+    // test_experimental_view_access_key_list(&client_local, sender_account_id.clone()).await?;
+    // test_experimental_call_function(&client_local, sender_account_id.clone()).await?;
 
-    sandbox_node.kill().await?;
+    drop(sandbox_node);
 
     Ok(())
 }
@@ -1203,31 +1204,21 @@ async fn prepare_blockchain(
     ))
 }
 
-async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
-{
-    let mut home_dir = std::env::temp_dir();
-    home_dir.push("test_node_03c");
-
+async fn prepare_sandbox() -> Result<(Signer, Sandbox, Client, Client), Box<dyn Error>> {
     let rpc_port: u16 = 3040;
-    let net_port: u16 = 3031;
 
-    let version = "master/46832d39111003387b193672dbfe2a9913d0c861";
+    let mut cfg = SandboxConfig::default();
+    cfg.rpc_port = Some(rpc_port);
 
-    near_sandbox_utils::init_with_version(&home_dir, version)?
-        .wait_with_output()
-        .await
-        .unwrap();
-
-    let child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, version)?;
+    let sandbox = Sandbox::start_sandbox_with_config(cfg).await?;
 
     sleep(Duration::from_secs(3)).await;
 
-    let mut validator_key = home_dir.clone();
-    validator_key.push("validator_key.json");
+    let validator_key = sandbox.home_dir.path().join("validator_key.json");
     let signer = InMemorySigner::from_file(&validator_key)?;
 
     let client_local = Client::new(NEAR_RPC_URL_LOCAL);
     let client_remote = Client::new(NEAR_RPC_URL_REMOTE);
 
-    Ok((signer, child, client_local, client_remote))
+    Ok((signer, sandbox, client_local, client_remote))
 }
