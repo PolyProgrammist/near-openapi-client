@@ -3,6 +3,7 @@ use near_sandbox::{Sandbox, SandboxConfig};
 use std::error::Error;
 use tokio::time::{sleep, Duration};
 
+/// Set `NEAR_SANDBOX_BIN_PATH` env var to use a local neard binary.
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     let rpc_port: u16 = 3050;

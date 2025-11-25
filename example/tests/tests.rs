@@ -68,17 +68,17 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
     test_experimental_split_storage_info(&client_local).await?;
     test_query_account(&client_local, sender_account_id.clone()).await?;
     test_function_call(&client_local, sender_account_id.clone()).await?;
-    // test_experimental_view_account(&client_local, sender_account_id.clone()).await?;
-    // test_experimental_view_code(&client_local, sender_account_id.clone()).await?;
-    // test_experimental_view_state(&client_local, sender_account_id.clone()).await?;
-    // test_experimental_view_access_key(
-    //     &client_local,
-    //     sender_account_id.clone(),
-    //     &signer,
-    // )
-    // .await?;
-    // test_experimental_view_access_key_list(&client_local, sender_account_id.clone()).await?;
-    // test_experimental_call_function(&client_local, sender_account_id.clone()).await?;
+    test_experimental_view_account(&client_local, sender_account_id.clone()).await?;
+    test_experimental_view_code(&client_local, sender_account_id.clone()).await?;
+    test_experimental_view_state(&client_local, sender_account_id.clone()).await?;
+    test_experimental_view_access_key(
+        &client_local,
+        sender_account_id.clone(),
+        &signer,
+    )
+    .await?;
+    test_experimental_view_access_key_list(&client_local, sender_account_id.clone()).await?;
+    test_experimental_call_function(&client_local, sender_account_id.clone()).await?;
 
     drop(sandbox_node);
 
@@ -1204,6 +1204,8 @@ async fn prepare_blockchain(
     ))
 }
 
+/// Starts sandbox node for testing.
+/// Set `NEAR_SANDBOX_BIN_PATH` env var to use a local neard binary.
 async fn prepare_sandbox() -> Result<(Signer, Sandbox, Client, Client), Box<dyn Error>> {
     let rpc_port: u16 = 3040;
 
