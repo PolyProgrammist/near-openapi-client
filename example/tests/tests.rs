@@ -3,6 +3,7 @@ use client::Client;
 use near_crypto::{InMemorySigner, Signer};
 use near_openapi_client as client;
 use near_primitives::transaction::{Action, Transaction, TransactionV0, TransferAction};
+use near_sandbox::{Sandbox, SandboxConfig};
 use std::error::Error;
 use tokio::time::{sleep, Duration};
 
@@ -11,7 +12,7 @@ const NEAR_RPC_URL_REMOTE: &str = "https://archival-rpc.mainnet.near.org";
 
 #[tokio::test]
 async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
-    let (signer, mut sandbox_node, client_local, client_remote) = prepare_sandbox().await.unwrap();
+    let (signer, sandbox_node, client_local, client_remote) = prepare_sandbox().await.unwrap();
     let (sender_account_id, block_final_hash, base64_signed_tx, sent_tx_hash, executed_receipt_id, later_block_hash) =
         prepare_blockchain(&signer, client_local.clone()).await?;
 
@@ -67,8 +68,19 @@ async fn test_openapi_client() -> Result<(), Box<dyn Error>> {
     test_experimental_split_storage_info(&client_local).await?;
     test_query_account(&client_local, sender_account_id.clone()).await?;
     test_function_call(&client_local, sender_account_id.clone()).await?;
+    test_experimental_view_account(&client_local, sender_account_id.clone()).await?;
+    test_experimental_view_code(&client_local, sender_account_id.clone()).await?;
+    test_experimental_view_state(&client_local, sender_account_id.clone()).await?;
+    test_experimental_view_access_key(
+        &client_local,
+        sender_account_id.clone(),
+        &signer,
+    )
+    .await?;
+    test_experimental_view_access_key_list(&client_local, sender_account_id.clone()).await?;
+    test_experimental_call_function(&client_local, sender_account_id.clone()).await?;
 
-    sandbox_node.kill().await?;
+    drop(sandbox_node);
 
     Ok(())
 }
@@ -849,6 +861,181 @@ async fn test_function_call(
     Ok(())
 }
 
+
+async fn test_experimental_view_account(
+    client: &Client,
+    sender_account_id: client::types::AccountId,
+) -> Result<(), Box<dyn Error>> {
+    let payload = client::types::JsonRpcRequestForExperimentalViewAccount {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalViewAccountMethod::ExperimentalViewAccount,
+        params: client::types::RpcViewAccountRequest::Variant1 {
+            account_id: sender_account_id,
+            finality: client::types::Finality::Final,
+        },
+    };
+
+    let response: client::types::JsonRpcResponseForRpcViewAccountResponseAndRpcQueryError =
+        client.experimental_view_account(&payload).await?.into_inner();
+    assert!(matches!(
+        response,
+        client::types::JsonRpcResponseForRpcViewAccountResponseAndRpcQueryError::Variant0 { result: _, .. }
+    ));
+
+    println!("response for experimental_view_account: {:#?}", response);
+
+    Ok(())
+}
+
+async fn test_experimental_view_code(
+    client: &Client,
+    sender_account_id: client::types::AccountId,
+) -> Result<(), Box<dyn Error>> {
+    let payload = client::types::JsonRpcRequestForExperimentalViewCode {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalViewCodeMethod::ExperimentalViewCode,
+        params: client::types::RpcViewCodeRequest::Variant1 {
+            account_id: sender_account_id,
+            finality: client::types::Finality::Final,
+        },
+    };
+
+    let response: client::types::JsonRpcResponseForRpcViewCodeResponseAndRpcQueryError =
+        client.experimental_view_code(&payload).await?.into_inner();
+    assert!(matches!(
+        response,
+        client::types::JsonRpcResponseForRpcViewCodeResponseAndRpcQueryError::Variant0 { result: _, .. }
+    ));
+
+    println!("response for experimental_view_code: {:#?}", response);
+
+    Ok(())
+}
+
+async fn test_experimental_view_state(
+    client: &Client,
+    sender_account_id: client::types::AccountId,
+) -> Result<(), Box<dyn Error>> {
+    let payload = client::types::JsonRpcRequestForExperimentalViewState {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalViewStateMethod::ExperimentalViewState,
+        params: client::types::RpcViewStateRequest::Variant1 {
+            account_id: sender_account_id,
+            finality: client::types::Finality::Final,
+            include_proof: false,
+            prefix_base64: client::types::StoreKey("".to_string()),
+        },
+    };
+
+    let response: client::types::JsonRpcResponseForRpcViewStateResponseAndRpcQueryError =
+        client.experimental_view_state(&payload).await?.into_inner();
+    assert!(matches!(
+        response,
+        client::types::JsonRpcResponseForRpcViewStateResponseAndRpcQueryError::Variant0 { result: _, .. }
+    ));
+
+    println!("response for experimental_view_state: {:#?}", response);
+
+    Ok(())
+}
+
+async fn test_experimental_view_access_key(
+    client: &Client,
+    sender_account_id: client::types::AccountId,
+    signer: &near_crypto::Signer,
+) -> Result<(), Box<dyn Error>> {
+    let payload = client::types::JsonRpcRequestForExperimentalViewAccessKey {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalViewAccessKeyMethod::ExperimentalViewAccessKey,
+        params: client::types::RpcViewAccessKeyRequest::Variant1 {
+            account_id: sender_account_id,
+            public_key: client::types::PublicKey(signer.public_key().to_string()),
+            finality: client::types::Finality::Final,
+        },
+    };
+
+    let response: client::types::JsonRpcResponseForRpcViewAccessKeyResponseAndRpcQueryError =
+        client.experimental_view_access_key(&payload).await?.into_inner();
+    assert!(matches!(
+        response,
+        client::types::JsonRpcResponseForRpcViewAccessKeyResponseAndRpcQueryError::Variant0 { result: _, .. }
+    ));
+
+    println!("response for experimental_view_access_key: {:#?}", response);
+
+    Ok(())
+}
+
+async fn test_experimental_view_access_key_list(
+    client: &Client,
+    sender_account_id: client::types::AccountId,
+) -> Result<(), Box<dyn Error>> {
+    let payload = client::types::JsonRpcRequestForExperimentalViewAccessKeyList {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalViewAccessKeyListMethod::ExperimentalViewAccessKeyList,
+        params: client::types::RpcViewAccessKeyListRequest::Variant1 {
+            account_id: sender_account_id,
+            finality: client::types::Finality::Final,
+        },
+    };
+
+    let response: client::types::JsonRpcResponseForRpcViewAccessKeyListResponseAndRpcQueryError =
+        client.experimental_view_access_key_list(&payload).await?.into_inner();
+    assert!(matches!(
+        response,
+        client::types::JsonRpcResponseForRpcViewAccessKeyListResponseAndRpcQueryError::Variant0 { result: _, .. }
+    ));
+
+    println!("response for experimental_view_access_key_list: {:#?}", response);
+
+    Ok(())
+}
+
+async fn test_experimental_call_function(
+    client: &Client,
+    sender_account_id: client::types::AccountId,
+) -> Result<(), Box<dyn Error>> {
+    let payload = client::types::JsonRpcRequestForExperimentalCallFunction {
+        id: String::from("dontcare"),
+        jsonrpc: String::from("2.0"),
+        method: client::types::JsonRpcRequestForExperimentalCallFunctionMethod::ExperimentalCallFunction,
+        params: client::types::RpcCallFunctionRequest::Variant1 {
+            account_id: sender_account_id,
+            method_name: "get_greeting".to_string(),
+            args_base64: client::types::FunctionArgs("".to_string()),
+            finality: client::types::Finality::Final,
+        },
+    };
+
+    let response: client::types::JsonRpcResponseForRpcCallFunctionResponseAndRpcQueryError =
+        client.experimental_call_function(&payload).await?.into_inner();
+    assert!(matches!(
+        response,
+        client::types::JsonRpcResponseForRpcCallFunctionResponseAndRpcQueryError::Variant0 { result: _, .. }
+    ));
+
+    if let client::types::JsonRpcResponseForRpcCallFunctionResponseAndRpcQueryError::Variant0 {
+        result, ..
+    } = &response
+    {
+        assert_eq!(
+            result.result.len(),
+            6,
+            "Expected function call response size to be 6 bytes"
+        );
+    }
+
+    println!("response for experimental_call_function: {:#?}", response);
+
+    Ok(())
+}
+
+
 async fn prepare_blockchain(
     signer: &Signer,
     client_local: Client,
@@ -1017,31 +1204,23 @@ async fn prepare_blockchain(
     ))
 }
 
-async fn prepare_sandbox() -> Result<(Signer, tokio::process::Child, Client, Client), Box<dyn Error>>
-{
-    let mut home_dir = std::env::temp_dir();
-    home_dir.push("test_node_03c");
-
+/// Starts sandbox node for testing.
+/// Set `NEAR_SANDBOX_BIN_PATH` env var to use a local neard binary.
+async fn prepare_sandbox() -> Result<(Signer, Sandbox, Client, Client), Box<dyn Error>> {
     let rpc_port: u16 = 3040;
-    let net_port: u16 = 3031;
 
-    let version = "master/46832d39111003387b193672dbfe2a9913d0c861";
+    let mut cfg = SandboxConfig::default();
+    cfg.rpc_port = Some(rpc_port);
 
-    near_sandbox_utils::init_with_version(&home_dir, version)?
-        .wait_with_output()
-        .await
-        .unwrap();
-
-    let child = near_sandbox_utils::run_with_version(&home_dir, rpc_port, net_port, version)?;
+    let sandbox = Sandbox::start_sandbox_with_config(cfg).await?;
 
     sleep(Duration::from_secs(3)).await;
 
-    let mut validator_key = home_dir.clone();
-    validator_key.push("validator_key.json");
+    let validator_key = sandbox.home_dir.path().join("validator_key.json");
     let signer = InMemorySigner::from_file(&validator_key)?;
 
     let client_local = Client::new(NEAR_RPC_URL_LOCAL);
     let client_remote = Client::new(NEAR_RPC_URL_REMOTE);
 
-    Ok((signer, child, client_local, client_remote))
+    Ok((signer, sandbox, client_local, client_remote))
 }

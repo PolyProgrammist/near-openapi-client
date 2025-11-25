@@ -13462,6 +13462,130 @@ impl ::std::convert::TryFrom<::std::string::String> for JsonRpcRequestForClientC
         value.parse()
     }
 }
+#[doc = "`JsonRpcRequestForExperimentalCallFunction`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_EXPERIMENTAL_call_function\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"EXPERIMENTAL_call_function\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcCallFunctionRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForExperimentalCallFunction {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForExperimentalCallFunctionMethod,
+    pub params: RpcCallFunctionRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForExperimentalCallFunction>
+    for JsonRpcRequestForExperimentalCallFunction
+{
+    fn from(value: &JsonRpcRequestForExperimentalCallFunction) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalCallFunctionMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"EXPERIMENTAL_call_function\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForExperimentalCallFunctionMethod {
+    #[serde(rename = "EXPERIMENTAL_call_function")]
+    ExperimentalCallFunction,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalCallFunctionMethod {
+    fn from(value: &JsonRpcRequestForExperimentalCallFunctionMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForExperimentalCallFunctionMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ExperimentalCallFunction => f.write_str("EXPERIMENTAL_call_function"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForExperimentalCallFunctionMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "EXPERIMENTAL_call_function" => Ok(Self::ExperimentalCallFunction),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForExperimentalCallFunctionMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for JsonRpcRequestForExperimentalCallFunctionMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for JsonRpcRequestForExperimentalCallFunctionMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 #[doc = "`JsonRpcRequestForExperimentalChanges`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -14940,6 +15064,874 @@ impl ::std::convert::TryFrom<&::std::string::String>
 }
 impl ::std::convert::TryFrom<::std::string::String>
     for JsonRpcRequestForExperimentalValidatorsOrderedMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewAccessKey`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_EXPERIMENTAL_view_access_key\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"EXPERIMENTAL_view_access_key\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcViewAccessKeyRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForExperimentalViewAccessKey {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForExperimentalViewAccessKeyMethod,
+    pub params: RpcViewAccessKeyRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForExperimentalViewAccessKey>
+    for JsonRpcRequestForExperimentalViewAccessKey
+{
+    fn from(value: &JsonRpcRequestForExperimentalViewAccessKey) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewAccessKeyList`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_EXPERIMENTAL_view_access_key_list\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"EXPERIMENTAL_view_access_key_list\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcViewAccessKeyListRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForExperimentalViewAccessKeyList {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForExperimentalViewAccessKeyListMethod,
+    pub params: RpcViewAccessKeyListRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForExperimentalViewAccessKeyList>
+    for JsonRpcRequestForExperimentalViewAccessKeyList
+{
+    fn from(value: &JsonRpcRequestForExperimentalViewAccessKeyList) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewAccessKeyListMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"EXPERIMENTAL_view_access_key_list\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForExperimentalViewAccessKeyListMethod {
+    #[serde(rename = "EXPERIMENTAL_view_access_key_list")]
+    ExperimentalViewAccessKeyList,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalViewAccessKeyListMethod {
+    fn from(value: &JsonRpcRequestForExperimentalViewAccessKeyListMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForExperimentalViewAccessKeyListMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ExperimentalViewAccessKeyList => f.write_str("EXPERIMENTAL_view_access_key_list"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForExperimentalViewAccessKeyListMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "EXPERIMENTAL_view_access_key_list" => Ok(Self::ExperimentalViewAccessKeyList),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForExperimentalViewAccessKeyListMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for JsonRpcRequestForExperimentalViewAccessKeyListMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for JsonRpcRequestForExperimentalViewAccessKeyListMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewAccessKeyMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"EXPERIMENTAL_view_access_key\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForExperimentalViewAccessKeyMethod {
+    #[serde(rename = "EXPERIMENTAL_view_access_key")]
+    ExperimentalViewAccessKey,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalViewAccessKeyMethod {
+    fn from(value: &JsonRpcRequestForExperimentalViewAccessKeyMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForExperimentalViewAccessKeyMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ExperimentalViewAccessKey => f.write_str("EXPERIMENTAL_view_access_key"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForExperimentalViewAccessKeyMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "EXPERIMENTAL_view_access_key" => Ok(Self::ExperimentalViewAccessKey),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForExperimentalViewAccessKeyMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for JsonRpcRequestForExperimentalViewAccessKeyMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for JsonRpcRequestForExperimentalViewAccessKeyMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewAccount`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_EXPERIMENTAL_view_account\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"EXPERIMENTAL_view_account\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcViewAccountRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForExperimentalViewAccount {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForExperimentalViewAccountMethod,
+    pub params: RpcViewAccountRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForExperimentalViewAccount>
+    for JsonRpcRequestForExperimentalViewAccount
+{
+    fn from(value: &JsonRpcRequestForExperimentalViewAccount) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewAccountMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"EXPERIMENTAL_view_account\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForExperimentalViewAccountMethod {
+    #[serde(rename = "EXPERIMENTAL_view_account")]
+    ExperimentalViewAccount,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalViewAccountMethod {
+    fn from(value: &JsonRpcRequestForExperimentalViewAccountMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForExperimentalViewAccountMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ExperimentalViewAccount => f.write_str("EXPERIMENTAL_view_account"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForExperimentalViewAccountMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "EXPERIMENTAL_view_account" => Ok(Self::ExperimentalViewAccount),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForExperimentalViewAccountMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for JsonRpcRequestForExperimentalViewAccountMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for JsonRpcRequestForExperimentalViewAccountMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewCode`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_EXPERIMENTAL_view_code\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"EXPERIMENTAL_view_code\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcViewCodeRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForExperimentalViewCode {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForExperimentalViewCodeMethod,
+    pub params: RpcViewCodeRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForExperimentalViewCode>
+    for JsonRpcRequestForExperimentalViewCode
+{
+    fn from(value: &JsonRpcRequestForExperimentalViewCode) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewCodeMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"EXPERIMENTAL_view_code\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForExperimentalViewCodeMethod {
+    #[serde(rename = "EXPERIMENTAL_view_code")]
+    ExperimentalViewCode,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalViewCodeMethod {
+    fn from(value: &JsonRpcRequestForExperimentalViewCodeMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForExperimentalViewCodeMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ExperimentalViewCode => f.write_str("EXPERIMENTAL_view_code"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForExperimentalViewCodeMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "EXPERIMENTAL_view_code" => Ok(Self::ExperimentalViewCode),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForExperimentalViewCodeMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for JsonRpcRequestForExperimentalViewCodeMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for JsonRpcRequestForExperimentalViewCodeMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewGasKey`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_EXPERIMENTAL_view_gas_key\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"EXPERIMENTAL_view_gas_key\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcViewGasKeyRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForExperimentalViewGasKey {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForExperimentalViewGasKeyMethod,
+    pub params: RpcViewGasKeyRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForExperimentalViewGasKey>
+    for JsonRpcRequestForExperimentalViewGasKey
+{
+    fn from(value: &JsonRpcRequestForExperimentalViewGasKey) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewGasKeyList`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_EXPERIMENTAL_view_gas_key_list\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"EXPERIMENTAL_view_gas_key_list\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcViewGasKeyListRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForExperimentalViewGasKeyList {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForExperimentalViewGasKeyListMethod,
+    pub params: RpcViewGasKeyListRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForExperimentalViewGasKeyList>
+    for JsonRpcRequestForExperimentalViewGasKeyList
+{
+    fn from(value: &JsonRpcRequestForExperimentalViewGasKeyList) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewGasKeyListMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"EXPERIMENTAL_view_gas_key_list\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForExperimentalViewGasKeyListMethod {
+    #[serde(rename = "EXPERIMENTAL_view_gas_key_list")]
+    ExperimentalViewGasKeyList,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalViewGasKeyListMethod {
+    fn from(value: &JsonRpcRequestForExperimentalViewGasKeyListMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForExperimentalViewGasKeyListMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ExperimentalViewGasKeyList => f.write_str("EXPERIMENTAL_view_gas_key_list"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForExperimentalViewGasKeyListMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "EXPERIMENTAL_view_gas_key_list" => Ok(Self::ExperimentalViewGasKeyList),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForExperimentalViewGasKeyListMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for JsonRpcRequestForExperimentalViewGasKeyListMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for JsonRpcRequestForExperimentalViewGasKeyListMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewGasKeyMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"EXPERIMENTAL_view_gas_key\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForExperimentalViewGasKeyMethod {
+    #[serde(rename = "EXPERIMENTAL_view_gas_key")]
+    ExperimentalViewGasKey,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalViewGasKeyMethod {
+    fn from(value: &JsonRpcRequestForExperimentalViewGasKeyMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForExperimentalViewGasKeyMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ExperimentalViewGasKey => f.write_str("EXPERIMENTAL_view_gas_key"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForExperimentalViewGasKeyMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "EXPERIMENTAL_view_gas_key" => Ok(Self::ExperimentalViewGasKey),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForExperimentalViewGasKeyMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for JsonRpcRequestForExperimentalViewGasKeyMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for JsonRpcRequestForExperimentalViewGasKeyMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewState`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcRequest_for_EXPERIMENTAL_view_state\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\","]
+#[doc = "    \"method\","]
+#[doc = "    \"params\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"method\": {"]
+#[doc = "      \"type\": \"string\","]
+#[doc = "      \"enum\": ["]
+#[doc = "        \"EXPERIMENTAL_view_state\""]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"params\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/RpcViewStateRequest\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct JsonRpcRequestForExperimentalViewState {
+    pub id: ::std::string::String,
+    pub jsonrpc: ::std::string::String,
+    pub method: JsonRpcRequestForExperimentalViewStateMethod,
+    pub params: RpcViewStateRequest,
+}
+impl ::std::convert::From<&JsonRpcRequestForExperimentalViewState>
+    for JsonRpcRequestForExperimentalViewState
+{
+    fn from(value: &JsonRpcRequestForExperimentalViewState) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcRequestForExperimentalViewStateMethod`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"type\": \"string\","]
+#[doc = "  \"enum\": ["]
+#[doc = "    \"EXPERIMENTAL_view_state\""]
+#[doc = "  ]"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(
+    :: serde :: Deserialize,
+    :: serde :: Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd,
+)]
+pub enum JsonRpcRequestForExperimentalViewStateMethod {
+    #[serde(rename = "EXPERIMENTAL_view_state")]
+    ExperimentalViewState,
+}
+impl ::std::convert::From<&Self> for JsonRpcRequestForExperimentalViewStateMethod {
+    fn from(value: &JsonRpcRequestForExperimentalViewStateMethod) -> Self {
+        value.clone()
+    }
+}
+impl ::std::fmt::Display for JsonRpcRequestForExperimentalViewStateMethod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::ExperimentalViewState => f.write_str("EXPERIMENTAL_view_state"),
+        }
+    }
+}
+impl ::std::str::FromStr for JsonRpcRequestForExperimentalViewStateMethod {
+    type Err = self::error::ConversionError;
+    fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "EXPERIMENTAL_view_state" => Ok(Self::ExperimentalViewState),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for JsonRpcRequestForExperimentalViewStateMethod {
+    type Error = self::error::ConversionError;
+    fn try_from(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+    for JsonRpcRequestForExperimentalViewStateMethod
+{
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+    for JsonRpcRequestForExperimentalViewStateMethod
 {
     type Error = self::error::ConversionError;
     fn try_from(
@@ -16787,6 +17779,72 @@ impl ::std::convert::From<&Self> for JsonRpcResponseForRpcBlockResponseAndRpcBlo
         value.clone()
     }
 }
+#[doc = "`JsonRpcResponseForRpcCallFunctionResponseAndRpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcCallFunctionResponse_and_RpcQueryError\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"result\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"result\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcCallFunctionResponse\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"error\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"error\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcQueryError\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum JsonRpcResponseForRpcCallFunctionResponseAndRpcQueryError {
+    Variant0 {
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+        result: RpcCallFunctionResponse,
+    },
+    Variant1 {
+        error: ErrorWrapperForRpcQueryError,
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcCallFunctionResponseAndRpcQueryError {
+    fn from(value: &JsonRpcResponseForRpcCallFunctionResponseAndRpcQueryError) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`JsonRpcResponseForRpcChunkResponseAndRpcChunkError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -17938,6 +18996,470 @@ pub enum JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError {
 }
 impl ::std::convert::From<&Self> for JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError {
     fn from(value: &JsonRpcResponseForRpcValidatorResponseAndRpcValidatorError) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcResponseForRpcViewAccessKeyListResponseAndRpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcViewAccessKeyListResponse_and_RpcQueryError\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"result\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"result\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcViewAccessKeyListResponse\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"error\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"error\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcQueryError\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum JsonRpcResponseForRpcViewAccessKeyListResponseAndRpcQueryError {
+    Variant0 {
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+        result: RpcViewAccessKeyListResponse,
+    },
+    Variant1 {
+        error: ErrorWrapperForRpcQueryError,
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self>
+    for JsonRpcResponseForRpcViewAccessKeyListResponseAndRpcQueryError
+{
+    fn from(value: &JsonRpcResponseForRpcViewAccessKeyListResponseAndRpcQueryError) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcResponseForRpcViewAccessKeyResponseAndRpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcViewAccessKeyResponse_and_RpcQueryError\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"result\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"result\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcViewAccessKeyResponse\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"error\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"error\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcQueryError\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum JsonRpcResponseForRpcViewAccessKeyResponseAndRpcQueryError {
+    Variant0 {
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+        result: RpcViewAccessKeyResponse,
+    },
+    Variant1 {
+        error: ErrorWrapperForRpcQueryError,
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcViewAccessKeyResponseAndRpcQueryError {
+    fn from(value: &JsonRpcResponseForRpcViewAccessKeyResponseAndRpcQueryError) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcResponseForRpcViewAccountResponseAndRpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcViewAccountResponse_and_RpcQueryError\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"result\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"result\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcViewAccountResponse\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"error\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"error\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcQueryError\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum JsonRpcResponseForRpcViewAccountResponseAndRpcQueryError {
+    Variant0 {
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+        result: RpcViewAccountResponse,
+    },
+    Variant1 {
+        error: ErrorWrapperForRpcQueryError,
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcViewAccountResponseAndRpcQueryError {
+    fn from(value: &JsonRpcResponseForRpcViewAccountResponseAndRpcQueryError) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcResponseForRpcViewCodeResponseAndRpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcViewCodeResponse_and_RpcQueryError\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"result\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"result\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcViewCodeResponse\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"error\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"error\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcQueryError\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum JsonRpcResponseForRpcViewCodeResponseAndRpcQueryError {
+    Variant0 {
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+        result: RpcViewCodeResponse,
+    },
+    Variant1 {
+        error: ErrorWrapperForRpcQueryError,
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcViewCodeResponseAndRpcQueryError {
+    fn from(value: &JsonRpcResponseForRpcViewCodeResponseAndRpcQueryError) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcResponseForRpcViewGasKeyListResponseAndRpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcViewGasKeyListResponse_and_RpcQueryError\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"result\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"result\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcViewGasKeyListResponse\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"error\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"error\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcQueryError\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum JsonRpcResponseForRpcViewGasKeyListResponseAndRpcQueryError {
+    Variant0 {
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+        result: RpcViewGasKeyListResponse,
+    },
+    Variant1 {
+        error: ErrorWrapperForRpcQueryError,
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcViewGasKeyListResponseAndRpcQueryError {
+    fn from(value: &JsonRpcResponseForRpcViewGasKeyListResponseAndRpcQueryError) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcResponseForRpcViewGasKeyResponseAndRpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcViewGasKeyResponse_and_RpcQueryError\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"result\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"result\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcViewGasKeyResponse\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"error\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"error\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcQueryError\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum JsonRpcResponseForRpcViewGasKeyResponseAndRpcQueryError {
+    Variant0 {
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+        result: RpcViewGasKeyResponse,
+    },
+    Variant1 {
+        error: ErrorWrapperForRpcQueryError,
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcViewGasKeyResponseAndRpcQueryError {
+    fn from(value: &JsonRpcResponseForRpcViewGasKeyResponseAndRpcQueryError) -> Self {
+        value.clone()
+    }
+}
+#[doc = "`JsonRpcResponseForRpcViewStateResponseAndRpcQueryError`"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"JsonRpcResponse_for_RpcViewStateResponse_and_RpcQueryError\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"result\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"result\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/RpcViewStateResponse\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"error\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"error\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ErrorWrapper_for_RpcQueryError\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"id\","]
+#[doc = "    \"jsonrpc\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"id\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"jsonrpc\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum JsonRpcResponseForRpcViewStateResponseAndRpcQueryError {
+    Variant0 {
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+        result: RpcViewStateResponse,
+    },
+    Variant1 {
+        error: ErrorWrapperForRpcQueryError,
+        id: ::std::string::String,
+        jsonrpc: ::std::string::String,
+    },
+}
+impl ::std::convert::From<&Self> for JsonRpcResponseForRpcViewStateResponseAndRpcQueryError {
+    fn from(value: &JsonRpcResponseForRpcViewStateResponseAndRpcQueryError) -> Self {
         value.clone()
     }
 }
@@ -20399,6 +21921,150 @@ impl ::std::convert::From<&RpcBlockResponse> for RpcBlockResponse {
         value.clone()
     }
 }
+#[doc = "Request type for `call_function` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"RpcCallFunctionRequest\","]
+#[doc = "  \"description\": \"Request type for `call_function` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"block_id\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"block_id\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"finality\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"finality\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"sync_checkpoint\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"sync_checkpoint\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"args_base64\","]
+#[doc = "    \"method_name\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"args_base64\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/FunctionArgs\""]
+#[doc = "    },"]
+#[doc = "    \"method_name\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum RpcCallFunctionRequest {
+    Variant0 {
+        account_id: AccountId,
+        args_base64: FunctionArgs,
+        block_id: BlockId,
+        method_name: ::std::string::String,
+    },
+    Variant1 {
+        account_id: AccountId,
+        args_base64: FunctionArgs,
+        finality: Finality,
+        method_name: ::std::string::String,
+    },
+    Variant2 {
+        account_id: AccountId,
+        args_base64: FunctionArgs,
+        method_name: ::std::string::String,
+        sync_checkpoint: SyncCheckpoint,
+    },
+}
+impl ::std::convert::From<&Self> for RpcCallFunctionRequest {
+    fn from(value: &RpcCallFunctionRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Response type for `call_function` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Response type for `call_function` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"block_hash\","]
+#[doc = "    \"block_height\","]
+#[doc = "    \"logs\","]
+#[doc = "    \"result\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"block_hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    \"block_height\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"logs\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"type\": \"string\""]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    \"result\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"type\": \"integer\","]
+#[doc = "        \"format\": \"uint8\","]
+#[doc = "        \"maximum\": 255.0,"]
+#[doc = "        \"minimum\": 0.0"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct RpcCallFunctionResponse {
+    pub block_hash: CryptoHash,
+    pub block_height: u64,
+    pub logs: ::std::vec::Vec<::std::string::String>,
+    pub result: ::std::vec::Vec<u8>,
+}
+impl ::std::convert::From<&RpcCallFunctionResponse> for RpcCallFunctionResponse {
+    fn from(value: &RpcCallFunctionResponse) -> Self {
+        value.clone()
+    }
+}
 #[doc = "`RpcChunkError`"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -20842,10 +22508,6 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
-#[doc = "    \"disable_tx_routing\": {"]
-#[doc = "      \"description\": \"If true, the node won't forward transactions to next the chunk producers.\","]
-#[doc = "      \"type\": \"boolean\""]
-#[doc = "    },"]
 #[doc = "    \"doomslug_step_period\": {"]
 #[doc = "      \"description\": \"Time between running doomslug timer.\","]
 #[doc = "      \"type\": \"array\","]
@@ -21060,10 +22722,6 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "    },"]
 #[doc = "    \"save_latest_witnesses\": {"]
 #[doc = "      \"description\": \"Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\\nSaving the latest witnesses is useful for analysis and debugging.\\nThis option can cause extra load on the database and is not recommended for production use.\","]
-#[doc = "      \"type\": \"boolean\""]
-#[doc = "    },"]
-#[doc = "    \"save_state_changes\": {"]
-#[doc = "      \"description\": \"Whether to persist state changes on disk or not.\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"save_trie_changes\": {"]
@@ -21294,9 +22952,6 @@ pub struct RpcClientConfigResponse {
     #[doc = "Configuration for a cloud-based archival writer. If this config is present, the writer is enabled and\nwrites chunk-related data based on the tracked shards."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub cloud_archival_writer: ::std::option::Option<CloudArchivalWriterConfig>,
-    #[doc = "If true, the node won't forward transactions to next the chunk producers."]
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub disable_tx_routing: ::std::option::Option<bool>,
     #[doc = "Time between running doomslug timer."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub doomslug_step_period: ::std::option::Option<[u64; 2usize]>,
@@ -21385,9 +23040,6 @@ pub struct RpcClientConfigResponse {
     #[doc = "Save observed instances of ChunkStateWitness to the database in DBCol::LatestChunkStateWitnesses.\nSaving the latest witnesses is useful for analysis and debugging.\nThis option can cause extra load on the database and is not recommended for production use."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub save_latest_witnesses: ::std::option::Option<bool>,
-    #[doc = "Whether to persist state changes on disk or not."]
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub save_state_changes: ::std::option::Option<bool>,
     #[doc = "save_trie_changes should be set to true iff\n- archive if false - non-archival nodes need trie changes to perform garbage collection\n- archive is true, cold_store is configured and migration to split_storage is finished - node\nworking in split storage mode needs trie changes in order to do garbage collection on hot."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub save_trie_changes: ::std::option::Option<bool>,
@@ -21482,7 +23134,6 @@ impl ::std::default::Default for RpcClientConfigResponse {
             chunk_wait_mult: Default::default(),
             client_background_migration_threads: Default::default(),
             cloud_archival_writer: Default::default(),
-            disable_tx_routing: Default::default(),
             doomslug_step_period: Default::default(),
             dynamic_resharding_dry_run: Default::default(),
             enable_early_prepare_transactions: Default::default(),
@@ -21513,7 +23164,6 @@ impl ::std::default::Default for RpcClientConfigResponse {
             rpc_addr: Default::default(),
             save_invalid_witnesses: Default::default(),
             save_latest_witnesses: Default::default(),
-            save_state_changes: Default::default(),
             save_trie_changes: Default::default(),
             save_tx_outcomes: Default::default(),
             save_untracked_partial_chunks_parts: Default::default(),
@@ -23871,7 +25521,7 @@ impl ::std::default::Default for RpcProtocolConfigResponse {
 #[doc = "          \"required\": ["]
 #[doc = "            \"block_hash\","]
 #[doc = "            \"block_height\","]
-#[doc = "            \"vm_error\""]
+#[doc = "            \"error\""]
 #[doc = "          ],"]
 #[doc = "          \"properties\": {"]
 #[doc = "            \"block_hash\": {"]
@@ -23882,8 +25532,8 @@ impl ::std::default::Default for RpcProtocolConfigResponse {
 #[doc = "              \"format\": \"uint64\","]
 #[doc = "              \"minimum\": 0.0"]
 #[doc = "            },"]
-#[doc = "            \"vm_error\": {"]
-#[doc = "              \"type\": \"string\""]
+#[doc = "            \"error\": {"]
+#[doc = "              \"$ref\": \"#/components/schemas/FunctionCallError\""]
 #[doc = "            }"]
 #[doc = "          }"]
 #[doc = "        },"]
@@ -24022,7 +25672,7 @@ pub enum RpcQueryError {
     ContractExecutionError {
         block_hash: CryptoHash,
         block_height: u64,
-        vm_error: ::std::string::String,
+        error: FunctionCallError,
     },
     #[serde(rename = "NO_GLOBAL_CONTRACT_CODE")]
     NoGlobalContractCode {
@@ -27998,6 +29648,951 @@ impl ::std::default::Default for RpcValidatorsOrderedRequest {
         Self {
             block_id: Default::default(),
         }
+    }
+}
+#[doc = "Request type for `view_access_key_list` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"RpcViewAccessKeyListRequest\","]
+#[doc = "  \"description\": \"Request type for `view_access_key_list` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"block_id\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"block_id\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"finality\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"finality\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"sync_checkpoint\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"sync_checkpoint\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum RpcViewAccessKeyListRequest {
+    Variant0 {
+        account_id: AccountId,
+        block_id: BlockId,
+    },
+    Variant1 {
+        account_id: AccountId,
+        finality: Finality,
+    },
+    Variant2 {
+        account_id: AccountId,
+        sync_checkpoint: SyncCheckpoint,
+    },
+}
+impl ::std::convert::From<&Self> for RpcViewAccessKeyListRequest {
+    fn from(value: &RpcViewAccessKeyListRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Response type for `view_access_key_list` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Response type for `view_access_key_list` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"block_hash\","]
+#[doc = "    \"block_height\","]
+#[doc = "    \"keys\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"block_hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    \"block_height\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"keys\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"$ref\": \"#/components/schemas/AccessKeyInfoView\""]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct RpcViewAccessKeyListResponse {
+    pub block_hash: CryptoHash,
+    pub block_height: u64,
+    pub keys: ::std::vec::Vec<AccessKeyInfoView>,
+}
+impl ::std::convert::From<&RpcViewAccessKeyListResponse> for RpcViewAccessKeyListResponse {
+    fn from(value: &RpcViewAccessKeyListResponse) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Request type for `view_access_key` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"RpcViewAccessKeyRequest\","]
+#[doc = "  \"description\": \"Request type for `view_access_key` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"block_id\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"block_id\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"finality\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"finality\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"sync_checkpoint\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"sync_checkpoint\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"public_key\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum RpcViewAccessKeyRequest {
+    Variant0 {
+        account_id: AccountId,
+        block_id: BlockId,
+        public_key: PublicKey,
+    },
+    Variant1 {
+        account_id: AccountId,
+        finality: Finality,
+        public_key: PublicKey,
+    },
+    Variant2 {
+        account_id: AccountId,
+        public_key: PublicKey,
+        sync_checkpoint: SyncCheckpoint,
+    },
+}
+impl ::std::convert::From<&Self> for RpcViewAccessKeyRequest {
+    fn from(value: &RpcViewAccessKeyRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Response type for `view_access_key` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Response type for `view_access_key` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"block_hash\","]
+#[doc = "    \"block_height\","]
+#[doc = "    \"nonce\","]
+#[doc = "    \"permission\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"block_hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    \"block_height\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"nonce\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"permission\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccessKeyPermissionView\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct RpcViewAccessKeyResponse {
+    pub block_hash: CryptoHash,
+    pub block_height: u64,
+    pub nonce: u64,
+    pub permission: AccessKeyPermissionView,
+}
+impl ::std::convert::From<&RpcViewAccessKeyResponse> for RpcViewAccessKeyResponse {
+    fn from(value: &RpcViewAccessKeyResponse) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Request type for `view_account` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"RpcViewAccountRequest\","]
+#[doc = "  \"description\": \"Request type for `view_account` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"block_id\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"block_id\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"finality\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"finality\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"sync_checkpoint\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"sync_checkpoint\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum RpcViewAccountRequest {
+    Variant0 {
+        account_id: AccountId,
+        block_id: BlockId,
+    },
+    Variant1 {
+        account_id: AccountId,
+        finality: Finality,
+    },
+    Variant2 {
+        account_id: AccountId,
+        sync_checkpoint: SyncCheckpoint,
+    },
+}
+impl ::std::convert::From<&Self> for RpcViewAccountRequest {
+    fn from(value: &RpcViewAccountRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Response type for `view_account` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Response type for `view_account` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"amount\","]
+#[doc = "    \"block_hash\","]
+#[doc = "    \"block_height\","]
+#[doc = "    \"code_hash\","]
+#[doc = "    \"locked\","]
+#[doc = "    \"storage_usage\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"amount\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "    },"]
+#[doc = "    \"block_hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    \"block_height\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"code_hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    \"global_contract_account_id\": {"]
+#[doc = "      \"anyOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"null\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"global_contract_hash\": {"]
+#[doc = "      \"anyOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "        },"]
+#[doc = "        {"]
+#[doc = "          \"type\": \"null\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
+#[doc = "    \"locked\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "    },"]
+#[doc = "    \"storage_paid_at\": {"]
+#[doc = "      \"description\": \"TODO(2271): deprecated.\","]
+#[doc = "      \"default\": 0,"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"storage_usage\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct RpcViewAccountResponse {
+    pub amount: NearToken,
+    pub block_hash: CryptoHash,
+    pub block_height: u64,
+    pub code_hash: CryptoHash,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub global_contract_account_id: ::std::option::Option<AccountId>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub global_contract_hash: ::std::option::Option<CryptoHash>,
+    pub locked: NearToken,
+    #[doc = "TODO(2271): deprecated."]
+    #[serde(default)]
+    pub storage_paid_at: u64,
+    pub storage_usage: u64,
+}
+impl ::std::convert::From<&RpcViewAccountResponse> for RpcViewAccountResponse {
+    fn from(value: &RpcViewAccountResponse) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Request type for `view_code` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"RpcViewCodeRequest\","]
+#[doc = "  \"description\": \"Request type for `view_code` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"block_id\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"block_id\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"finality\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"finality\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"sync_checkpoint\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"sync_checkpoint\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum RpcViewCodeRequest {
+    Variant0 {
+        account_id: AccountId,
+        block_id: BlockId,
+    },
+    Variant1 {
+        account_id: AccountId,
+        finality: Finality,
+    },
+    Variant2 {
+        account_id: AccountId,
+        sync_checkpoint: SyncCheckpoint,
+    },
+}
+impl ::std::convert::From<&Self> for RpcViewCodeRequest {
+    fn from(value: &RpcViewCodeRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Response type for `view_code` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Response type for `view_code` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"block_hash\","]
+#[doc = "    \"block_height\","]
+#[doc = "    \"code_base64\","]
+#[doc = "    \"hash\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"block_hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    \"block_height\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"code_base64\": {"]
+#[doc = "      \"type\": \"string\""]
+#[doc = "    },"]
+#[doc = "    \"hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct RpcViewCodeResponse {
+    pub block_hash: CryptoHash,
+    pub block_height: u64,
+    pub code_base64: ::std::string::String,
+    pub hash: CryptoHash,
+}
+impl ::std::convert::From<&RpcViewCodeResponse> for RpcViewCodeResponse {
+    fn from(value: &RpcViewCodeResponse) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Request type for `view_gas_key_list` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"RpcViewGasKeyListRequest\","]
+#[doc = "  \"description\": \"Request type for `view_gas_key_list` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"block_id\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"block_id\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"finality\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"finality\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"sync_checkpoint\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"sync_checkpoint\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum RpcViewGasKeyListRequest {
+    Variant0 {
+        account_id: AccountId,
+        block_id: BlockId,
+    },
+    Variant1 {
+        account_id: AccountId,
+        finality: Finality,
+    },
+    Variant2 {
+        account_id: AccountId,
+        sync_checkpoint: SyncCheckpoint,
+    },
+}
+impl ::std::convert::From<&Self> for RpcViewGasKeyListRequest {
+    fn from(value: &RpcViewGasKeyListRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Response type for `view_gas_key_list` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Response type for `view_gas_key_list` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"block_hash\","]
+#[doc = "    \"block_height\","]
+#[doc = "    \"keys\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"block_hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    \"block_height\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"keys\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"$ref\": \"#/components/schemas/GasKeyInfoView\""]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct RpcViewGasKeyListResponse {
+    pub block_hash: CryptoHash,
+    pub block_height: u64,
+    pub keys: ::std::vec::Vec<GasKeyInfoView>,
+}
+impl ::std::convert::From<&RpcViewGasKeyListResponse> for RpcViewGasKeyListResponse {
+    fn from(value: &RpcViewGasKeyListResponse) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Request type for `view_gas_key` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"RpcViewGasKeyRequest\","]
+#[doc = "  \"description\": \"Request type for `view_gas_key` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"block_id\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"block_id\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"finality\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"finality\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"sync_checkpoint\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"sync_checkpoint\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"public_key\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"public_key\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/PublicKey\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum RpcViewGasKeyRequest {
+    Variant0 {
+        account_id: AccountId,
+        block_id: BlockId,
+        public_key: PublicKey,
+    },
+    Variant1 {
+        account_id: AccountId,
+        finality: Finality,
+        public_key: PublicKey,
+    },
+    Variant2 {
+        account_id: AccountId,
+        public_key: PublicKey,
+        sync_checkpoint: SyncCheckpoint,
+    },
+}
+impl ::std::convert::From<&Self> for RpcViewGasKeyRequest {
+    fn from(value: &RpcViewGasKeyRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Response type for `view_gas_key` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Response type for `view_gas_key` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"balance\","]
+#[doc = "    \"block_hash\","]
+#[doc = "    \"block_height\","]
+#[doc = "    \"nonces\","]
+#[doc = "    \"num_nonces\","]
+#[doc = "    \"permission\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"balance\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/NearToken\""]
+#[doc = "    },"]
+#[doc = "    \"block_hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    \"block_height\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"nonces\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"type\": \"integer\","]
+#[doc = "        \"format\": \"uint64\","]
+#[doc = "        \"minimum\": 0.0"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    \"num_nonces\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint32\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"permission\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccessKeyPermissionView\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct RpcViewGasKeyResponse {
+    pub balance: NearToken,
+    pub block_hash: CryptoHash,
+    pub block_height: u64,
+    pub nonces: ::std::vec::Vec<u64>,
+    pub num_nonces: u32,
+    pub permission: AccessKeyPermissionView,
+}
+impl ::std::convert::From<&RpcViewGasKeyResponse> for RpcViewGasKeyResponse {
+    fn from(value: &RpcViewGasKeyResponse) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Request type for `view_state` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"title\": \"RpcViewStateRequest\","]
+#[doc = "  \"description\": \"Request type for `view_state` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"oneOf\": ["]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"block_id\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"block_id\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/BlockId\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"finality\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"finality\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/Finality\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"sync_checkpoint\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"sync_checkpoint\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/SyncCheckpoint\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  ],"]
+#[doc = "  \"required\": ["]
+#[doc = "    \"account_id\","]
+#[doc = "    \"prefix_base64\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"account_id\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "    },"]
+#[doc = "    \"include_proof\": {"]
+#[doc = "      \"default\": false,"]
+#[doc = "      \"type\": \"boolean\""]
+#[doc = "    },"]
+#[doc = "    \"prefix_base64\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/StoreKey\""]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+#[serde(untagged)]
+pub enum RpcViewStateRequest {
+    Variant0 {
+        account_id: AccountId,
+        block_id: BlockId,
+        #[serde(default)]
+        include_proof: bool,
+        prefix_base64: StoreKey,
+    },
+    Variant1 {
+        account_id: AccountId,
+        finality: Finality,
+        #[serde(default)]
+        include_proof: bool,
+        prefix_base64: StoreKey,
+    },
+    Variant2 {
+        account_id: AccountId,
+        #[serde(default)]
+        include_proof: bool,
+        prefix_base64: StoreKey,
+        sync_checkpoint: SyncCheckpoint,
+    },
+}
+impl ::std::convert::From<&Self> for RpcViewStateRequest {
+    fn from(value: &RpcViewStateRequest) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Response type for `view_state` RPC method."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Response type for `view_state` RPC method.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"block_hash\","]
+#[doc = "    \"block_height\","]
+#[doc = "    \"values\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"block_hash\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/CryptoHash\""]
+#[doc = "    },"]
+#[doc = "    \"block_height\": {"]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"proof\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"type\": \"string\""]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    \"values\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"$ref\": \"#/components/schemas/StateItem\""]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct RpcViewStateResponse {
+    pub block_hash: CryptoHash,
+    pub block_height: u64,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub proof: ::std::vec::Vec<::std::string::String>,
+    pub values: ::std::vec::Vec<StateItem>,
+}
+impl ::std::convert::From<&RpcViewStateResponse> for RpcViewStateResponse {
+    fn from(value: &RpcViewStateResponse) -> Self {
+        value.clone()
     }
 }
 #[doc = "View that preserves JSON format of the runtime config."]
