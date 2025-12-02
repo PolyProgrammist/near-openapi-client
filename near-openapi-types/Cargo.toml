@@ -8,12 +8,12 @@ description = "Types for progenitor-generated client of NEAR JSON RPC API"
 
 
 [dependencies]
-chrono = { version = "0.4", default-features=false, features = ["serde"] }
+chrono = { version = "0.4", default-features = false, features = ["serde"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 
 
-near-account-id = { version = "1.1.1", features = ["serde"] }
+near-account-id = { version = "2.0", features = ["serde"] }
 near-gas = { version = "0.3.2", features = ["serde"] }
 near-token = { version = "0.3.1", features = ["serde"] }
 thiserror = "2.0.17"
