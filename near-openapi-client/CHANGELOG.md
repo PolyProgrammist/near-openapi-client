@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-client-v0.5.2...near-openapi-client-v0.6.0) - 2025-12-02
+
+### Added
+
+- remove unused dependencies from near-openapi-types ([#27](https://github.com/PolyProgrammist/near-openapi-client/pull/27))
+
+### Fixed
+
+- update dependencies
+
 ## [0.4.1](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-client-v0.4.0...near-openapi-client-v0.4.1) - 2025-11-06
 
 ### Other
