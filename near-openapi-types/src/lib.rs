@@ -19759,6 +19759,16 @@ impl ::std::convert::From<&RangeOfUint64> for RangeOfUint64 {
 #[doc = "                \"$ref\": \"#/components/schemas/DataReceiverView\""]
 #[doc = "              }"]
 #[doc = "            },"]
+#[doc = "            \"refund_to\": {"]
+#[doc = "              \"anyOf\": ["]
+#[doc = "                {"]
+#[doc = "                  \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "                },"]
+#[doc = "                {"]
+#[doc = "                  \"type\": \"null\""]
+#[doc = "                }"]
+#[doc = "              ]"]
+#[doc = "            },"]
 #[doc = "            \"signer_id\": {"]
 #[doc = "              \"$ref\": \"#/components/schemas/AccountId\""]
 #[doc = "            },"]
@@ -19848,6 +19858,8 @@ pub enum ReceiptEnumView {
         #[serde(default)]
         is_promise_yield: bool,
         output_data_receivers: ::std::vec::Vec<DataReceiverView>,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        refund_to: ::std::option::Option<AccountId>,
         signer_id: AccountId,
         signer_public_key: PublicKey,
     },
@@ -20825,6 +20837,12 @@ impl ::std::convert::From<()> for RpcClientConfigRequest {
 #[doc = "      \"maxItems\": 2,"]
 #[doc = "      \"minItems\": 2"]
 #[doc = "    },"]
+#[doc = "    \"chunks_cache_height_horizon\": {"]
+#[doc = "      \"description\": \"Height horizon for the chunk cache. A chunk is removed from the cache\\nif its height + chunks_cache_height_horizon < largest_seen_height.\\nThe default value is DEFAULT_CHUNKS_CACHE_HEIGHT_HORIZON.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
 #[doc = "    \"client_background_migration_threads\": {"]
 #[doc = "      \"description\": \"Number of threads to execute background migration work in client.\","]
 #[doc = "      \"type\": \"integer\","]
@@ -21288,6 +21306,9 @@ pub struct RpcClientConfigResponse {
     #[doc = "Multiplier for the wait time for all chunks to be received."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub chunk_wait_mult: ::std::option::Option<[i32; 2usize]>,
+    #[doc = "Height horizon for the chunk cache. A chunk is removed from the cache\nif its height + chunks_cache_height_horizon < largest_seen_height.\nThe default value is DEFAULT_CHUNKS_CACHE_HEIGHT_HORIZON."]
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub chunks_cache_height_horizon: ::std::option::Option<u64>,
     #[doc = "Number of threads to execute background migration work in client."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub client_background_migration_threads: ::std::option::Option<u32>,
@@ -21480,6 +21501,7 @@ impl ::std::default::Default for RpcClientConfigResponse {
             chunk_request_retry_period: Default::default(),
             chunk_validation_threads: Default::default(),
             chunk_wait_mult: Default::default(),
+            chunks_cache_height_horizon: Default::default(),
             client_background_migration_threads: Default::default(),
             cloud_archival_writer: Default::default(),
             disable_tx_routing: Default::default(),
@@ -28026,7 +28048,7 @@ impl ::std::default::Default for RpcValidatorsOrderedRequest {
 #[doc = "      ]"]
 #[doc = "    },"]
 #[doc = "    \"storage_amount_per_byte\": {"]
-#[doc = "      \"description\": \"Amount of yN per byte required to have on the account.  See\\n<https://nomicon.io/Economics/Economic#state-stake> for details.\","]
+#[doc = "      \"description\": \"Amount of yN per byte required to have on the account.  See\\n<https://nomicon.io/Economics/Economics.html#state-stake> for details.\","]
 #[doc = "      \"allOf\": ["]
 #[doc = "        {"]
 #[doc = "          \"$ref\": \"#/components/schemas/NearToken\""]
@@ -28069,7 +28091,7 @@ pub struct RuntimeConfigView {
     #[doc = "The configuration for congestion control."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub congestion_control_config: ::std::option::Option<CongestionControlConfigView>,
-    #[doc = "Amount of yN per byte required to have on the account.  See\n<https://nomicon.io/Economics/Economic#state-stake> for details."]
+    #[doc = "Amount of yN per byte required to have on the account.  See\n<https://nomicon.io/Economics/Economics.html#state-stake> for details."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub storage_amount_per_byte: ::std::option::Option<NearToken>,
     #[doc = "Costs of different actions that need to be performed when sending and\nprocessing transaction and receipts."]
@@ -28311,6 +28333,18 @@ impl ::std::fmt::Display for ShardId {
 #[doc = "        }"]
 #[doc = "      },"]
 #[doc = "      \"additionalProperties\": false"]
+#[doc = "    },"]
+#[doc = "    {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"required\": ["]
+#[doc = "        \"V3\""]
+#[doc = "      ],"]
+#[doc = "      \"properties\": {"]
+#[doc = "        \"V3\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ShardLayoutV3\""]
+#[doc = "        }"]
+#[doc = "      },"]
+#[doc = "      \"additionalProperties\": false"]
 #[doc = "    }"]
 #[doc = "  ]"]
 #[doc = "}"]
@@ -28321,6 +28355,7 @@ pub enum ShardLayout {
     V0(ShardLayoutV0),
     V1(ShardLayoutV1),
     V2(ShardLayoutV2),
+    V3(ShardLayoutV3),
 }
 impl ::std::convert::From<&Self> for ShardLayout {
     fn from(value: &ShardLayout) -> Self {
@@ -28340,6 +28375,11 @@ impl ::std::convert::From<ShardLayoutV1> for ShardLayout {
 impl ::std::convert::From<ShardLayoutV2> for ShardLayout {
     fn from(value: ShardLayoutV2) -> Self {
         Self::V2(value)
+    }
+}
+impl ::std::convert::From<ShardLayoutV3> for ShardLayout {
+    fn from(value: ShardLayoutV3) -> Self {
+        Self::V3(value)
     }
 }
 #[doc = "A shard layout that maps accounts evenly across all shards -- by calculate the hash of account\nid and mod number of shards. This is added to capture the old `account_id_to_shard_id` algorithm,\nto keep backward compatibility for some existing tests.\n`parent_shards` for `ShardLayoutV1` is always `None`, meaning it can only be the first shard layout\na chain uses."]
@@ -28542,6 +28582,72 @@ pub struct ShardLayoutV2 {
 }
 impl ::std::convert::From<&ShardLayoutV2> for ShardLayoutV2 {
     fn from(value: &ShardLayoutV2) -> Self {
+        value.clone()
+    }
+}
+#[doc = "Counterpart to `ShardLayoutV3` composed of maps with string keys to aid\nserde serialization."]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Counterpart to `ShardLayoutV3` composed of maps with string keys to aid\\nserde serialization.\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"boundary_accounts\","]
+#[doc = "    \"id_to_index_map\","]
+#[doc = "    \"last_split\","]
+#[doc = "    \"shard_ids\","]
+#[doc = "    \"shards_split_map\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"boundary_accounts\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"$ref\": \"#/components/schemas/AccountId\""]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    \"id_to_index_map\": {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"additionalProperties\": {"]
+#[doc = "        \"type\": \"integer\","]
+#[doc = "        \"format\": \"uint\","]
+#[doc = "        \"minimum\": 0.0"]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    \"last_split\": {"]
+#[doc = "      \"$ref\": \"#/components/schemas/ShardId\""]
+#[doc = "    },"]
+#[doc = "    \"shard_ids\": {"]
+#[doc = "      \"type\": \"array\","]
+#[doc = "      \"items\": {"]
+#[doc = "        \"$ref\": \"#/components/schemas/ShardId\""]
+#[doc = "      }"]
+#[doc = "    },"]
+#[doc = "    \"shards_split_map\": {"]
+#[doc = "      \"type\": \"object\","]
+#[doc = "      \"additionalProperties\": {"]
+#[doc = "        \"type\": \"array\","]
+#[doc = "        \"items\": {"]
+#[doc = "          \"$ref\": \"#/components/schemas/ShardId\""]
+#[doc = "        }"]
+#[doc = "      }"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct ShardLayoutV3 {
+    pub boundary_accounts: ::std::vec::Vec<AccountId>,
+    pub id_to_index_map: ::std::collections::HashMap<::std::string::String, u32>,
+    pub last_split: ShardId,
+    pub shard_ids: ::std::vec::Vec<ShardId>,
+    pub shards_split_map:
+        ::std::collections::HashMap<::std::string::String, ::std::vec::Vec<ShardId>>,
+}
+impl ::std::convert::From<&ShardLayoutV3> for ShardLayoutV3 {
+    fn from(value: &ShardLayoutV3) -> Self {
         value.clone()
     }
 }

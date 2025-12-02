@@ -912,12 +912,11 @@ async fn prepare_blockchain(
             args: serde_json::to_vec(&serde_json::json!({
                 "greeting": "hola"
             }))?,
-            gas: 300_000_000_000_000,
-            deposit: 0,
+            gas: near_primitives::types::Gas::from_teragas(300),
+            deposit: near_primitives::types::Balance::ZERO,
         },
     ));
 
-    let transfer_amount = 1_000_000_000_000_000_000_000_000; // 1 NEAR in yocto
     let tx = Transaction::V0(TransactionV0 {
         signer_id: sender_account_id.clone(),
         public_key: signer.public_key(),
@@ -926,13 +925,13 @@ async fn prepare_blockchain(
         receiver_id: sender_account_id.clone(),
         actions: vec![
             Action::Transfer(TransferAction {
-                deposit: transfer_amount,
+                deposit: near_primitives::types::Balance::from_near(1),
             }),
             deploy_contract_action,
             function_call_action,
         ],
     });
-    let signed_tx = tx.sign(&signer);
+    let signed_tx = tx.sign(signer);
     let base64_signed_tx = near_primitives::serialize::to_base64(&borsh::to_vec(&signed_tx)?);
 
     let payload_send_tx = client::types::JsonRpcRequestForSendTx {
