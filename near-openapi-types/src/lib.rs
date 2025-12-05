@@ -35322,7 +35322,7 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"implicit_account_creation\": {"]
-#[doc = "      \"description\": \"See [VMConfig::implicit_account_creation](crate::vm::Config::implicit_account_creation).\","]
+#[doc = "      \"description\": \"Deprecated\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"limit_config\": {"]
@@ -35402,7 +35402,7 @@ pub struct VmConfigView {
     #[doc = "Gas cost of a growing memory by single page."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub grow_mem_cost: ::std::option::Option<u32>,
-    #[doc = "See [VMConfig::implicit_account_creation](crate::vm::Config::implicit_account_creation)."]
+    #[doc = "Deprecated"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub implicit_account_creation: ::std::option::Option<bool>,
     #[doc = "Describes limits for VM and Runtime.\n\nTODO: Consider changing this to `VMLimitConfigView` to avoid dependency\non runtime."]
