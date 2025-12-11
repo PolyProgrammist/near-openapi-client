@@ -6388,6 +6388,65 @@ impl ::std::convert::From<&DurationAsStdSchemaProvider> for DurationAsStdSchemaP
         value.clone()
     }
 }
+#[doc = "Configuration for dynamic resharding feature"]
+#[doc = r""]
+#[doc = r" <details><summary>JSON schema</summary>"]
+#[doc = r""]
+#[doc = r" ```json"]
+#[doc = "{"]
+#[doc = "  \"description\": \"Configuration for dynamic resharding feature\","]
+#[doc = "  \"type\": \"object\","]
+#[doc = "  \"required\": ["]
+#[doc = "    \"max_number_of_shards\","]
+#[doc = "    \"memory_usage_threshold\","]
+#[doc = "    \"min_child_memory_usage\","]
+#[doc = "    \"min_epochs_between_resharding\""]
+#[doc = "  ],"]
+#[doc = "  \"properties\": {"]
+#[doc = "    \"max_number_of_shards\": {"]
+#[doc = "      \"description\": \"Maximum number of shards in the network.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"memory_usage_threshold\": {"]
+#[doc = "      \"description\": \"Memory threshold over which a shard is marked for a split.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"min_child_memory_usage\": {"]
+#[doc = "      \"description\": \"Minimum memory usage of a child shard.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    },"]
+#[doc = "    \"min_epochs_between_resharding\": {"]
+#[doc = "      \"description\": \"Minimum number of epochs until next resharding can be scheduled.\\n\\nSee [`CongestionControlConfig`] for more details.\","]
+#[doc = "      \"type\": \"integer\","]
+#[doc = "      \"format\": \"uint64\","]
+#[doc = "      \"minimum\": 0.0"]
+#[doc = "    }"]
+#[doc = "  }"]
+#[doc = "}"]
+#[doc = r" ```"]
+#[doc = r" </details>"]
+#[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+pub struct DynamicReshardingConfigView {
+    #[doc = "Maximum number of shards in the network.\n\nSee [`CongestionControlConfig`] for more details."]
+    pub max_number_of_shards: u64,
+    #[doc = "Memory threshold over which a shard is marked for a split.\n\nSee [`CongestionControlConfig`] for more details."]
+    pub memory_usage_threshold: u64,
+    #[doc = "Minimum memory usage of a child shard.\n\nSee [`CongestionControlConfig`] for more details."]
+    pub min_child_memory_usage: u64,
+    #[doc = "Minimum number of epochs until next resharding can be scheduled.\n\nSee [`CongestionControlConfig`] for more details."]
+    pub min_epochs_between_resharding: u64,
+}
+impl ::std::convert::From<&DynamicReshardingConfigView> for DynamicReshardingConfigView {
+    fn from(value: &DynamicReshardingConfigView) -> Self {
+        value.clone()
+    }
+}
 #[doc = "Epoch identifier -- wrapped hash, to make it easier to distinguish.\nEpochId of epoch T is the hash of last block in T-2\nEpochId of first two epochs is 0"]
 #[doc = r""]
 #[doc = r" <details><summary>JSON schema</summary>"]
@@ -28047,6 +28106,20 @@ impl ::std::default::Default for RpcValidatorsOrderedRequest {
 #[doc = "        }"]
 #[doc = "      ]"]
 #[doc = "    },"]
+#[doc = "    \"dynamic_resharding_config\": {"]
+#[doc = "      \"description\": \"Configuration for dynamic resharding feature.\","]
+#[doc = "      \"default\": {"]
+#[doc = "        \"max_number_of_shards\": 999999999999999,"]
+#[doc = "        \"memory_usage_threshold\": 999999999999999,"]
+#[doc = "        \"min_child_memory_usage\": 999999999999999,"]
+#[doc = "        \"min_epochs_between_resharding\": 999999999999999"]
+#[doc = "      },"]
+#[doc = "      \"allOf\": ["]
+#[doc = "        {"]
+#[doc = "          \"$ref\": \"#/components/schemas/DynamicReshardingConfigView\""]
+#[doc = "        }"]
+#[doc = "      ]"]
+#[doc = "    },"]
 #[doc = "    \"storage_amount_per_byte\": {"]
 #[doc = "      \"description\": \"Amount of yN per byte required to have on the account.  See\\n<https://nomicon.io/Economics/Economics.html#state-stake> for details.\","]
 #[doc = "      \"allOf\": ["]
@@ -28091,6 +28164,9 @@ pub struct RuntimeConfigView {
     #[doc = "The configuration for congestion control."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub congestion_control_config: ::std::option::Option<CongestionControlConfigView>,
+    #[doc = "Configuration for dynamic resharding feature."]
+    #[serde(default = "defaults::runtime_config_view_dynamic_resharding_config")]
+    pub dynamic_resharding_config: DynamicReshardingConfigView,
     #[doc = "Amount of yN per byte required to have on the account.  See\n<https://nomicon.io/Economics/Economics.html#state-stake> for details."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub storage_amount_per_byte: ::std::option::Option<NearToken>,
@@ -28114,6 +28190,7 @@ impl ::std::default::Default for RuntimeConfigView {
         Self {
             account_creation_config: Default::default(),
             congestion_control_config: Default::default(),
+            dynamic_resharding_config: defaults::runtime_config_view_dynamic_resharding_config(),
             storage_amount_per_byte: Default::default(),
             transaction_costs: Default::default(),
             wasm_config: Default::default(),
@@ -35322,7 +35399,7 @@ impl ::std::convert::From<&ViewStateResult> for ViewStateResult {
 #[doc = "      \"minimum\": 0.0"]
 #[doc = "    },"]
 #[doc = "    \"implicit_account_creation\": {"]
-#[doc = "      \"description\": \"See [VMConfig::implicit_account_creation](crate::vm::Config::implicit_account_creation).\","]
+#[doc = "      \"description\": \"Deprecated\","]
 #[doc = "      \"type\": \"boolean\""]
 #[doc = "    },"]
 #[doc = "    \"limit_config\": {"]
@@ -35402,7 +35479,7 @@ pub struct VmConfigView {
     #[doc = "Gas cost of a growing memory by single page."]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub grow_mem_cost: ::std::option::Option<u32>,
-    #[doc = "See [VMConfig::implicit_account_creation](crate::vm::Config::implicit_account_creation)."]
+    #[doc = "Deprecated"]
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub implicit_account_creation: ::std::option::Option<bool>,
     #[doc = "Describes limits for VM and Runtime.\n\nTODO: Consider changing this to `VMLimitConfigView` to avoid dependency\non runtime."]
@@ -35868,5 +35945,14 @@ pub mod defaults {
     }
     pub(super) fn rpc_transaction_status_request_variant1_wait_until() -> super::TxExecutionStatus {
         super::TxExecutionStatus::ExecutedOptimistic
+    }
+    pub(super) fn runtime_config_view_dynamic_resharding_config(
+    ) -> super::DynamicReshardingConfigView {
+        super::DynamicReshardingConfigView {
+            max_number_of_shards: 999999999999999_u64,
+            memory_usage_threshold: 999999999999999_u64,
+            min_child_memory_usage: 999999999999999_u64,
+            min_epochs_between_resharding: 999999999999999_u64,
+        }
     }
 }
