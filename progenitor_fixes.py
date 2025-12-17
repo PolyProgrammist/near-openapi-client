@@ -53,6 +53,8 @@ filename = 'openapi.json'
 
 f = open(filename, 'r')
 spec = json.load(f)
+if 'anyOf' in spec['components']['schemas']['GlobalContractIdentifierView']:
+    spec['components']['schemas']['GlobalContractIdentifierView']['oneOf'] = spec['components']['schemas']['GlobalContractIdentifierView'].pop('anyOf')
 f.close()
 
 
