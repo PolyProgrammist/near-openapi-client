@@ -91,6 +91,16 @@ pub mod types {"""
     network_info_view_start = types.find('#[doc = "`NetworkInfoView`"]') # remove NearGas and NearToken
     types = types[:near_gas_start] + types[network_info_view_start:]
 
+    # Remove inline error module
+    error_start = types.find('#[doc = r" Error types."]')
+    access_key_start = types.find('#[doc = "Access key provides limited access')
+    types = types[:error_start] + types[access_key_start:]
+
+    # Remove CryptoHash definition
+    crypto_hash_start = types.find('#[doc = "`CryptoHash`"]')
+    current_epoch_start = types.find('#[doc = "Describes information about the current epoch validator"]')
+    types = types[:crypto_hash_start] + types[current_epoch_start:]
+
     # Add thiserror::Error and strum_macros::Display derives for error types
     # Match RpcRequestValidationErrorKind and types ending with Error (but not JsonRpcResponseFor*)
 
@@ -118,6 +128,9 @@ pub mod types {"""
     types_lib_rs = """//! This crate provides types for the Near OpenAPI specification.
 //!
 //! Used in [near-openapi-client](https://docs.rs/near-openapi-client/latest/near_openapi_client/)
+pub mod error;
+mod util;
+pub use util::CryptoHash;
 """ + types
 
     client_lib_rs = dependencies + client
@@ -169,7 +182,7 @@ description = "Types for progenitor-generated client of NEAR JSON RPC API"
     types_cargo_toml = re.sub(r'progenitor-client = "[^"]+"\n', '', types_cargo_toml)
     types_cargo_toml = re.sub(r'reqwest = \{[^}]+\}\n', '', types_cargo_toml)
     types_cargo_toml = re.sub(r'serde_urlencoded = "[^"]+"\n', '', types_cargo_toml)
-    types_cargo_toml += 'near-account-id = { version = "2.0", features = ["serde"] }\nnear-gas = { version = "0.3.2", features = ["serde"] }\nnear-token = { version = "0.3.1", features = ["serde"] }\nthiserror = "2.0.17"\nstrum_macros = "0.27.2"\n'
+    types_cargo_toml += 'near-account-id = { version = "2.0", features = ["serde"] }\nnear-gas = { version = "0.3.2", features = ["serde"] }\nnear-token = { version = "0.3.1", features = ["serde"] }\nthiserror = "2.0.17"\nstrum_macros = "0.27.2"\nbs58 = "0.5.1"\n'
     
     client_cargo_toml_file = open('./near-openapi-client/Cargo.toml', 'w')
     client_cargo_toml_file.write(client_cargo_toml)

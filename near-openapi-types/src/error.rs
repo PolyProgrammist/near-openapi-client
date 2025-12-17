@@ -1,0 +1,28 @@
+#[doc = r" Error from a `TryFrom` or `FromStr` implementation."]
+pub struct ConversionError(::std::borrow::Cow<'static, str>);
+impl ::std::error::Error for ConversionError {}
+impl ::std::fmt::Display for ConversionError {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> Result<(), ::std::fmt::Error> {
+        ::std::fmt::Display::fmt(&self.0, f)
+    }
+}
+impl ::std::fmt::Debug for ConversionError {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> Result<(), ::std::fmt::Error> {
+        ::std::fmt::Debug::fmt(&self.0, f)
+    }
+}
+impl From<&'static str> for ConversionError {
+    fn from(value: &'static str) -> Self {
+        Self(value.into())
+    }
+}
+impl From<bs58::decode::Error> for ConversionError {
+    fn from(value: bs58::decode::Error) -> Self {
+        Self(format!("Base58 decode error: {}", value).into())
+    }
+}
+impl From<String> for ConversionError {
+    fn from(value: String) -> Self {
+        Self(value.into())
+    }
+}
