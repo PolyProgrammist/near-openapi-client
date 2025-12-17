@@ -11,8 +11,6 @@ use crate::error;
 #[doc = r" ```"]
 #[doc = r" </details>"]
 #[derive(
-    :: serde :: Deserialize,
-    :: serde :: Serialize,
     Clone,
     Debug,
     Eq,
@@ -21,7 +19,6 @@ use crate::error;
     PartialEq,
     PartialOrd,
 )]
-#[serde(transparent)]
 pub struct CryptoHash(pub [u8; 32]);
 impl ::std::ops::Deref for CryptoHash {
     type Target = [u8; 32];
@@ -65,5 +62,24 @@ impl TryFrom<Vec<u8>> for CryptoHash {
 impl std::fmt::Display for CryptoHash {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         ::std::fmt::Display::fmt(&bs58::encode(self.0).into_string(), f)
+    }
+}
+
+impl serde::Serialize for CryptoHash {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(&self.to_string())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CryptoHash {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = String::deserialize(deserializer)?;
+        <Self as std::str::FromStr>::from_str(&s).map_err(serde::de::Error::custom)
     }
 }
