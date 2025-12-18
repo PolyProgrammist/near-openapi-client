@@ -417,7 +417,7 @@ impl Client {
     pub fn new(baseurl: &str) -> Self {
         #[cfg(not(target_arch = "wasm32"))]
         let client = {
-            let dur = std::time::Duration::from_secs(15);
+            let dur = ::std::time::Duration::from_secs(15u64);
             reqwest::ClientBuilder::new()
                 .connect_timeout(dur)
                 .timeout(dur)
@@ -455,7 +455,6 @@ impl ClientInfo<()> for Client {
 }
 impl ClientHooks<()> for &Client {}
 #[allow(clippy::all)]
-#[allow(elided_named_lifetimes)]
 impl Client {
     #[doc = "[Deprecated] Returns changes for a given account, contract or contract code for given block height or hash. Consider using changes instead.\n\nSends a `POST` request to `/EXPERIMENTAL_changes`\n\n"]
     pub async fn experimental_changes<'a>(

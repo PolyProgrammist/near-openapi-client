@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/near/nearcore/refs/heads/master/chain/jsonrpc/openapi/openapi.json > openapi.json
+if [ "$1" != "--no-fetch" ]; then
+    curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/near/nearcore/refs/heads/master/chain/jsonrpc/openapi/openapi.json > openapi.json
+fi
 python3 progenitor_fixes.py --spec-fix
 cargo progenitor -i openapi.json -o near-openapi -n near-openapi -v 0.0.0
 echo "[workspace]" >> near-openapi/Cargo.toml
