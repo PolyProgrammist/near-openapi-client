@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.6.0...near-openapi-types-v0.7.0) - 2025-12-18
+
+### Fixed
+
+- oneOf for GlobalContractIdentifierView and it's own type for CryptoHash ([#33](https://github.com/PolyProgrammist/near-openapi-client/pull/33))
+
 ## [0.6.0](https://github.com/PolyProgrammist/near-openapi-client/compare/near-openapi-types-v0.5.2...near-openapi-types-v0.6.0) - 2025-12-02
 
 ### Added
