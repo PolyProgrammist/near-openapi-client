@@ -10,15 +10,7 @@ use crate::error;
 #[doc = "}"]
 #[doc = r" ```"]
 #[doc = r" </details>"]
-#[derive(
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd,
-)]
+#[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct CryptoHash(pub [u8; 32]);
 impl ::std::ops::Deref for CryptoHash {
     type Target = [u8; 32];
