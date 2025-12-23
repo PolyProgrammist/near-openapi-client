@@ -456,6 +456,43 @@ impl ClientInfo<()> for Client {
 impl ClientHooks<()> for &Client {}
 #[allow(clippy::all)]
 impl Client {
+    #[doc = "Calls a view function on a contract and returns the result.\n\nSends a `POST` request to `/EXPERIMENTAL_call_function`\n\n"]
+    pub async fn experimental_call_function<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForExperimentalCallFunction,
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcCallFunctionResponseAndRpcCallFunctionError>,
+        Error<()>,
+    > {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "experimental_call_function",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
     #[doc = "[Deprecated] Returns changes for a given account, contract or contract code for given block height or hash. Consider using changes instead.\n\nSends a `POST` request to `/EXPERIMENTAL_changes`\n\n"]
     pub async fn experimental_changes<'a>(
         &'a self,
@@ -889,6 +926,267 @@ impl Client {
             .build()?;
         let info = OperationInfo {
             operation_id: "experimental_validators_ordered",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "Returns information about a single access key for given account.\n\nSends a `POST` request to `/EXPERIMENTAL_view_access_key`\n\n"]
+    pub async fn experimental_view_access_key<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForExperimentalViewAccessKey,
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcViewAccessKeyResponseAndRpcViewAccessKeyError>,
+        Error<()>,
+    > {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "experimental_view_access_key",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "Returns all access keys for a given account.\n\nSends a `POST` request to `/EXPERIMENTAL_view_access_key_list`\n\n"]
+    pub async fn experimental_view_access_key_list<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForExperimentalViewAccessKeyList,
+    ) -> Result<
+        ResponseValue<
+            types::JsonRpcResponseForRpcViewAccessKeyListResponseAndRpcViewAccessKeyListError,
+        >,
+        Error<()>,
+    > {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "experimental_view_access_key_list",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "Returns information about an account for given account_id.\n\nSends a `POST` request to `/EXPERIMENTAL_view_account`\n\n"]
+    pub async fn experimental_view_account<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForExperimentalViewAccount,
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcViewAccountResponseAndRpcViewAccountError>,
+        Error<()>,
+    > {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "experimental_view_account",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "Returns the contract code (Wasm binary) deployed to the account.\n\nSends a `POST` request to `/EXPERIMENTAL_view_code`\n\n"]
+    pub async fn experimental_view_code<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForExperimentalViewCode,
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcViewCodeResponseAndRpcViewCodeError>,
+        Error<()>,
+    > {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "experimental_view_code",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "Returns information about a single gas key for given account.\n\nSends a `POST` request to `/EXPERIMENTAL_view_gas_key`\n\n"]
+    pub async fn experimental_view_gas_key<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForExperimentalViewGasKey,
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcViewGasKeyResponseAndRpcViewGasKeyError>,
+        Error<()>,
+    > {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "experimental_view_gas_key",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "Returns all gas keys for a given account.\n\nSends a `POST` request to `/EXPERIMENTAL_view_gas_key_list`\n\n"]
+    pub async fn experimental_view_gas_key_list<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForExperimentalViewGasKeyList,
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcViewGasKeyListResponseAndRpcViewGasKeyListError>,
+        Error<()>,
+    > {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "experimental_view_gas_key_list",
+        };
+        self.pre(&mut request, &info).await?;
+        let result = self.exec(request, &info).await;
+        self.post(&result, &info).await?;
+        let response = result?;
+        match response.status().as_u16() {
+            200u16 => ResponseValue::from_response(response).await,
+            _ => Err(Error::UnexpectedResponse(response)),
+        }
+    }
+    #[doc = "Returns the state (key-value pairs) of a contract based on the key prefix.\n\nSends a `POST` request to `/EXPERIMENTAL_view_state`\n\n"]
+    pub async fn experimental_view_state<'a>(
+        &'a self,
+        body: &'a types::JsonRpcRequestForExperimentalViewState,
+    ) -> Result<
+        ResponseValue<types::JsonRpcResponseForRpcViewStateResponseAndRpcViewStateError>,
+        Error<()>,
+    > {
+        let url = format!("{}/", self.baseurl,);
+        let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
+        header_map.append(
+            ::reqwest::header::HeaderName::from_static("api-version"),
+            ::reqwest::header::HeaderValue::from_static(Self::api_version()),
+        );
+        #[allow(unused_mut)]
+        let mut request = self
+            .client
+            .post(url)
+            .header(
+                ::reqwest::header::ACCEPT,
+                ::reqwest::header::HeaderValue::from_static("application/json"),
+            )
+            .json(&body)
+            .headers(header_map)
+            .build()?;
+        let info = OperationInfo {
+            operation_id: "experimental_view_state",
         };
         self.pre(&mut request, &info).await?;
         let result = self.exec(request, &info).await;
